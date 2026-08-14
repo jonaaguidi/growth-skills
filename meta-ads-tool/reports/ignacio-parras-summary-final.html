@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reporte Mensual — Ignacio Parras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface-2: #1c1c1c;
+      --border: #2a2a2a;
+      --text: #f0f0f0;
+      --text-secondary: #8a8a8a;
+      --gold: #c9a84c;
+      --gold-light: #e8d48b;
+      --gold-dark: #8a6f2a;
+      --gold-bg: rgba(201, 168, 76, 0.08);
+      --gold-bg-strong: rgba(201, 168, 76, 0.15);
+      --green: #4ade80;
+      --green-bg: rgba(74, 222, 128, 0.1);
+      --red: #f87171;
+      --red-bg: rgba(248, 113, 113, 0.1);
+      --amber: #fbbf24;
+      --amber-bg: rgba(251, 191, 36, 0.1);
+      --blue: #60a5fa;
+      --blue-bg: rgba(96, 165, 250, 0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Poppins", -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .header__brand {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 0.15rem;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header__sub {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+    .header__period {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      background: var(--gold-bg);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+    }
+
+    /* KPI row */
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.25rem;
+    }
+    .kpi__label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      margin-bottom: 0.3rem;
+    }
+    .kpi__value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .kpi__value--gold { color: var(--gold); }
+    .kpi__note {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin-top: 0.15rem;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+    .section__title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+    }
+
+    /* Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .card__name {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    /* Badge */
+    .badge {
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+    .badge--gold { background: var(--gold-bg); color: var(--gold); border-color: rgba(201,168,76,0.25); }
+    .badge--green { background: var(--green-bg); color: var(--green); border-color: rgba(74,222,128,0.25); }
+    .badge--red { background: var(--red-bg); color: var(--red); border-color: rgba(248,113,113,0.25); }
+    .badge--amber { background: var(--amber-bg); color: var(--amber); border-color: rgba(251,191,36,0.25); }
+    .badge--blue { background: var(--blue-bg); color: var(--blue); border-color: rgba(96,165,250,0.25); }
+
+    /* Metrics grid */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.75rem;
+    }
+    .metric {
+      padding: 0.5rem 0;
+    }
+    .metric__label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      margin-bottom: 0.1rem;
+    }
+    .metric__value {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .metric__value--sm { font-size: 0.9rem; }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 0.75rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    th {
+      text-align: left;
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 0.7rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .highlight-row { background: var(--gold-bg); }
+    .highlight-row td { color: var(--gold-light); font-weight: 500; }
+    .dim-row { opacity: 0.45; }
+
+    /* Ranking bar */
+    .rank-bar {
+      height: 6px;
+      border-radius: 3px;
+      margin-top: 0.25rem;
+    }
+    .rank-bar--gold { background: linear-gradient(90deg, var(--gold-dark), var(--gold)); }
+    .rank-bar--green { background: var(--green); }
+    .rank-bar--amber { background: var(--amber); }
+    .rank-bar--red { background: var(--red); }
+
+    /* Insight box */
+    .insight {
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+      border: 1px solid;
+    }
+    .insight:last-child { margin-bottom: 0; }
+    .insight--green { background: var(--green-bg); color: var(--green); border-color: rgba(74,222,128,0.15); }
+    .insight--amber { background: var(--amber-bg); color: var(--amber); border-color: rgba(251,191,36,0.15); }
+    .insight--red { background: var(--red-bg); color: var(--red); border-color: rgba(248,113,113,0.15); }
+    .insight--gold { background: var(--gold-bg); color: var(--gold-light); border-color: rgba(201,168,76,0.15); }
+    .insight strong { font-weight: 600; }
+
+    /* Action plan */
+    .action {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+      align-items: flex-start;
+    }
+    .action__number {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .action__number--gold { background: var(--gold-bg-strong); color: var(--gold); }
+    .action__body {
+      flex: 1;
+    }
+    .action__title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .action__desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .action__metric {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gold);
+      background: var(--gold-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    /* Budget table */
+    .budget-total {
+      background: var(--gold-bg-strong);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .budget-total__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .budget-total__value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    /* Targets */
+    .targets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+    .target {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .target__label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+    .target__value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .target__current {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin-top: 0.15rem;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+    }
+    .footer__brand {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    @media print {
+      body { background: #fff; color: #1a1a1a; padding: 0; }
+      .card, .action, .target, .kpi { break-inside: avoid; border-color: #ddd; background: #fff; }
+      .header h1 { color: #333; -webkit-text-fill-color: #333; }
+    }
+
+    @media (max-width: 600px) {
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ==================== HEADER ==================== -->
+    <div class="header">
+      <div class="header__brand">Ignacio Parras &middot; Asesoramiento Inmobiliario</div>
+      <h1>Reporte de Performance</h1>
+      <div class="header__sub">Meta Ads &nbsp;&middot;&nbsp; Resumen mensual + Plan de acción</div>
+      <div class="header__period">13 de julio — 11 de agosto 2026 &nbsp;&middot;&nbsp; 30 días</div>
+    </div>
+
+    <!-- ==================== KPIs GLOBALES ==================== -->
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi__label">Inversión</div>
+        <div class="kpi__value kpi__value--gold">$245,705</div>
+        <div class="kpi__note">ARS</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi__label">Alcance</div>
+        <div class="kpi__value">21,308</div>
+        <div class="kpi__note">personas únicas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi__label">Impresiones</div>
+        <div class="kpi__value">48,373</div>
+        <div class="kpi__note">Freq. 2.27</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi__label">Conversaciones</div>
+        <div class="kpi__value">55</div>
+        <div class="kpi__note">Iniciadas en WhatsApp</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi__label">Costo / Conv.</div>
+        <div class="kpi__value kpi__value--gold">$4,467</div>
+        <div class="kpi__note">ARS promedio</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi__label">Respuestas</div>
+        <div class="kpi__value">44</div>
+        <div class="kpi__note">80% tasa de respuesta</div>
+      </div>
+    </div>
+
+    <!-- ==================== CAMPAÑAS ==================== -->
+    <div class="section">
+      <div class="section__title">Performance por Campaña</div>
+
+      <div class="card">
+        <div class="card__header">
+          <div class="card__name">Campaña de Venta — Mayo / Junio / Julio</div>
+          <div style="display:flex;gap:0.35rem;">
+            <span class="badge badge--gold">52% del gasto</span>
+            <span class="badge badge--blue">Engagement</span>
+          </div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric__label">Inversión</div><div class="metric__value">$127,753</div></div>
+          <div class="metric"><div class="metric__label">Impresiones</div><div class="metric__value">20,626</div></div>
+          <div class="metric"><div class="metric__label">Alcance</div><div class="metric__value">9,930</div></div>
+          <div class="metric"><div class="metric__label">CTR</div><div class="metric__value">4.57%</div></div>
+          <div class="metric"><div class="metric__label">CPM</div><div class="metric__value metric__value--sm">$6,194</div></div>
+          <div class="metric"><div class="metric__label">Conv. Iniciadas</div><div class="metric__value">32</div></div>
+          <div class="metric"><div class="metric__label">Costo / Conv.</div><div class="metric__value metric__value--sm">$3,992</div></div>
+          <div class="metric"><div class="metric__label">1ras Respuestas</div><div class="metric__value">24</div></div>
+          <div class="metric"><div class="metric__label">Costo / Resp.</div><div class="metric__value metric__value--sm">$5,323</div></div>
+          <div class="metric"><div class="metric__label">Frecuencia</div><div class="metric__value metric__value--sm">2.08</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__header">
+          <div class="card__name">Campaña Captación — Junio / Julio</div>
+          <div style="display:flex;gap:0.35rem;">
+            <span class="badge badge--gold">48% del gasto</span>
+            <span class="badge badge--blue">Engagement</span>
+          </div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric__label">Inversión</div><div class="metric__value">$117,952</div></div>
+          <div class="metric"><div class="metric__label">Impresiones</div><div class="metric__value">27,747</div></div>
+          <div class="metric"><div class="metric__label">Alcance</div><div class="metric__value">13,659</div></div>
+          <div class="metric"><div class="metric__label">CTR</div><div class="metric__value">1.70%</div></div>
+          <div class="metric"><div class="metric__label">CPM</div><div class="metric__value metric__value--sm">$4,251</div></div>
+          <div class="metric"><div class="metric__label">Conv. Iniciadas</div><div class="metric__value">23</div></div>
+          <div class="metric"><div class="metric__label">Costo / Conv.</div><div class="metric__value metric__value--sm">$5,128</div></div>
+          <div class="metric"><div class="metric__label">1ras Respuestas</div><div class="metric__value">20</div></div>
+          <div class="metric"><div class="metric__label">Costo / Resp.</div><div class="metric__value metric__value--sm">$5,898</div></div>
+          <div class="metric"><div class="metric__label">Frecuencia</div><div class="metric__value metric__value--sm">2.03</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== RANKING DE ADSETS ==================== -->
+    <div class="section">
+      <div class="section__title">Ranking de Conjuntos de Anuncios</div>
+
+      <div class="card" style="padding:0.5rem 0;">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Conjunto / Propiedad</th>
+                <th>Anuncio</th>
+                <th class="num">Inversión</th>
+                <th class="num">Conv.</th>
+                <th class="num">$/Conv.</th>
+                <th class="num">Resps.</th>
+                <th class="num">$/Resp.</th>
+                <th class="num">CTR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight-row">
+                <td><span class="badge badge--green">1</span></td>
+                <td><strong>Haedo</strong></td>
+                <td>Carrusel</td>
+                <td class="num">$18,541</td>
+                <td class="num">14</td>
+                <td class="num"><strong>$1,324</strong></td>
+                <td class="num">9</td>
+                <td class="num">$2,060</td>
+                <td class="num">2.65%</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge--gold">2</span></td>
+                <td><strong>Martinez Castro 677</strong></td>
+                <td>Reel</td>
+                <td class="num">$30,777</td>
+                <td class="num">7</td>
+                <td class="num">$4,397</td>
+                <td class="num">6</td>
+                <td class="num">$5,130</td>
+                <td class="num">4.41%</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge--amber">3</span></td>
+                <td><strong>Captación Pq. Avellaneda</strong></td>
+                <td>Reel</td>
+                <td class="num">$117,952</td>
+                <td class="num">23</td>
+                <td class="num">$5,128</td>
+                <td class="num">20</td>
+                <td class="num">$5,898</td>
+                <td class="num">1.70%</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge--red">4</span></td>
+                <td><strong>Lautaro 422</strong></td>
+                <td>Reel v1</td>
+                <td class="num">$78,350</td>
+                <td class="num">11</td>
+                <td class="num">$7,123</td>
+                <td class="num">9</td>
+                <td class="num">$8,706</td>
+                <td class="num">5.40%</td>
+              </tr>
+              <tr class="dim-row">
+                <td><span class="badge badge--amber">—</span></td>
+                <td>Laprida 351</td>
+                <td>Reel</td>
+                <td class="num">$84</td>
+                <td class="num">0</td>
+                <td class="num">—</td>
+                <td class="num">0</td>
+                <td class="num">—</td>
+                <td class="num">4.17%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Visual ranking bars -->
+        <div style="padding:1rem 1.5rem 1.25rem;">
+          <div style="font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-secondary);margin-bottom:0.75rem;">Costo por conversación (menor = mejor)</div>
+
+          <div style="margin-bottom:0.6rem;">
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.2rem;">
+              <span style="color:var(--green);">Haedo (Carrusel)</span><span style="color:var(--green);font-weight:600;">$1,324</span>
+            </div>
+            <div class="rank-bar rank-bar--green" style="width:18.6%;"></div>
+          </div>
+
+          <div style="margin-bottom:0.6rem;">
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.2rem;">
+              <span>Martinez Castro (Reel)</span><span style="font-weight:600;">$4,397</span>
+            </div>
+            <div class="rank-bar rank-bar--gold" style="width:61.7%;"></div>
+          </div>
+
+          <div style="margin-bottom:0.6rem;">
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.2rem;">
+              <span>Captación (Reel)</span><span style="font-weight:600;">$5,128</span>
+            </div>
+            <div class="rank-bar rank-bar--amber" style="width:72%;"></div>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.2rem;">
+              <span style="color:var(--red);">Lautaro 422 (Reel v1)</span><span style="color:var(--red);font-weight:600;">$7,123</span>
+            </div>
+            <div class="rank-bar rank-bar--red" style="width:100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== HALLAZGOS ==================== -->
+    <div class="section">
+      <div class="section__title">Hallazgos Clave</div>
+
+      <div class="insight insight--green">
+        <strong>Haedo es 5x más eficiente que Lautaro.</strong>
+        Con solo $18,541 genera 14 conversaciones a $1,324 cada una. Es el único adset usando formato carrusel — el formato importa.
+      </div>
+
+      <div class="insight insight--red">
+        <strong>Lautaro 422 consume el 61% del presupuesto de Venta pero tiene el peor costo por lead.</strong>
+        $78,350 invertidos para 11 conversaciones ($7,123 c/u). Tiene CTR alto (5.40%) pero el tráfico no convierte: genera video views y reacciones, no chats.
+      </div>
+
+      <div class="insight insight--amber">
+        <strong>Cada conjunto tiene un solo anuncio.</strong>
+        Sin variantes creativas, Meta no puede testear qué funciona con cada segmento. La fatiga creativa sube costos con el tiempo.
+      </div>
+
+      <div class="insight insight--amber">
+        <strong>Captación tiene buen volumen (23 conv.) pero costo elevado ($5,128).</strong>
+        Con un solo reel para 13,659 personas alcanzadas en 30 días y frecuencia 2.03, la pieza se está agotando. Necesita variantes frescas.
+      </div>
+
+      <div class="insight insight--gold">
+        <strong>El carrusel de Haedo demuestra que el formato cambia la conversión.</strong>
+        Mismo objetivo, misma campaña, pero el carrusel tiene un costo por respuesta de $2,060 vs $8,706 del reel en Lautaro. El aprendizaje es claro: testear carrusel en todos los adsets.
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ==================== PLAN DE ACCIÓN ==================== -->
+    <div class="section">
+      <div class="section__title">Plan de Acción</div>
+
+      <div class="action">
+        <div class="action__number action__number--gold">1</div>
+        <div class="action__body">
+          <div class="action__title">Agregar 2 creativos a cada conjunto existente</div>
+          <div class="action__desc">
+            Cada adset hoy corre con 1 solo anuncio. Agregar un <strong>carrusel de fotos</strong> (ya probado: funciona en Haedo) y un <strong>reel con ángulo distinto</strong> a cada uno. Meta necesita variantes para optimizar entrega.
+            <br><br>
+            <strong>Lautaro 422:</strong> Carrusel fotos + Reel "115m² a precio de Flores"<br>
+            <strong>Martinez Castro:</strong> Carrusel fotos + Reel con recorrida<br>
+            <strong>Captación:</strong> Reel caso de éxito/testimonio + Imagen con dato de mercado
+          </div>
+          <div class="action__metric">Objetivo: bajar costo/conv. a menos de $3,500 en cada adset</div>
+        </div>
+      </div>
+
+      <div class="action">
+        <div class="action__number action__number--gold">2</div>
+        <div class="action__body">
+          <div class="action__title">Redistribuir presupuesto: reducir Lautaro, potenciar Haedo</div>
+          <div class="action__desc">
+            Lautaro consume $78K/mes con el peor rendimiento. Haedo genera 14 conversaciones con solo $18K. <strong>Redistribuir para que los adsets con mejor costo reciban más presupuesto.</strong>
+          </div>
+          <div class="action__metric">Ahorro estimado: $30-40K/mes o +15 conversaciones al mismo gasto</div>
+        </div>
+      </div>
+
+      <div class="action">
+        <div class="action__number action__number--gold">3</div>
+        <div class="action__body">
+          <div class="action__title">Reactivar Laprida 351 con creativos bien armados</div>
+          <div class="action__desc">
+            Solo gastó $84 y se detuvo. Si la propiedad sigue en cartera, armar 2-3 creativos (carrusel + reel recorrida) antes de reactivar. No pautar con un solo anuncio.
+          </div>
+        </div>
+      </div>
+
+      <div class="action">
+        <div class="action__number action__number--gold">4</div>
+        <div class="action__body">
+          <div class="action__title">Subir variantes de Captación para renovar el reel actual</div>
+          <div class="action__desc">
+            El reel de tasación lleva un mes corriendo con frecuencia 2.03. Está funcionando (87% tasa de respuesta), pero el costo está subiendo. Agregar:
+            <br><br>
+            <strong>Variante A:</strong> Reel de Ignacio hablando a cámara con caso de éxito real ("vendimos este depto en 45 días")<br>
+            <strong>Variante B:</strong> Imagen estática con dato de mercado de la zona + CTA tasación
+          </div>
+          <div class="action__metric">Mantener costo/conv. debajo de $4,000 con mayor volumen</div>
+        </div>
+      </div>
+
+      <div class="action">
+        <div class="action__number action__number--gold">5</div>
+        <div class="action__body">
+          <div class="action__title">Sumar nuevas propiedades de cartera como adsets</div>
+          <div class="action__desc">
+            Hoy hay 3 propiedades activas (+ 1 pausada). Cada propiedad nueva debería entrar con <strong>mínimo 2 creativos</strong> (carrusel + reel) y segmentación geográfica ajustada a su zona. No subir propiedades con un solo anuncio.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== DISTRIBUCIÓN DE PRESUPUESTO ==================== -->
+    <div class="section">
+      <div class="section__title">Distribución de Presupuesto Propuesta</div>
+
+      <div class="card" style="padding:0.5rem 0;">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Campaña / Conjunto</th>
+                <th class="num">% del total</th>
+                <th class="num">Mensual</th>
+                <th class="num">Diario</th>
+                <th>Lógica</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Venta — Haedo</strong></td>
+                <td class="num">20%</td>
+                <td class="num">$142,200</td>
+                <td class="num">$4,740</td>
+                <td style="font-size:0.75rem;color:var(--green);">Mejor performer, escalar</td>
+              </tr>
+              <tr>
+                <td><strong>Venta — Martinez Castro</strong></td>
+                <td class="num">12%</td>
+                <td class="num">$85,320</td>
+                <td class="num">$2,844</td>
+                <td style="font-size:0.75rem;">Costo aceptable, mantener</td>
+              </tr>
+              <tr>
+                <td><strong>Venta — Lautaro 422</strong></td>
+                <td class="num">10%</td>
+                <td class="num">$71,100</td>
+                <td class="num">$2,370</td>
+                <td style="font-size:0.75rem;color:var(--red);">Reducir hasta mejorar creativos</td>
+              </tr>
+              <tr>
+                <td><strong>Venta — Laprida 351</strong></td>
+                <td class="num">8%</td>
+                <td class="num">$56,880</td>
+                <td class="num">$1,896</td>
+                <td style="font-size:0.75rem;">Reactivar con 2-3 creativos</td>
+              </tr>
+              <tr>
+                <td><strong>Venta — Nueva propiedad</strong></td>
+                <td class="num">10%</td>
+                <td class="num">$71,100</td>
+                <td class="num">$2,370</td>
+                <td style="font-size:0.75rem;">Slot para próxima propiedad</td>
+              </tr>
+              <tr>
+                <td><strong>Captación</strong></td>
+                <td class="num">40%</td>
+                <td class="num">$284,400</td>
+                <td class="num">$9,480</td>
+                <td style="font-size:0.75rem;color:var(--gold);">Pipeline: más captación = más inventario</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="budget-total">
+          <div class="budget-total__label">Cartera Total</div>
+          <div class="budget-total__value">$711,000 ARS / mes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== METAS ==================== -->
+    <div class="section">
+      <div class="section__title">Metas del Próximo Mes</div>
+
+      <div class="targets">
+        <div class="target">
+          <div class="target__label">Costo / Conversación</div>
+          <div class="target__value">&lt; $3,500</div>
+          <div class="target__current">Hoy: $4,467</div>
+        </div>
+        <div class="target">
+          <div class="target__label">Conversaciones / Mes</div>
+          <div class="target__value">&gt; 120</div>
+          <div class="target__current">Hoy: 55</div>
+        </div>
+        <div class="target">
+          <div class="target__label">Tasa de Respuesta</div>
+          <div class="target__value">&gt; 85%</div>
+          <div class="target__current">Hoy: 80%</div>
+        </div>
+        <div class="target">
+          <div class="target__label">Creativos Activos</div>
+          <div class="target__value">12 - 15</div>
+          <div class="target__current">Hoy: 5</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="footer">
+      Reporte preparado el 12 de agosto de 2026 &nbsp;&middot;&nbsp; Datos: Meta Ads API (últimos 30 días) &nbsp;&middot;&nbsp; Moneda: ARS
+      <br>
+      <span class="footer__brand">Ignacio Parras &middot; Asesoramiento Inmobiliario</span>
+    </div>
+
+  </div>
+</body>
+</html>
