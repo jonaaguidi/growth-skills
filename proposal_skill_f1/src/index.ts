@@ -5,13 +5,16 @@ import { z } from "zod";
 import * as parseDiscoveryCall from "./tools/parse-discovery-call.js";
 import * as buildAuditSection from "./tools/build-audit-section.js";
 import * as buildResearchSection from "./tools/build-research-section.js";
+import * as buildCompetitorsSection from "./tools/build-competitors-section.js";
+import * as buildICPSection from "./tools/build-icp-section.js";
+import * as buildRoadmapSection from "./tools/build-roadmap-section.js";
 import * as buildValueProps from "./tools/build-value-props.js";
 import * as calculateInvestment from "./tools/calculate-investment.js";
 import * as composeDiagnostic from "./tools/compose-diagnostic.js";
 
 const server = new McpServer({
   name: "diagnostico-skill-f1",
-  version: "0.1.0",
+  version: "0.2.0",
 });
 
 // parse-discovery-call
@@ -55,28 +58,85 @@ server.tool(
   async (args) => buildAuditSection.handler(args)
 );
 
-// build-research-section
+// build-research-section (simplified — market only)
 server.tool(
   buildResearchSection.name,
   buildResearchSection.description,
   {
-    marketOverview: z.string(),
-    marketInsights: z.array(z.string()),
-    icp: z.object({
-      demographics: z.string(),
-      psychographics: z.string(),
-      behaviors: z.string(),
-      channels: z.string(),
-    }),
-    competitors: z.array(
-      z.object({ name: z.string(), positioning: z.string(), weakness: z.string() })
+    marketCards: z.array(
+      z.object({ label: z.string(), text: z.string() })
     ),
-    dataPoints: z.array(z.object({ label: z.string(), value: z.string() })),
+    summary: z.string().optional(),
   },
   async (args) => buildResearchSection.handler(args)
 );
 
-// build-value-props
+// build-competitors-section
+server.tool(
+  buildCompetitorsSection.name,
+  buildCompetitorsSection.description,
+  {
+    competitors: z.array(
+      z.object({
+        name: z.string(),
+        share: z.string(),
+        strengths: z.array(z.string()),
+        weaknesses: z.array(z.string()),
+      })
+    ),
+    summary: z.string().optional(),
+  },
+  async (args) => buildCompetitorsSection.handler(args)
+);
+
+// build-icp-section
+server.tool(
+  buildICPSection.name,
+  buildICPSection.description,
+  {
+    profiles: z.array(
+      z.object({
+        segment: z.string(),
+        description: z.string(),
+        pains: z.array(z.string()),
+        desires: z.array(z.string()),
+        objections: z.array(z.string()),
+      })
+    ),
+  },
+  async (args) => buildICPSection.handler(args)
+);
+
+// build-roadmap-section
+server.tool(
+  buildRoadmapSection.name,
+  buildRoadmapSection.description,
+  {
+    description: z.string().optional(),
+    totalWeeks: z.number(),
+    bars: z.array(
+      z.object({
+        label: z.string(),
+        startWeek: z.number(),
+        endWeek: z.number(),
+        color: z.string(),
+      })
+    ),
+    phases: z.array(
+      z.object({
+        number: z.string(),
+        name: z.string(),
+        weeks: z.string(),
+        budget: z.string().optional(),
+        description: z.string(),
+        deliverables: z.array(z.string()),
+      })
+    ),
+  },
+  async (args) => buildRoadmapSection.handler(args)
+);
+
+// build-value-props (legacy — kept for backward compatibility)
 server.tool(
   buildValueProps.name,
   buildValueProps.description,
@@ -124,6 +184,19 @@ server.tool(
       )
       .optional(),
     footnote: z.string().optional(),
+    breakdown: z
+      .object({
+        items: z.array(
+          z.object({
+            concept: z.string(),
+            amount: z.string(),
+            note: z.string(),
+          })
+        ),
+        firstMonth: z.string(),
+        monthly: z.string(),
+      })
+      .optional(),
   },
   async (args) => calculateInvestment.handler(args)
 );
@@ -137,12 +210,19 @@ server.tool(
     clientSlug: z.string(),
     clientIndustry: z.string(),
     clientLogoUrl: z.string().optional(),
+    badgeLabel: z.string().optional(),
     llamadaCards: z.array(z.object({ label: z.string(), value: z.string() })),
+    llamadaSummary: z
+      .object({ label: z.string(), value: z.string() })
+      .optional(),
     llamadaQuote: z.string(),
-    llamadaQuoteSource: z.string(),
+    llamadaQuoteSource: z.string().optional(),
     auditSection: z.string(),
     researchSection: z.string(),
-    valuePropsSection: z.string(),
+    competitorsSection: z.string(),
+    icpSection: z.string(),
+    roadmapSection: z.string(),
+    currentPhase: z.number().optional(),
     methodPhases: z
       .array(
         z.object({
@@ -150,6 +230,8 @@ server.tool(
           name: z.string(),
           duration: z.string(),
           description: z.string(),
+          deliverable: z.string().optional(),
+          deliverableIcon: z.string().optional(),
         })
       )
       .optional(),

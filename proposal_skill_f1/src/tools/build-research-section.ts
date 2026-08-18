@@ -3,89 +3,48 @@ import type { ResearchSection } from "../lib/types.js";
 export const name = "build-research-section";
 
 export const description =
-  "Arma la sección 03 (El Research) con análisis de mercado e ICP. " +
-  "Devuelve dos paneles: mercado (overview + insights) y cliente ideal (ICP definido).";
+  "Arma la sección 03 (El Research — Mercado) con tarjetas de mercado. " +
+  "Competidores e ICP se manejan en tools separadas (build-competitors-section, build-icp-section).";
 
 export const inputSchema = {
   type: "object" as const,
   properties: {
-    marketOverview: {
-      type: "string",
-      description: "Overview del mercado/industria del cliente.",
-    },
-    marketInsights: {
-      type: "array",
-      items: { type: "string" },
-      description: "Insights clave del mercado (3-5 puntos).",
-    },
-    icp: {
-      type: "object",
-      properties: {
-        demographics: { type: "string" },
-        psychographics: { type: "string" },
-        behaviors: { type: "string" },
-        channels: { type: "string" },
-      },
-      required: ["demographics", "psychographics", "behaviors", "channels"],
-      description: "Definición del ICP (Ideal Customer Profile).",
-    },
-    competitors: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          name: { type: "string" },
-          positioning: { type: "string" },
-          weakness: { type: "string" },
-        },
-        required: ["name", "positioning", "weakness"],
-      },
-      description: "Competidores principales con posicionamiento y debilidades.",
-    },
-    dataPoints: {
+    marketCards: {
       type: "array",
       items: {
         type: "object",
         properties: {
           label: { type: "string" },
-          value: { type: "string" },
+          text: { type: "string" },
         },
-        required: ["label", "value"],
+        required: ["label", "text"],
       },
-      description: "Data points clave del research (ej: tamaño de mercado, CAC promedio).",
+      description: "Tarjetas de mercado (ej: tamaño de mercado, tendencia, demanda, estacionalidad).",
+    },
+    summary: {
+      type: "string",
+      description: "Resumen opcional del research de mercado.",
     },
   },
-  required: ["marketOverview", "marketInsights", "icp", "competitors", "dataPoints"],
+  required: ["marketCards"],
 };
 
 interface ResearchInput {
-  marketOverview: string;
-  marketInsights: string[];
-  icp: { demographics: string; psychographics: string; behaviors: string; channels: string };
-  competitors: { name: string; positioning: string; weakness: string }[];
-  dataPoints: { label: string; value: string }[];
+  marketCards: { label: string; text: string }[];
+  summary?: string;
 }
 
 export async function handler(args: ResearchInput) {
   const section: ResearchSection = {
-    marketOverview: args.marketOverview.trim(),
-    marketInsights: args.marketInsights.map((i) => i.trim()).filter(Boolean),
-    icp: {
-      demographics: args.icp.demographics.trim(),
-      psychographics: args.icp.psychographics.trim(),
-      behaviors: args.icp.behaviors.trim(),
-      channels: args.icp.channels.trim(),
-    },
-    competitors: args.competitors.map((c) => ({
-      name: c.name.trim(),
-      positioning: c.positioning.trim(),
-      weakness: c.weakness.trim(),
-    })),
-    dataPoints: args.dataPoints.map((d) => ({
-      label: d.label.trim(),
-      value: d.value.trim(),
+    marketCards: args.marketCards.map((c) => ({
+      label: c.label.trim(),
+      text: c.text.trim(),
     })),
   };
+
+  if (args.summary) {
+    section.summary = args.summary.trim();
+  }
 
   return {
     content: [

@@ -1,4 +1,5 @@
 // ── Shared types: contract between MCP tools and the ree-website viewer ──
+// Must stay aligned with ree-website/src/lib/proposal-types.ts
 
 /** Parsed client data from the discovery call */
 export interface ClientProfile {
@@ -36,31 +37,42 @@ export interface AuditSection {
   summary: string;
 }
 
-/** ICP definition */
-export interface ICPDefinition {
-  demographics: string;
-  psychographics: string;
-  behaviors: string;
-  channels: string;
-}
-
-/** Competitor entry */
-export interface CompetitorEntry {
+/** Competitor (for competitors slide) */
+export interface Competitor {
   name: string;
-  positioning: string;
-  weakness: string;
+  share: string;
+  strengths: string[];
+  weaknesses: string[];
 }
 
-/** Research section output */
-export interface ResearchSection {
-  marketOverview: string;
-  marketInsights: string[];
-  icp: ICPDefinition;
-  competitors: CompetitorEntry[];
-  dataPoints: { label: string; value: string }[];
+/** ICP profile (for icp slide) */
+export interface ICPProfile {
+  segment: string;
+  description: string;
+  pains: string[];
+  desires: string[];
+  objections: string[];
 }
 
-/** A value proposition angle */
+/** Gantt bar for roadmap */
+export interface GanttBar {
+  label: string;
+  startWeek: number;
+  endWeek: number;
+  color: string;
+}
+
+/** Roadmap phase */
+export interface RoadmapPhase {
+  number: string;
+  name: string;
+  weeks: string;
+  budget?: string;
+  description: string;
+  deliverables: string[];
+}
+
+/** A value proposition angle (legacy — used by build-value-props) */
 export interface ValueAngle {
   id: string;
   painPoint: string;
@@ -69,14 +81,14 @@ export interface ValueAngle {
   quote?: string;
 }
 
-/** Funnel strategy card */
+/** Funnel strategy card (legacy — used by build-value-props) */
 export interface FunnelCard {
   title: string;
   description: string;
   variant: "dark" | "outlined";
 }
 
-/** Value props section output */
+/** Value props section output (legacy) */
 export interface ValuePropsSection {
   angles: ValueAngle[];
   funnels: FunnelCard[];
@@ -100,11 +112,19 @@ export interface PricingPackage {
   recommended?: boolean;
 }
 
+/** Pricing breakdown */
+export interface PricingBreakdown {
+  items: { concept: string; amount: string; note: string }[];
+  firstMonth: string;
+  monthly: string;
+}
+
 /** Investment section output */
 export interface InvestmentSection {
   cpaMaximo: string;
   cplObjetivo: string;
   packages: PricingPackage[];
+  breakdown?: PricingBreakdown;
   scenarios: PricingScenario[];
   footnote: string;
 }
@@ -115,6 +135,34 @@ export interface MethodPhase {
   name: string;
   duration: string;
   description: string;
+  deliverable?: string;
+  deliverableIcon?: string;
+}
+
+// ── Section interfaces (tool outputs) ──
+
+/** Research section output (simplified — market only) */
+export interface ResearchSection {
+  marketCards: { label: string; text: string }[];
+  summary?: string;
+}
+
+/** Competitors section output */
+export interface CompetitorsSection {
+  competitors: Competitor[];
+  summary?: string;
+}
+
+/** ICP section output */
+export interface ICPSection {
+  profiles: ICPProfile[];
+}
+
+/** Roadmap section output */
+export interface RoadmapSection {
+  description?: string;
+  gantt: { totalWeeks: number; bars: GanttBar[] };
+  phases: RoadmapPhase[];
 }
 
 // ── Slide types ──
@@ -122,6 +170,7 @@ export interface MethodPhase {
 export interface CoverSlide {
   type: "cover";
   badge: string;
+  badgeLabel?: string;
   title: string;
   subtitle: string;
   confidential?: string;
@@ -138,8 +187,9 @@ export interface ContentSlide {
   type: "content";
   sectionLabel: string;
   headline: string;
+  summary?: { label: string; value: string };
   cards: InfoCard[];
-  quote?: { text: string; source: string };
+  quote?: { text: string; source?: string };
 }
 
 export interface FindingsSlide {
@@ -154,9 +204,23 @@ export interface ResearchSlide {
   type: "research";
   sectionLabel: string;
   headline: string;
-  marketPanel: { title: string; content: string; insights: string[] };
-  icpPanel: { title: string; icp: ICPDefinition };
-  dataPoints: { label: string; value: string }[];
+  marketCards: { label: string; text: string }[];
+  summary?: string;
+}
+
+export interface CompetitorsSlide {
+  type: "competitors";
+  sectionLabel: string;
+  headline: string;
+  competitors: Competitor[];
+  summary?: string;
+}
+
+export interface ICPSlide {
+  type: "icp";
+  sectionLabel: string;
+  headline: string;
+  profiles: ICPProfile[];
 }
 
 export interface ValuePropsSlide {
@@ -167,11 +231,21 @@ export interface ValuePropsSlide {
   funnels: FunnelCard[];
 }
 
+export interface RoadmapSlide {
+  type: "roadmap";
+  sectionLabel: string;
+  headline: string;
+  description?: string;
+  gantt: { totalWeeks: number; bars: GanttBar[] };
+  phases: RoadmapPhase[];
+}
+
 export interface MethodSlide {
   type: "method";
   sectionLabel: string;
   headline: string;
   phases: MethodPhase[];
+  currentPhase?: number;
 }
 
 export interface PricingSlide {
@@ -179,6 +253,7 @@ export interface PricingSlide {
   sectionLabel: string;
   headline: string;
   packages: PricingPackage[];
+  breakdown?: PricingBreakdown;
   scenarios: PricingScenario[];
   footnote: string;
 }
@@ -196,7 +271,10 @@ export type Slide =
   | ContentSlide
   | FindingsSlide
   | ResearchSlide
+  | CompetitorsSlide
+  | ICPSlide
   | ValuePropsSlide
+  | RoadmapSlide
   | MethodSlide
   | PricingSlide
   | ClosingSlide;

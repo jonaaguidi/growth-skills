@@ -3,7 +3,9 @@ import type {
   Slide,
   AuditSection,
   ResearchSection,
-  ValuePropsSection,
+  CompetitorsSection,
+  ICPSection,
+  RoadmapSection,
   InvestmentSection,
   InfoCard,
   MethodPhase,
@@ -13,7 +15,7 @@ import { REE_METHOD_PHASES, DEFAULT_CLOSING, SECTION_INDEX } from "../lib/templa
 export const name = "compose-diagnostic";
 
 export const description =
-  "Ensambla el JSON final de la presentación de diagnóstico. " +
+  "Ensambla el JSON final de la presentación de diagnóstico (11 slides). " +
   "Toma todas las secciones generadas por las otras tools y produce " +
   "el array de slides tipados listo para el viewer en ree-website.";
 
@@ -24,6 +26,7 @@ export const inputSchema = {
     clientSlug: { type: "string" },
     clientIndustry: { type: "string" },
     clientLogoUrl: { type: "string" },
+    badgeLabel: { type: "string", description: "Subtítulo del badge en el cover (ej: DIAGNÓSTICO + PROPUESTA DE VALOR)." },
     // Section 01: La Llamada
     llamadaCards: {
       type: "array",
@@ -36,15 +39,29 @@ export const inputSchema = {
         required: ["label", "value"],
       },
     },
+    llamadaSummary: {
+      type: "object",
+      properties: {
+        label: { type: "string" },
+        value: { type: "string" },
+      },
+      required: ["label", "value"],
+      description: "Card de resumen/objetivo que aparece arriba de las cards (label + value con HTML).",
+    },
     llamadaQuote: { type: "string" },
     llamadaQuoteSource: { type: "string" },
     // Section 02: La Auditoría (JSON string from build-audit-section)
     auditSection: { type: "string", description: "JSON output from build-audit-section." },
-    // Section 03: El Research (JSON string from build-research-section)
+    // Section 03: El Research — Mercado (JSON string from build-research-section)
     researchSection: { type: "string", description: "JSON output from build-research-section." },
-    // Section 04: La Propuesta de Valor (JSON string from build-value-props)
-    valuePropsSection: { type: "string", description: "JSON output from build-value-props." },
-    // Section 05: Cómo Trabajamos (optional override)
+    // Section 03: El Research — Competencia (JSON string from build-competitors-section)
+    competitorsSection: { type: "string", description: "JSON output from build-competitors-section." },
+    // Section 03: El Research — ICP (JSON string from build-icp-section)
+    icpSection: { type: "string", description: "JSON output from build-icp-section." },
+    // Section 04: Roadmap (JSON string from build-roadmap-section)
+    roadmapSection: { type: "string", description: "JSON output from build-roadmap-section." },
+    // Section 05: Cómo Trabajamos
+    currentPhase: { type: "number", description: "Fase actual del método (1-5). Se resalta en el slide." },
     methodPhases: {
       type: "array",
       items: {
@@ -54,12 +71,14 @@ export const inputSchema = {
           name: { type: "string" },
           duration: { type: "string" },
           description: { type: "string" },
+          deliverable: { type: "string" },
+          deliverableIcon: { type: "string" },
         },
         required: ["number", "name", "duration", "description"],
       },
       description: "Override de las fases del método. Si no se envía, usa el default.",
     },
-    // Section 06: El Plan (JSON string from calculate-investment)
+    // Section 06: Valor del Servicio (JSON string from calculate-investment)
     investmentSection: { type: "string", description: "JSON output from calculate-investment." },
     // Closing
     closingHeadline: { type: "string" },
@@ -81,10 +100,11 @@ export const inputSchema = {
     "clientIndustry",
     "llamadaCards",
     "llamadaQuote",
-    "llamadaQuoteSource",
     "auditSection",
     "researchSection",
-    "valuePropsSection",
+    "competitorsSection",
+    "icpSection",
+    "roadmapSection",
     "investmentSection",
   ],
 };
@@ -94,12 +114,17 @@ interface ComposeInput {
   clientSlug: string;
   clientIndustry: string;
   clientLogoUrl?: string;
+  badgeLabel?: string;
   llamadaCards: InfoCard[];
+  llamadaSummary?: { label: string; value: string };
   llamadaQuote: string;
-  llamadaQuoteSource: string;
+  llamadaQuoteSource?: string;
   auditSection: string;
   researchSection: string;
-  valuePropsSection: string;
+  competitorsSection: string;
+  icpSection: string;
+  roadmapSection: string;
+  currentPhase?: number;
   methodPhases?: MethodPhase[];
   investmentSection: string;
   closingHeadline?: string;
@@ -109,7 +134,9 @@ interface ComposeInput {
 export async function handler(args: ComposeInput) {
   const audit: AuditSection = JSON.parse(args.auditSection);
   const research: ResearchSection = JSON.parse(args.researchSection);
-  const valueProps: ValuePropsSection = JSON.parse(args.valuePropsSection);
+  const competitors: CompetitorsSection = JSON.parse(args.competitorsSection);
+  const icp: ICPSection = JSON.parse(args.icpSection);
+  const roadmap: RoadmapSection = JSON.parse(args.roadmapSection);
   const investment: InvestmentSection = JSON.parse(args.investmentSection);
   const phases = args.methodPhases ?? REE_METHOD_PHASES;
 
@@ -120,81 +147,93 @@ export async function handler(args: ComposeInput) {
   const confidential = `CONFIDENCIAL · ${dd}-${mm}-${yyyy}`;
 
   const slides: Slide[] = [
-    // Cover
+    // 1. Cover
     {
       type: "cover",
       badge: "FASE 1",
-      title: "AUDITORÍA.",
-      subtitle: `Diagnóstico + Propuesta para ${args.clientName}`,
+      badgeLabel: args.badgeLabel ?? "DIAGNÓSTICO + PROPUESTA DE VALOR",
+      title: "PROPUESTA",
+      subtitle: `Diagnóstico del negocio y propuesta de valor personalizada para ${args.clientName}.`,
       confidential,
     },
-    // Index
+    // 2. Index
     {
       type: "index",
       label: "ÍNDICE",
       title: "EL RECORRIDO",
       items: SECTION_INDEX,
     },
-    // 01 — La Llamada
+    // 3. La Llamada (content)
     {
       type: "content",
-      sectionLabel: "01 · LA LLAMADA — LO QUE ESCUCHAMOS",
-      headline: "TU NEGOCIO, EN TUS PALABRAS",
+      sectionLabel: "01 · LA LLAMADA — DISCOVERY CALL",
+      headline: args.clientName.toUpperCase(),
+      ...(args.llamadaSummary ? { summary: args.llamadaSummary } : {}),
       cards: args.llamadaCards,
       quote: {
         text: args.llamadaQuote,
-        source: args.llamadaQuoteSource,
+        ...(args.llamadaQuoteSource ? { source: args.llamadaQuoteSource } : {}),
       },
     },
-    // 02 — La Auditoría
+    // 4. La Auditoría (findings)
     {
       type: "findings",
-      sectionLabel: "02 · LA AUDITORÍA",
+      sectionLabel: "02 · LA AUDITORÍA — MARKETING DIGITAL",
       headline: "LO QUE ESTÁ PASANDO HOY",
       findings: audit.findings,
       keyInsight: audit.keyInsight,
     },
-    // 03 — El Research
+    // 5. El Mercado (research)
     {
       type: "research",
-      sectionLabel: "03 · EL RESEARCH — MERCADO + ICP",
-      headline: "LO QUE DICTA TU MERCADO",
-      marketPanel: {
-        title: "El Mercado",
-        content: research.marketOverview,
-        insights: research.marketInsights,
-      },
-      icpPanel: {
-        title: "Tu Cliente Ideal",
-        icp: research.icp,
-      },
-      dataPoints: research.dataPoints,
+      sectionLabel: "03 · EL RESEARCH — MERCADO",
+      headline: "EL MERCADO",
+      marketCards: research.marketCards,
+      ...(research.summary ? { summary: research.summary } : {}),
     },
-    // 04 — La Propuesta de Valor
+    // 6. La Competencia (competitors)
     {
-      type: "value-props",
-      sectionLabel: "04 · LA PROPUESTA DE VALOR",
-      headline: "ÁNGULOS QUE RESPONDEN A ESOS DOLORES",
-      angles: valueProps.angles,
-      funnels: valueProps.funnels,
+      type: "competitors",
+      sectionLabel: "03 · EL RESEARCH — COMPETENCIA",
+      headline: "LA COMPETENCIA",
+      competitors: competitors.competitors,
+      ...(competitors.summary ? { summary: competitors.summary } : {}),
     },
-    // 05 — Cómo Trabajamos
+    // 7. Cliente Ideal (icp)
+    {
+      type: "icp",
+      sectionLabel: "03 · EL RESEARCH — CLIENTE IDEAL",
+      headline: "TU CLIENTE IDEAL",
+      profiles: icp.profiles,
+    },
+    // 8. Roadmap
+    {
+      type: "roadmap",
+      sectionLabel: "04 · LA PROPUESTA DE VALOR",
+      headline: "ROADMAP DE EJECUCIÓN",
+      ...(roadmap.description ? { description: roadmap.description } : {}),
+      gantt: roadmap.gantt,
+      phases: roadmap.phases,
+    },
+    // 9. Cómo Trabajamos (method)
     {
       type: "method",
       sectionLabel: "05 · CÓMO TRABAJAMOS",
-      headline: "UN MÉTODO, NO UNA PROMESA",
+      headline: "EL MÉTODO: 5 FASES + REE METRICS",
       phases,
+      ...(args.currentPhase ? { currentPhase: args.currentPhase } : {}),
     },
-    // 06 — El Plan + La Inversión
+    // 10. Valor del Servicio (pricing)
     {
       type: "pricing",
-      sectionLabel: "06 · EL PLAN + LA INVERSIÓN",
+      sectionLabel: "06 · VALOR DEL SERVICIO",
       headline: `LO QUE PROPONEMOS PARA ${args.clientName.toUpperCase()}`,
       packages: investment.packages,
+      ...(investment.breakdown ? { breakdown: investment.breakdown } : {}),
       scenarios: investment.scenarios,
       footnote: investment.footnote,
     },
-    // Closing
+    // 11. Closing
     {
       type: "closing",
       partnership: `REE GROWTH × ${args.clientName.toUpperCase()}`,

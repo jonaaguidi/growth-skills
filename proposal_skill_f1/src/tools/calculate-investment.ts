@@ -1,4 +1,4 @@
-import type { InvestmentSection } from "../lib/types.js";
+import type { InvestmentSection, PricingBreakdown } from "../lib/types.js";
 import {
   calculateMaxCPA,
   calculateTargetCPL,
@@ -60,6 +60,27 @@ export const inputSchema = {
       type: "string",
       description: "Nota al pie sobre los escenarios.",
     },
+    breakdown: {
+      type: "object",
+      properties: {
+        items: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              concept: { type: "string" },
+              amount: { type: "string" },
+              note: { type: "string" },
+            },
+            required: ["concept", "amount", "note"],
+          },
+        },
+        firstMonth: { type: "string" },
+        monthly: { type: "string" },
+      },
+      required: ["items", "firstMonth", "monthly"],
+      description: "Desglose detallado de costos (fee, pauta, integraciones).",
+    },
   },
   required: ["averageTicket", "budgets"],
 };
@@ -79,6 +100,7 @@ interface InvestmentInput {
     recommended?: boolean;
   }[];
   footnote?: string;
+  breakdown?: PricingBreakdown;
 }
 
 export async function handler(args: InvestmentInput) {
@@ -109,6 +131,10 @@ export async function handler(args: InvestmentInput) {
       "Los escenarios son estimaciones basadas en benchmarks de la industria. " +
         "Los resultados reales dependen de la calidad de creativos, landing pages y proceso de ventas.",
   };
+
+  if (args.breakdown) {
+    section.breakdown = args.breakdown;
+  }
 
   return {
     content: [

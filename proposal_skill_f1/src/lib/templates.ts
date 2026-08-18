@@ -4,50 +4,60 @@ import type { MethodPhase } from "./types.js";
 
 export const REE_METHOD_PHASES: MethodPhase[] = [
   {
-    number: "01",
+    number: "1",
     name: "DIAGNÓSTICO",
-    duration: "Semana 1",
+    duration: "2-4 días",
     description:
-      "Auditoría completa de tu situación actual: pauta, tracking, contenido y funnel. Entendemos dónde estás antes de proponer a dónde ir.",
+      "Diagnóstico integral del negocio: entender el estadio del cliente y sus necesidades.",
+    deliverable: "Diagnóstico + Value Proposition",
+    deliverableIcon: "clipboard",
   },
   {
-    number: "02",
-    name: "ESTRATEGIA",
-    duration: "Semana 2",
+    number: "2",
+    name: "FOUNDATION",
+    duration: "5-7 días",
     description:
-      "Definimos ICP, ángulos de comunicación, estructura de campañas y KPIs. Todo alineado a tus objetivos de negocio.",
+      "Los cimientos: la estrategia que mejor se adapta al cliente según el diagnóstico.",
+    deliverable: "Presentación: Estrategia de Marketing",
+    deliverableIcon: "presentation",
   },
   {
-    number: "03",
-    name: "PRODUCCIÓN",
-    duration: "Semana 3",
+    number: "3",
+    name: "BUILD",
+    duration: "7-14 días",
     description:
-      "Creamos los creativos, copies, landing pages y configuramos las campañas. Todo listo para lanzar.",
+      "Construir el sistema completo — creativos, campañas, ecommerce, tracking, panel — sin encender nada.",
+    deliverable: "Funnel completo + Dashboard entregado",
+    deliverableIcon: "grid",
   },
   {
-    number: "04",
-    name: "LANZAMIENTO",
-    duration: "Semana 4",
+    number: "4",
+    name: "LAUNCH",
+    duration: "14 días",
     description:
-      "Activamos campañas, monitoreamos métricas en tiempo real con REE Metrics. Ajustes diarios en la primera semana.",
+      "Validar con inversión real: testear ángulos y encontrar el ganador.",
+    deliverable: "Primeros Leads + Reporte de Launch en REE Metrics",
+    deliverableIcon: "target",
   },
   {
-    number: "05",
-    name: "OPTIMIZACIÓN",
-    duration: "Ongoing",
+    number: "5",
+    name: "SCALE",
+    duration: "7-10 días → cycle",
     description:
-      "Ciclos de testing, iteración de creativos y scaling. Reportes en vivo + reuniones recurrentes de performance.",
+      "Data-driven ads: escalar el presupuesto del creativo ganador y replicar el formato que convirtió.",
+    deliverable: "Reporte Mensual + Plan",
+    deliverableIcon: "chart",
   },
 ];
 
 // ── Closing slide defaults ──
 
 export const DEFAULT_CLOSING = {
-  headline: "EMPECEMOS.",
+  headline: "¿COMENZAMOS?",
   steps: [
-    { number: "01", text: "Confirmás el plan que más se ajusta a tus objetivos." },
-    { number: "02", text: "Transferís el 50% de adelanto para arrancar." },
-    { number: "03", text: "Arrancamos la Fase 2 — Estrategia + Setup en 48hs." },
+    { number: "01", text: "Confirmación" },
+    { number: "02", text: "Config. Meta Business, Tienda Nube y REE Metrics" },
+    { number: "03", text: "Lanzamiento de Campaña Awareness" },
   ],
 };
 
@@ -57,7 +67,7 @@ export const SECTION_INDEX = [
   { number: "01", title: "LA LLAMADA", description: "Lo que escuchamos en la discovery call." },
   { number: "02", title: "LA AUDITORÍA", description: "Estado actual de tu marketing digital." },
   { number: "03", title: "EL RESEARCH", description: "Mercado, competencia e ICP." },
-  { number: "04", title: "LA PROPUESTA DE VALOR", description: "Ángulos que responden a tus dolores." },
-  { number: "05", title: "CÓMO TRABAJAMOS", description: "Nuestro método de 5 fases." },
-  { number: "06", title: "EL PLAN + LA INVERSIÓN", description: "Paquetes, escenarios y próximos pasos." },
+  { number: "04", title: "LA PROPUESTA DE VALOR", description: "Roadmap a medida de las necesidades de tu negocio." },
+  { number: "05", title: "CÓMO TRABAJAMOS", description: "Nuestro método de 5 fases + REE Metrics." },
+  { number: "06", title: "VALOR DEL SERVICIO", description: "Inversión, costos de Meta Ads y próximos pasos." },
 ];
