@@ -378,5 +378,6 @@ if (computed) {
 }
 
 const html = renderDiscoveryHtml(data);
-writeFileSync("/Users/infinix/Desktop/discovery-defu.html", html, "utf-8");
-console.log("Done: ~/Desktop/discovery-defu.html");
+const outDir = new URL("./Clients/defu/", import.meta.url);
+writeFileSync(new URL("discovery-defu.html", outDir), html, "utf-8");
+console.log("Done: Clientes/defu/discovery-defu.html");
