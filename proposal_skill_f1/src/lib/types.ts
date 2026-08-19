@@ -54,12 +54,22 @@ export interface ICPProfile {
   objections: string[];
 }
 
+/** Gantt segment within a bar */
+export interface GanttSegment {
+  startWeek: number;
+  endWeek: number;
+  color: string;
+  label?: string;
+}
+
 /** Gantt bar for roadmap */
 export interface GanttBar {
   label: string;
   startWeek: number;
   endWeek: number;
   color: string;
+  /** Optional sub-segments to show phases within a bar (build, test, optimize) */
+  segments?: GanttSegment[];
 }
 
 /** Roadmap phase */
@@ -114,7 +124,7 @@ export interface PricingPackage {
 
 /** Pricing breakdown */
 export interface PricingBreakdown {
-  items: { concept: string; amount: string; note: string }[];
+  items: { concept: string; amount: string; note: string; recurring?: boolean }[];
   firstMonth: string;
   monthly: string;
 }

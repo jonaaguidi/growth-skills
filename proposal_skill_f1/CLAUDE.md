@@ -71,6 +71,7 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 - La pauta de Meta Ads se paga con la tarjeta del cliente directo en Meta. El cliente controla su propia cuenta.
 - El acceso a REE Metrics (dashboard en vivo) está incluido sin costo adicional en todos los planes.
 - En el breakdown, dejar claro que la pauta no pasa por REE.
+- Los precios siempre deben indicar que no incluyen IVA.
 
 ## Uso
 

@@ -129,7 +129,8 @@ export async function handler(args: InvestmentInput) {
     footnote:
       args.footnote ??
       "Los escenarios son estimaciones basadas en benchmarks de la industria. " +
-        "Los resultados reales dependen de la calidad de creativos, landing pages y proceso de ventas.",
+        "Los resultados reales dependen de la calidad de creativos, landing pages y proceso de ventas. " +
+        "<b>Los precios no incluyen IVA.</b>",
   };
 
   if (args.breakdown) {
