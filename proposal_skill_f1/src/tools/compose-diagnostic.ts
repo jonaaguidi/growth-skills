@@ -52,11 +52,11 @@ export const inputSchema = {
     llamadaQuoteSource: { type: "string" },
     // Section 02: La Auditoría (JSON string from build-audit-section)
     auditSection: { type: "string", description: "JSON output from build-audit-section." },
-    // Section 03: El Research — Mercado (JSON string from build-research-section)
+    // Section 03: El Research /Mercado (JSON string from build-research-section)
     researchSection: { type: "string", description: "JSON output from build-research-section." },
-    // Section 03: El Research — Competencia (JSON string from build-competitors-section)
+    // Section 03: El Research /Competencia (JSON string from build-competitors-section)
     competitorsSection: { type: "string", description: "JSON output from build-competitors-section." },
-    // Section 03: El Research — ICP (JSON string from build-icp-section)
+    // Section 03: El Research /ICP (JSON string from build-icp-section)
     icpSection: { type: "string", description: "JSON output from build-icp-section." },
     // Section 04: Roadmap (JSON string from build-roadmap-section)
     roadmapSection: { type: "string", description: "JSON output from build-roadmap-section." },
@@ -166,7 +166,7 @@ export async function handler(args: ComposeInput) {
     // 3. La Llamada (content)
     {
       type: "content",
-      sectionLabel: "01 · LA LLAMADA — DISCOVERY CALL",
+      sectionLabel: "01 · LA LLAMADA / DISCOVERY CALL",
       headline: args.clientName.toUpperCase(),
       ...(args.llamadaSummary ? { summary: args.llamadaSummary } : {}),
       cards: args.llamadaCards,
@@ -178,7 +178,7 @@ export async function handler(args: ComposeInput) {
     // 4. La Auditoría (findings)
     {
       type: "findings",
-      sectionLabel: "02 · LA AUDITORÍA — MARKETING DIGITAL",
+      sectionLabel: "02 · LA AUDITORÍA / MARKETING DIGITAL",
       headline: "LO QUE ESTÁ PASANDO HOY",
       findings: audit.findings,
       keyInsight: audit.keyInsight,
@@ -186,7 +186,7 @@ export async function handler(args: ComposeInput) {
     // 5. El Mercado (research)
     {
       type: "research",
-      sectionLabel: "03 · EL RESEARCH — MERCADO",
+      sectionLabel: "03 · EL RESEARCH / MERCADO",
       headline: "EL MERCADO",
       marketCards: research.marketCards,
       ...(research.summary ? { summary: research.summary } : {}),
@@ -194,7 +194,7 @@ export async function handler(args: ComposeInput) {
     // 6. La Competencia (competitors)
     {
       type: "competitors",
-      sectionLabel: "03 · EL RESEARCH — COMPETENCIA",
+      sectionLabel: "03 · EL RESEARCH / COMPETENCIA",
       headline: "LA COMPETENCIA",
       competitors: competitors.competitors,
       ...(competitors.summary ? { summary: competitors.summary } : {}),
@@ -202,7 +202,7 @@ export async function handler(args: ComposeInput) {
     // 7. Cliente Ideal (icp)
     {
       type: "icp",
-      sectionLabel: "03 · EL RESEARCH — CLIENTE IDEAL",
+      sectionLabel: "03 · EL RESEARCH / CLIENTE IDEAL",
       headline: "TU CLIENTE IDEAL",
       profiles: icp.profiles,
     },

@@ -4,7 +4,7 @@ export const name = "build-value-props";
 
 export const description =
   "Arma la sección 04 (La Propuesta de Valor). " +
-  "Genera ángulos priorizados que mapean pain point → solución REE → evidencia, " +
+  "Genera ángulos priorizados que mapean pain point a solución REE a evidencia, " +
   "más las cards de estrategia de funnel.";
 
 export const inputSchema = {

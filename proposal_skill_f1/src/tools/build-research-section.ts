@@ -3,7 +3,7 @@ import type { ResearchSection } from "../lib/types.js";
 export const name = "build-research-section";
 
 export const description =
-  "Arma la sección 03 (El Research — Mercado) con tarjetas de mercado. " +
+  "Arma la sección 03 (El Research / Mercado) con tarjetas de mercado. " +
   "Competidores e ICP se manejan en tools separadas (build-competitors-section, build-icp-section).";
 
 export const inputSchema = {

@@ -82,7 +82,7 @@ export function buildScenarios(
     const estimatedLeads = Math.round(budget / targetCPL);
     const estimatedClients = Math.round(estimatedLeads * closeRate);
     const revenue = estimatedClients * averageTicket;
-    const roas = budget > 0 ? (revenue / budget).toFixed(1) : "—";
+    const roas = budget > 0 ? (revenue / budget).toFixed(1) : "-";
 
     return {
       label: labels[i] ?? `Escenario ${i + 1}`,

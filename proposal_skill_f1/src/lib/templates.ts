@@ -26,7 +26,7 @@ export const REE_METHOD_PHASES: MethodPhase[] = [
     name: "BUILD",
     duration: "7-14 días",
     description:
-      "Construir el sistema completo — creativos, campañas, ecommerce, tracking, panel — sin encender nada.",
+      "Construir el sistema completo (creativos, campañas, ecommerce, tracking, panel) sin encender nada.",
     deliverable: "Funnel completo + Dashboard entregado",
     deliverableIcon: "grid",
   },
@@ -42,7 +42,7 @@ export const REE_METHOD_PHASES: MethodPhase[] = [
   {
     number: "5",
     name: "SCALE",
-    duration: "7-10 días → cycle",
+    duration: "Ciclos de 7-10 días",
     description:
       "Data-driven ads: escalar el presupuesto del creativo ganador y replicar el formato que convirtió.",
     deliverable: "Reporte Mensual + Plan",

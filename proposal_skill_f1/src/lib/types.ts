@@ -72,7 +72,7 @@ export interface RoadmapPhase {
   deliverables: string[];
 }
 
-/** A value proposition angle (legacy — used by build-value-props) */
+/** A value proposition angle (legacy, used by build-value-props) */
 export interface ValueAngle {
   id: string;
   painPoint: string;
@@ -81,7 +81,7 @@ export interface ValueAngle {
   quote?: string;
 }
 
-/** Funnel strategy card (legacy — used by build-value-props) */
+/** Funnel strategy card (legacy, used by build-value-props) */
 export interface FunnelCard {
   title: string;
   description: string;
@@ -141,7 +141,7 @@ export interface MethodPhase {
 
 // ── Section interfaces (tool outputs) ──
 
-/** Research section output (simplified — market only) */
+/** Research section output (simplified, market only) */
 export interface ResearchSection {
   marketCards: { label: string; text: string }[];
   summary?: string;

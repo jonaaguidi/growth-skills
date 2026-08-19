@@ -30,7 +30,7 @@ export const inputSchema = {
     },
     closeRate: {
       type: "number",
-      description: "Tasa de cierre lead → cliente (0-1). Default: 0.2.",
+      description: "Tasa de cierre lead a cliente (0-1). Default: 0.2.",
     },
     budgets: {
       type: "array",

@@ -6,17 +6,24 @@ Servidor MCP para la Fase 1 (Diagnóstico + Propuesta) de REE Growth.
 
 Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en una presentación de diagnóstico con branding REE. El output es un JSON que el viewer en `ree-website/proposals/[slug]` renderiza como slides navegables.
 
+## Reglas de estilo para el contenido generado
+
+- **NO usar em dashes** (—). Se ven AI. Usar comas, puntos, paréntesis o dos puntos en su lugar.
+- **NO usar flechas** (→). Usar "a", "hacia", "luego" o simplemente separar con puntos.
+- Escribir con tono directo y de consultor. No copiar frases del cliente textualmente como si fueran propias.
+- El objetivo/summary debe ser una síntesis estratégica, no un parafraseo de la cita del cliente.
+
 ## 3 Inputs del proceso
 
-1. **Documento de visión de founders** — criterio experto y prioridades de los founders de REE para el cliente.
-2. **Discovery Call** (Fathom link) — transcript y summary de la llamada con el cliente.
-3. **Documento de Fase 0** — datos estructurados del discovery.
+1. **Documento de visión de founders**: criterio experto y prioridades de los founders de REE para el cliente.
+2. **Discovery Call** (Fathom link): transcript y summary de la llamada con el cliente.
+3. **Documento de Fase 0**: datos estructurados del discovery.
 
 ## Tools MCP
 
 | Tool | Descripción |
 |------|-------------|
-| `parse-discovery-call` | Estructura datos del transcript + visión de founders → perfil del cliente |
+| `parse-discovery-call` | Estructura datos del transcript + visión de founders. Produce perfil del cliente |
 | `build-audit-section` | Arma sección de auditoría con findings y key insight |
 | `build-research-section` | Arma sección de mercado con marketCards |
 | `build-competitors-section` | Arma sección de competencia con share, fortalezas y debilidades |
@@ -30,34 +37,40 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 
 | # | Tipo | Sección |
 |---|------|---------|
-| 1 | `cover` | — |
-| 2 | `index` | — |
+| 1 | `cover` | (portada) |
+| 2 | `index` | (índice) |
 | 3 | `content` | 01 · LA LLAMADA |
 | 4 | `findings` | 02 · LA AUDITORÍA |
-| 5 | `research` | 03 · EL RESEARCH — MERCADO |
-| 6 | `competitors` | 03 · EL RESEARCH — COMPETENCIA |
-| 7 | `icp` | 03 · EL RESEARCH — CLIENTE IDEAL |
+| 5 | `research` | 03 · EL RESEARCH, MERCADO |
+| 6 | `competitors` | 03 · EL RESEARCH, COMPETENCIA |
+| 7 | `icp` | 03 · EL RESEARCH, CLIENTE IDEAL |
 | 8 | `roadmap` | 04 · LA PROPUESTA DE VALOR |
 | 9 | `method` | 05 · CÓMO TRABAJAMOS |
 | 10 | `pricing` | 06 · VALOR DEL SERVICIO |
-| 11 | `closing` | — |
+| 11 | `closing` | (cierre) |
 
 ## Flujo de orquestación
 
 ```
-1. Usuario → Fathom link + visión de founders
-2. Claude → Fathom MCP: get_recording_by_url → get_meeting_transcript + summary
-3. Claude → meta-ads-tool MCP (si aplica): audit-campaigns + get-insights
-4. Claude → diagnostico-skill-f1:
-   parse-discovery-call →
-   build-audit-section →
-   build-research-section + build-competitors-section + build-icp-section →
-   build-roadmap-section →
-   calculate-investment →
+1. Usuario entrega Fathom link + visión de founders
+2. Claude usa Fathom MCP: get_recording_by_url, luego get_meeting_transcript + summary
+3. Claude usa meta-ads-tool MCP (si aplica): audit-campaigns + get-insights
+4. Claude usa diagnostico-skill-f1:
+   parse-discovery-call
+   build-audit-section
+   build-research-section + build-competitors-section + build-icp-section
+   build-roadmap-section
+   calculate-investment
    compose-diagnostic
-5. Claude → Write JSON a ree-website/public/proposals/[slug].json
-6. Presentación en /proposals/[slug]
+5. Claude escribe JSON a ree-website/public/proposals/[slug].json
+6. Presentación visible en /proposals/[slug]
 ```
+
+## Notas sobre pricing
+
+- La pauta de Meta Ads se paga con la tarjeta del cliente directo en Meta. El cliente controla su propia cuenta.
+- El acceso a REE Metrics (dashboard en vivo) está incluido sin costo adicional en todos los planes.
+- En el breakdown, dejar claro que la pauta no pasa por REE.
 
 ## Uso
 
@@ -75,10 +88,10 @@ El JSON va en `ree-website/public/proposals/[slug].json`.
 ### Viewer UI
 
 **Arquitectura scale-based**
-- Cada slide se renderiza a tamaño fijo 1920×1080px con inline styles.
+- Cada slide se renderiza a tamaño fijo 1920x1080px con inline styles.
 - El viewer (`slide-viewer.tsx`) aplica `transform: scale(factor)` donde `factor = Math.min(containerWidth/1920, containerHeight/1080)`.
 - Un `ResizeObserver` recalcula el scale en cada resize del container.
-- NO se usan breakpoints responsivos — el escalado CSS maneja todos los tamaños de pantalla.
+- NO se usan breakpoints responsivos. El escalado CSS maneja todos los tamaños de pantalla.
 
 **Sidebar de thumbnails**
 - Panel lateral izquierdo con miniaturas clickeables de cada slide.
@@ -91,9 +104,9 @@ El JSON va en `ree-website/public/proposals/[slug].json`.
 
 **Tipografías**
 - Cargadas via `next/font/google` en `layout.tsx` con CSS variables.
-- `--font-archivo` (Archivo 400/600/700) — body text.
-- `--font-archivo-black` (Archivo Black 400) — headlines uppercase.
-- `--font-space-mono` (Space Mono 400/700) — labels, section markers, monospace accents.
+- `--font-archivo` (Archivo 400/600/700): body text.
+- `--font-archivo-black` (Archivo Black 400): headlines uppercase.
+- `--font-space-mono` (Space Mono 400/700): labels, section markers, monospace accents.
 
 **Logos**
 - Slides con fondo rojo/oscuro (cover, closing): `/ree-logo-white.png`
@@ -112,4 +125,4 @@ El JSON va en `ree-website/public/proposals/[slug].json`.
 
 **Referencia de diseño**
 - Archivo fuente: `DEFU - Auditoria + Propuesta.dc.html` (Claude Design export)
-- Todas las medidas en px fijos a 1920×1080
+- Todas las medidas en px fijos a 1920x1080

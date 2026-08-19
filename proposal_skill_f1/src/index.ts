@@ -58,7 +58,7 @@ server.tool(
   async (args) => buildAuditSection.handler(args)
 );
 
-// build-research-section (simplified — market only)
+// build-research-section (simplified, market only)
 server.tool(
   buildResearchSection.name,
   buildResearchSection.description,
@@ -136,7 +136,7 @@ server.tool(
   async (args) => buildRoadmapSection.handler(args)
 );
 
-// build-value-props (legacy — kept for backward compatibility)
+// build-value-props (legacy, kept for backward compatibility)
 server.tool(
   buildValueProps.name,
   buildValueProps.description,
