@@ -44,10 +44,12 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 | 5 | `research` | 03 · EL RESEARCH, MERCADO |
 | 6 | `competitors` | 03 · EL RESEARCH, COMPETENCIA |
 | 7 | `icp` | 03 · EL RESEARCH, CLIENTE IDEAL |
-| 8 | `roadmap` | 04 · LA PROPUESTA DE VALOR |
-| 9 | `method` | 05 · CÓMO TRABAJAMOS |
+| 8 | `method` | 04 · CÓMO TRABAJAMOS |
+| 9 | `roadmap` | 05 · LA PROPUESTA DE VALOR |
 | 10 | `pricing` | 06 · VALOR DEL SERVICIO |
 | 11 | `closing` | (cierre) |
+
+**Orden de presentacion:** El metodo (como trabajamos) va ANTES del roadmap. Primero se explica el framework (Foundation, Build, Launch, Scale) y despues se muestra como se aplica al cliente.
 
 ## Flujo de orquestación
 
@@ -66,12 +68,20 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 6. Presentación visible en /proposals/[slug]
 ```
 
+## Notas sobre el roadmap
+
+- El Gantt usa **segmentos** con los terminos del framework: Foundation, Build, Launch, Scale.
+- Cada segmento tiene un color progresivo (claro = foundation, oscuro = scale).
+- Foundation siempre es 1 semana. Build, Launch y Scale varían segun la complejidad del canal.
+- Ambos canales deben sumar el mismo total de semanas.
+
 ## Notas sobre pricing
 
 - La pauta de Meta Ads se paga con la tarjeta del cliente directo en Meta. El cliente controla su propia cuenta.
-- El acceso a REE Metrics (dashboard en vivo) está incluido sin costo adicional en todos los planes.
-- En el breakdown, dejar claro que la pauta no pasa por REE.
-- Los precios siempre deben indicar que no incluyen IVA.
+- REE Metrics se desglosa como linea separada en el breakdown (USD 50/mes), el fee de REE Growth se ajusta para que el total no cambie.
+- En el breakdown, dejar claro que la pauta no pasa por REE: "Se pone tu tarjeta directamente en Meta Ads, el gasto publicitario se debita de tu cuenta."
+- Los precios siempre deben indicar que no incluyen IVA (en bold en el footnote).
+- Moneda: USD con espacio (ej. "USD 500/mes").
 
 ## Uso
 
@@ -96,7 +106,7 @@ El JSON va en `ree-website/public/proposals/[slug].json`.
 
 **Sidebar de thumbnails**
 - Panel lateral izquierdo con miniaturas clickeables de cada slide.
-- Cada thumbnail renderiza el componente real del slide a escala miniatura (152px de ancho).
+- Cada thumbnail renderiza el componente real del slide a escala miniatura (130px de ancho).
 - Navegación por click, flechas de teclado, o swipe.
 
 **Mobile orientation gate**
