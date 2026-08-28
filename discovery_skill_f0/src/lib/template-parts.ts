@@ -608,6 +608,27 @@ export function getBaseStyles(): string {
       text-align: center;
     }
 
+    .obj-general {
+      margin-bottom: 24px;
+    }
+
+    .obj-paragraph {
+      font-size: 15px;
+      line-height: 1.65;
+      margin: 0 0 12px 0;
+    }
+
+    .obj-bullets {
+      margin: 0 0 12px 0;
+      padding-left: 20px;
+    }
+
+    .obj-bullets li {
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 8px;
+    }
+
     .gantt-row {
       margin-bottom: 8px;
     }
@@ -745,6 +766,22 @@ export function getBaseStyles(): string {
       margin-top: 16px;
     }
 
+    .kpi-group-label {
+      width: 100%;
+      font-family: ${FONTS.mono};
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: ${COLORS.muted};
+      margin-top: 8px;
+      margin-bottom: -2px;
+    }
+
+    .kpi-group-label:first-child {
+      margin-top: 0;
+    }
+
     .kpi-chip {
       font-family: ${FONTS.mono};
       font-size: 12px;
@@ -761,6 +798,195 @@ export function getBaseStyles(): string {
       background: ${COLORS.surface};
       border: 1px solid ${COLORS.red};
       color: ${COLORS.red};
+    }
+
+    /* --- Canal Badges (with SVG icons) --- */
+    .canales-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .canal-badge {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px;
+      background: ${COLORS.bg};
+      border: 1px solid ${COLORS.border};
+    }
+
+    .canal-badge .canal-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canal-badge .canal-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .canal-badge span {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .canal-badge strong {
+      font-weight: 700;
+    }
+
+    /* --- Problem emoji icons --- */
+    .audit-problems li .problem-icon {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+
+    /* --- Plan Cards --- */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .plan-card {
+      border: 1px solid ${COLORS.border};
+      background: ${COLORS.surface};
+    }
+
+    .plan-card.plan-integral {
+      border: 2px solid ${COLORS.red};
+    }
+
+    .plan-card-header {
+      padding: 16px 20px;
+      background: ${COLORS.bg};
+      border-bottom: 1px solid ${COLORS.border};
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .plan-integral .plan-card-header {
+      background: ${COLORS.red};
+      color: ${COLORS.surface};
+      border-bottom-color: ${COLORS.red};
+    }
+
+    .plan-card-tag {
+      font-family: ${FONTS.mono};
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      background: ${COLORS.escenario2};
+      color: ${COLORS.surface};
+    }
+
+    .plan-integral .plan-card-tag {
+      background: ${COLORS.surface};
+      color: ${COLORS.red};
+    }
+
+    .plan-card-name {
+      font-family: ${FONTS.heading};
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .plan-integral .plan-card-name {
+      color: ${COLORS.surface};
+    }
+
+    .plan-card-body {
+      padding: 20px;
+    }
+
+    .plan-card-body ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 16px;
+    }
+
+    .plan-card-body ul li {
+      font-size: 13px;
+      padding: 6px 0;
+      border-bottom: 1px solid ${COLORS.border};
+    }
+
+    .plan-card-body ul li:last-child {
+      border-bottom: none;
+    }
+
+    .plan-price-label {
+      font-family: ${FONTS.mono};
+      font-size: 11px;
+      text-transform: uppercase;
+      color: ${COLORS.muted};
+      margin-bottom: 4px;
+    }
+
+    .plan-price {
+      font-family: ${FONTS.heading};
+      font-size: 18px;
+      font-weight: 700;
+      color: ${COLORS.red};
+    }
+
+    /* --- Research Insight Card --- */
+    .research-insight {
+      background: ${COLORS.bg};
+      color: ${COLORS.ink};
+      padding: 20px 24px;
+      margin-top: 20px;
+      border-left: 4px solid ${COLORS.red};
+    }
+
+    .research-insight-label {
+      font-family: ${FONTS.mono};
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: ${COLORS.red};
+      margin-bottom: 10px;
+    }
+
+    .research-insight p {
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* --- Collapsible Variable Cards --- */
+    details.var-card {
+      background: ${COLORS.surface};
+      border: 1px solid ${COLORS.border};
+      padding: 0;
+      margin-bottom: 0;
+    }
+
+    details.var-card > summary.var-card-header {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    details.var-card > summary.var-card-header::-webkit-details-marker {
+      display: none;
+    }
+
+    details.var-card.sin-dato {
+      border-color: ${COLORS.gapBorder};
+    }
+
+    details.var-card.sin-dato > summary.var-card-header {
+      background: ${COLORS.gapBg};
+      border-bottom-color: ${COLORS.gapBorder};
     }
 
     /* --- Auditoria --- */
@@ -868,6 +1094,72 @@ export function getBaseStyles(): string {
       padding: 16px 20px;
       background: ${COLORS.bg};
       border-left: 3px solid ${COLORS.red};
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .icp-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      margin-top: 1px;
+    }
+
+    .icp-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .icp-desc-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .icp-ejemplo {
+      background: ${COLORS.surface};
+      border: 1px dashed ${COLORS.border};
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      margin-top: -8px;
+    }
+
+    .icp-ejemplo-label {
+      font-family: ${FONTS.mono};
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: ${COLORS.muted};
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icp-ejemplo-icon {
+      width: 14px;
+      height: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icp-ejemplo-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .icp-ejemplo p {
+      font-size: 13px;
+      line-height: 1.65;
+      color: ${COLORS.ink};
+      margin: 0;
     }
 
     .icp-columns {
@@ -916,8 +1208,8 @@ export function getBaseStyles(): string {
       font-weight: 600;
       line-height: 1.6;
       padding: 24px;
-      background: ${COLORS.ink};
-      color: ${COLORS.surface};
+      background: ${COLORS.bg};
+      color: ${COLORS.ink};
       margin-bottom: 28px;
       border-left: 4px solid ${COLORS.red};
     }
@@ -987,12 +1279,46 @@ export function getBaseStyles(): string {
 
     .angulo-dolor {
       font-size: 13px;
-      color: ${COLORS.muted};
+      color: ${COLORS.red};
     }
 
-    .angulo-palanca {
+    .angulo-solucion {
       font-size: 13px;
-      color: ${COLORS.red};
+      color: ${COLORS.escenario1};
+    }
+
+    /* --- Expansion Note --- */
+    .expansion-note {
+      background: ${COLORS.bg};
+      border: 1px solid ${COLORS.border};
+      border-left: 4px solid ${COLORS.escenario2};
+      padding: 20px 24px;
+      margin-top: 28px;
+    }
+
+    .expansion-note-label {
+      font-family: ${FONTS.mono};
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: ${COLORS.escenario2};
+      margin-bottom: 10px;
+    }
+
+    .expansion-note p {
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .angulo-ejemplo {
+      font-size: 13px;
+      color: ${COLORS.ink};
+      margin-top: 10px;
+      padding: 12px 16px;
+      background: ${COLORS.bg};
+      border: 1px dashed ${COLORS.border};
     }
 
     /* --- Viabilidad: formula --- */
@@ -1043,6 +1369,189 @@ export function getBaseStyles(): string {
     }
 
     /* --- Valor del Servicio --- */
+    .valor-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: ${COLORS.border};
+      border: 1px solid ${COLORS.border};
+      margin-bottom: 24px;
+    }
+
+    .valor-summary-item {
+      background: ${COLORS.surface};
+      padding: 20px 24px;
+      text-align: center;
+    }
+
+    .valor-summary-label {
+      font-family: ${FONTS.mono};
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: ${COLORS.muted};
+      margin-bottom: 6px;
+    }
+
+    .valor-summary-value {
+      font-family: ${FONTS.heading};
+      font-size: 24px;
+      font-weight: 700;
+      color: ${COLORS.ink};
+    }
+
+    .valor-summary-value small {
+      font-size: 13px;
+      font-weight: 600;
+      color: ${COLORS.muted};
+    }
+
+    .valor-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      padding: 20px 24px;
+      background: ${COLORS.bg};
+      border-left: 4px solid ${COLORS.red};
+      margin-bottom: 24px;
+    }
+
+    .valor-desc p {
+      margin: 0;
+    }
+
+    .valor-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .valor-card {
+      border: 1px solid ${COLORS.border};
+    }
+
+    .valor-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: ${COLORS.ink};
+      color: ${COLORS.surface};
+    }
+
+    .valor-card.card-setup .valor-card-header {
+      background: ${COLORS.red};
+    }
+
+    .valor-card.card-pauta .valor-card-header {
+      background: ${COLORS.ink};
+    }
+
+    .valor-card-concepto {
+      font-family: ${FONTS.heading};
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .valor-card-monto {
+      font-family: ${FONTS.mono};
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .valor-card-tipo {
+      font-family: ${FONTS.mono};
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      margin-left: 8px;
+    }
+
+    .valor-card-body {
+      padding: 20px 24px;
+    }
+
+    .valor-card-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .valor-card-items li {
+      font-size: 13px;
+      line-height: 1.5;
+      padding: 6px 0 6px 20px;
+      border-bottom: 1px solid ${COLORS.border};
+      position: relative;
+    }
+
+    .valor-card-items li:last-child {
+      border-bottom: none;
+    }
+
+    .valor-card-items li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 12px;
+      width: 8px;
+      height: 8px;
+      background: ${COLORS.red};
+    }
+
+    .valor-card.card-pauta .valor-card-items li::before {
+      background: ${COLORS.ink};
+    }
+
+    .valor-card-items .item-monto {
+      font-family: ${FONTS.mono};
+      font-size: 12px;
+      font-weight: 600;
+      color: ${COLORS.muted};
+      float: right;
+    }
+
+    .valor-roi {
+      background: ${COLORS.bg};
+      border-left: 3px solid ${COLORS.escenario1};
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+
+    .valor-roi-label {
+      font-family: ${FONTS.mono};
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: ${COLORS.escenario1};
+      margin-bottom: 6px;
+    }
+
+    .valor-roi p {
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .valor-aclaraciones {
+      padding: 12px 16px;
+    }
+
+    .valor-aclaraciones p {
+      font-family: ${FONTS.mono};
+      font-size: 12px;
+      color: ${COLORS.muted};
+      margin: 0 0 4px;
+    }
+
+    .valor-aclaraciones p:last-child {
+      margin-bottom: 0;
+    }
+
     .valor-tabla {
       width: 100%;
       border-collapse: collapse;
@@ -1096,42 +1605,14 @@ export function getBaseStyles(): string {
       color: ${COLORS.surface};
     }
 
-    .valor-roi {
-      background: ${COLORS.bg};
-      border-left: 3px solid ${COLORS.escenario1};
-      padding: 16px 20px;
-      margin-bottom: 16px;
-    }
-
-    .valor-roi-label {
-      font-family: ${FONTS.mono};
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: ${COLORS.escenario1};
-      margin-bottom: 6px;
-    }
-
-    .valor-roi p {
-      font-size: 14px;
+    /* --- Valor del Servicio (Bajo Riesgo) --- */
+    .bajo-riesgo-desc {
+      font-size: 15px;
       line-height: 1.65;
-      margin: 0;
-    }
-
-    .valor-aclaraciones {
-      padding: 12px 16px;
-    }
-
-    .valor-aclaraciones p {
-      font-family: ${FONTS.mono};
-      font-size: 12px;
-      color: ${COLORS.muted};
-      margin: 0 0 4px;
-    }
-
-    .valor-aclaraciones p:last-child {
-      margin-bottom: 0;
+      padding: 20px 24px;
+      background: ${COLORS.bg};
+      border-left: 4px solid ${COLORS.escenario2};
+      margin-bottom: 24px;
     }
 
     /* --- Cierre / Proximos Pasos --- */
@@ -1149,6 +1630,31 @@ export function getBaseStyles(): string {
 
     .cierre-resumen p:last-child {
       margin-bottom: 0;
+    }
+
+    .cierre-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+
+    .cierre-bullets li {
+      padding: 10px 20px 10px 32px;
+      margin-bottom: 6px;
+      font-size: 14px;
+      position: relative;
+      background: ${COLORS.surface};
+      border: 1px solid ${COLORS.border};
+    }
+
+    .cierre-bullets li::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 8px;
+      height: 8px;
+      background: ${COLORS.red};
     }
 
     .cierre-pasos {

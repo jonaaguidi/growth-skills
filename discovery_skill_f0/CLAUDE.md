@@ -129,6 +129,76 @@ Cada pregunta tiene prioridad: CORE (obligatoria), PROFUNDIZAR (si la conversaci
 3. **Recopilar datos pendientes**: si el cliente quedo en pasar algo, hacer seguimiento a las 48hs.
 4. **Reminder pre-reunion (24-48hs antes)**: confirmar que sigue en pie y generar expectativa.
 
+## Convenciones de UI del documento
+
+El renderer (`html-renderer.ts` + `template-parts.ts`) genera un HTML con convenciones de UI fijas. Estas convenciones deben mantenerse en todas las generaciones. Los datos cambian, la UI no.
+
+### Formato de texto enriquecido
+
+Los campos de texto soportan `**bold**` (doble asterisco markdown). El renderer convierte `**texto**` a `<strong>texto</strong>` en el HTML. Usar negritas para:
+- Nombres de sistemas y herramientas: `**Callbell**`, `**DragonFish**`, `**Meta Pixel**`
+- Numeros clave: `**189k seguidores**`, `**40+ marcas**`, `**0.01% de las ventas**`
+- Frases de alto impacto: `**Sin Meta Pixel, sin CAPI, sin eventos de conversion.**`
+- Primera oracion de una variable si es definitoria: `**B2C, retail fisico.**`
+
+### Variables del Discovery (4P + ICP)
+
+Las 5 variables se renderizan como cards colapsables (`<details>/<summary>`). Cada card tiene:
+- Header con titulo en UPPERCASE y dot verde (tiene dato) o amarillo (sin dato)
+- Body con la descripcion (`valor`) y notas en gris debajo
+- Click en el header colapsa/expande el body
+
+### Canales Activos
+
+Los canales se renderizan como badges con icono SVG a la izquierda, no como chips de texto plano. El renderer auto-detecta el icono segun el nombre del canal (Instagram, Facebook, TikTok, WhatsApp/Callbell, E-commerce, Sucursales, REE Metrics). La primera parte del nombre (antes del primer parentesis o guion) se pone en `<strong>`.
+
+### Problemas Identificados
+
+Cada problema tiene un emoji auto-asignado segun keywords del texto:
+- 📊 atribucion/medir/ROI
+- 🎯 conversion
+- 📍 segmentacion/zona
+- 🛒 e-commerce
+- 🚫 pixel/tracking
+- 🔄 stock/manual/CRM
+- 💳 credito/financiacion
+- 📸 contenido/UGC
+- ⚠️ default
+
+El texto del problema antes del primer ":" se pone en `<strong>`.
+
+### Gantt
+
+El Gantt es dinamico: calcula automaticamente la cantidad de semanas (minimo 8) a partir del `lapso` maximo de las fases. Los colores de las barras alternan entre rojo REE y negro. Cada fase con `lapso` definido aparece como barra.
+
+### Plan Cards (Valor del Servicio)
+
+Si hay lineas con tipo `"mensual"`, el renderer las separa automaticamente:
+- Lineas `"unico"` y `"por-proyecto"` van en una tabla de "Implementacion Base"
+- Lineas `"mensual"` se renderizan como cards lado a lado (Plan Testeo vs Plan Integral)
+- Si el concepto contiene "integral" o "recomendado", la card se marca con borde rojo y header rojo (`.plan-integral`)
+- El tag entre parentesis del concepto (ej: "bajo riesgo") se extrae y muestra como badge
+- La descripcion se parte en bullets por ". " para mostrar una lista limpia
+- Si no hay lineas mensuales, todo va en la tabla generica (backward compatible)
+
+### Seccion de Auditoria
+
+La auditoria tiene 4 items en grid de 2 columnas:
+- "Tracking y Medicion" (full width, spanning 2 columnas)
+- "Contenido Actual"
+- "Pauta Publicitaria"
+- "E-commerce" (full width)
+
+Debajo: canales activos (badges con iconos) y problemas (con emojis).
+
+### Angulos y Propuesta de Valor
+
+Los angulos se agrupan automaticamente por audiencia: B2C y B2B. Los de audiencia "ambos" aparecen en ambos grupos. Soportan texto enriquecido (`**bold**`) en mensaje, dolor y palanca.
+
+### Seccion de Cierre
+
+El resumen de cierre se renderiza con borde izquierdo rojo. Los proximos pasos se numeran automaticamente con counter CSS.
+
 ## Caso de referencia: Defu — The Tofu Co.
 
 Primer discovery generado con esta skill. Ver `gen-defu.mjs` como ejemplo completo de `DiscoveryData`.
@@ -140,3 +210,15 @@ Primer discovery generado con esta skill. Ver `gen-defu.mjs` como ejemplo comple
 - **Estrategia**: awareness Meta Ads → funnel B2C e-commerce → B2B por WhatsApp
 - **Viabilidad**: CPR maximo $12,000 ARS, ROAS breakeven 1.33x, escenario moderado recupera inversion en el primer mes
 - **Valor del servicio**: implementacion USD 400-600 (unico), integracion Tienda Nube USD 150-250 (por proyecto), fee mensual USD 200-350
+
+## Caso de referencia: Grupo Lente — Star Deportes
+
+Segundo discovery. Ver `gen-grupo-lente.mjs` como ejemplo de `DiscoveryData` con plan cards, competidores detallados, ICPs por genero y chatbot omnicanal.
+
+- **Cliente**: Diego, Matias y Leandro, Grupo Lente (Star Deportes, 13 sucursales, periferia La Plata)
+- **Situacion**: 13 anos de operacion fisica madura, cuasi-monopolio en pueblos. Digital sin desarrollar: 0.01% ventas online, sin Meta Pixel, sin campanas de conversion. 189k seguidores en IG.
+- **Competencia**: Mateu Sports (45 ads), Open Sports (99 ads), Solo Deportes (73 ads) = 217 anuncios activos combinados
+- **Diferencial**: credito personal interno (cupos $450k-600k, mora un digito), presencia en pueblos donde las cadenas no llegan
+- **Estrategia**: funnel B2C e-commerce + campanas locales creditos personales + chatbot omnicanal. Digital como sensor de demanda para expansion presencial.
+- **ICPs por genero**: Mujer 25-45 (renueva placard + hijos), Hombre 25-45 (equipamiento deportivo + hijos), Padres para hijos (estacional: cole, Dia del Nino)
+- **Valor del servicio**: implementacion USD 500-700 (unico), Plan Testeo USD 300-400/mes, Plan Integral USD 400-600/mes (plan cards side-by-side)

@@ -61,6 +61,7 @@ export interface ResearchMercado {
 export interface ICPDefinido {
   titulo: string;
   descripcion: string;
+  ejemplo: string | null;
   dolores: string[];
   deseos: string[];
   objeciones: string[];
@@ -73,12 +74,14 @@ export interface AnguloValor {
   audiencia: "B2C" | "B2B" | "ambos";
   dolorQueResuelve: string;
   mensaje: string;
-  palanca: string;
+  solucion: string;
+  ejemplo: string | null;
 }
 
 export interface PropuestaDeValor {
   diferencial: string;
   angulos: AnguloValor[];
+  notaExpansion: string | null;
 }
 
 // --- 5. Viabilidad (CPL) ---
@@ -159,6 +162,12 @@ export interface DiscoveryData {
   propuestaEstrategica: PropuestaEstrategica | null;
   // 7. Valor del Servicio
   valorServicio: ValorServicio | null;
+  // 7b. Valor del Servicio (Bajo riesgo)
+  valorServicioBajoRiesgo: {
+    descripcion: string;
+    lineas: LineaInversion[];
+    aclaraciones: string[];
+  } | null;
   // Gaps y notas
   gaps: GapItem[];
   notasAdicionales: string | null;

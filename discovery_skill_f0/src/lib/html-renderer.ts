@@ -14,6 +14,77 @@ import { getBaseStyles, escapeHtml, formatCurrency, COLORS, FONTS } from "./temp
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+/**
+ * Render text supporting **bold** markdown syntax.
+ * Escapes HTML, then converts **text** to <strong>text</strong>.
+ */
+function renderText(text: string): string {
+  const escaped = escapeHtml(text);
+  return escaped.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
+/**
+ * Map a canal name to an SVG icon based on keywords.
+ */
+function canalIcon(name: string): string {
+  // Match on the PRIMARY name (before the first parenthesis) to avoid
+  // false positives from keywords in descriptions like
+  // "Callbell (CRM centralizando WhatsApp, Instagram, TikTok y Facebook)"
+  const primary = name.split("(")[0].toLowerCase().trim();
+  if (primary.includes("instagram"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#E1306C" stroke="none"/></svg>`;
+  if (primary.includes("facebook"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`;
+  if (primary.includes("tiktok"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>`;
+  if (primary.includes("callbell") || primary.includes("crm"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
+  if (primary.includes("whatsapp") || primary.includes("chatbot"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>`;
+  if (primary.includes("e-commerce") || primary.includes("tienda nube") || primary.includes("shopping") || primary.includes("catalogo"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`;
+  if (primary.includes("sucursal") || primary.includes("local"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="#DD0513" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10l1-7h18l1 7"/><path d="M2 10c0 1.5 1.5 3 3.5 3S9 11.5 9 10"/><path d="M9 10c0 1.5 1.5 3 3 3s3-1.5 3-3"/><path d="M15 10c0 1.5 1.5 3 3.5 3s3.5-1.5 3.5-3"/><path d="M4 13v8h16v-8"/><path d="M10 21v-5h4v5"/></svg>`;
+  if (primary.includes("ree metrics") || primary.includes("atribucion"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="#DD0513" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`;
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
+}
+
+/**
+ * Map an ICP titulo to an SVG icon based on keywords.
+ */
+function icpIcon(titulo: string): string {
+  const t = titulo.toLowerCase();
+  if (t.includes("sucursal") || t.includes("fisic"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10l1-7h18l1 7"/><path d="M2 10c0 1.5 1.5 3 3.5 3S9 11.5 9 10"/><path d="M9 10c0 1.5 1.5 3 3 3s3-1.5 3-3"/><path d="M15 10c0 1.5 1.5 3 3.5 3s3.5-1.5 3.5-3"/><path d="M4 13v8h16v-8"/><path d="M10 21v-5h4v5"/></svg>`;
+  if (t.includes("e-commerce") || t.includes("ecommerce") || t.includes("online"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`;
+  if (t.includes("mujer"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M12 13v8"/><path d="M9 18h6"/></svg>`;
+  if (t.includes("hombre"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="14" r="5"/><path d="M19 5l-5.4 5.4"/><path d="M15 5h4v4"/></svg>`;
+  if (t.includes("padre") || t.includes("hijo") || t.includes("kids") || t.includes("familia"))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="11" r="2.5"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M17 13.5a3 3 0 0 1 3 3V21"/></svg>`;
+  // fallback: generic person
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+}
+
+/**
+ * Pick an emoji icon for a problem string based on keywords.
+ */
+function problemEmoji(text: string): string {
+  const t = text.toLowerCase();
+  if (t.includes("atribucion") || t.includes("medir") || t.includes("roi")) return "\u{1F4CA}";
+  if (t.includes("conversion")) return "\u{1F3AF}";
+  if (t.includes("segmentacion") || t.includes("zona") || t.includes("cobertura")) return "\u{1F4CD}";
+  if (t.includes("e-commerce") || t.includes("ecommerce") || t.includes("0.01%")) return "\u{1F6D2}";
+  if (t.includes("pixel") || t.includes("tracking") || t.includes("retargeting")) return "\u{1F6AB}";
+  if (t.includes("stock") || t.includes("manual") || t.includes("crm") || t.includes("callbell")) return "\u{1F504}";
+  if (t.includes("credito") || t.includes("financ") || t.includes("pago")) return "\u{1F4B3}";
+  if (t.includes("contenido") || t.includes("ugc") || t.includes("creativ")) return "\u{1F4F8}";
+  return "\u{26A0}\u{FE0F}";
+}
+
 function getLogoBase64(): string {
   const logoPath = resolve(__dirname, "../assets/logo-white.png");
   try {
@@ -74,8 +145,8 @@ function buildSections(data: DiscoveryData): Section[] {
     sections.push({
       id: "plan",
       title: "Plan de Accion",
-      desc: "Fases de trabajo, canales recomendados, entregables, KPIs y viabilidad financiera.",
-      html: renderPlanBody(data) + renderViabilidadBody(data),
+      desc: "Fases de trabajo, canales recomendados, entregables y KPIs.",
+      html: renderPlanBody(data),
       open: true,
     });
   }
@@ -86,6 +157,16 @@ function buildSections(data: DiscoveryData): Section[] {
       title: "Valor del Servicio",
       desc: "Inversion estimativa para la implementacion y operacion del servicio de Growth.",
       html: renderValorServicioBody(data),
+      open: true,
+    });
+  }
+
+  if (data.valorServicioBajoRiesgo) {
+    sections.push({
+      id: "valor-bajo-riesgo",
+      title: "Valor del Servicio (Bajo Riesgo)",
+      desc: "Version minima viable del proyecto para validar el funnel con presupuesto acotado.",
+      html: renderValorBajoRiesgoBody(data),
       open: true,
     });
   }
@@ -209,7 +290,7 @@ function renderLlamadaBody(data: DiscoveryData): string {
       data.resumenEjecutivo
         .split("\n")
         .filter((p) => p.trim())
-        .map((p) => `<p style="margin-bottom:12px">${escapeHtml(p)}</p>`)
+        .map((p) => `<p style="margin-bottom:12px">${renderText(p)}</p>`)
         .join("\n")
     );
   }
@@ -239,12 +320,13 @@ function renderVarCard(label: string, v: VariableDiscovery): string {
   const dot = hasDato ? `<span class="var-status-ok"></span>` : `<span class="var-status-missing"></span>`;
 
   return `
-    <div class="${cls}">
-      <div class="var-card-header"><div class="var-card-title">${escapeHtml(label)}</div>${dot}</div>
+    <details class="${cls}">
+      <summary class="var-card-header"><div class="var-card-title">${escapeHtml(label)}</div>${dot}</summary>
       <div class="var-card-body">
-        ${hasDato ? `<p class="var-card-desc">${escapeHtml(v.valor!)}</p>` : `<span class="badge-sin-dato">SIN DATO</span>`}
+        ${hasDato ? `<p class="var-card-desc">${renderText(v.valor!)}</p>` : `<span class="badge-sin-dato">SIN DATO</span>`}
+        ${v.notas ? `<p class="card-notes" style="margin-top:10px">${renderText(v.notas)}</p>` : ""}
       </div>
-    </div>`;
+    </details>`;
 }
 
 function renderVariablesGrid(data: DiscoveryData): string {
@@ -272,33 +354,51 @@ function renderAuditoriaBody(data: DiscoveryData): string {
   const parts: string[] = [];
 
   // Grid de items
-  const items: Array<{ label: string; value: string | null }> = [
-    { label: "Presencia Digital", value: a.presenciaDigital },
+  const items: Array<{ label: string; value: string | null; fullWidth?: boolean }> = [
+    { label: "Tracking y Medicion", value: a.presenciaDigital, fullWidth: true },
     { label: "Contenido Actual", value: a.contenidoActual },
     { label: "Pauta Publicitaria", value: a.pautaActual },
-    { label: "E-commerce", value: a.ecommerce },
+    { label: "E-commerce", value: a.ecommerce, fullWidth: true },
   ];
 
   parts.push(`<div class="audit-grid">`);
   for (const item of items) {
+    const style = item.fullWidth ? ' style="grid-column:1/-1"' : '';
     parts.push(`
-      <div class="audit-item">
+      <div class="audit-item"${style}>
         <div class="card-label">${escapeHtml(item.label)}</div>
-        ${item.value ? `<p style="font-size:14px">${escapeHtml(item.value)}</p>` : `<span class="badge-sin-dato">SIN DATO</span>`}
+        ${item.value ? `<p style="font-size:14px">${renderText(item.value)}</p>` : `<span class="badge-sin-dato">SIN DATO</span>`}
       </div>`);
   }
   parts.push(`</div>`);
 
-  // Canales activos
+  // Canales activos (badges with icons)
   if (a.canalesActivos.length) {
     parts.push(`<div class="card-label">Canales Activos</div>`);
-    parts.push(`<div class="kpi-grid" style="margin-bottom:20px">${a.canalesActivos.map((c) => `<span class="canal-chip">${escapeHtml(c)}</span>`).join("")}</div>`);
+    parts.push(`<div class="canales-grid">`);
+    for (const canal of a.canalesActivos) {
+      // Extract bold part: first segment before " (" or " -" becomes <strong>
+      const boldMatch = canal.match(/^([^(–\-]+?)(\s*[\(–\-].*)$/);
+      const canalHtml = boldMatch
+        ? `<strong>${escapeHtml(boldMatch[1].trim())}</strong>${escapeHtml(boldMatch[2])}`
+        : escapeHtml(canal);
+      parts.push(`<div class="canal-badge"><div class="canal-icon">${canalIcon(canal)}</div><span>${canalHtml}</span></div>`);
+    }
+    parts.push(`</div>`);
   }
 
-  // Problemas
+  // Problemas (with emoji icons)
   if (a.problemasPrincipales.length) {
     parts.push(`<div class="card-label">Problemas Identificados</div>`);
-    parts.push(`<ul class="audit-problems">${a.problemasPrincipales.map((p) => `<li>${escapeHtml(p)}</li>`).join("")}</ul>`);
+    parts.push(`<ul class="audit-problems">${a.problemasPrincipales.map((p) => {
+      const emoji = problemEmoji(p);
+      // Bold the first segment before ":"
+      const colonIdx = p.indexOf(":");
+      const pHtml = colonIdx > 0
+        ? `<strong>${escapeHtml(p.substring(0, colonIdx))}</strong>${escapeHtml(p.substring(colonIdx))}`
+        : escapeHtml(p);
+      return `<li><span class="problem-icon">${emoji}</span>${pHtml}</li>`;
+    }).join("")}</ul>`);
   }
 
   return parts.join("\n");
@@ -323,7 +423,7 @@ function renderResearchBody(data: DiscoveryData): string {
     parts.push(`<div class="audit-grid">`);
     for (const item of marketItems) {
       if (item.value) {
-        parts.push(`<div class="audit-item"><div class="card-label">${escapeHtml(item.label)}</div><p style="font-size:14px">${escapeHtml(item.value)}</p></div>`);
+        parts.push(`<div class="audit-item"><div class="card-label">${escapeHtml(item.label)}</div><p style="font-size:14px">${renderText(item.value)}</p></div>`);
       }
     }
     parts.push(`</div>`);
@@ -336,7 +436,7 @@ function renderResearchBody(data: DiscoveryData): string {
     }
 
     if (r.notasResearch) {
-      parts.push(`<div class="card-notes" style="margin-top:16px">${escapeHtml(r.notasResearch)}</div>`);
+      parts.push(`<div class="research-insight"><div class="research-insight-label">Analisis Competitivo</div><p>${renderText(r.notasResearch)}</p></div>`);
     }
   } else {
     parts.push(`<h3>Mercado</h3><span class="badge-sin-dato">PENDIENTE DE RESEARCH</span>`);
@@ -351,7 +451,10 @@ function renderResearchBody(data: DiscoveryData): string {
   if (icps && icps.length) {
     for (const icp of icps) {
       parts.push(`<div class="icp-section">`);
-      parts.push(`<div class="icp-desc"><strong>${escapeHtml(icp.titulo)}</strong><br>${escapeHtml(icp.descripcion)}</div>`);
+      parts.push(`<div class="icp-desc"><span class="icp-icon">${icpIcon(icp.titulo)}</span><div class="icp-desc-text"><strong>${escapeHtml(icp.titulo)}</strong><br>${renderText(icp.descripcion)}</div></div>`);
+      if (icp.ejemplo) {
+        parts.push(`<div class="icp-ejemplo"><div class="icp-ejemplo-label"><span class="icp-ejemplo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Ejemplo</div><p>${renderText(icp.ejemplo)}</p></div>`);
+      }
       parts.push(`<div class="icp-columns">`);
       parts.push(`<div class="icp-col"><div class="icp-col-label dolores">Dolores</div><ul class="icp-list">${icp.dolores.map((d) => `<li>${escapeHtml(d)}</li>`).join("")}</ul></div>`);
       parts.push(`<div class="icp-col"><div class="icp-col-label deseos">Deseos</div><ul class="icp-list">${icp.deseos.map((d) => `<li>${escapeHtml(d)}</li>`).join("")}</ul></div>`);
@@ -395,11 +498,12 @@ function renderAnguloCard(a: AnguloValor): string {
         <div class="angulo-nombre">${escapeHtml(a.nombre)}</div>
       </div>
       <div class="angulo-body">
-        <div class="angulo-mensaje">${escapeHtml(a.mensaje)}</div>
+        <div class="angulo-mensaje">${renderText(a.mensaje)}</div>
         <div class="angulo-meta">
-          <div class="angulo-dolor"><span class="angulo-meta-label">Dolor:</span> ${escapeHtml(a.dolorQueResuelve)}</div>
-          <div class="angulo-palanca"><span class="angulo-meta-label">Palanca:</span> ${escapeHtml(a.palanca)}</div>
+          <div class="angulo-dolor"><span class="angulo-meta-label">Dolor:</span> ${renderText(a.dolorQueResuelve)}</div>
+          <div class="angulo-solucion"><span class="angulo-meta-label">Solucion:</span> ${renderText(a.solucion)}</div>
         </div>
+        ${a.ejemplo ? `<div class="angulo-ejemplo"><span class="angulo-meta-label">Ejemplo:</span> ${renderText(a.ejemplo)}</div>` : ""}
       </div>
     </div>`;
 }
@@ -423,15 +527,19 @@ function renderPropuestaBody(data: DiscoveryData): string {
 
   // Diferencial central
   if (pv?.diferencial) {
-    parts.push(`<div class="propuesta-diferencial">${escapeHtml(pv.diferencial)}</div>`);
+    parts.push(`<div class="propuesta-diferencial">${renderText(pv.diferencial)}</div>`);
   }
 
   // Agrupar por audiencia
   const b2c = angulos.filter((a) => a.audiencia === "B2C" || a.audiencia === "ambos");
-  const b2b = angulos.filter((a) => a.audiencia === "B2B" || a.audiencia === "ambos");
+  const b2b = angulos.filter((a) => a.audiencia === "B2B");
 
-  parts.push(renderAnguloGroup("B2C — Consumidor Final", b2c));
-  parts.push(renderAnguloGroup("B2B — Comercios y Distribuidoras", b2b));
+  parts.push(renderAnguloGroup("Angulos de Comunicacion B2C", b2c));
+  parts.push(renderAnguloGroup("Angulos de Comunicacion B2B", b2b));
+
+  if (pv?.notaExpansion) {
+    parts.push(`<div class="expansion-note"><div class="expansion-note-label">Estrategia de Expansion</div><p>${renderText(pv.notaExpansion)}</p></div>`);
+  }
 
   return parts.join("\n");
 }
@@ -572,7 +680,25 @@ function renderPlanBody(data: DiscoveryData): string {
   const p = data.propuestaEstrategica!;
   const parts: string[] = [];
 
-  parts.push(`<p style="margin-bottom:20px;font-size:15px">${escapeHtml(p.objetivoGeneral)}</p>`);
+  // Render objetivo general with bullet support
+  const objLines = p.objetivoGeneral.split("\n").filter((l) => l.trim());
+  const bullets: string[] = [];
+  const intro: string[] = [];
+  for (const line of objLines) {
+    if (line.trim().startsWith("- ")) {
+      bullets.push(line.trim().slice(2));
+    } else {
+      if (bullets.length) {
+        intro.push(`<ul class="obj-bullets">${bullets.map((b) => `<li>${renderText(b)}</li>`).join("")}</ul>`);
+        bullets.length = 0;
+      }
+      intro.push(`<p class="obj-paragraph">${renderText(line.trim())}</p>`);
+    }
+  }
+  if (bullets.length) {
+    intro.push(`<ul class="obj-bullets">${bullets.map((b) => `<li>${renderText(b)}</li>`).join("")}</ul>`);
+  }
+  parts.push(`<div class="obj-general">${intro.join("")}</div>`);
 
   // Canales
   if (p.canalesRecomendados.length) {
@@ -580,17 +706,20 @@ function renderPlanBody(data: DiscoveryData): string {
     parts.push(`<div class="kpi-grid" style="margin-bottom:20px">${p.canalesRecomendados.map((c) => `<span class="canal-chip">${escapeHtml(c)}</span>`).join("")}</div>`);
   }
 
-  // Gantt visual (solo fases con lapso definido)
-  const ganttColors = [COLORS.red, COLORS.ink];
+  // Gantt visual (solo fases con lapso definido, dynamic week count)
+  const ganttColors = [COLORS.red, COLORS.ink, COLORS.red, COLORS.ink, COLORS.escenario2];
   const ganttFases = p.fases.filter((f) => f.lapso !== null);
-  const totalWeeks = 8;
+  const totalWeeks = Math.max(ganttFases.reduce((max, f) => {
+    const range = parseWeekRange(f.lapso);
+    return range ? Math.max(max, range[1]) : max;
+  }, 8), 8);
   parts.push(`<div class="gantt">`);
-  parts.push(`<div class="gantt-header">${Array.from({ length: totalWeeks }, (_, i) => `<span class="gantt-week">S${i + 1}</span>`).join("")}</div>`);
+  parts.push(`<div class="gantt-header" style="grid-template-columns:repeat(${totalWeeks},1fr)">${Array.from({ length: totalWeeks }, (_, i) => `<span class="gantt-week">S${i + 1}</span>`).join("")}</div>`);
   for (let i = 0; i < ganttFases.length; i++) {
     const f = ganttFases[i];
     const range = parseWeekRange(f.lapso);
     parts.push(`<div class="gantt-row">`);
-    parts.push(`<div class="gantt-bar-container">${Array.from({ length: totalWeeks }, (_, w) => {
+    parts.push(`<div class="gantt-bar-container" style="grid-template-columns:repeat(${totalWeeks},1fr)">${Array.from({ length: totalWeeks }, (_, w) => {
       const active = range && w + 1 >= range[0] && w + 1 <= range[1];
       return `<span class="gantt-cell${active ? " active" : ""}" style="${active ? `background:${ganttColors[i % ganttColors.length]}` : ""}"></span>`;
     }).join("")}</div>`);
@@ -616,8 +745,8 @@ function renderPlanBody(data: DiscoveryData): string {
         </div>
       </summary>
       <div class="fase-body">
-        <p>${escapeHtml(f.descripcion)}</p>
-        ${f.entregables.length ? `<ul class="fase-entregables">${f.entregables.map((e) => `<li>${escapeHtml(e)}</li>`).join("")}</ul>` : ""}
+        <p>${renderText(f.descripcion)}</p>
+        ${f.entregables.length ? `<ul class="fase-entregables">${f.entregables.map((e) => `<li>${renderText(e)}</li>`).join("")}</ul>` : ""}
       </div>
     </details>`);
   }
@@ -625,7 +754,11 @@ function renderPlanBody(data: DiscoveryData): string {
   // KPIs
   if (p.kpisPropuestos.length) {
     parts.push(`<div style="margin-top:8px"><div class="card-label">KPIs Propuestos</div>`);
-    parts.push(`<div class="kpi-grid">${p.kpisPropuestos.map((k) => `<span class="kpi-chip">${escapeHtml(k)}</span>`).join("")}</div></div>`);
+    parts.push(`<div class="kpi-grid">${p.kpisPropuestos.map((k) =>
+      k.startsWith("// ")
+        ? `<div class="kpi-group-label">${escapeHtml(k.slice(3))}</div>`
+        : `<span class="kpi-chip">${escapeHtml(k)}</span>`
+    ).join("")}</div></div>`);
   }
 
   if (p.notasPropuesta) {
@@ -641,32 +774,103 @@ function renderValorServicioBody(data: DiscoveryData): string {
   const vs = data.valorServicio!;
   const parts: string[] = [];
 
-  const tipoBadgeLabels: Record<string, string> = {
-    unico: "UNICO",
-    mensual: "MENSUAL",
-    "por-proyecto": "POR PROYECTO",
+  // Service summary description
+  if (vs.notaRoi) {
+    parts.push(`<div class="valor-desc"><p>${renderText(vs.notaRoi)}</p></div>`);
+  }
+
+  // Cards
+  const cardClasses: Record<string, string> = {
+    unico: "valor-card card-setup",
+    mensual: "valor-card",
+    "por-proyecto": "valor-card card-pauta",
   };
 
-  parts.push(`<table class="valor-tabla">`);
-  parts.push(`<thead><tr><th>Concepto</th><th>Tipo</th><th>Monto</th></tr></thead>`);
-  parts.push(`<tbody>`);
+  parts.push(`<div class="valor-cards">`);
   for (const linea of vs.lineas) {
-    parts.push(`<tr>`);
-    parts.push(`<td><strong>${escapeHtml(linea.concepto)}</strong><br><span style="font-size:12px;color:${COLORS.muted}">${escapeHtml(linea.descripcion)}</span></td>`);
-    parts.push(`<td><span class="valor-tipo-badge tipo-${linea.tipo}">${tipoBadgeLabels[linea.tipo] ?? linea.tipo.toUpperCase()}</span></td>`);
-    parts.push(`<td style="font-family:${FONTS.mono};font-weight:700">${escapeHtml(linea.monto)}</td>`);
-    parts.push(`</tr>`);
-  }
-  parts.push(`</tbody></table>`);
+    const cls = cardClasses[linea.tipo] ?? "valor-card";
+    const bullets = linea.descripcion.split(". ").filter((b) => b.trim()).map((b) => b.replace(/\.?$/, ""));
 
-  parts.push(`<div class="valor-roi">`);
-  parts.push(`<div class="valor-roi-label">ROI Estimado</div>`);
-  parts.push(`<p>${escapeHtml(vs.notaRoi)}</p>`);
+    parts.push(`<div class="${cls}">`);
+    parts.push(`<div class="valor-card-header">`);
+    parts.push(`<span class="valor-card-concepto">${escapeHtml(linea.concepto)}</span>`);
+    parts.push(`<span class="valor-card-monto">${escapeHtml(linea.monto)}</span>`);
+    parts.push(`</div>`);
+    parts.push(`<div class="valor-card-body">`);
+    parts.push(`<ul class="valor-card-items">${bullets.map((b) => `<li>${renderText(b)}</li>`).join("")}</ul>`);
+    parts.push(`</div>`);
+    parts.push(`</div>`);
+  }
+  parts.push(`</div>`);
+
+  // Summary bar
+  const vsSetup = vs.lineas.find((l) => l.tipo === "unico");
+  const vsServicio = vs.lineas.find((l) => l.tipo === "mensual");
+  const vsPauta = vs.lineas.find((l) => l.tipo === "por-proyecto");
+  const vsCols = [vsSetup, vsServicio, vsPauta].filter(Boolean);
+  parts.push(`<div class="valor-summary" style="grid-template-columns:${vsCols.map(() => "1fr").join(" ")}">`);
+  if (vsSetup) parts.push(`<div class="valor-summary-item"><div class="valor-summary-label">Integracion (unico)</div><div class="valor-summary-value">${escapeHtml(vsSetup.monto)}</div></div>`);
+  if (vsServicio) parts.push(`<div class="valor-summary-item"><div class="valor-summary-label">Servicio Mensual</div><div class="valor-summary-value">${escapeHtml(vsServicio.monto)}</div></div>`);
+  if (vsPauta) parts.push(`<div class="valor-summary-item"><div class="valor-summary-label">Pauta (desde semana 6)</div><div class="valor-summary-value">${escapeHtml(vsPauta.monto)}</div></div>`);
   parts.push(`</div>`);
 
   if (vs.aclaraciones.length) {
     parts.push(`<div class="valor-aclaraciones">`);
     for (const nota of vs.aclaraciones) {
+      parts.push(`<p>${escapeHtml(nota)}</p>`);
+    }
+    parts.push(`</div>`);
+  }
+
+  return parts.join("\n");
+}
+
+// ─── Valor del Servicio (Bajo Riesgo) ────────────────────────────────
+
+function renderValorBajoRiesgoBody(data: DiscoveryData): string {
+  const br = data.valorServicioBajoRiesgo!;
+  const parts: string[] = [];
+
+  // Description
+  parts.push(`<div class="bajo-riesgo-desc">${renderText(br.descripcion)}</div>`);
+
+  // Cards
+  const cardClasses: Record<string, string> = {
+    unico: "valor-card card-setup",
+    mensual: "valor-card",
+    "por-proyecto": "valor-card card-pauta",
+  };
+
+  parts.push(`<div class="valor-cards">`);
+  for (const linea of br.lineas) {
+    const cls = cardClasses[linea.tipo] ?? "valor-card";
+    const bullets = linea.descripcion.split(". ").filter((b) => b.trim()).map((b) => b.replace(/\.?$/, ""));
+
+    parts.push(`<div class="${cls}">`);
+    parts.push(`<div class="valor-card-header">`);
+    parts.push(`<span class="valor-card-concepto">${escapeHtml(linea.concepto)}</span>`);
+    parts.push(`<span class="valor-card-monto">${escapeHtml(linea.monto)}</span>`);
+    parts.push(`</div>`);
+    parts.push(`<div class="valor-card-body">`);
+    parts.push(`<ul class="valor-card-items">${bullets.map((b) => `<li>${renderText(b)}</li>`).join("")}</ul>`);
+    parts.push(`</div>`);
+    parts.push(`</div>`);
+  }
+  parts.push(`</div>`);
+
+  // Summary bar
+  const setup = br.lineas.find((l) => l.tipo === "unico");
+  const servicio = br.lineas.find((l) => l.tipo === "mensual");
+  const pauta = br.lineas.find((l) => l.tipo === "por-proyecto");
+  parts.push(`<div class="valor-summary" style="grid-template-columns:${[setup, servicio, pauta].filter(Boolean).map(() => "1fr").join(" ")}">`);
+  if (setup) parts.push(`<div class="valor-summary-item"><div class="valor-summary-label">Integracion (unico)</div><div class="valor-summary-value">${escapeHtml(setup.monto)}</div></div>`);
+  if (servicio) parts.push(`<div class="valor-summary-item"><div class="valor-summary-label">Servicio Mensual</div><div class="valor-summary-value">${escapeHtml(servicio.monto)}</div></div>`);
+  if (pauta) parts.push(`<div class="valor-summary-item"><div class="valor-summary-label">Pauta (desde semana 6)</div><div class="valor-summary-value">${escapeHtml(pauta.monto)}</div></div>`);
+  parts.push(`</div>`);
+
+  if (br.aclaraciones.length) {
+    parts.push(`<div class="valor-aclaraciones">`);
+    for (const nota of br.aclaraciones) {
       parts.push(`<p>${escapeHtml(nota)}</p>`);
     }
     parts.push(`</div>`);
@@ -699,7 +903,7 @@ function renderNotasBody(data: DiscoveryData): string {
   return data.notasAdicionales
     .split("\n")
     .filter((p) => p.trim())
-    .map((p) => `<p style="margin-bottom:12px">${escapeHtml(p)}</p>`)
+    .map((p) => `<p style="margin-bottom:12px">${renderText(p)}</p>`)
     .join("\n");
 }
 
@@ -710,13 +914,22 @@ function renderCierreBody(data: DiscoveryData): string {
 
   if (data.resumenCierre) {
     parts.push(`<div class="cierre-resumen">`);
-    parts.push(
-      data.resumenCierre
-        .split("\n")
-        .filter((p) => p.trim())
-        .map((p) => `<p>${escapeHtml(p)}</p>`)
-        .join("\n")
-    );
+    const cierreLines = data.resumenCierre.split("\n").filter((l) => l.trim());
+    const cierreBullets: string[] = [];
+    for (const line of cierreLines) {
+      if (line.trim().startsWith("- ")) {
+        cierreBullets.push(line.trim().slice(2));
+      } else {
+        if (cierreBullets.length) {
+          parts.push(`<ul class="cierre-bullets">${cierreBullets.map((b) => `<li>${renderText(b)}</li>`).join("")}</ul>`);
+          cierreBullets.length = 0;
+        }
+        parts.push(`<p>${renderText(line.trim())}</p>`);
+      }
+    }
+    if (cierreBullets.length) {
+      parts.push(`<ul class="cierre-bullets">${cierreBullets.map((b) => `<li>${renderText(b)}</li>`).join("")}</ul>`);
+    }
     parts.push(`</div>`);
   }
 
