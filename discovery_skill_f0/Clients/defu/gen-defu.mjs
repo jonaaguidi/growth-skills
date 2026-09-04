@@ -1,5 +1,5 @@
-import { renderDiscoveryHtml } from "./dist/lib/html-renderer.js";
-import { tryComputeCpl } from "./dist/lib/formulas.js";
+import { renderDiscoveryHtml } from "../../dist/lib/html-renderer.js";
+import { tryComputeCpl } from "../../dist/lib/formulas.js";
 import { writeFileSync } from "fs";
 
 const data = {
@@ -378,6 +378,6 @@ if (computed) {
 }
 
 const html = renderDiscoveryHtml(data);
-const outDir = new URL("./Clientes/defu/", import.meta.url);
-writeFileSync(new URL("discovery-defu.html", outDir), html, "utf-8");
-console.log("Done: Clientes/defu/discovery-defu.html");
+const outPath = new URL("./discovery-defu.html", import.meta.url);
+writeFileSync(outPath, html, "utf-8");
+console.log("Done: Clients/defu/discovery-defu.html");

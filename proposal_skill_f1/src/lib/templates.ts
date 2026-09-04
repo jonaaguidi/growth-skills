@@ -1,4 +1,4 @@
-import type { MethodPhase } from "./types.js";
+import type { MethodPhase, PaymentMethod } from "./types.js";
 
 // ── Static content: REE method 5 phases ──
 
@@ -59,6 +59,41 @@ export const DEFAULT_CLOSING = {
     { number: "02", text: "Config. Meta Business, Tienda Nube y REE Metrics" },
     { number: "03", text: "Lanzamiento de Campaña Awareness" },
   ],
+};
+
+// ── Payment methods defaults ──
+
+export const DEFAULT_PAYMENT_METHODS: PaymentMethod[] = [
+  {
+    name: "Efectivo",
+    icon: "cash",
+    details: [
+      "Pago en pesos argentinos o dolares.",
+      "Se coordina entrega con el equipo de REE.",
+    ],
+  },
+  {
+    name: "Cripto (USDT)",
+    icon: "crypto",
+    details: [
+      "Transferencia en USDT a la direccion y red que indiquemos.",
+      "Las comisiones de red corren por cuenta del cliente.",
+    ],
+  },
+  {
+    name: "Transferencia Bancaria",
+    icon: "bank",
+    details: [
+      "Transferencia a cuenta bancaria de REE.",
+      "Pagos en pesos: cotizacion de venta del dolar oficial (dolarhoy.com) el dia del pago.",
+    ],
+  },
+];
+
+export const DEFAULT_PAYMENT_TERMS = {
+  paymentTerms: "El servicio se factura a mes vencido, del 1 al 10 del mes siguiente.",
+  currencyNote: "Pagos en pesos: se toman a la cotizacion de venta del dolar oficial publicada en dolarhoy.com el dia del pago.",
+  latePayment: "Desde el dia 10 de vencido el pago, se aplica un recargo del 10% sobre el saldo. REE puede suspender el servicio hasta regularizar.",
 };
 
 // ── Index section names ──

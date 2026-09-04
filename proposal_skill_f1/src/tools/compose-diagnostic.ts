@@ -9,13 +9,14 @@ import type {
   InvestmentSection,
   InfoCard,
   MethodPhase,
+  PaymentMethod,
 } from "../lib/types.js";
-import { REE_METHOD_PHASES, DEFAULT_CLOSING, SECTION_INDEX } from "../lib/templates.js";
+import { REE_METHOD_PHASES, DEFAULT_CLOSING, SECTION_INDEX, DEFAULT_PAYMENT_METHODS, DEFAULT_PAYMENT_TERMS } from "../lib/templates.js";
 
 export const name = "compose-diagnostic";
 
 export const description =
-  "Ensambla el JSON final de la presentación de diagnóstico (11 slides). " +
+  "Ensambla el JSON final de la presentación de diagnóstico (12 slides). " +
   "Toma todas las secciones generadas por las otras tools y produce " +
   "el array de slides tipados listo para el viewer en ree-website.";
 
@@ -80,6 +81,23 @@ export const inputSchema = {
     },
     // Section 06: Valor del Servicio (JSON string from calculate-investment)
     investmentSection: { type: "string", description: "JSON output from calculate-investment." },
+    // Payment methods overrides
+    paymentMethods: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          icon: { type: "string" },
+          details: { type: "array", items: { type: "string" } },
+        },
+        required: ["name", "icon", "details"],
+      },
+      description: "Override de los métodos de pago. Si no se envía, usa los 3 default (Efectivo, Cripto USDT, Transferencia).",
+    },
+    paymentTerms: { type: "string", description: "Override del texto de facturación." },
+    currencyNote: { type: "string", description: "Override del texto de cotización." },
+    latePayment: { type: "string", description: "Override del texto de mora." },
     // Closing
     closingHeadline: { type: "string" },
     closingSteps: {
@@ -127,6 +145,10 @@ interface ComposeInput {
   currentPhase?: number;
   methodPhases?: MethodPhase[];
   investmentSection: string;
+  paymentMethods?: PaymentMethod[];
+  paymentTerms?: string;
+  currencyNote?: string;
+  latePayment?: string;
   closingHeadline?: string;
   closingSteps?: { number: string; text: string }[];
 }
@@ -233,7 +255,18 @@ export async function handler(args: ComposeInput) {
       scenarios: investment.scenarios,
       footnote: investment.footnote,
     },
-    // 11. Closing
+    // 11. Medios de Pago (payment-methods)
+    {
+      type: "payment-methods",
+      sectionLabel: "06 · VALOR DEL SERVICIO",
+      headline: "MEDIOS DE PAGO",
+      methods: args.paymentMethods ?? DEFAULT_PAYMENT_METHODS,
+      paymentTerms: args.paymentTerms ?? DEFAULT_PAYMENT_TERMS.paymentTerms,
+      currencyNote: args.currencyNote ?? DEFAULT_PAYMENT_TERMS.currencyNote,
+      latePayment: args.latePayment ?? DEFAULT_PAYMENT_TERMS.latePayment,
+      footnote: investment.footnote,
+    },
+    // 12. Closing
     {
       type: "closing",
       partnership: `REE GROWTH × ${args.clientName.toUpperCase()}`,

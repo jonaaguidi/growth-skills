@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Chatbot - BTLandia</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+  background: #F6F5F2;
+  color: #0E0D0C;
+  line-height: 1.6;
+  padding: 40px 20px;
+}
+
+.container { max-width: 1100px; margin: 0 auto; }
+
+h1, h2, h3, h4 {
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h2 { font-size: 20px; margin-bottom: 16px; }
+h3 { font-size: 16px; margin-bottom: 12px; }
+
+.header {
+  background: #DD0513;
+  color: #FFFFFF;
+  padding: 40px 32px;
+  margin-bottom: 24px;
+}
+
+.header-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.header-subtitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+}
+
+.header-confidencial {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.meta-row {
+  display: flex;
+  gap: 24px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 12px;
+}
+
+.cita {
+  border-left: 3px solid #DD0513;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  background: #F6F5F2;
+  font-style: italic;
+}
+
+.cita-contexto {
+  font-style: normal;
+  font-size: 12px;
+  color: #6B6B6B;
+  margin-top: 4px;
+}
+
+.req-card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #DD0513;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* Gantt */
+.gantt {
+  margin-bottom: 24px;
+  border: 1px solid #E0DFDC;
+  padding: 20px;
+  background: #F6F5F2;
+}
+
+.gantt-header {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.gantt-week {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #6B6B6B;
+  text-align: center;
+}
+
+.gantt-row { margin-bottom: 8px; }
+
+.gantt-bar-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.gantt-cell {
+  height: 22px;
+  background: #E0DFDC;
+}
+
+.gantt-cell.active { opacity: 1; }
+
+.gantt-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B6B6B;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Valor */
+.valor-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.valor-tabla th {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 16px;
+  background: #F6F5F2;
+  color: #0E0D0C;
+  border-bottom: 2px solid #E0DFDC;
+}
+
+.valor-tabla td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #E0DFDC;
+  vertical-align: middle;
+}
+
+.valor-tabla tr:last-child td { border-bottom: none; }
+
+.valor-tipo-badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tipo-unico { background: #0E0D0C; color: #FFFFFF; }
+.tipo-mensual { background: #DD0513; color: #FFFFFF; }
+
+.valor-incluye {
+  padding: 16px 20px;
+  background: #F6F5F2;
+  border: 1px solid #E0DFDC;
+}
+
+.valor-incluye p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #6B6B6B;
+  margin: 0 0 4px;
+}
+
+.valor-incluye p:last-child { margin-bottom: 0; }
+
+/* Cierre */
+.cierre-resumen {
+  padding: 20px 24px;
+  background: #F6F5F2;
+  border-left: 3px solid #DD0513;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.cierre-pasos {
+  list-style: none;
+  counter-reset: pasos;
+  padding: 0;
+}
+
+.cierre-pasos li {
+  counter-increment: pasos;
+  padding: 14px 20px 14px 56px;
+  margin-bottom: 8px;
+  background: #FFFFFF;
+  border: 1px solid #E0DFDC;
+  font-size: 14px;
+  position: relative;
+}
+
+.cierre-pasos li::before {
+  content: counter(pasos);
+  position: absolute;
+  left: 20px;
+  top: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #DD0513;
+}
+
+.footer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #6B6B6B;
+  text-align: center;
+  padding: 24px;
+  border-top: 1px solid #E0DFDC;
+  margin-top: 24px;
+}
+
+.toc {
+  background: #FFFFFF;
+  border: 1px solid #E0DFDC;
+  padding: 24px 32px;
+  margin-bottom: 24px;
+}
+
+.toc h2 { font-size: 16px; margin-bottom: 12px; }
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+  padding: 0;
+}
+
+.toc li {
+  counter-increment: toc;
+  margin-bottom: 12px;
+}
+
+.toc li::before {
+  content: counter(toc, decimal-leading-zero) ".";
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #DD0513;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.toc a {
+  color: #0E0D0C;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.toc a:hover { color: #DD0513; }
+
+.toc-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6B6B6B;
+  margin-top: 2px;
+  padding-left: 28px;
+}
+
+.flow-box {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 16px;
+  text-align: center;
+  min-width: 120px;
+}
+
+.flow-box.canal { background: #FFFFFF; border: 1px solid #E0DFDC; color: #0E0D0C; }
+.flow-box.bot { background: #DD0513; color: #FFFFFF; }
+.flow-box.sistema { background: #0E0D0C; color: #FFFFFF; }
+
+.flow-arrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  color: #6B6B6B;
+}
+
+.panel-feat {
+  padding: 16px;
+  background: #F6F5F2;
+  border: 1px solid #E0DFDC;
+  text-align: center;
+}
+
+.panel-feat-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.panel-feat-desc {
+  font-size: 12px;
+  color: #6B6B6B;
+  margin-top: 4px;
+}
+
+/* Benefit items */
+.benefit-item {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #E0DFDC;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+
+.benefit-check {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: #12A150;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.benefit-check svg {
+  width: 14px;
+  height: 14px;
+  stroke: #FFFFFF;
+  stroke-width: 3;
+  fill: none;
+}
+
+.benefit-content { flex: 1; }
+
+.benefit-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.benefit-desc {
+  font-size: 13px;
+  color: #4A4A4A;
+  line-height: 1.6;
+}
+
+/* Collapsible sections */
+details.collapsible {
+  background: #FFFFFF;
+  border: 1px solid #E0DFDC;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #DD0513;
+  margin-right: 12px;
+}
+
+details.collapsible > summary {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 24px 32px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  user-select: none;
+}
+
+details.collapsible > summary::-webkit-details-marker { display: none; }
+
+details.collapsible > summary::after {
+  content: "+";
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px;
+  font-weight: 400;
+  color: #6B6B6B;
+  margin-left: auto;
+  transition: transform 0.15s;
+}
+
+details.collapsible[open] > summary::after {
+  content: "\2212";
+}
+
+details.collapsible > .section-body {
+  padding: 0 32px 32px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-label">REE Growth // Propuesta de Proyecto</div>
+  <div class="header-title"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:10px;"><rect x="3" y="7" width="18" height="12" rx="3"/><line x1="12" y1="3" x2="12" y2="7"/><circle cx="12" cy="3" r="1" fill="currentColor"/><circle cx="9" cy="13" r="1.5" fill="currentColor"/><circle cx="15" cy="13" r="1.5" fill="currentColor"/><line x1="0" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="24" y2="12"/></svg>Agente IA Omnicanal</div>
+  <div class="header-subtitle">BTLandia</div>
+  <div class="meta-row">
+    <span>Fecha: 2026-08-31</span>
+    <span>Responsable: Marce</span>
+    <span>Implementacion: 6 semanas</span>
+  </div>
+  <div class="header-confidencial">Documento interno REE Growth -- No compartir con el cliente</div>
+</div>
+
+<!-- INDICE -->
+<div class="toc">
+  <h2>Indice</h2>
+  <ol>
+    <li>
+      <a href="#contexto">Contexto de la Llamada</a>
+      <div class="toc-desc">Que surgio en la discovery del 28/08 sobre canales y respuesta</div>
+    </li>
+    <li>
+      <a href="#arquitectura">Arquitectura del Agente IA</a>
+      <div class="toc-desc">Como responde el bot (proveedor, host, cliente), integraciones y panel de admin</div>
+    </li>
+    <li>
+      <a href="#beneficios">Beneficios de la Implementacion</a>
+      <div class="toc-desc">Impacto operativo y comercial para BTLandia</div>
+    </li>
+    <li>
+      <a href="#gantt">Timeline de Implementacion</a>
+      <div class="toc-desc">Gantt de 6 semanas con fases y entregables</div>
+    </li>
+    <li>
+      <a href="#valor">Valor del Servicio</a>
+      <div class="toc-desc">Desglose de inversion: implementacion + fee mensual</div>
+    </li>
+    <li>
+      <a href="#cierre">Resumen y Proximos Pasos</a>
+      <div class="toc-desc">3 acciones concretas para avanzar</div>
+    </li>
+  </ol>
+</div>
+
+<!-- 1. CONTEXTO DE LA LLAMADA -->
+<details class="collapsible" open id="contexto">
+  <summary><span class="section-num">01</span> Contexto de la Llamada</summary>
+  <div class="section-body">
+  <p style="margin-bottom:16px; font-size:14px;">En la llamada de discovery del 28/08 con Celeste Policastro (fundadora de BTLandia), Frany Attadia y Nicolas Blasotta, surgieron tres problemas concretos relacionados con los canales de comunicacion:</p>
+
+  <div class="cita">
+    "Hoy el movimiento que tenemos en Instagram es mucha gente que ofrece servicios. Tenemos dos tipos: el proveedor y el promotor. Todo el tiempo nos envian CVs o fotos por ahi."
+    <div class="cita-contexto">Celes describiendo que Instagram atrae al publico equivocado: proveedores y promotores inundan los DMs en lugar de clientes potenciales</div>
+  </div>
+
+  <div class="cita">
+    "No tengo estandarizado ese WhatsApp que de respuesta inmediata. Hay ciertos canales que hay que profesionalizar, como la respuesta inmediata de un Instagram o el WhatsApp."
+    <div class="cita-contexto">Celes reconociendo que no hay respuesta automatizada ni clasificacion en ningun canal; todo depende de que ella conteste manualmente</div>
+  </div>
+
+  <div class="cita">
+    "Yo por no ser maleducada les contesto que lo manden a un drive, pero medio que muere ahi toda la informacion que cargan."
+    <div class="cita-contexto">Celes sobre como maneja los CVs de promotores: responde por cortesia, redirige a un Drive donde la informacion se pierde</div>
+  </div>
+
+  <p style="margin-top:16px; font-size:14px;"><strong>Problema actual:</strong> BTLandia <strong>no tiene forma de responder inmediatamente</strong> ni de clasificar quien escribe por WhatsApp o Instagram. Los canales estan <strong>inundados de proveedores</strong> que ofrecen servicios (venues, tecnica, catering) y <strong>promotores/hosts que mandan CVs</strong> y fotos para eventos de verano. Los clientes potenciales -- <strong>medianas empresas interesadas en contratar eventos</strong> -- quedan enterrados en el ruido y dependen de que <strong>Celes conteste manualmente</strong>. El agente IA resuelve esto: <strong>responde al instante</strong>, identifica si es proveedor/promotor/cliente, y actua en consecuencia. A los clientes los <strong>precalifica</strong> (tipo de evento, fecha, empresa, presupuesto) y los <strong>deriva a Celes con contexto completo</strong>.</p>
+  </div>
+</details>
+
+<!-- 2. ARQUITECTURA -->
+<details class="collapsible" open id="arquitectura">
+  <summary><span class="section-num">02</span> Arquitectura del Agente IA</summary>
+  <div class="section-body">
+
+  <!-- Diagrama de arquitectura -->
+  <div style="display:grid; grid-template-columns:auto auto auto auto 1fr auto 1fr; gap:16px; align-items:center; padding:24px; background:#F6F5F2; border:1px solid #E0DFDC; margin-bottom:24px;">
+
+    <!-- Col 1: Canales (stacked) -->
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div class="flow-box canal" style="min-width:100px; font-size:11px; padding:8px 12px; display:flex; align-items:center; gap:6px; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>WhatsApp</div>
+      <div class="flow-box canal" style="min-width:100px; font-size:11px; padding:8px 12px; display:flex; align-items:center; gap:6px; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</div>
+    </div>
+
+    <!-- Arrow bidireccional -->
+    <div class="flow-arrow">&harr;</div>
+
+    <!-- Col 2: ZERNIO API -->
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div class="flow-box" style="min-width:auto; padding:12px 16px; background:#0E0D0C; color:#FFFFFF; font-size:12px; font-weight:700; display:flex; align-items:center; gap:8px; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><div>ZERNIO<br><span style="font-size:10px; font-weight:400; opacity:0.7;">WhatsApp + IG API</span></div></div>
+    </div>
+
+    <!-- Arrow bidireccional -->
+    <div class="flow-arrow">&harr;</div>
+
+    <!-- Col 3: Agente IA + Panel -->
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div class="flow-box bot" style="min-width:auto; padding:12px 16px; display:flex; align-items:center; gap:8px; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="3"/><line x1="12" y1="3" x2="12" y2="7"/><circle cx="12" cy="3" r="1" fill="currentColor"/><circle cx="9" cy="13" r="1.5" fill="currentColor"/><circle cx="15" cy="13" r="1.5" fill="currentColor"/><line x1="0" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="24" y2="12"/></svg><div>AGENTE IA<br>BTLandia</div></div>
+      <div class="flow-box" style="min-width:auto; padding:10px 16px; background:#6B6B6B; color:#FFFFFF; font-size:11px; display:flex; align-items:center; gap:6px; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>PANEL ADMIN</div>
+    </div>
+
+    <!-- Arrow bidireccional -->
+    <div class="flow-arrow">&harr;</div>
+
+    <!-- Col 4: Derivaciones (stacked) -->
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div class="flow-box" style="min-width:auto; padding:10px 16px; background:#FFFFFF; border:1px solid #E0DFDC; color:#0E0D0C; font-size:11px; display:flex; align-items:center; gap:6px; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F9D58" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>Google Sheets (Proveedores/Hosts)</div>
+      <div class="flow-box sistema" style="min-width:auto; padding:10px 16px; font-size:11px; display:flex; align-items:center; gap:6px; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>HubSpot CRM (Leads)</div>
+    </div>
+  </div>
+
+  <!-- Flujos conversacionales -->
+  <h3>Flujos conversacionales</h3>
+  <p style="font-size:13px; color:#6B6B6B; margin-bottom:16px;">Como responde el bot segun el tipo de persona que abre la conversacion. El bot intenta clasificar automaticamente en los primeros mensajes; si no puede, activa el Flujo 0 para determinarlo.</p>
+
+  <div style="margin-bottom:16px; padding:20px; border:1px solid #E0DFDC; border-left:3px solid #DD0513;">
+    <div class="req-card-label">Flujo 0: Clasificacion inicial</div>
+    <p style="font-size:13px; color:#6B6B6B; margin-bottom:10px;">Se activa cuando el bot no puede determinar el tipo de contacto a partir del primer mensaje (ej: "Hola", "Buenas", o un mensaje ambiguo).</p>
+    <ul style="font-size:14px; padding-left:20px; margin:0;">
+      <li style="margin-bottom:6px;">El bot saluda usando el nombre del usuario si esta disponible y hace una pregunta de discovery: <em>"Hola [nombre], gracias por escribirnos. Contame, sos proveedor de servicios, host/promotor o te interesa crear un evento?"</em></li>
+      <li style="margin-bottom:6px;">Segun la respuesta, el bot activa el flujo correspondiente (Flujo 1, 2 o 3)</li>
+      <li>Si la respuesta sigue siendo ambigua, el bot reformula con opciones mas claras antes de escalar a humano</li>
+    </ul>
+  </div>
+
+  <div style="margin-bottom:16px; padding:20px; border:1px solid #E0DFDC;">
+    <div class="req-card-label">Flujo 1: Proveedor escribe</div>
+    <p style="font-size:13px; color:#6B6B6B; margin-bottom:10px;">Venue, hotel, tecnica, catering, sonido, mobiliario u otro proveedor que ofrece sus servicios a BTLandia.</p>
+    <ul style="font-size:14px; padding-left:20px; margin:0;">
+      <li style="margin-bottom:6px;">El bot lo identifica como proveedor a partir del contenido del mensaje (ofrece un servicio, menciona presupuesto, manda catalogo)</li>
+      <li style="margin-bottom:6px;">Responde cordialmente y recopila datos de forma conversacional: <strong>nombre de contacto</strong>, <strong>empresa</strong>, <strong>rubro/servicio que ofrece</strong> (venue, tecnica, catering, sonido, mobiliario, etc.), <strong>ubicacion/zona de cobertura</strong>, <strong>email o telefono</strong></li>
+      <li style="margin-bottom:6px;">Si el proveedor manda catalogo o presupuesto directo por el chat, el bot agradece y le pide igualmente los datos para registrarlo</li>
+      <li style="margin-bottom:6px;">Al terminar de recopilar la info, el bot cierra: <em>"Listo, ya quedaste registrado en nuestra base de proveedores. Te vamos a tener en cuenta para proximos eventos. Gracias por escribirnos"</em></li>
+      <li>Los datos se cargan automaticamente en el Google Sheets de proveedores</li>
+    </ul>
+  </div>
+
+  <div style="margin-bottom:16px; padding:20px; border:1px solid #E0DFDC;">
+    <div class="req-card-label">Flujo 2: Host / Promotor escribe</div>
+    <p style="font-size:13px; color:#6B6B6B; margin-bottom:10px;">Persona que manda CV, fotos o se postula para trabajar como host/promotor en eventos. Celes menciono en la llamada que la <strong>ubicacion es critica</strong>: para campañas de verano necesitan gente de Mar del Plata a Pinamar, porque traer hosts de CABA implica alojamiento y viaticos que los saca de precio.</p>
+    <ul style="font-size:14px; padding-left:20px; margin:0;">
+      <li style="margin-bottom:6px;">El bot lo identifica como host/promotor a partir del contenido (manda CV, fotos, pregunta por castings, menciona temporada de verano)</li>
+      <li style="margin-bottom:6px;">Responde cordialmente y recopila datos de forma conversacional: <strong>nombre completo</strong>, <strong>edad</strong>, <strong>ubicacion/ciudad donde vive</strong> (dato clave para campañas de costa), <strong>experiencia previa en eventos</strong>, <strong>disponibilidad</strong> (verano, todo el año, fines de semana), <strong>email o telefono</strong></li>
+      <li style="margin-bottom:6px;">Si manda fotos o CV directo por el chat, el bot agradece y le pide igualmente los datos faltantes: <em>"Genial, gracias por mandar tu material. Te hago un par de preguntas mas para tenerte bien registrada"</em></li>
+      <li style="margin-bottom:6px;">Al terminar de recopilar la info, el bot cierra: <em>"Perfecto, ya quedaste registrado/a en nuestra base de hosts. Te vamos a tener en cuenta para proximos eventos. Gracias por escribirnos"</em></li>
+      <li>Los datos se cargan automaticamente en el Google Sheets de hosts</li>
+    </ul>
+  </div>
+
+  <div style="margin-bottom:16px; padding:20px; border:1px solid #E0DFDC;">
+    <div class="req-card-label">Flujo 3: Cliente potencial escribe</div>
+    <p style="font-size:13px; color:#6B6B6B; margin-bottom:10px;">Empresa o persona interesada en contratar un evento (lanzamiento, kick-off, fiesta, convencion, stand, viaje de incentivo, etc.).</p>
+    <ul style="font-size:14px; padding-left:20px; margin:0;">
+      <li style="margin-bottom:6px;">El bot lo identifica como cliente potencial (pregunta por servicios, menciona un evento, quiere cotizar)</li>
+      <li style="margin-bottom:6px;">Responde con interes y empieza a precalificar de forma conversacional, no como formulario. Ejemplo: <em>"Que bueno que nos escribas. Contame un poco, que tipo de evento estas buscando?"</em></li>
+      <li style="margin-bottom:6px;">Recopila datos clave en la conversacion: <strong>tipo de evento</strong> (kick-off, lanzamiento, fiesta, convencion, stand, viaje), <strong>fecha tentativa</strong>, <strong>nombre de empresa</strong>, <strong>nombre del contacto y rol</strong>, <strong>cantidad de personas estimada</strong>, <strong>presupuesto estimado</strong></li>
+      <li style="margin-bottom:6px;">Puede responder preguntas frecuentes sobre servicios de BTLandia (tipos de eventos, proceso de contratacion, trayectoria) sin dar precios especificos</li>
+      <li style="margin-bottom:6px;">Cuando tiene la info clave, cierra: <em>"Perfecto, tu solicitud ya quedo cargada en nuestro sistema. Un agente comercial se va a contactar con vos para conversar mas detalles y definir los siguientes pasos"</em></li>
+      <li style="margin-bottom:6px;">Sube automaticamente el lead a HubSpot CRM como contacto + deal con toda la info recopilada. Si el lead no responde todas las preguntas, lo registra con la info parcial</li>
+      <li>HubSpot envia una notificacion por email a Celes cuando se carga un nuevo lead (configuracion nativa de HubSpot, sin desarrollo extra)</li>
+    </ul>
+  </div>
+
+  <div style="margin-bottom:20px; padding:20px; border:1px solid #E0DFDC;">
+    <div class="req-card-label">Flujo 4: Escalacion a humano (solo clientes)</div>
+    <p style="font-size:13px; color:#6B6B6B; margin-bottom:10px;">El bot deja de responder y delega la conversacion al equipo de BTLandia. <strong>Solo se activa para clientes potenciales</strong>, que son los que generan negocio. Proveedores y hosts se resuelven end-to-end por el bot sin intervencion humana.</p>
+    <ul style="font-size:14px; padding-left:20px; margin:0;">
+      <li style="margin-bottom:6px;">Se activa cuando: un cliente potencial pide hablar con una persona, la consulta requiere informacion que el bot no tiene (precios, disponibilidad de fechas), o el bot no logra clasificar al contacto tras el Flujo 0</li>
+      <li style="margin-bottom:6px;">El bot avisa al contacto con el nombre de la persona que lo va a atender: <em>"Te conecto con Frany de nuestro equipo, ella te va a poder ayudar con esto"</em> (el nombre del agente es configurable desde el panel)</li>
+      <li style="margin-bottom:6px;">El bot <strong>deja de responder</strong> en esa conversacion. El humano retoma en el mismo canal (WhatsApp o Instagram) sin friccion</li>
+      <li style="margin-bottom:6px;">El equipo recibe una notificacion con el historial completo de lo que se hablo con el bot para no arrancar de cero</li>
+      <li><strong>Proveedores y hosts:</strong> el bot los resuelve completamente (recopila datos y los carga a Google Sheets). No escalan a humano salvo que lo pidan explicitamente, evitando carga operativa que no genera negocio</li>
+    </ul>
+  </div>
+
+  <!-- Panel -->
+  <h3>Panel de Administracion</h3>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:16px;">
+    <div class="panel-feat">
+      <div class="panel-feat-label">Dashboard de Metricas</div>
+      <div class="panel-feat-desc">Nuevos chats por dia/semana, clasificacion por tipo (proveedor/host/cliente), escalaciones a humano, gasto de tokens acumulado y por periodo</div>
+    </div>
+    <div class="panel-feat">
+      <div class="panel-feat-label">Integraciones</div>
+      <div class="panel-feat-desc">Conexion y estado de las APIs: Zernio (WhatsApp + IG), Google Sheets (proveedores/hosts), HubSpot CRM (leads). Configuracion sencilla via API keys</div>
+    </div>
+    <div class="panel-feat">
+      <div class="panel-feat-label">Configuracion</div>
+      <div class="panel-feat-desc">Prender/apagar el bot, prompt master editable (tono, flujos, respuestas) e historial de versiones de prompts anteriores</div>
+    </div>
+  </div>
+  </div>
+</details>
+
+<!-- 3. BENEFICIOS -->
+<details class="collapsible" open id="beneficios">
+  <summary><span class="section-num">03</span> Beneficios de la Implementacion</summary>
+  <div class="section-body">
+  <div class="benefit-item">
+    <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="benefit-content">
+      <div class="benefit-title">Reduce carga operativa del equipo</div>
+      <div class="benefit-desc">El bot resuelve end-to-end las interacciones con proveedores y hosts sin intervencion humana. El equipo deja de contestar manualmente mensajes que no generan negocio: CVs, ofertas de servicios, preguntas repetitivas. Ese tiempo se libera para tareas de mayor valor.</div>
+    </div>
+  </div>
+
+  <div class="benefit-item">
+    <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="benefit-content">
+      <div class="benefit-title">Mejor tiempo de respuesta al lead (LTR)</div>
+      <div class="benefit-desc">El bot responde en segundos, sin importar la hora ni el dia. Un lead que hoy puede esperar horas o dias hasta que alguien lo vea, ahora recibe atencion inmediata. Un LTR bajo aumenta directamente las conversiones porque el lead no se enfria.</div>
+    </div>
+  </div>
+
+  <div class="benefit-item">
+    <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="benefit-content">
+      <div class="benefit-title">Clasificacion y carga automatica por tipo</div>
+      <div class="benefit-desc">Cada tipo de contacto se procesa de forma distinta y se carga en un lugar diferente con informacion diferente: proveedores a Google Sheets con rubro y cobertura, hosts a Google Sheets con ubicacion y disponibilidad, clientes a HubSpot con tipo de evento y presupuesto. Sin carga manual.</div>
+    </div>
+  </div>
+
+  <div class="benefit-item">
+    <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="benefit-content">
+      <div class="benefit-title">Procesos estandarizados y repetibles</div>
+      <div class="benefit-desc">Hoy cada consulta se maneja de forma distinta segun quien la agarre y cuando. El bot aplica el mismo flujo siempre: mismas preguntas, misma recopilacion de datos, mismo destino. El proceso no depende de la disponibilidad ni del criterio de una persona.</div>
+    </div>
+  </div>
+
+  <div class="benefit-item">
+    <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="benefit-content">
+      <div class="benefit-title">Mayor tasa de conversion comercial</div>
+      <div class="benefit-desc">La combinacion de LTR bajo + lead precalificado con contexto completo en HubSpot hace que la primera llamada comercial sea para presentar propuesta, no para hacer preguntas basicas. El lead llega caliente y con datos, el cierre se acelera.</div>
+    </div>
+  </div>
+
+  <div class="benefit-item">
+    <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="benefit-content">
+      <div class="benefit-title">Metricas sobre demanda real</div>
+      <div class="benefit-desc">A traves de la precalificacion, el bot genera datos automaticos sobre que tipos de eventos consultan, de que tamaño de empresa, en que epocas del año. Informacion que hoy se pierde en DMs y que da claridad para decidir que servicios paquetizar, cuando activar campañas y donde esta la oportunidad.</div>
+    </div>
+  </div>
+  </div>
+</details>
+
+<!-- 4. GANTT -->
+<details class="collapsible" open id="gantt">
+  <summary><span class="section-num">04</span> Timeline de Implementacion (6 semanas)</summary>
+  <div class="section-body">
+
+  <div class="gantt">
+    <div class="gantt-header">
+      <span class="gantt-week">S1</span>
+      <span class="gantt-week">S2</span>
+      <span class="gantt-week">S3</span>
+      <span class="gantt-week">S4</span>
+      <span class="gantt-week">S5</span>
+      <span class="gantt-week">S6</span>
+    </div>
+
+    <!-- Discovery + Arquitectura -->
+    <div class="gantt-row">
+      <div class="gantt-bar-container">
+        <span class="gantt-cell active" style="background:#DD0513"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+      </div>
+      <div class="gantt-label">Discovery + Flujos</div>
+    </div>
+
+    <!-- Integraciones -->
+    <div class="gantt-row">
+      <div class="gantt-bar-container">
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell active" style="background:#E8A013"></span>
+        <span class="gantt-cell active" style="background:#E8A013"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+      </div>
+      <div class="gantt-label">Integraciones (Zernio + HubSpot + Google Sheets)</div>
+    </div>
+
+    <!-- Desarrollo Core + Panel -->
+    <div class="gantt-row">
+      <div class="gantt-bar-container">
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell active" style="background:#0E0D0C"></span>
+        <span class="gantt-cell active" style="background:#0E0D0C"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+      </div>
+      <div class="gantt-label">Desarrollo Core + Panel + Flujos</div>
+    </div>
+
+    <!-- Testing + Deploy -->
+    <div class="gantt-row">
+      <div class="gantt-bar-container">
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell"></span>
+        <span class="gantt-cell active" style="background:#12A150"></span>
+        <span class="gantt-cell active" style="background:#12A150"></span>
+      </div>
+      <div class="gantt-label">Testing + QA + Deploy</div>
+    </div>
+  </div>
+
+  <div style="margin-top:8px;">
+
+    <div style="padding:16px 20px; border:1px solid #E0DFDC; margin-bottom:8px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#DD0513; margin-bottom:8px; font-weight:600;">S1: Discovery + Flujos</div>
+      <ul style="font-size:13px; padding-left:20px; margin:0; line-height:1.7;">
+        <li>Relevamiento de los tipos de inbound actuales (proveedores, hosts, clientes) con ejemplos reales de DMs</li>
+        <li>Definicion de los 5 flujos conversacionales: Flujo 0 (clasificacion inicial), Flujo 1 (proveedor), Flujo 2 (host), Flujo 3 (cliente con precalificacion), Flujo 4 (escalacion a humano solo para clientes)</li>
+        <li>Diseño del prompt master del agente (tono, flujos, datos a recopilar por tipo de contacto)</li>
+        <li>Wireframe del panel de administracion: dashboard de metricas, integraciones, configuracion</li>
+        <li>Estructura de Google Sheets para proveedores (rubro, cobertura, contacto) y hosts (ubicacion, disponibilidad, experiencia)</li>
+      </ul>
+    </div>
+
+    <div style="padding:16px 20px; border:1px solid #E0DFDC; margin-bottom:8px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#E8A013; margin-bottom:8px; font-weight:600;">S2-S3: Integraciones</div>
+      <ul style="font-size:13px; padding-left:20px; margin:0; line-height:1.7;">
+        <li>Conexion a WhatsApp Business via Zernio (recepcion y respuesta automatica)</li>
+        <li>Conexion a Instagram DMs via Zernio (recepcion y respuesta automatica)</li>
+        <li>Integracion HubSpot CRM: carga automatica de leads como contactos + deals en pipeline</li>
+        <li>Google Sheets de proveedores y hosts (estructura de datos, conexion via API)</li>
+        <li>Notificaciones al equipo comercial cuando un lead es precalificado (email via HubSpot)</li>
+      </ul>
+    </div>
+
+    <div style="padding:16px 20px; border:1px solid #E0DFDC; margin-bottom:8px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#0E0D0C; margin-bottom:8px; font-weight:600;">S3-S4: Desarrollo Core + Panel + Flujos</div>
+      <ul style="font-size:13px; padding-left:20px; margin:0; line-height:1.7;">
+        <li>Motor del agente IA con clasificacion de intenciones y Flujo 0 de discovery cuando el mensaje es ambiguo</li>
+        <li>Flujos end-to-end: proveedor (datos + carga a Sheets), host (ubicacion/disponibilidad + carga a Sheets), cliente (precalificacion + carga a HubSpot + notificacion email)</li>
+        <li>Escalacion a humano solo para clientes: el bot avisa con nombre del agente, deja de responder y el equipo retoma desde WhatsApp o Instagram</li>
+        <li>Panel web con 3 modulos: dashboard de metricas (chats, clasificacion por tipo, escalaciones, tokens), integraciones (estado de APIs), configuracion (prender/apagar, prompt master, historial de versiones)</li>
+      </ul>
+    </div>
+
+    <div style="padding:16px 20px; border:1px solid #E0DFDC;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#12A150; margin-bottom:8px; font-weight:600;">S5-S6: Testing + QA + Deploy</div>
+      <ul style="font-size:13px; padding-left:20px; margin:0; line-height:1.7;">
+        <li>Pruebas end-to-end por canal y por tipo de contacto: proveedor (datos + Sheets), host (ubicacion + Sheets), cliente (precalificacion + HubSpot + email a Celes)</li>
+        <li>Ajuste del prompt master con conversaciones simuladas para afinar tono, clasificacion y recopilacion de datos</li>
+        <li>QA con el equipo BTLandia: validacion de flujos, tono de marca, escalacion y carga correcta en Sheets/HubSpot</li>
+        <li>Go-live progresivo: primero WhatsApp, luego Instagram</li>
+      </ul>
+    </div>
+
+  </div>
+  </div>
+</details>
+
+<!-- 5. VALOR DEL SERVICIO -->
+<details class="collapsible" open id="valor">
+  <summary><span class="section-num">05</span> Valor del Servicio</summary>
+  <div class="section-body">
+
+  <table class="valor-tabla">
+    <thead>
+      <tr>
+        <th>Concepto</th>
+        <th style="width:100px;">Tipo</th>
+        <th style="text-align:right;">Monto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div style="font-weight:700;">Panel Web App</div>
+          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Dashboard de metricas (chats, clasificacion por tipo, escalaciones, tokens), modulo de integraciones (estado de APIs conectadas), configuracion (prender/apagar bot, prompt master editable, historial de versiones).</div>
+        </td>
+        <td><span class="valor-tipo-badge tipo-unico">Unico</span></td>
+        <td style="text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:700;">USD 400</td>
+      </tr>
+      <tr>
+        <td>
+          <div style="font-weight:700;">Flujos conversacionales con IA</div>
+          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">5 flujos end-to-end: clasificacion inicial (Flujo 0), proveedor con recopilacion de rubro y cobertura (Flujo 1), host con ubicacion y disponibilidad (Flujo 2), cliente con precalificacion de evento (Flujo 3), escalacion a humano solo para clientes (Flujo 4).</div>
+        </td>
+        <td><span class="valor-tipo-badge tipo-unico">Unico</span></td>
+        <td style="text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:700;">USD 400</td>
+      </tr>
+      <tr>
+        <td>
+          <div style="font-weight:700;">Integracion Canales (Zernio)</div>
+          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Conexion del agente IA a WhatsApp Business e Instagram DMs via Zernio. Recepcion y respuesta automatica en ambos canales con la misma logica de clasificacion y flujos.</div>
+        </td>
+        <td><span class="valor-tipo-badge tipo-unico">Unico</span></td>
+        <td style="text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:700;">USD 200</td>
+      </tr>
+      <tr>
+        <td>
+          <div style="font-weight:700;">Integracion Datos (HubSpot + Google Sheets)</div>
+          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Carga automatica de clientes a HubSpot CRM como contactos + deals con notificacion email. Proveedores y hosts a Google Sheets con datos especificos por tipo. Conexion via API.</div>
+        </td>
+        <td><span class="valor-tipo-badge tipo-unico">Unico</span></td>
+        <td style="text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:700;">USD 200</td>
+      </tr>
+      <tr style="border-top:2px solid #DD0513;">
+        <td>
+          <div style="font-weight:700;">Mantenimiento Agente IA + Panel</div>
+          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Hosting, soporte, actualizaciones del agente y panel. Tokens de IA incluidos.</div>
+        </td>
+        <td><span class="valor-tipo-badge tipo-mensual">Mensual</span></td>
+        <td style="text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:700;">USD 99/mes</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+    <div style="padding:20px 24px; border:2px solid #DD0513; display:flex; flex-direction:column; align-items:center; gap:4px;">
+      <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase;">Implementacion</div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:24px; font-weight:700; color:#DD0513;">USD 1,200</div>
+    </div>
+    <div style="padding:20px 24px; border:2px solid #DD0513; display:flex; flex-direction:column; align-items:center; gap:4px;">
+      <div style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase;">Fee mensual</div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:24px; font-weight:700; color:#DD0513;">USD 99/mes</div>
+    </div>
+  </div>
+
+  <div class="valor-incluye">
+    <p>* Implementacion: pago unico. Incluye desarrollo, integraciones (Zernio, HubSpot, Google Sheets), panel y deploy.</p>
+    <p>* Fee mensual: a partir del go-live. Incluye hosting, soporte, actualizaciones y tokens de IA.</p>
+    <p>* Requiere cuenta de WhatsApp Business y pagina de Instagram vinculadas a Zernio, y cuenta de HubSpot CRM.</p>
+    <p>* Soporte post-deploy de 2 semanas incluido en la implementacion.</p>
+  </div>
+  </div>
+</details>
+
+<!-- 6. RESUMEN Y PROXIMOS PASOS -->
+<details class="collapsible" open id="cierre">
+  <summary><span class="section-num">06</span> Resumen y Proximos Pasos</summary>
+  <div class="section-body">
+
+  <div class="cierre-resumen">
+    BTLandia tiene 18 años de trayectoria y un portfolio de corporaciones de primer nivel, pero sus canales digitales (WhatsApp e Instagram) estan inundados de proveedores y hosts que no son clientes. El equipo contesta cada mensaje manualmente, lo que no escala y hace que leads reales se pierdan en el ruido. No hay clasificacion, no hay respuesta inmediata, no hay precalificacion.<br><br>
+    El agente IA resuelve los tres problemas: responde al instante 24/7, clasifica automaticamente cada contacto (proveedor/host/cliente), y precalifica a los clientes potenciales antes de subirlos a HubSpot CRM con contexto completo. Funciona en WhatsApp e Instagram desde una unica implementacion. Sin la incorporacion del bot, el tiempo de respuesta es relativo a la capacidad operativa del recurso. Para las campañas de Meta Ads que vamos a lanzar en paralelo, el agente es la pieza que cierra el funnel: el lead que llega por un anuncio recibe atencion inmediata y queda registrado en el pipeline.
+  </div>
+
+  <ol class="cierre-pasos">
+    <li>Marcelo valida esta propuesta y confirma que esta alineada con lo que necesita BTLandia</li>
+    <li>Con su OK, armamos la propuesta personalizada con el branding de REE Growth para presentar en la reunion del miercoles 3 de septiembre</li>
+    <li>El agente IA es la base sobre la que se montan las campañas de Meta Ads: sin respuesta inmediata, los leads que generemos con pauta se enfrian antes de que el equipo los atienda</li>
+  </ol>
+  </div>
+</details>
+
+<div class="footer">
+  REE Growth &middot; Documento interno &middot; Agosto 2026
+</div>
+
+</div>
+</body>
+</html>

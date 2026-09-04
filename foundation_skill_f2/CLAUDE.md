@@ -2,13 +2,23 @@
 
 Servidor MCP para generar documentos de Foundation (Fase 2) de Ree Creativos.
 
+## REGLA CRITICA: Historial de cambios
+
+**NUNCA sobreescribir un archivo HTML generado sin crear backup primero.**
+Antes de escribir cualquier archivo en `clients-*/`, el script de generacion debe:
+1. Verificar si el archivo ya existe.
+2. Si existe, copiarlo a `{nombre}.bak.{timestamp}.html` en el mismo directorio.
+3. Recien entonces escribir la version nueva.
+
+Esto aplica a los 3 documentos (playbook, onboarding, foundation-review) y a cualquier script de generacion (`gen-*.mjs`).
+
 ## Que hace
 
 Genera 3 documentos HTML branded a partir de un mismo `FoundationData`:
 
 1. **Playbook Interno** (INTERNO, no compartir): todo el playbook operativo (onboarding + estrategia + checklists + roadmap) para el equipo REE. Header rojo, logo blanco, badge INTERNO.
 2. **Onboarding del Cliente** (COMPARTIBLE): pasos que el cliente debe hacer para arrancar (crear FB Page, vincular IG, tarjeta de pago, brand assets). Header blanco, logo rojo, sin info confidencial.
-3. **Estrategia de Campanas** (COMPARTIBLE): bajada detallada de campanas, roadmap 8 semanas, angulos creativos, KPIs, presupuesto. Header blanco, logo rojo.
+3. **Foundation Review** (COMPARTIBLE): documento para la reunion de Foundation Review (semana 3). Incluye campanas, roadmap, creativos, KPIs, presupuesto y proximos pasos. Header blanco, logo rojo.
 
 ## Workflow: como usar esta skill
 
@@ -57,14 +67,14 @@ Llamar al tool `generar-foundation-doc` pasando el JSON completo como string en 
 El tool retorna 3 content items:
 1. `<!-- PLAYBOOK_HTML -->` -- Doc interno completo
 2. `<!-- ONBOARDING_HTML -->` -- Onboarding para el cliente
-3. `<!-- STRATEGY_HTML -->` -- Estrategia de campanas
+3. `<!-- STRATEGY_HTML -->` -- Foundation Review
 
 ### Paso 4 -- Guardar los HTMLs
 
 Guardar en las carpetas correspondientes:
 - `clients-doc-internos/{slug}/foundation-{slug}.html` -- Playbook interno
 - `clients-onboardings/{slug}/onboarding-{slug}.html` -- Onboarding cliente
-- `clients-strategies/{slug}/estrategia-{slug}.html` -- Estrategia cliente
+- `clients-strategies/{slug}/foundation-review-{slug}.html` -- Foundation Review
 
 Informar al usuario que puede abrir cada uno en el browser.
 
@@ -75,7 +85,7 @@ Informar al usuario que puede abrir cada uno en el browser.
 - `src/tools/generar-foundation-doc.ts` -- tool MCP: recibe JSON, devuelve 3 HTMLs.
 - `src/lib/playbook-renderer.ts` -- doc interno completo (8 secciones collapsibles).
 - `src/lib/onboarding-renderer.ts` -- onboarding KO Call para el cliente (4 secciones dropdown).
-- `src/lib/strategy-renderer.ts` -- estrategia de campanas (6 secciones abiertas).
+- `src/lib/strategy-renderer.ts` -- Foundation Review (6 secciones abiertas).
 - `src/lib/template-parts.ts` -- CSS, colores REE, getBaseStyles() (interno) + getClientStyles() (cliente).
 - `src/lib/meta-business-guide.ts` -- contenido estatico: pasos para setup de Meta Business (equipo REE).
 - `src/lib/client-onboarding-guide.ts` -- contenido estatico: pasos para el cliente (FB Page, IG, tarjeta).
@@ -151,9 +161,9 @@ Los milestones se definen en el renderer (no en el JSON del cliente) porque depe
 - Cierre con icono WhatsApp: "Si tenes alguna duda, escribinos al grupo de WhatsApp."
 - Usa getBaseStyles() (estilo interno) y logo blanco sobre header rojo
 
-## Doc 3: Estrategia de Campanas (6 secciones abiertas)
+## Doc 3: Foundation Review (6 secciones abiertas)
 
-Header blanco, logo rojo, titulo "ESTRATEGIA DE CAMPANAS".
+Header blanco, logo rojo, titulo "FOUNDATION REVIEW".
 
 1. **Objetivo** -- Palanca elegida + justificacion en lenguaje simple
 2. **Tus Campanas** -- Nomenclatura de ads + campanas con ad sets y ads, lenguaje claro

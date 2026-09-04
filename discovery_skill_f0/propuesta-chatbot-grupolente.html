@@ -589,7 +589,7 @@ details.collapsible > .section-body {
     <div class="cita-contexto">Marce, confirmando la oportunidad tecnica</div>
   </div>
 
-  <p style="margin-top:16px; font-size:14px;"><strong>Problema actual:</strong> No existe un chatbot inteligente conectado a los canales de venta (WhatsApp, Instagram, Messenger) que pueda responder consultas de stock en tiempo real integrando DragonFish, el sistema de gestion. Hoy los agentes humanos hacen ese trabajo de forma manual, abriendo otra pantalla para buscar disponibilidad. Lo ideal seria migrar de Callbell a una solucion mas eficiente que automatice respuestas, dirija al cliente al canal correcto (compra online, sucursal, agente humano), y que se pueda prender/apagar desde un panel adaptado.</p>
+  <p style="margin-top:16px; font-size:14px;"><strong>Problema actual:</strong> No existe un chatbot inteligente conectado a los canales de venta (WhatsApp, Instagram, Messenger) que pueda responder consultas de stock en tiempo real integrando DragonFish, el sistema de gestion. Hoy los agentes humanos hacen ese trabajo de forma manual, abriendo otra pantalla para buscar disponibilidad. Se construiria un panel personalizado para el manejo del bot que automatice respuestas, dirija al cliente al canal correcto (compra online, sucursal, agente humano), y que se pueda prender/apagar. Callbell se puede mantener como CRM para la gestion de agentes humanos; la migracion desde Callbell es opcional.</p>
   </div>
 </details>
 
@@ -599,7 +599,7 @@ details.collapsible > .section-body {
   <div class="section-body">
 
   <!-- Diagrama de arquitectura -->
-  <div style="display:grid; grid-template-columns:auto auto 1fr auto 1fr; gap:16px; align-items:center; padding:24px; background:#F6F5F2; border:1px solid #E0DFDC; margin-bottom:24px;">
+  <div style="display:grid; grid-template-columns:auto auto auto auto 1fr auto 1fr; gap:16px; align-items:center; padding:24px; background:#F6F5F2; border:1px solid #E0DFDC; margin-bottom:24px;">
 
     <!-- Col 1: Canales (stacked) -->
     <div style="display:flex; flex-direction:column; gap:8px;">
@@ -608,10 +608,18 @@ details.collapsible > .section-body {
       <div class="flow-box canal" style="min-width:100px; font-size:11px; padding:8px 12px;">Messenger</div>
     </div>
 
-    <!-- Arrow -->
-    <div class="flow-arrow">&rarr;</div>
+    <!-- Arrow bidireccional -->
+    <div class="flow-arrow">&harr;</div>
 
-    <!-- Col 2: Chatbot + Panel -->
+    <!-- Col 2: Callbell -->
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div class="flow-box" style="min-width:auto; padding:12px 16px; background:#0E0D0C; color:#FFFFFF; font-size:12px; font-weight:700;">CALLBELL<br><span style="font-size:10px; font-weight:400; opacity:0.7;">CRM + API</span></div>
+    </div>
+
+    <!-- Arrow bidireccional -->
+    <div class="flow-arrow">&harr;</div>
+
+    <!-- Col 3: Chatbot + Panel -->
     <div style="display:flex; flex-direction:column; gap:8px;">
       <div class="flow-box bot" style="min-width:auto; padding:12px 16px;">CHATBOT<br>Star Deportes</div>
       <div class="flow-box" style="min-width:auto; padding:10px 16px; background:#6B6B6B; color:#FFFFFF; font-size:11px;">PANEL ADMIN</div>
@@ -620,7 +628,7 @@ details.collapsible > .section-body {
     <!-- Arrow bidireccional -->
     <div class="flow-arrow">&harr;</div>
 
-    <!-- Col 3: Integraciones (stacked) -->
+    <!-- Col 4: Integraciones (stacked) -->
     <div style="display:flex; flex-direction:column; gap:8px;">
       <div class="flow-box sistema" style="min-width:auto; padding:10px 16px;">DragonFish</div>
       <div class="flow-box" style="min-width:auto; padding:10px 16px; background:#FFFFFF; border:2px dashed #E8A013; color:#0E0D0C; font-size:11px;">Tienda Nube (opcional)</div>
@@ -629,6 +637,16 @@ details.collapsible > .section-body {
 
   <!-- Beneficios por integracion -->
   <h3>Integraciones y beneficios</h3>
+
+  <div style="margin-bottom:16px; padding:20px; border:1px solid #E0DFDC;">
+    <div class="req-card-label">Callbell -- Incluida</div>
+    <ul style="font-size:14px; padding-left:20px; margin:0;">
+      <li style="margin-bottom:6px;">El bot se conecta via API a Callbell, la plataforma que ya centraliza WhatsApp, Instagram y Messenger</li>
+      <li style="margin-bottom:6px;">No se migra de Callbell: los agentes humanos siguen trabajando en la misma herramienta</li>
+      <li style="margin-bottom:6px;">Callbell recibe los mensajes de los 3 canales y los enruta al bot automaticamente</li>
+      <li>Cuando el bot necesita escalar, el agente retoma la conversacion en Callbell sin friccion</li>
+    </ul>
+  </div>
 
   <div style="margin-bottom:16px; padding:20px; border:1px solid #E0DFDC;">
     <div class="req-card-label">DragonFish -- Incluida</div>
@@ -657,7 +675,7 @@ details.collapsible > .section-body {
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px;">
     <div class="panel-feat">
       <div class="panel-feat-label">Conversaciones</div>
-      <div class="panel-feat-desc">Historial completo de interacciones del bot con metricas de resolucion. Multiples usuarios con roles y permisos</div>
+      <div class="panel-feat-desc">Historial completo de interacciones del bot con metricas de resolucion. Un usuario admin para visualizar y gestionar el chatbot</div>
     </div>
     <div class="panel-feat">
       <div class="panel-feat-label">Ajuste de Prompt</div>
@@ -669,7 +687,7 @@ details.collapsible > .section-body {
     </div>
     <div class="panel-feat">
       <div class="panel-feat-label">Integraciones</div>
-      <div class="panel-feat-desc">Vista del estado de conexion con DragonFish, canales y Tienda Nube. Configuracion y logs</div>
+      <div class="panel-feat-desc">Vista del estado de conexion con Callbell, DragonFish y Tienda Nube. Configuracion y logs</div>
     </div>
   </div>
   </div>
@@ -818,7 +836,7 @@ details.collapsible > .section-body {
     <div style="padding:16px 20px; border:1px solid #E0DFDC; margin-bottom:8px;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#DD0513; margin-bottom:8px; font-weight:600;">S1-S2: Discovery + Arquitectura</div>
       <ul style="font-size:13px; padding-left:20px; margin:0; line-height:1.7;">
-        <li>Relevamiento de APIs de DragonFish (endpoints de stock, precios, sucursales)</li>
+        <li>Relevamiento de APIs de DragonFish (endpoints de stock, precios, sucursales) y Callbell (mensajeria, webhooks)</li>
         <li>Definicion de flujos conversacionales (stock, creditos personales, escalacion humana)</li>
         <li>Diseno del prompt base del chatbot</li>
         <li>Wireframe del panel de administracion</li>
@@ -842,7 +860,7 @@ details.collapsible > .section-body {
         <li>Conexion a API de DragonFish para consulta de stock por sucursal</li>
         <li>Mapeo de talles, colores y disponibilidad en lenguaje natural</li>
         <li>Precios actualizados en tiempo real desde DragonFish</li>
-        <li>Integracion con WhatsApp, Instagram y Messenger</li>
+        <li>Integracion con Callbell (WhatsApp, Instagram y Messenger via API)</li>
         <li>Flujo de creditos personales: captura de datos y derivacion a agente comercial en sucursal</li>
         <li>Escalacion inteligente a humano cuando el bot no puede resolver</li>
         <li>Si se aprueba Tienda Nube: link directo de compra en respuestas de stock</li>
@@ -880,23 +898,23 @@ details.collapsible > .section-body {
       <tr>
         <td>
           <div style="font-weight:700;">Panel Web App</div>
-          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Aplicacion web para ver conversaciones, ajustar prompt, prender/apagar bot, gestionar usuarios con permisos y monitorear integraciones.</div>
+          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Aplicacion web para ver conversaciones, ajustar prompt, prender/apagar bot y monitorear integraciones. Un usuario admin.</div>
         </td>
         <td><span class="valor-tipo-badge tipo-unico">Unico</span></td>
         <td style="text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:700;">USD 600</td>
       </tr>
       <tr>
         <td>
-          <div style="font-weight:700;">Integracion Omnicanal</div>
-          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Conexion con WhatsApp, Instagram y Messenger. Recepcion y respuesta automatica desde los 3 canales.</div>
+          <div style="font-weight:700;">Flujos conversacionales con IA</div>
+          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Diseno e implementacion de flujos por caso de uso: consulta de stock, solicitud de credito personal, escalacion a humano, preguntas frecuentes.</div>
         </td>
         <td><span class="valor-tipo-badge tipo-unico">Unico</span></td>
         <td style="text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:700;">USD 500</td>
       </tr>
       <tr>
         <td>
-          <div style="font-weight:700;">Flujos conversacionales con IA</div>
-          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Diseno e implementacion de flujos por caso de uso: consulta de stock, solicitud de credito personal, escalacion a humano, preguntas frecuentes.</div>
+          <div style="font-weight:700;">Integracion con Callbell</div>
+          <div style="font-size:12px; color:#6B6B6B; margin-top:4px;">Conexion con WhatsApp, Instagram y Messenger via Callbell. Recepcion y respuesta automatica desde los 3 canales.</div>
         </td>
         <td><span class="valor-tipo-badge tipo-unico">Unico</span></td>
         <td style="text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:700;">USD 300</td>

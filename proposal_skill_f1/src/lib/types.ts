@@ -268,6 +268,25 @@ export interface PricingSlide {
   footnote: string;
 }
 
+/** Payment method card */
+export interface PaymentMethod {
+  name: string;
+  icon: string;
+  details: string[];
+}
+
+/** Payment methods slide */
+export interface PaymentMethodsSlide {
+  type: "payment-methods";
+  sectionLabel: string;
+  headline: string;
+  methods: PaymentMethod[];
+  paymentTerms: string;
+  currencyNote: string;
+  latePayment: string;
+  footnote?: string;
+}
+
 export interface ClosingSlide {
   type: "closing";
   partnership: string;
@@ -287,6 +306,7 @@ export type Slide =
   | RoadmapSlide
   | MethodSlide
   | PricingSlide
+  | PaymentMethodsSlide
   | ClosingSlide;
 
 /** Full diagnostic presentation JSON */

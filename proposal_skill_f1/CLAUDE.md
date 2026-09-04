@@ -30,10 +30,11 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 | `build-icp-section` | Arma sección de cliente ideal con perfiles, dolores, deseos y objeciones |
 | `build-roadmap-section` | Arma sección de roadmap con Gantt y fases de ejecución |
 | `calculate-investment` | Calcula unit economics + genera paquetes, breakdown y escenarios |
-| `compose-diagnostic` | Ensambla JSON final de la presentación (11 slides) |
+| `compose-diagnostic` | Ensambla JSON final de la presentación (12 slides) |
+| `generate-contract` | Genera HTML de contrato (terminos y condiciones) con branding REE |
 | `build-value-props` | *(legacy)* Arma propuesta de valor con ángulos priorizados |
 
-## Estructura de 11 slides
+## Estructura de 12 slides
 
 | # | Tipo | Sección |
 |---|------|---------|
@@ -47,7 +48,8 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 | 8 | `method` | 04 · CÓMO TRABAJAMOS |
 | 9 | `roadmap` | 05 · LA PROPUESTA DE VALOR |
 | 10 | `pricing` | 06 · VALOR DEL SERVICIO |
-| 11 | `closing` | (cierre) |
+| 11 | `payment-methods` | 06 · VALOR DEL SERVICIO |
+| 12 | `closing` | (cierre) |
 
 **Orden de presentacion:** El metodo (como trabajamos) va ANTES del roadmap. Primero se explica el framework (Foundation, Build, Launch, Scale) y despues se muestra como se aplica al cliente.
 
@@ -74,6 +76,17 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 - Cada segmento tiene un color progresivo (claro = foundation, oscuro = scale).
 - Foundation siempre es 1 semana. Build, Launch y Scale varían segun la complejidad del canal.
 - Ambos canales deben sumar el mismo total de semanas.
+
+## Notas sobre medios de pago (slide 11)
+
+- El slide de medios de pago se genera automaticamente por `compose-diagnostic` con defaults.
+- Los 3 metodos default son: Efectivo, Cripto (USDT), Transferencia Bancaria.
+- Los defaults estan en `src/lib/templates.ts` (`DEFAULT_PAYMENT_METHODS` y `DEFAULT_PAYMENT_TERMS`).
+- Se pueden overridear pasando `paymentMethods`, `paymentTerms`, `currencyNote` y/o `latePayment` a `compose-diagnostic`.
+- El slide comparte `sectionLabel` con pricing ("06 . VALOR DEL SERVICIO") y hereda el `footnote` del pricing.
+- Debajo de las cards se muestra una barra oscura con 3 aclaraciones en flex-col: Facturacion (mes vencido, del 1 al 10), Cotizacion (dolar oficial dolarhoy.com), Mora (recargo 10% desde dia 10).
+- Los icons de medios de pago son SVG outline en rojo REE con fondo traslucido (`rgba(221,5,19,0.06)`), border redondeado del mismo color.
+- Este slide siempre se incluye en toda propuesta nueva. No es opcional.
 
 ## Notas sobre pricing
 
@@ -137,3 +150,79 @@ El JSON va en `ree-website/public/proposals/[slug].json`.
 **Referencia de diseño**
 - Archivo fuente: `DEFU - Auditoria + Propuesta.dc.html` (Claude Design export)
 - Todas las medidas en px fijos a 1920x1080
+
+## Acuerdo Comercial (generate-contract)
+
+Despues de que el cliente acepta la propuesta (slides), se genera un acuerdo comercial de terminos y condiciones. El tool `generate-contract` produce un HTML con branding REE listo para imprimir/exportar a PDF.
+
+### Flujo del acuerdo
+
+```
+1. Cliente acepta la propuesta (slides)
+2. Claude lee la propuesta y extrae datos relevantes
+3. Claude arma las secciones del acuerdo usando datos de la propuesta
+4. Claude usa generate-contract para renderizar el HTML
+5. Claude guarda el HTML en contracts/{slug}-contrato.html
+6. Se abre en navegador para imprimir/exportar a PDF
+```
+
+### Mapping: Slide de propuesta a Seccion del acuerdo
+
+| Slide propuesta | Seccion acuerdo | Datos que extrae |
+|----------------|-----------------|-------------------|
+| Slide 3: LA LLAMADA | 1. Alcance | Producto, equipo, canales, que incluye/no incluye |
+| Slide 4: LA AUDITORIA | 1. Alcance (setup tecnico) | Findings de tracking: que instalar (Pixel, Shopping, REE Metrics) |
+| Slide 9: ROADMAP | 5. Plan de ejecucion | Semanas por fase (Foundation/Build/Launch/Scale), semana de go-live |
+| Slide 10: CAMPANAS | 1. Alcance + 5. Plan de ejecucion | Cantidad de campanas, piezas, tipos (venta/interaccion) |
+| Slide 11: PRICING | 4. Facturacion y pagos | Montos (setup, mensual, pauta), breakdown Concepto/Monto |
+| Slide 11: PRICING | 3. Pauta publicitaria | Presupuesto de pauta sugerido |
+| Slide 11: PRICING | 6. Reportes y metricas | REE Metrics USD 50/mes incluido en fee |
+| Slide 8: METODO | 2. Duracion del servicio | Fases del framework, duracion total |
+| (Reglas fijas REE) | 7. Datos y confidencialidad | Siempre igual |
+| (Reglas fijas REE) | 8. Comunicacion | Siempre igual (L-V 10:00-18:00 Argentina) |
+
+Las secciones 7 y 8 son fijas (no dependen de la propuesta). Las secciones 1-6 se arman con datos de la propuesta. El mapping es una referencia, no una regla rigida. Claude usa su criterio para extraer los datos relevantes.
+
+### Reglas de contenido
+
+- **Negritas**: solo datos duros (montos, fechas, cantidades, frecuencias). No decorativas.
+- **Tildes y enes**: todo el contenido en espanol con acentos correctos.
+- "REE" siempre en mayusculas (nunca "REe").
+- Mes vencido: el fee se paga a mes vencido, factura del 1 al 10 del mes siguiente.
+- Pauta: la tarjeta del cliente va directo en Meta, REE no intermedia.
+- Precios en USD con espacio: "USD 1,500/mes". Footer siempre aclara "NO incluyen IVA".
+- `footerValue`: si el pricing tiene estructura variable (ej. primer mes distinto al recurrente), usar `footerValue` para texto descriptivo como "USD 1,500 (primer mes) / USD 1,000/mes (recurrente)". Si se omite, el footer usa `totalValue`.
+
+### Reglas de diseno/impresion
+
+- @page margin: `20mm 20mm` para impresion correcta en PDF.
+- print padding: `0 !important` (el @page maneja los margenes).
+- Desmarcar "Headers and footers" en el dialogo de impresion del navegador.
+- `page-break-inside: avoid` en cada seccion.
+- body font-size: `10.5px`, h2: `11.5px`.
+
+### Secciones default (8)
+
+Las secciones default estan en `src/lib/contract-templates.ts`. Claude las usa como base y puede agregar, quitar o modificar secciones segun el cliente.
+
+1. Alcance de la propuesta (incluye/no incluye)
+2. Duracion del servicio (3 meses minimo)
+3. Pauta publicitaria (tarjeta del cliente en Meta)
+4. Facturacion y pagos (tabla Concepto/Monto, mes vencido, cotizacion dolar, recargo 10%)
+5. Plan de ejecucion (Foundation, Build, Launch, Scale con semanas, clausula de plazos)
+6. Reportes y metricas (REE Metrics USD 50/mes incluido, quincenales/mensuales)
+7. Datos y confidencialidad
+8. Comunicacion (lunes a viernes 10:00-18:00 hora Argentina)
+
+### Clausula de plazos (obligatoria en seccion 5)
+
+"Los plazos del roadmap no se pausan por demoras en la entrega de creativos, accesos o aprobaciones por parte del cliente o de su equipo. El calendario y la facturacion siguen corriendo independientemente de estos tiempos de espera."
+
+### Block types para secciones
+
+- `paragraph`: texto libre (soporta **bold** markdown)
+- `bullets`: lista generica con disc
+- `includes`: lista con encabezado implicito
+- `excludes`: lista con encabezado "No incluye:" subrayado
+- `paymentTable`: tabla con header Concepto/Monto, rows, total opcional
+- `note`: texto en italica

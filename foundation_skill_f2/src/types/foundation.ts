@@ -197,6 +197,18 @@ export interface FoundationData {
 
   notas: string | null;
 
+  // Foundation Review extras
+  ofertas: { nombre: string; descripcion: string; precio: string | null }[] | null;
+  cambiosEcommerce: { cambio: string; objetivo: string }[] | null;
+
+  // Competencia reference ads
+  competenciaAds: {
+    marca: string;
+    cuenta: string;
+    adLibraryUrl: string;
+    formatos: { id: string; tipo: string; dolor: string; postUrl?: string }[];
+  } | null;
+
   // Roadmap & bienvenida
   roadmap: RoadmapInitiative[];
   mensajeBienvenida: string | null;

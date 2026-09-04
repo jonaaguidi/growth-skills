@@ -319,11 +319,11 @@ function renderProximosPasos(data: FoundationData): string {
     const fechaISO = data.datosF1?.fechaInicioISO ?? null;
     const milestones: GanttMilestone[] = [{ semana: 1, label: "KO Call", fecha: "25/08" }];
     if (data.koCall.proximaReunion) {
-      milestones.push({ semana: 3, label: "Foundation Review", fecha: "03/09" });
+      milestones.push({ semana: 2, label: "Foundation Review", fecha: "03/09" });
     }
-    milestones.push({ semana: 5, label: "Call ADS", fecha: "18/09" });
-    milestones.push({ semana: 7, label: "Call ADS", fecha: "02/10" });
-    milestones.push({ semana: 8, label: "Call Review ADS", fecha: "15/10" });
+    milestones.push({ semana: 4, label: "Launch B2C", fecha: "22/09" });
+    milestones.push({ semana: 6, label: "Call ADS", fecha: "06/10" });
+    milestones.push({ semana: 8, label: "Review Final", fecha: "18/10" });
     parts.push(`<div style="margin-top:32px">`);
     parts.push(`<h3>Roadmap</h3>`);
     parts.push(renderGantt(data.roadmap, fechaISO, milestones));
@@ -397,6 +397,13 @@ interface GanttMilestone {
   semana: number;
   label: string;
   fecha: string;
+}
+
+function weekDate(fechaInicioISO: string, semana: number): string {
+  const base = new Date(fechaInicioISO + "T00:00:00");
+  const d = new Date(base);
+  d.setDate(base.getDate() + (semana - 1) * 7);
+  return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
 
 function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | null, milestones?: GanttMilestone[]): string {

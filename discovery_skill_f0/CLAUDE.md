@@ -199,9 +199,19 @@ Los angulos se agrupan automaticamente por audiencia: B2C y B2B. Los de audienci
 
 El resumen de cierre se renderiza con borde izquierdo rojo. Los proximos pasos se numeran automaticamente con counter CSS.
 
+### Caracteres especiales del espanol (ñ y tildes)
+
+Todo el texto visible en el HTML debe usar caracteres especiales correctos del espanol. Esto aplica tanto al JSON de `DiscoveryData` que se pasa al tool como a cualquier documento HTML generado manualmente.
+
+**ñ obligatoria en**: año/años, campaña/campañas, compañia, diseño, tamaño, pequeño, niño, español, sueño, daño, enseñar, empeño, engaño, pañuelo, señal, y cualquier otra palabra que lleve ñ.
+
+**Tildes obligatorias en**: informacion, descripcion, clasificacion, precalificacion, comunicacion, notificacion, configuracion, integracion, produccion, derivacion, atencion, solucion, operacion, recepcion, conexion, accion, seccion, precision, contratacion, ubicacion, implementacion, inversion, promocion, distribucion, automatizacion, adquisicion, retencion, y cualquier otra palabra que lleve tilde.
+
+Nunca escribir "ano" (anus) cuando se quiere decir "año" (year). Nunca escribir "campana" (bell) cuando se quiere decir "campaña" (campaign).
+
 ## Caso de referencia: Defu — The Tofu Co.
 
-Primer discovery generado con esta skill. Ver `gen-defu.mjs` como ejemplo completo de `DiscoveryData`.
+Primer discovery generado con esta skill. Ver `Clients/defu/gen-defu.mjs` como ejemplo completo de `DiscoveryData`.
 
 - **Cliente**: Angel Huang, Defu (tofu artesanal, Buenos Aires)
 - **Situacion**: ventas estancadas, cero pauta digital, operacion manual, capacidad ociosa ~30%
@@ -213,12 +223,12 @@ Primer discovery generado con esta skill. Ver `gen-defu.mjs` como ejemplo comple
 
 ## Caso de referencia: Grupo Lente — Star Deportes
 
-Segundo discovery. Ver `gen-grupo-lente.mjs` como ejemplo de `DiscoveryData` con plan cards, competidores detallados, ICPs por genero y chatbot omnicanal.
+Segundo discovery. Ver `Clients/grupo-lente/gen-grupo-lente.mjs` como ejemplo de `DiscoveryData` con plan cards, competidores detallados, ICPs por genero y chatbot omnicanal.
 
 - **Cliente**: Diego, Matias y Leandro, Grupo Lente (Star Deportes, 13 sucursales, periferia La Plata)
-- **Situacion**: 13 anos de operacion fisica madura, cuasi-monopolio en pueblos. Digital sin desarrollar: 0.01% ventas online, sin Meta Pixel, sin campanas de conversion. 189k seguidores en IG.
+- **Situacion**: 13 años de operacion fisica madura, cuasi-monopolio en pueblos. Digital sin desarrollar: 0.01% ventas online, sin Meta Pixel, sin campañas de conversion. 189k seguidores en IG.
 - **Competencia**: Mateu Sports (45 ads), Open Sports (99 ads), Solo Deportes (73 ads) = 217 anuncios activos combinados
 - **Diferencial**: credito personal interno (cupos $450k-600k, mora un digito), presencia en pueblos donde las cadenas no llegan
-- **Estrategia**: funnel B2C e-commerce + campanas locales creditos personales + chatbot omnicanal. Digital como sensor de demanda para expansion presencial.
-- **ICPs por genero**: Mujer 25-45 (renueva placard + hijos), Hombre 25-45 (equipamiento deportivo + hijos), Padres para hijos (estacional: cole, Dia del Nino)
+- **Estrategia**: funnel B2C e-commerce + campañas locales creditos personales + chatbot omnicanal. Digital como sensor de demanda para expansion presencial.
+- **ICPs por genero**: Mujer 25-45 (renueva placard + hijos), Hombre 25-45 (equipamiento deportivo + hijos), Padres para hijos (estacional: cole, Dia del Niño)
 - **Valor del servicio**: implementacion USD 500-700 (unico), Plan Testeo USD 300-400/mes, Plan Integral USD 400-600/mes (plan cards side-by-side)

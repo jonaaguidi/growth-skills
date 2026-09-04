@@ -1,7 +1,7 @@
 import { renderPlaybookHtml } from "./dist/lib/playbook-renderer.js";
 import { renderOnboardingHtml } from "./dist/lib/onboarding-renderer.js";
 import { renderStrategyHtml } from "./dist/lib/strategy-renderer.js";
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync, copyFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
 
@@ -9,7 +9,7 @@ const data = {
   clientInfo: {
     nombreEmpresa: "Defu — The Tofu Co.",
     slug: "defu",
-    nombreContacto: "Angel Huang",
+    nombreContacto: "Angel",
     industria: "Alimentos artesanales / Plant-based",
     sitioWeb: "defu.com.ar",
     email: null,
@@ -22,6 +22,11 @@ const data = {
     cplObjetivo: "$240 ARS (visita al e-commerce)",
     canalesRecomendados: ["Instagram Ads", "Facebook Ads", "E-commerce (defu.com.ar)", "WhatsApp Business"],
     palancaPropuesta: "Captacion: awareness + funnel B2C ecommerce",
+    campanasVendidas: ["Awareness de Marca", "Funnel B2C (Ecommerce)"],
+    duracionProyecto: "8 semanas",
+    fechaInicio: null,
+    fechaFin: null,
+    fechaInicioISO: "2026-08-25",
   },
 
   // A. Onboarding
@@ -151,11 +156,20 @@ const data = {
         { label: "Validar capacidad de atencion diaria", status: "pendiente", notas: null },
       ],
     },
+    accesoPlataforma: null,
+    tracking: null,
   },
 
   koCall: {
     fechaPropuesta: null,
-    agenda: [
+    duracionTotal: "45 min",
+    etapas: [
+      { nombre: "Apertura", duracion: "5 min", objetivo: "Intro: que vamos a configurar hoy", output: "Contexto alineado" },
+      { nombre: "Onboarding Meta", duracion: "25 min", objetivo: "Setup completo de Meta (Page, Portfolio, Ad Account, IG, permisos, tarjeta)", output: "Cuenta publicitaria lista" },
+      { nombre: "Accesos", duracion: "10 min", objetivo: "Obtener credenciales de plataforma e-commerce", output: "Acceso a Tienda Nube" },
+      { nombre: "Cierre", duracion: "5 min", objetivo: "Proximos pasos + agendar Foundation Review", output: "Foundation Review agendada" },
+    ],
+    flujoTemas: [
       "Presentacion del equipo asignado y roles",
       "Review de la propuesta aceptada (recap de F1)",
       "Explicar el proceso de Foundation: que se va a hacer y en que orden",
@@ -179,6 +193,7 @@ const data = {
         { label: "Preparar demo de REE Metrics", status: "pendiente", notas: null },
       ],
     },
+    proximaReunion: null,
   },
 
   // B. Estrategia
@@ -189,47 +204,70 @@ const data = {
 
   icp: [
     {
-      segmento: "B2C: Consumidor Final",
-      descripcion: "Persona de 25-45 anos en Buenos Aires, foodie, comunidad asiatica o vegano/vegetariano que busca tofu artesanal fresco.",
+      segmento: "Vegano / Veggie",
+      descripcion: "Persona de 25-40 anos en Buenos Aires que sigue una dieta vegana o vegetariana y busca proteina vegetal de calidad.",
       dolores: [
-        "No encuentra tofu de calidad en supermercados",
-        "El tofu del super no tiene sabor ni buena textura",
-        "No sabe donde comprar tofu artesanal fresco fuera del Barrio Chino",
-        "Asocia el tofu con un producto insipido por malas experiencias",
+        "No encuentra tofu de calidad en supermercados (solo Soyana industrial)",
+        "El tofu del super no tiene sabor ni buena textura, parece goma",
+        "Las opciones de proteina vegetal artesanal son escasas y caras",
+        "No confia en la cadena de frio ni en el proceso de produccion industrial",
       ],
       deseos: [
-        "Comer mas saludable con productos artesanales y locales",
-        "Acceso facil a tofu fresco sin ir al Barrio Chino (delivery/e-commerce)",
-        "Descubrir recetas y formas de cocinar con tofu",
-        "Tener un proveedor de confianza para recompra regular",
+        "Tener un proveedor confiable de tofu artesanal fresco para recompra regular",
+        "Acceso facil por e-commerce con delivery en el dia",
+        "Variedad de proteina vegetal (tofu firme, sedoso, especiado, frito)",
+        "Saber que el producto es artesanal, local y con habilitacion sanitaria",
       ],
       objeciones: [
         "Es mas caro que Soyana del supermercado",
-        "No se como cocinar tofu",
-        "No sabia que existia tofu artesanal en Buenos Aires",
         "El producto fresco dura pocos dias",
+        "No sabia que existia tofu artesanal en Buenos Aires",
       ],
       prioridad: "primario",
     },
     {
-      segmento: "B2B: Dieteticas, Food Service, Distribuidoras",
-      descripcion: "Negocios que necesitan proveedor formal de tofu con habilitacion sanitaria, calidad constante y trato directo.",
+      segmento: "Alimentacion Saludable",
+      descripcion: "Persona de 28-45 anos, NSE medio-alto, que busca comer sano con productos artesanales, naturales y locales.",
       dolores: [
-        "Necesita proveedor con habilitacion sanitaria (RNE/RNPA)",
-        "Pocos proveedores artesanales formales en Buenos Aires",
-        "Proveedores informales no ofrecen garantias ni facturacion",
+        "Los productos saludables del supermercado son ultraprocesados disfrazados",
+        "No encuentra opciones artesanales con habilitacion sanitaria real",
+        "Quiere incorporar tofu pero no sabe como cocinarlo o que variedad elegir",
+        "Le cuesta armar una dieta variada sin caer en los mismos productos",
       ],
       deseos: [
-        "Proveedor que no compita con su precio al publico",
-        "Producto diferenciado para destacar en carta/gondola",
-        "Listas de precios claras y plazos de pago definidos",
+        "Comer mas saludable con productos artesanales y locales",
+        "Descubrir recetas y formas nuevas de cocinar con tofu",
+        "Comprar directo al productor con garantia de frescura",
+        "Recibir el producto en su casa sin ir al Barrio Chino",
       ],
       objeciones: [
-        "Ya tengo proveedor (Soyana) con distribucion estable",
+        "No se como cocinar tofu, me queda feo",
+        "Es mas caro que otras proteinas",
         "No conozco la marca",
-        "Vida util corta del producto fresco",
       ],
-      prioridad: "secundario",
+      prioridad: "primario",
+    },
+    {
+      segmento: "Foodie / Comida China",
+      descripcion: "Persona de 25-45 anos, apasionada por la cocina asiatica, que quiere hacer comida china autentica en casa.",
+      dolores: [
+        "No consigue ingredientes asiaticos de calidad fuera del Barrio Chino",
+        "Las masas para gyozas y arrolladitos del supermercado son genericas",
+        "Cocinar comida china casera requiere ingredientes que no son faciles de encontrar",
+        "Los restaurantes chinos autenticos son pocos y caros para comer seguido",
+      ],
+      deseos: [
+        "Hacer gyozas, arrolladitos primavera y tofu casero como en un restaurante chino",
+        "Tener todos los ingredientes en un solo pedido con delivery",
+        "Descubrir productos nuevos (tofu bacon, tofu frito, tofu especiado)",
+        "Comprar de una familia china-argentina que sabe hacer tofu de verdad",
+      ],
+      objeciones: [
+        "Ya compro en el Barrio Chino cuando necesito",
+        "No se si el delivery llega a mi zona",
+        "Nunca compre comida por e-commerce",
+      ],
+      prioridad: "primario",
     },
   ],
 
@@ -310,16 +348,19 @@ const data = {
 
   arquitectura: [
     {
-      nombre: "Awareness: Interaccion (visitas al perfil IG)",
-      objetivo: "Generar awareness de marca en Buenos Aires. Que conozcan a Defu mas alla de Barrio Chino.",
+      nombre: "DEFU_Awareness",
+      objetivo: "Interacción",
       adSets: [
         {
-          nombre: "Foodie / Healthy Buenos Aires",
-          segmentacion: "Buenos Aires, 25-45 anos, intereses: alimentacion saludable, cocina asiatica, vegano/vegetariano, tofu, comida artesanal",
+          nombre: "Conjunto_General_CABA/ZN",
+          segmentacion: "25-48 años, CABA/GBA (Belgrano, Nuñez, Palermo, Colegiales, Saavedra, Villa Urquiza, Coghlan, Vicente Lopez). Intereses: Alimentación Saludable, Veggie, Comida China, Cocina Asiática, Tofu, Comida Artesanal, Recetas Vegetarianas, Comida Plant-Based",
           ads: [
-            "Video: proceso artesanal en la planta (angulo 'Tofu de verdad')",
-            "Carrusel: historia de la familia Huang (angulo 'De nuestra familia')",
-            "Imagen: catalogo de 20+ productos (angulo 'Mucho mas que tofu')",
+            "Reel posicionamiento 1 | instagram.com/defu.tofuco/reel/Dboj311iXkX",
+            "Reel posicionamiento 2 | instagram.com/defu.tofuco/reel/DcuDokLDtpS",
+            "Reel posicionamiento 3 | instagram.com/defu.tofuco/reel/DcRvAaxD_4H",
+            "Imagen estatica 1 | instagram.com/defu.tofuco/p/Db_p9iejL7r",
+            "Reel posicionamiento 4 | instagram.com/defu.tofuco/reel/DbtryXDiuIl",
+            "Imagen estatica 2 | instagram.com/defu.tofuco/p/DC-Do-PRr5g",
           ],
         },
       ],
@@ -355,6 +396,53 @@ const data = {
     validado: false,
   },
 
+  ofertas: [
+    {
+      nombre: "Stockeate el mes con DEFU",
+      descripcion: "Pack x3 o x5 de tofu (cualquier variedad). Precio por unidad mas bajo. Ideal para stockearse y no quedarse sin tofu artesanal.",
+      precio: null,
+    },
+    {
+      nombre: "Comida China en Casa",
+      descripcion: "Tofu firme + masas para gyozas + masas para arrolladitos primavera. Todo lo que necesitas para una cena china casera autentica.",
+      precio: null,
+    },
+    {
+      nombre: "Por definir con Angel",
+      descripcion: "Tercera oferta a definir con el cliente. Puede ser un combo estacional, un kit de recetas, o un bundle con delivery gratis.",
+      precio: null,
+    },
+  ],
+
+  cambiosEcommerce: [
+    {
+      cambio: "Agregar pack Tofu x3 como producto en Tienda Nube",
+      objetivo: "Subir ticket promedio ofreciendo descuento por volumen",
+    },
+    {
+      cambio: "Agregar pack Tofu x5 como producto en Tienda Nube",
+      objetivo: "Incentivar compra en cantidad y reducir frecuencia de envio",
+    },
+    {
+      cambio: "Crear combo 'Comida China Casera' como producto bundle",
+      objetivo: "Cross-sell de productos complementarios (tofu + masas)",
+    },
+  ],
+
+  competenciaAds: {
+    marca: "Soyana",
+    cuenta: "soyana_alimentos",
+    adLibraryUrl: "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=AR&q=soyana",
+    formatos: [
+      { id: "f01", tipo: "Carrusel", dolor: "No encuentra variedad de productos plant-based en un solo lugar" },
+      { id: "f02", tipo: "Shopping / Catalogo", dolor: "No sabe cuanto cuestan ni donde comprar packs de proteina vegetal" },
+      { id: "f03", tipo: "Imagen estatica", dolor: "Quiere stockearse saludable pero no encuentra packs convenientes" },
+      { id: "f04", tipo: "Reel", dolor: "No sabe como cocinar recetas plant-based rapidas y ricas", postUrl: "https://www.instagram.com/p/DbEgvV7M5A2/" },
+      { id: "f05", tipo: "Reel", dolor: "Busca alternativas saludables al queso tradicional pero no conoce opciones", postUrl: "https://www.instagram.com/p/DZV_Q7Jsdih/" },
+      { id: "f06", tipo: "Reel", dolor: "Quiere probar productos veganos pero no sabe por donde empezar", postUrl: "https://www.instagram.com/p/DYX56KuyVQW/" },
+    ],
+  },
+
   notas: "DEFU es el primer cliente de Foundation F2. Los edge cases de este cliente (sin FB Page, posible IG Personal, sin vehiculo propio) son referencia para el proceso estandar.\n\nAngel es cuello de botella operativo: atiende todo personalmente y administra otros locales. Cualquier flujo de leads debe considerar su capacidad limitada. En una fase posterior se puede implementar un bot de WhatsApp para filtrar y calificar automaticamente.\n\nLa estrategia es gradual: primero awareness (que conozcan a Defu), luego conversion B2C (e-commerce). El B2B no lleva pauta por ahora, se trabaja organicamente aprovechando el awareness generado.",
 
   // Roadmap & bienvenida
@@ -388,12 +476,22 @@ const desktop = join(homedir(), "Desktop");
 const outputs = [
   { dir: join(baseDir, "clients-doc-internos", "defu"), file: "foundation-defu.html", html: playbook },
   { dir: join(baseDir, "clients-onboardings", "defu"), file: "onboarding-defu.html", html: onboarding },
-  { dir: join(baseDir, "clients-strategies", "defu"), file: "estrategia-defu.html", html: strategy },
+  { dir: join(baseDir, "clients-strategies", "defu"), file: "foundation-review-defu.html", html: strategy },
 ];
 
 for (const out of outputs) {
   mkdirSync(out.dir, { recursive: true });
   const path = join(out.dir, out.file);
+
+  // Backup before overwrite
+  if (existsSync(path)) {
+    const ts = new Date().toISOString().replace(/[:.]/g, "-");
+    const bakName = out.file.replace(".html", `.bak.${ts}.html`);
+    const bakPath = join(out.dir, bakName);
+    copyFileSync(path, bakPath);
+    console.log(`Backup: ${bakPath}`);
+  }
+
   writeFileSync(path, out.html, "utf-8");
   console.log(`Done: ${path}`);
 
