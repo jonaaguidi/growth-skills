@@ -11,7 +11,7 @@ export const description =
 
 export const zodSchema = {
   foundationData: z.string().describe(
-    "JSON string con la estructura FoundationData completa. Incluye: clientInfo, datosF1, equipoAsignado, grupoWhatsApp, metaBusiness, requerimientosCliente, koCall, palanca, icp, oferta, calificacionLeads, kpis, presupuesto, creativos, utm, arquitectura, capacidadAtencion, notas, roadmap y mensajeBienvenida."
+    "JSON string con la estructura FoundationData completa. Incluye: clientInfo, datosF1, equipoAsignado, grupoWhatsApp, metaBusiness, requerimientosCliente, koCall, palanca, icp, propuestaDeValor, calificacionLeads, kpis, presupuesto, creativos, utm, arquitectura, capacidadAtencion, notas y roadmap."
   ),
 };
 
@@ -21,7 +21,7 @@ export const inputSchema = {
     foundationData: {
       type: "string",
       description:
-        "JSON string con la estructura FoundationData completa. Incluye: clientInfo, datosF1, equipoAsignado, grupoWhatsApp, metaBusiness, requerimientosCliente, koCall, palanca, icp, oferta, calificacionLeads, kpis, presupuesto, creativos, utm, arquitectura, capacidadAtencion, notas, roadmap y mensajeBienvenida.",
+        "JSON string con la estructura FoundationData completa. Incluye: clientInfo, datosF1, equipoAsignado, grupoWhatsApp, metaBusiness, requerimientosCliente, koCall, palanca, icp, propuestaDeValor, calificacionLeads, kpis, presupuesto, creativos, utm, arquitectura, capacidadAtencion, notas y roadmap.",
     },
   },
   required: ["foundationData"],

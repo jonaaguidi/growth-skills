@@ -205,51 +205,58 @@ const data = {
   icp: [
     {
       segmento: "Vegano / Veggie",
-      descripcion: "Persona de 25-40 anos en Buenos Aires que sigue una dieta vegana o vegetariana y busca proteina vegetal de calidad.",
+      descripcion: "Persona de 25-45 años en Buenos Aires que sigue una dieta vegana o vegetariana. El tofu es parte de su alimentacion diaria, no un producto ocasional. Busca un proveedor confiable para recompra quincenal o mensual.",
+      frase: "Necesito tofu artesanal de verdad, no el industrial del supermercado",
       dolores: [
         "No encuentra tofu de calidad en supermercados (solo Soyana industrial)",
         "El tofu del super no tiene sabor ni buena textura, parece goma",
-        "Las opciones de proteina vegetal artesanal son escasas y caras",
+        "Las opciones de tofu son escasas",
         "No confia en la cadena de frio ni en el proceso de produccion industrial",
       ],
       deseos: [
         "Tener un proveedor confiable de tofu artesanal fresco para recompra regular",
         "Acceso facil por e-commerce con delivery en el dia",
-        "Variedad de proteina vegetal (tofu firme, sedoso, especiado, frito)",
+        "Variedad de tofu (firme, sedoso, especiado, frito)",
         "Saber que el producto es artesanal, local y con habilitacion sanitaria",
+        "Poder stockearme con combos de forma simple y rapida",
       ],
       objeciones: [
-        "Es mas caro que Soyana del supermercado",
         "El producto fresco dura pocos dias",
         "No sabia que existia tofu artesanal en Buenos Aires",
+        "Necesito otros productos para saborizar mi tofu",
       ],
       prioridad: "primario",
+      recurrencia: "alta",
     },
     {
       segmento: "Alimentacion Saludable",
-      descripcion: "Persona de 28-45 anos, NSE medio-alto, que busca comer sano con productos artesanales, naturales y locales.",
+      descripcion: "Persona de 25-45 años que busca comer sano con productos naturales, artesanales y locales. Incorpora tofu como parte de una dieta equilibrada, no como base diaria. Compra con menor frecuencia pero aun asi es recurrente su compra si el producto es de su agrado.",
+      frase: "Quiero comer mejor sin resignar sabor, con productos reales",
       dolores: [
-        "Los productos saludables del supermercado son ultraprocesados disfrazados",
-        "No encuentra opciones artesanales con habilitacion sanitaria real",
+        "Los productos 'saludables' del supermercado son ultraprocesados disfrazados",
+        "No sabe donde comprar tofu de calidad cerca",
         "Quiere incorporar tofu pero no sabe como cocinarlo o que variedad elegir",
-        "Le cuesta armar una dieta variada sin caer en los mismos productos",
+        "Le cuesta armar una dieta variada sin caer siempre en los mismos productos",
       ],
       deseos: [
-        "Comer mas saludable con productos artesanales y locales",
+        "Sumar tofu de calidad sin dejar de comer rico",
         "Descubrir recetas y formas nuevas de cocinar con tofu",
         "Comprar directo al productor con garantia de frescura",
         "Recibir el producto en su casa sin ir al Barrio Chino",
+        "Poder stockearme con combos de forma simple y rapida",
       ],
       objeciones: [
         "No se como cocinar tofu, me queda feo",
-        "Es mas caro que otras proteinas",
         "No conozco la marca",
+        "Necesito otros productos para saborizar mi tofu",
       ],
       prioridad: "primario",
+      recurrencia: "media",
     },
     {
       segmento: "Foodie / Comida China",
-      descripcion: "Persona de 25-45 anos, apasionada por la cocina asiatica, que quiere hacer comida china autentica en casa.",
+      descripcion: "Persona de 25-45 años apasionada por la cocina asiatica, que quiere hacer comida china autentica en casa. Consumidor ocasional: compra para una receta o evento especifico, no como habito semanal.",
+      frase: "Quiero hacer gyozas caseras como en un restaurante chino de verdad",
       dolores: [
         "No consigue ingredientes asiaticos de calidad fuera del Barrio Chino",
         "Las masas para gyozas y arrolladitos del supermercado son genericas",
@@ -257,7 +264,7 @@ const data = {
         "Los restaurantes chinos autenticos son pocos y caros para comer seguido",
       ],
       deseos: [
-        "Hacer gyozas, arrolladitos primavera y tofu casero como en un restaurante chino",
+        "Hacer gyozas, arrolladitos primavera y tofu casero con ingredientes autenticos",
         "Tener todos los ingredientes en un solo pedido con delivery",
         "Descubrir productos nuevos (tofu bacon, tofu frito, tofu especiado)",
         "Comprar de una familia china-argentina que sabe hacer tofu de verdad",
@@ -267,11 +274,12 @@ const data = {
         "No se si el delivery llega a mi zona",
         "Nunca compre comida por e-commerce",
       ],
-      prioridad: "primario",
+      prioridad: "secundario",
+      recurrencia: "baja",
     },
   ],
 
-  oferta: {
+  propuestaDeValor: {
     descripcion: "Tofu artesanal fresco, elaborado todos los dias por una familia china-argentina en Buenos Aires. Mas de 20 productos: tofu (7 variedades), masas para gyozas, wantan y arrolladitos primavera. Envio en el dia. Unico productor artesanal con habilitacion sanitaria completa.",
     diferenciador: "Unico productor artesanal de tofu con habilitacion sanitaria en Buenos Aires. Fresco del dia, no industrial. Historia familiar autentica.",
   },
@@ -313,28 +321,186 @@ const data = {
   },
 
   creativos: {
-    angulos: [
+    piezasPorIcp: [
       {
-        nombre: "Tofu de verdad",
-        dolorQueResuelve: "El consumidor no encuentra tofu de calidad",
-        mensajeClave: "Tofu artesanal, fresco del dia. Una vez que lo probas, el del supermercado no vuelve a ser opcion.",
-        formato: "Video corto (Reels/Stories) mostrando proceso artesanal vs industrial",
+        icp: "Vegano / Veggie",
+        piezas: [
+          {
+            formato: "Video UGC",
+            dolor: "El tofu del super no tiene sabor ni buena textura, parece goma",
+            solucion: "Mix Degustacion: proba tofu de calidad con 7 variedades en un solo pedido",
+            comunicacion: "",
+            hook: "Deje de comprar el tofu del super. Te cuento por que.",
+            body: "Persona mostrando la diferencia de textura y sabor entre el tofu industrial y el artesanal de Defu. Corte, textura, color. Prueba en camara.",
+            cta: "Proba todas las variedades con el Mix Degustacion. Link en bio.",
+          },
+          {
+            formato: "Video UGC",
+            dolor: "Necesita stockearse pero no tiene una forma simple de hacerlo",
+            solucion: "Mix Stockeate: 12 unidades para tener tofu todo el mes",
+            comunicacion: "",
+            hook: "Asi organizo mis comidas para todo el mes.",
+            body: "Persona mostrando como arma su heladera con los 12 tofus del Mix Stockeate. Meal prep visual, multiples comidas resueltas.",
+            cta: "Pedilo en defu.com.ar. 12 tofus en tu puerta.",
+          },
+          {
+            formato: "Video UGC",
+            dolor: "Los productos 'saludables' del super son ultraprocesados disfrazados",
+            solucion: "Tofu artesanal con 3 ingredientes reales: soja, agua y nigari",
+            comunicacion: "",
+            hook: "Leiste la etiqueta de tu comida saludable? Te va a sorprender.",
+            body: "Comparar etiquetas: ingredientes del tofu industrial vs los 3 ingredientes de Defu (soja, agua, nigari). Reaccion al leer la lista del industrial.",
+            cta: "Consumi proteina organica de verdad. defu.com.ar",
+          },
+          {
+            formato: "Imagen",
+            dolor: "Necesita stockearse pero no tiene una forma simple de hacerlo",
+            solucion: "Mix Stockeate: 12 unidades de tofu para tener siempre disponible",
+            comunicacion: "",
+            mensajes: [
+              "Visual del Mix Stockeate con los 12 productos",
+              "Copy: 'Tu quincena de tofu resuelta en 1 pedido'",
+              "Precio del combo + envio en el dia. CTA en defu.com.ar",
+            ],
+          },
+          {
+            formato: "Carrusel",
+            dolor: "No conoce la marca, nunca compro tofu artesanal online",
+            solucion: "Comparacion visual: tofu industrial vs produccion artesanal diaria",
+            comunicacion: "",
+            mensajes: [
+              "Slide 1: Foto tofu de super vs tofu Defu (comparativa visual directa)",
+              "Slide 2-3: Proceso artesanal, la familia, produccion del dia",
+              "Slide 4: CTA 'Proba la diferencia. Mix Degustacion en defu.com.ar'",
+            ],
+          },
+          {
+            formato: "Imagen",
+            dolor: "No confia en la cadena de frio ni en el proceso de produccion industrial",
+            solucion: "Produccion diaria con habilitacion sanitaria completa",
+            comunicacion: "",
+            mensajes: [
+              "Producto hero con claim: 'Fresco del dia, no del freezer'",
+              "Badge de habilitacion sanitaria visible",
+              "CTA al e-commerce",
+            ],
+          },
+          {
+            formato: "Story",
+            dolor: "Necesita otros productos para saborizar su tofu",
+            solucion: "Mix Degustacion incluye saborizados (Espinaca y Nuez, Provenzal, Aji) listos para comer",
+            comunicacion: "",
+            mensajes: [
+              "Grilla visual de los productos del Mix Degustacion",
+              "Copy: 'Saborizados incluidos, no tenes que agregar nada'",
+              "Swipe up al combo en defu.com.ar",
+            ],
+          },
+          {
+            formato: "Carrusel",
+            dolor: "Siempre cocina lo mismo con tofu porque no tiene ideas",
+            solucion: "Recetario visual con platos distintos usando variedades del Mix Degustacion",
+            comunicacion: "",
+            mensajes: [
+              "Slide 1: '5 recetas, 5 tofus distintos'",
+              "Slides 2-5: Plato terminado + variedad de tofu usada en cada receta",
+              "Slide 6: CTA al Mix Degustacion en defu.com.ar",
+            ],
+          },
+        ],
       },
       {
-        nombre: "De nuestra familia a tu mesa",
-        dolorQueResuelve: "No conoce la historia detras del producto",
-        mensajeClave: "Defu nace en Barrio Chino. Una familia china-argentina que hace tofu como se hace de verdad, todos los dias.",
-        formato: "Carrusel storytelling: fotos de la familia, la planta, el proceso",
+        icp: "Alimentacion Saludable",
+        piezas: [
+          {
+            formato: "Video UGC",
+            dolor: "El tofu del super no tiene sabor ni buena textura, parece goma",
+            solucion: "Mix Degustacion: proba tofu de calidad con 7 variedades en un solo pedido",
+            comunicacion: "",
+            hook: "Deje de comprar el tofu del super. Te cuento por que.",
+            body: "Persona mostrando la diferencia de textura y sabor entre el tofu industrial y el artesanal de Defu. Corte, textura, color. Prueba en camara.",
+            cta: "Proba todas las variedades con el Mix Degustacion. Link en bio.",
+          },
+          {
+            formato: "Video UGC",
+            dolor: "Necesita stockearse pero no tiene una forma simple de hacerlo",
+            solucion: "Mix Stockeate: 12 unidades para tener tofu todo el mes",
+            comunicacion: "",
+            hook: "Asi organizo mis comidas para todo el mes.",
+            body: "Persona mostrando como arma su heladera con los 12 tofus del Mix Stockeate. Meal prep visual, multiples comidas resueltas.",
+            cta: "Pedilo en defu.com.ar. 12 tofus en tu puerta.",
+          },
+          {
+            formato: "Video UGC",
+            dolor: "Los productos 'saludables' del super son ultraprocesados disfrazados",
+            solucion: "Tofu artesanal con 3 ingredientes reales: soja, agua y nigari",
+            comunicacion: "",
+            hook: "Leiste la etiqueta de tu comida saludable? Te va a sorprender.",
+            body: "Comparar etiquetas: ingredientes del tofu industrial vs los 3 ingredientes de Defu (soja, agua, nigari). Reaccion al leer la lista del industrial.",
+            cta: "Consumi proteina organica de verdad. defu.com.ar",
+          },
+          {
+            formato: "Imagen",
+            dolor: "No sabe donde comprar tofu de calidad cerca",
+            solucion: "E-commerce con delivery en el dia, directo del productor",
+            comunicacion: "",
+            mensajes: [
+              "Visual de delivery con copy: 'Tofu artesanal en tu puerta, sin ir al Barrio Chino'",
+              "Zona de cobertura (CABA/ZN) + envio en el dia",
+              "CTA al Mix Degustacion o Mix Stockeate en defu.com.ar",
+            ],
+          },
+          {
+            formato: "Story",
+            dolor: "Quiere incorporar tofu pero no sabe como cocinarlo",
+            solucion: "Receta rapida con tofu saborizado que ya viene listo para comer",
+            comunicacion: "",
+            mensajes: [
+              "Receta express: cortar tofu saborizado, agregar a ensalada o wrap",
+              "Copy: 'Cena lista en 5 minutos. Sin saber cocinar.'",
+              "Swipe up al Mix Degustacion en defu.com.ar",
+            ],
+          },
+          {
+            formato: "Carrusel",
+            dolor: "Quiere incorporar tofu pero no sabe que variedad elegir",
+            solucion: "Mix Degustacion: 7 variedades para descubrir cual te gusta mas",
+            comunicacion: "",
+            mensajes: [
+              "Slide 1: 'No sabes que tofu elegir? Probalos todos.'",
+              "Slide 2-3: Cada variedad del mix con sugerencia de uso (comun para salteados, duro para plancha, saborizados para ensalada)",
+              "Slide 4: CTA al Mix Degustacion en defu.com.ar",
+            ],
+          },
+          {
+            formato: "Imagen",
+            dolor: "Le cuesta armar una dieta variada sin caer siempre en los mismos productos",
+            solucion: "Mix Stockeate: 12 unidades para resolver toda la quincena",
+            comunicacion: "",
+            mensajes: [
+              "Visual del Mix Stockeate con copy: 'Tu quincena resuelta en 1 pedido'",
+              "Precio del combo + envio en el dia",
+              "CTA directo al combo en defu.com.ar",
+            ],
+          },
+          {
+            formato: "Carrusel",
+            dolor: "No conoce la marca ni sabe que existe tofu artesanal local",
+            solucion: "Familia china-argentina produciendo tofu artesanal todos los dias en Buenos Aires",
+            comunicacion: "",
+            mensajes: [
+              "Slide 1: 'Conoce a la familia detras de tu tofu'",
+              "Slide 2: Historia familiar y tradicion",
+              "Slide 3: Proceso artesanal, produccion diaria",
+              "Slide 4: CTA 'Proba el tofu de verdad. Mix Degustacion en defu.com.ar'",
+            ],
+          },
+        ],
       },
-      {
-        nombre: "Mucho mas que tofu",
-        dolorQueResuelve: "Asocia el tofu con un producto aburrido",
-        mensajeClave: "Masas para gyozas, arrolladitos primavera, tofu especiado, frito, bacon. Mas de 20 productos para descubrir.",
-        formato: "Carrusel de producto / video de recetas",
-      },
+      // Foodie / Comida China excluido: consumo ocasional, conviene optimizar recursos hacia ICPs recurrentes
     ],
-    formatos: ["Reels/Stories (video 9:16)", "Carrusel (feed)", "Imagen estatica (feed)", "Story con link al e-commerce"],
-    tono: "Directo, autentico, cercano. Mostrar el proceso real. Sin lenguaje corporativo. Storytelling familiar.",
+    formatos: ["Video UGC (Reels 9:16)", "Carrusel (feed)", "Imagen estatica (feed)", "Story con link al e-commerce"],
+    tono: null,
   },
 
   utm: {
@@ -353,7 +519,7 @@ const data = {
       adSets: [
         {
           nombre: "Conjunto_General_CABA/ZN",
-          segmentacion: "25-48 años, CABA/GBA (Belgrano, Nuñez, Palermo, Colegiales, Saavedra, Villa Urquiza, Coghlan, Vicente Lopez). Intereses: Alimentación Saludable, Veggie, Comida China, Cocina Asiática, Tofu, Comida Artesanal, Recetas Vegetarianas, Comida Plant-Based",
+          segmentacion: "25-45 años, CABA/ZN (Belgrano, Núñez, Palermo, Colegiales, Saavedra, Villa Urquiza, Coghlan, Villa Crespo, Vicente López). Intereses: Tofu, Veganismo, Vegetarianismo, Alimentación vegana, Gastronomía vegetariana, Gastronomía china, Alimentación saludable",
           ads: [
             "Reel posicionamiento 1 | instagram.com/defu.tofuco/reel/Dboj311iXkX",
             "Reel posicionamiento 2 | instagram.com/defu.tofuco/reel/DcuDokLDtpS",
@@ -366,23 +532,33 @@ const data = {
       ],
     },
     {
-      nombre: "Conversion: Ventas E-commerce (defu.com.ar)",
-      objetivo: "Generar ventas directas en Tienda Nube. Optimizar por evento Purchase.",
+      nombre: "DEFU_Ventas",
+      objetivo: "Ventas. Destino: defu.com.ar/[producto]. Optimizar por visitas a pagina de producto y compras.",
       adSets: [
         {
-          nombre: "Prospeccion: Lookalike de compradores",
-          segmentacion: "Lookalike de compradores en Tienda Nube (post-Pixel). Buenos Aires, 25-45 anos.",
+          nombre: "Conjunto_Vegano_Veggie",
+          segmentacion: "25-45 años, CABA/ZN (Belgrano, Núñez, Palermo, Colegiales, Saavedra, Villa Urquiza, Coghlan, Villa Crespo, Vicente López). Intereses: Tofu, Veganismo, Vegetarianismo, Alimentación vegana, Gastronomía vegetariana, Proteína vegetal",
           ads: [
-            "Video con CTA directo al e-commerce (combo 'Comida China Casera')",
-            "Carrusel de productos con precios y boton 'Comprar ahora'",
+            "Video UGC 1 | Dolor: tofu industrial vs artesanal",
+            "Video UGC 2 | Behind the scenes produccion artesanal",
+            "Carrusel | Industrial vs artesanal",
+            "Imagen | Fresco del dia + habilitacion sanitaria",
+            "Story | Grilla de productos + swipe up",
+            "Imagen | Social proof vegano",
+            "Carrusel | Recetario 5 platos con tofu",
           ],
         },
         {
-          nombre: "Retargeting: Visitantes del sitio",
-          segmentacion: "Custom audience: visitantes de defu.com.ar ultimos 14 dias que no compraron.",
+          nombre: "Conjunto_Alimentacion_Saludable",
+          segmentacion: "25-45 años, CABA/ZN (Belgrano, Núñez, Palermo, Colegiales, Saavedra, Villa Urquiza, Coghlan, Villa Crespo, Vicente López). Intereses: Alimentación saludable, Comida orgánica, Comida natural, Nutrición",
           ads: [
-            "Reminder: 'Tu tofu te espera' con descuento de primera compra",
-            "Testimonio / UGC de cliente satisfecho",
+            "Video UGC | Etiquetas industrial vs artesanal",
+            "Carrusel | 3 ingredientes, nada mas",
+            "Imagen | Combo semanal + envio en el dia",
+            "Story | Receta rapida con tofu listo",
+            "Imagen | Del productor a tu mesa",
+            "Carrusel | Comer sano no tiene que ser caro",
+            "Imagen | Producto hero artesanal + local",
           ],
         },
       ],
@@ -398,36 +574,18 @@ const data = {
 
   ofertas: [
     {
-      nombre: "Stockeate el mes con DEFU",
-      descripcion: "Pack x3 o x5 de tofu (cualquier variedad). Precio por unidad mas bajo. Ideal para stockearse y no quedarse sin tofu artesanal.",
-      precio: null,
+      nombre: "Mix Degustacion",
+      descripcion: "1x Tofu Comun al Vacio 800g ($6.500) + 1x Tofu Duro al Vacio 800g ($8.000) + 1x Tofu Especiado 1kg ($10.500) + 2x Tofu Saborizado Espinaca y Nuez 250g ($6.000 c/u) + 2x Tofu Saborizado Provenzal 250g ($6.000 c/u) + 2x Tofu Saborizado al Aji 250g ($6.000 c/u). Variedad completa para probar todos los tipos de tofu. Ideal para primera compra. Aplica a ambos ICPs.",
+      precio: "Valor individual: $61.000 — Precio combo por definir",
     },
     {
-      nombre: "Comida China en Casa",
-      descripcion: "Tofu firme + masas para gyozas + masas para arrolladitos primavera. Todo lo que necesitas para una cena china casera autentica.",
-      precio: null,
-    },
-    {
-      nombre: "Por definir con Angel",
-      descripcion: "Tercera oferta a definir con el cliente. Puede ser un combo estacional, un kit de recetas, o un bundle con delivery gratis.",
-      precio: null,
+      nombre: "Mix Stockeate",
+      descripcion: "6x Tofu Comun al Vacio 800g ($6.500 c/u) + 6x Tofu Duro al Vacio 800g ($8.000 c/u). 12 unidades en total. Para el consumidor recurrente que siempre quiere tener tofu disponible para usar y condimentar a su gusto. Aplica a ambos ICPs.",
+      precio: "Valor individual: $87.000 — Precio combo por definir",
     },
   ],
 
-  cambiosEcommerce: [
-    {
-      cambio: "Agregar pack Tofu x3 como producto en Tienda Nube",
-      objetivo: "Subir ticket promedio ofreciendo descuento por volumen",
-    },
-    {
-      cambio: "Agregar pack Tofu x5 como producto en Tienda Nube",
-      objetivo: "Incentivar compra en cantidad y reducir frecuencia de envio",
-    },
-    {
-      cambio: "Crear combo 'Comida China Casera' como producto bundle",
-      objetivo: "Cross-sell de productos complementarios (tofu + masas)",
-    },
-  ],
+  cambiosEcommerce: null,
 
   competenciaAds: {
     marca: "Soyana",
@@ -435,17 +593,20 @@ const data = {
     adLibraryUrl: "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=AR&q=soyana",
     formatos: [
       { id: "f01", tipo: "Carrusel", dolor: "No encuentra variedad de productos plant-based en un solo lugar" },
-      { id: "f02", tipo: "Shopping / Catalogo", dolor: "No sabe cuanto cuestan ni donde comprar packs de proteina vegetal" },
+      { id: "f02", tipo: "Shopping / Catalogo", dolor: "No sabe cuanto cuestan ni donde comprar packs de tofu" },
       { id: "f03", tipo: "Imagen estatica", dolor: "Quiere stockearse saludable pero no encuentra packs convenientes" },
-      { id: "f04", tipo: "Reel", dolor: "No sabe como cocinar recetas plant-based rapidas y ricas", postUrl: "https://www.instagram.com/p/DbEgvV7M5A2/" },
-      { id: "f05", tipo: "Reel", dolor: "Busca alternativas saludables al queso tradicional pero no conoce opciones", postUrl: "https://www.instagram.com/p/DZV_Q7Jsdih/" },
-      { id: "f06", tipo: "Reel", dolor: "Quiere probar productos veganos pero no sabe por donde empezar", postUrl: "https://www.instagram.com/p/DYX56KuyVQW/" },
+      { id: "f04", tipo: "Reel", dolor: "No tiene tiempo para cocinar y termina comiendo cualquier cosa", solucion: "El Tofu Listo de Soyana ya viene preparado y te resuelve 4 comidas semanales sin esfuerzo", postUrl: "https://www.instagram.com/p/DbEgvV7M5A2/" },
+      { id: "f05", tipo: "Reel", dolor: "Come mal por falta de organizacion y no sabe como planificar sus comidas", solucion: "Combos ya armados de Soyana que simplifican la planificacion y te permiten organizarte mas rapido", postUrl: "https://www.instagram.com/p/DZV_Q7Jsdih/" },
+      { id: "f06", tipo: "Reel", dolor: "Necesita sumar proteina a sus comidas pero cree que es dificil o complicado (Orientado a Vegetarianos/Veganos)", solucion: "El tofu es alto en proteinas y facil de incorporar a cualquier comida del dia", postUrl: "https://www.instagram.com/p/DYX56KuyVQW/" },
+      { id: "f07", tipo: "Reel", dolor: "Las picadas tradicionales te dejan lleno y pesado", solucion: "Con el combo de tofus saborizados podes variar de la tipica picada, facil y rapido", postUrl: "https://www.instagram.com/p/DZqJOY4w4ob/" },
+      { id: "f08", tipo: "Carrusel", dolor: "Llegar cansado, abrir la heladera y no tener nada resuelto. Terminas pidiendo delivery otra vez", solucion: "Con 1 pedido tenes toda la semana resuelta. Sin pensar todos los dias que como hoy", postUrl: "https://www.instagram.com/p/DctbiHskj3y/" },
+      { id: "f09", tipo: "Carrusel", dolor: "No sabe que combo elegir ni como sumar tofu a sus comidas", solucion: "Combos armados listos para comprar online, con variedad de productos en un solo pedido", postUrl: "https://www.instagram.com/p/DZ8Xditydvw/" },
     ],
   },
 
   notas: "DEFU es el primer cliente de Foundation F2. Los edge cases de este cliente (sin FB Page, posible IG Personal, sin vehiculo propio) son referencia para el proceso estandar.\n\nAngel es cuello de botella operativo: atiende todo personalmente y administra otros locales. Cualquier flujo de leads debe considerar su capacidad limitada. En una fase posterior se puede implementar un bot de WhatsApp para filtrar y calificar automaticamente.\n\nLa estrategia es gradual: primero awareness (que conozcan a Defu), luego conversion B2C (e-commerce). El B2B no lleva pauta por ahora, se trabaja organicamente aprovechando el awareness generado.",
 
-  // Roadmap & bienvenida
+  // Roadmap
   roadmap: [
     { nombre: "Awareness de Marca", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 1 },
@@ -460,7 +621,6 @@ const data = {
       { nombre: "Scale", semanaInicio: 7, semanaFin: 8 },
     ]},
   ],
-  mensajeBienvenida: "Angel, bienvenido a REE Growth. Somos tu equipo de crecimiento digital. Vamos a posicionar a Defu como la marca referente de tofu artesanal en Buenos Aires y activar tu canal de ventas online.",
 };
 
 // --- Generate 3 HTMLs ---
@@ -470,13 +630,14 @@ const onboarding = renderOnboardingHtml(data);
 const strategy = renderStrategyHtml(data);
 
 // Output dirs
+const slug = data.clientInfo.slug;
 const baseDir = new URL("./", import.meta.url).pathname;
 const desktop = join(homedir(), "Desktop");
 
 const outputs = [
-  { dir: join(baseDir, "clients-doc-internos", "defu"), file: "foundation-defu.html", html: playbook },
-  { dir: join(baseDir, "clients-onboardings", "defu"), file: "onboarding-defu.html", html: onboarding },
-  { dir: join(baseDir, "clients-strategies", "defu"), file: "foundation-review-defu.html", html: strategy },
+  { dir: join(baseDir, "clients-doc-internos", slug), file: `foundation-${slug}.html`, html: playbook },
+  { dir: join(baseDir, "clients-onboardings", slug), file: `onboarding-${slug}.html`, html: onboarding },
+  { dir: join(baseDir, "clients-strategies", slug), file: `foundation-review-${slug}.html`, html: strategy },
 ];
 
 for (const out of outputs) {
@@ -500,3 +661,18 @@ for (const out of outputs) {
   writeFileSync(desktopPath, out.html, "utf-8");
   console.log(`Copy: ${desktopPath}`);
 }
+
+// Publish Foundation Review to ree-website
+const reeWebsiteFoundations = join(baseDir, "..", "..", "ree-website", "public", "foundations");
+if (existsSync(reeWebsiteFoundations)) {
+  const publishPath = join(reeWebsiteFoundations, `${slug}.html`);
+  if (existsSync(publishPath)) {
+    const ts = new Date().toISOString().replace(/[:.]/g, "-");
+    copyFileSync(publishPath, join(reeWebsiteFoundations, `${slug}.bak.${ts}.html`));
+  }
+  writeFileSync(publishPath, strategy, "utf-8");
+  console.log(`Publish: ${publishPath}`);
+} else {
+  console.log(`Skip publish: ${reeWebsiteFoundations} not found`);
+}
+

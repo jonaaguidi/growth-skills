@@ -31,52 +31,71 @@ Los datos vienen de tres fuentes:
 
 ### Paso 2 -- Construir el JSON
 
-Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Campos clave:
+Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Usar `gen-defu.mjs` como ejemplo canonico de referencia.
 
-**clientInfo**: datos basicos del cliente (empresa, slug, contacto, industria, web).
+**Identidad del cliente** (requeridos):
+- `clientInfo`: datos basicos (empresa, slug, contacto, industria, web). Requerido.
+- `datosF1`: resumen de la propuesta aceptada (inversion, pauta, CPL, canales, palanca, campanas vendidas, duracion, fechas). Opcional (null si no hay F1).
 
-**datosF1**: resumen de la propuesta aceptada (inversion, pauta, CPL, canales, palanca, campanas vendidas, duracion del proyecto, fechas de inicio y fin).
+**Parte A - Onboarding** (requeridos):
+- `equipoAsignado`: miembros del equipo REE con rol y telefono.
+- `grupoWhatsApp`: checklist de creacion de grupos internos y con el cliente.
+- `metaBusiness`: setup completo bajo growth@reecreativos.com (portfolio, FB Page, IG, Ad Account, Pixel, CAPI). Incluir edgeCases activos.
+- `requerimientosCliente` (tipo `RequerimientosCliente`): brandAssets, accesoWeb, whatsappInfo, atencionLeads (requeridos), accesoPlataforma y tracking (opcionales, null si no aplica).
+- `koCall`: fecha, agenda, temas WOW, checklist de preparacion.
 
-**Parte A - Onboarding**:
-- equipoAsignado: miembros del equipo REE con rol y telefono.
-- grupoWhatsApp: checklist de creacion de grupos internos y con el cliente.
-- metaBusiness: setup completo bajo growth@reecreativos.com (portfolio, FB Page, IG, Ad Account, Pixel, CAPI). Incluir edgeCases activos.
-- requerimientosCliente: brand assets, acceso web, WhatsApp info, atencion de leads, acceso a plataforma e-commerce (opcional).
-- koCall: fecha, agenda, temas WOW, checklist de preparacion.
+**Parte B - Estrategia** (opcionales salvo arquitectura):
+- `palanca`: Posicionamiento / Oferta / Captacion / Conversion + justificacion. Opcional (null).
+- `icp`: segmentos con dolores/deseos/objeciones y prioridad (primario/secundario). Array, puede estar vacio.
+- `propuestaDeValor` (tipo `PropuestaDeValor`): descripcion + diferenciador de la propuesta de valor. Opcional (null). NO confundir con `ofertas` (packs de producto).
+- `calificacionLeads`: matriz A/B/C con descripcion y accion. Array.
+- `kpis` (tipo `KPI[]`): metricas con nombre, objetivo y fuente. Array.
+- `presupuesto` (tipo `Presupuesto`): pauta, fee, total, cplTarget, limiteGastoCuenta. Opcional (null).
+- `creativos` (tipo `Creativos`): puede usar `angulos` (AnguloCreativo[]) o `piezasPorIcp` (PiezasICP[]) + formatos + tono. Opcional (null).
+- `utm`: formato de campaign + ejemplos. Opcional (null).
+- `arquitectura`: campanas con ad sets y ads. Array, requerido.
+- `capacidadAtencion`: quien atiende, capacidad diaria, tiempo de respuesta, validado. Opcional (null).
 
-**Parte B - Estrategia**:
-- palanca: Posicionamiento / Oferta / Captacion / Conversion + justificacion.
-- icp: segmentos con dolores/deseos/objeciones y prioridad (primario/secundario).
-- oferta: descripcion + diferenciador.
-- calificacionLeads: matriz A/B/C con descripcion y accion.
-- kpis: metricas con objetivo y fuente.
-- presupuesto: pauta, fee, total, CPL target, limite de gasto cuenta publicitaria.
-- creativos: angulos (nombre, dolor, mensaje, formato) + formatos + tono.
-- utm: formato de campaign + ejemplos.
-- arquitectura: campanas con ad sets y ads.
-- capacidadAtencion: quien atiende, capacidad diaria, tiempo de respuesta, validado.
+**Extras** (opcionales):
+- `notas`: contexto libre, bloqueantes, observaciones. Opcional (null).
+- `ofertas` (tipo `OfertaProducto[]`): packs de producto con nombre, descripcion, precio. Opcional (null). NO confundir con `propuestaDeValor`.
+- `cambiosEcommerce` (tipo `CambioEcommerce[]`): cambios sugeridos al e-commerce. Opcional (null).
+- `competenciaAds` (tipo `CompetenciaAds`): referencia de ads del competidor. Opcional (null).
 
-**Roadmap y bienvenida**:
-- roadmap: iniciativas con fases (Foundation/Build/Launch/Scale) y semanas.
-- mensajeBienvenida: mensaje personalizado para el doc de onboarding del cliente.
+**Roadmap** (requerido):
+- `roadmap`: iniciativas con fases (Foundation/Build/Launch/Scale) y semanas.
 
-### Paso 3 -- Generar los documentos
+### Paso 3 -- Crear el script de generacion
 
-Llamar al tool `generar-foundation-doc` pasando el JSON completo como string en `foundationData`.
+Copiar `gen-defu.mjs` a `gen-{slug}.mjs` y reemplazar el objeto `data` con los datos del nuevo cliente. El script es un template reutilizable: todo se resuelve dinamicamente por `data.clientInfo.slug`.
 
-El tool retorna 3 content items:
-1. `<!-- PLAYBOOK_HTML -->` -- Doc interno completo
-2. `<!-- ONBOARDING_HTML -->` -- Onboarding para el cliente
-3. `<!-- STRATEGY_HTML -->` -- Foundation Review
+`gen-defu.mjs` es el ejemplo canonico de referencia.
 
-### Paso 4 -- Guardar los HTMLs
+### Paso 4 -- Correr el script
 
-Guardar en las carpetas correspondientes:
-- `clients-doc-internos/{slug}/foundation-{slug}.html` -- Playbook interno
-- `clients-onboardings/{slug}/onboarding-{slug}.html` -- Onboarding cliente
-- `clients-strategies/{slug}/foundation-review-{slug}.html` -- Foundation Review
+```bash
+node gen-{slug}.mjs
+```
 
-Informar al usuario que puede abrir cada uno en el browser.
+El script genera automaticamente:
+
+| Output | Ruta |
+|---|---|
+| Playbook interno | `clients-doc-internos/{slug}/foundation-{slug}.html` |
+| Onboarding cliente | `clients-onboardings/{slug}/onboarding-{slug}.html` |
+| Foundation Review | `clients-strategies/{slug}/foundation-review-{slug}.html` |
+| Desktop (los 3) | `~/Desktop/foundation-{slug}.html`, `onboarding-{slug}.html`, `foundation-review-{slug}.html` |
+| ree-website (publish) | `../../ree-website/public/foundations/{slug}.html` |
+
+Si el archivo ya existe, el script crea un backup `.bak.{timestamp}.html` antes de sobreescribir.
+
+Si el directorio de ree-website no existe (ej. otro dev), el publish se skipea sin error.
+
+### Paso 5 -- Deploy y compartir
+
+1. Hacer deploy de `ree-website` para que el link quede live.
+2. Compartir `https://growth.reecreativos.com/foundation/{slug}` con el cliente.
+3. Los docs internos (playbook, onboarding) NO se publican online, solo se usan internamente.
 
 ## Estructura del proyecto
 

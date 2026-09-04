@@ -70,6 +70,15 @@ export interface AccesoPlataforma {
   items: CheckItem[];
 }
 
+export interface RequerimientosCliente {
+  brandAssets: CheckGroup;
+  accesoWeb: CheckGroup;
+  whatsappInfo: CheckGroup;
+  atencionLeads: CheckGroup;
+  accesoPlataforma: AccesoPlataforma | null;
+  tracking: CheckGroup | null;
+}
+
 export interface ProximaReunion {
   nombre: string;
   fechaTentativa: string | null;
@@ -103,10 +112,17 @@ export interface PalancaElegida {
 export interface ICPEstrategico {
   segmento: string;
   descripcion: string;
+  frase: string | null;
   dolores: string[];
   deseos: string[];
   objeciones: string[];
   prioridad: "primario" | "secundario";
+  recurrencia: "alta" | "media" | "baja" | null;
+}
+
+export interface PropuestaDeValor {
+  descripcion: string;
+  diferenciador: string;
 }
 
 export interface CalificacionLead {
@@ -115,11 +131,48 @@ export interface CalificacionLead {
   accion: string;
 }
 
+export interface KPI {
+  nombre: string;
+  objetivo: string | null;
+  fuente: string;
+}
+
+export interface Presupuesto {
+  pauta: string;
+  fee: string;
+  total: string;
+  cplTarget: string | null;
+  limiteGastoCuenta: string | null;
+}
+
 export interface AnguloCreativo {
   nombre: string;
   dolorQueResuelve: string;
   mensajeClave: string;
   formato: string;
+}
+
+export interface PiezaCreativa {
+  formato: string;
+  dolor: string;
+  solucion: string;
+  comunicacion: string;
+  hook?: string;
+  body?: string;
+  cta?: string;
+  mensajes?: string[];
+}
+
+export interface PiezasICP {
+  icp: string;
+  piezas: PiezaCreativa[];
+}
+
+export interface Creativos {
+  angulos?: AnguloCreativo[];
+  piezasPorIcp?: PiezasICP[];
+  formatos: string[];
+  tono: string | null;
 }
 
 export interface UTMConvention {
@@ -138,6 +191,33 @@ export interface CapacidadAtencion {
   capacidadDiaria: string | null;
   tiempoRespuesta: string | null;
   validado: boolean;
+}
+
+export interface OfertaProducto {
+  nombre: string;
+  descripcion: string;
+  precio: string | null;
+}
+
+export interface CambioEcommerce {
+  cambio: string;
+  objetivo: string;
+}
+
+export interface FormatoCompetencia {
+  id: string;
+  tipo: string;
+  dolor: string;
+  solucion?: string;
+  postUrl?: string;
+  imageFile?: string;
+}
+
+export interface CompetenciaAds {
+  marca: string;
+  cuenta: string;
+  adLibraryUrl: string;
+  formatos: FormatoCompetencia[];
 }
 
 // -- Roadmap --
@@ -163,34 +243,17 @@ export interface FoundationData {
   equipoAsignado: EquipoMiembro[];
   grupoWhatsApp: CheckGroup;
   metaBusiness: MetaBusinessSetup;
-  requerimientosCliente: {
-    brandAssets: CheckGroup;
-    accesoWeb: CheckGroup;
-    whatsappInfo: CheckGroup;
-    atencionLeads: CheckGroup;
-    accesoPlataforma: AccesoPlataforma | null;
-    tracking: CheckGroup | null;
-  };
+  requerimientosCliente: RequerimientosCliente;
   koCall: KOCallPlan;
 
   // B. Estrategia
   palanca: PalancaElegida | null;
   icp: ICPEstrategico[];
-  oferta: { descripcion: string; diferenciador: string } | null;
+  propuestaDeValor: PropuestaDeValor | null;
   calificacionLeads: CalificacionLead[];
-  kpis: { nombre: string; objetivo: string | null; fuente: string }[];
-  presupuesto: {
-    pauta: string;
-    fee: string;
-    total: string;
-    cplTarget: string | null;
-    limiteGastoCuenta: string | null;
-  } | null;
-  creativos: {
-    angulos: AnguloCreativo[];
-    formatos: string[];
-    tono: string | null;
-  } | null;
+  kpis: KPI[];
+  presupuesto: Presupuesto | null;
+  creativos: Creativos | null;
   utm: UTMConvention | null;
   arquitectura: CampanaDefinida[];
   capacidadAtencion: CapacidadAtencion | null;
@@ -198,18 +261,12 @@ export interface FoundationData {
   notas: string | null;
 
   // Foundation Review extras
-  ofertas: { nombre: string; descripcion: string; precio: string | null }[] | null;
-  cambiosEcommerce: { cambio: string; objetivo: string }[] | null;
+  ofertas: OfertaProducto[] | null;
+  cambiosEcommerce: CambioEcommerce[] | null;
 
   // Competencia reference ads
-  competenciaAds: {
-    marca: string;
-    cuenta: string;
-    adLibraryUrl: string;
-    formatos: { id: string; tipo: string; dolor: string; postUrl?: string }[];
-  } | null;
+  competenciaAds: CompetenciaAds | null;
 
-  // Roadmap & bienvenida
+  // Roadmap
   roadmap: RoadmapInitiative[];
-  mensajeBienvenida: string | null;
 }

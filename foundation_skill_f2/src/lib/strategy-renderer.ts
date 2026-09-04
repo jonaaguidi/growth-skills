@@ -25,6 +25,24 @@ function getFaviconTag(): string {
   }
 }
 
+// ─── Competitor avatars ──────────────────────────────────────────────
+
+function loadCompetitorAvatar(filename: string): string {
+  const p = resolve(__dirname, `../assets/${filename}`);
+  try {
+    return `data:image/jpeg;base64,${readFileSync(p).toString("base64")}`;
+  } catch {
+    return "";
+  }
+}
+
+const COMPETITOR_AVATARS: Record<string, string> = {
+  Soyana: loadCompetitorAvatar("soyana-avatar.jpg"),
+  TofuMania: loadCompetitorAvatar("tofumania-avatar.jpg"),
+  Soyland: loadCompetitorAvatar("soyland-avatar.jpg"),
+  Sozoe: loadCompetitorAvatar("sozoe-avatar.jpg"),
+};
+
 // ─── Soyana reference images ─────────────────────────────────────────
 
 interface RefFormato {
@@ -121,6 +139,49 @@ ${getFaviconTag()}
   details.fr-section > .fr-section-body {
     padding: 0 32px 32px;
   }
+  details.fr-subsection {
+    border: 1px solid ${COLORS.border};
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  details.fr-subsection > summary {
+    font-family: ${FONTS.heading};
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    user-select: none;
+  }
+  details.fr-subsection > summary::-webkit-details-marker { display: none; }
+  details.fr-subsection > summary::after {
+    content: "+";
+    font-family: ${FONTS.mono};
+    font-size: 18px;
+    font-weight: 400;
+    color: ${COLORS.muted};
+    margin-left: auto;
+  }
+  details.fr-subsection[open] > summary::after {
+    content: "\\2212";
+  }
+  details.fr-subsection[open] > summary {
+    border-bottom: 1px solid ${COLORS.border};
+  }
+  details.fr-subsection > .fr-subsection-body {
+    padding: 20px;
+  }
+  .subsection-num {
+    font-family: ${FONTS.mono};
+    font-size: 12px;
+    font-weight: 600;
+    color: ${COLORS.red};
+    margin-right: 10px;
+  }
 </style>
 </head>
 <body>
@@ -145,21 +206,35 @@ ${getFaviconTag()}
 function renderHeader(data: FoundationData): string {
   const empresa = escapeHtml(data.clientInfo.nombreEmpresa);
   const contacto = data.clientInfo.nombreContacto ? escapeHtml(data.clientInfo.nombreContacto) : null;
+  const industria = data.clientInfo.industria ? escapeHtml(data.clientInfo.industria) : null;
+  const web = data.clientInfo.sitioWeb ? escapeHtml(data.clientInfo.sitioWeb) : null;
+  const duracion = data.datosF1?.duracionProyecto ? escapeHtml(data.datosF1.duracionProyecto) : null;
+  const canales = data.datosF1?.canalesRecomendados ?? [];
+  const campanas = data.datosF1?.campanasVendidas ?? [];
+  const palanca = data.palanca?.nombre ? escapeHtml(data.palanca.nombre) : null;
 
   const logoB64 = getLogoBase64();
   const logoHtml = logoB64
     ? `<img class="header-logo" src="data:image/png;base64,${logoB64}" alt="REE Creativos">`
     : "";
 
+  const badgeStyle = `display:inline-block;font-family:${FONTS.mono};font-size:11px;font-weight:600;padding:3px 10px;text-transform:uppercase;letter-spacing:1px;vertical-align:middle;margin-left:10px`;
+
   return `
   <div class="header" id="top">
     ${logoHtml}
     <div class="header-label">FOUNDATION REVIEW</div>
-    <div class="header-title">${empresa}<span style="display:inline-block;background:${COLORS.surface};color:${COLORS.red};font-family:${FONTS.mono};font-size:11px;font-weight:600;padding:2px 8px;text-transform:uppercase;letter-spacing:1px;margin-left:12px;vertical-align:middle">Foundation</span></div>
+    <div class="header-title">${empresa}<span style="${badgeStyle};background:${COLORS.surface};color:${COLORS.red}">Foundation</span><span style="${badgeStyle};background:rgba(255,255,255,0.15);color:${COLORS.surface};border:1px solid rgba(255,255,255,0.3)">Semana 3</span></div>
     <div class="meta-row">
       ${contacto ? `<span>Contacto: ${contacto}</span>` : ""}
-      <span>Semana 3</span>
+      ${industria ? `<span>Industria: ${industria}</span>` : ""}
+      ${web ? `<span>Web: <a href="https://${web}" target="_blank" style="color:rgba(255,255,255,0.7);text-decoration:underline">${web}</a></span>` : ""}
+      ${duracion ? `<span>Duracion: ${duracion}</span>` : ""}
     </div>
+    ${campanas.length ? `
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+      ${campanas.map(c => `<span style="font-family:${FONTS.mono};font-size:11px;padding:4px 12px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.2)">${escapeHtml(c)}</span>`).join("")}
+    </div>` : ""}
   </div>`;
 }
 
@@ -168,8 +243,8 @@ function renderHeader(data: FoundationData): string {
 const TOC_ITEMS = [
   { id: "foundation-review", title: "Foundation Review", desc: "Estructura de la llamada." },
   { id: "awareness", title: "Campaña de Awareness", desc: "Posicionamiento de marca: 6 piezas ya seteadas." },
-  { id: "b2c", title: "Foundation B2C", desc: "Competencia, ICPs, angulos, campaña de conversion y e-commerce." },
-  { id: "ree-metrics", title: "REE Metrics", desc: "Dashboard de performance: como ingresar, que vas a ver y personalizacion." },
+  { id: "b2c", title: "Foundation B2C", desc: "Competencia, audiencias, angulos creativos, campaña de conversion y e-commerce." },
+  { id: "ree-metrics", title: "REE Metrics", desc: "Dashboard de performance: como ingresar y que vas a ver." },
   { id: "roadmap", title: "Roadmap de Ejecución", desc: "Plan de ejecución 8 semanas + reuniones." },
   { id: "proximos-pasos", title: "Proximos Pasos", desc: "Que sigue con la aprobacion." },
 ];
@@ -189,9 +264,20 @@ function section(num: number, id: string, title: string, html: string, rawTitle?
   const pad = String(num).padStart(2, "0");
   const titleHtml = rawTitle ? title : escapeHtml(title);
   return `
-  <details class="fr-section" id="${id}" open>
+  <details class="fr-section" id="${id}">
     <summary><span class="section-num">${pad}</span>${titleHtml}</summary>
     <div class="fr-section-body">
+      ${html}
+    </div>
+  </details>`;
+}
+
+function subsection(num: number, title: string, html: string): string {
+  const pad = `3.${num}`;
+  return `
+  <details class="fr-subsection">
+    <summary><span class="subsection-num">${pad}</span>${title}</summary>
+    <div class="fr-subsection-body">
       ${html}
     </div>
   </details>`;
@@ -208,7 +294,7 @@ function renderEstaReunion(data: FoundationData): string {
   const etapas = [
     { nombre: "Apertura", duracion: "5 min", objetivo: "Recap de Foundation: que se hizo, que queda listo." },
     { nombre: "Awareness", duracion: "10 min", objetivo: "Campaña de posicionamiento ya seteada: 6 piezas listas para pautar y audiencias definidas." },
-    { nombre: "B2C", duracion: "15 min", objetivo: "Research de competencia, audiencias, ofertas x3, packs en ecommerce y funnel de conversion." },
+    { nombre: "B2C", duracion: "15 min", objetivo: "Research de competencia, ICPs, angulos creativos y piezas, campaña de ventas (audiencias, presupuesto, KPIs) y productos/ofertas de ecommerce." },
     { nombre: "Demo REE Metrics", duracion: "10 min", objetivo: "Performance de la campaña de Awareness en el dashboard. Lo de B2C esta por trabajarse." },
     { nombre: "Cierre", duracion: "5 min", objetivo: "Aprobacion para lanzar + agendar proxima Call ADS." },
   ];
@@ -344,20 +430,37 @@ function renderFoundationB2C(data: FoundationData): string {
   const slug = data.clientInfo.slug?.toUpperCase() || escapeHtml(data.clientInfo.nombreEmpresa);
 
   // ── 1. Competencia ──────────────────────────────────────────────────
-  parts.push(`<h3>1. Competencia</h3>`);
-  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px">Analisis de los ads activos de la competencia en Meta Ad Library. Soyana tiene <strong>~66 anuncios activos</strong> en este momento:</p>`);
-  parts.push(`<div style="padding:20px;border:1px solid ${COLORS.border};margin-bottom:16px">`);
-  parts.push(`<div class="card-label">Meta Ad Library - Competencia</div>`);
-  parts.push(`<table>`);
-  parts.push(`<thead><tr><th>Variable</th><th>Soyana (competencia)</th><th>${escapeHtml(data.clientInfo.nombreEmpresa)} (oportunidad)</th></tr></thead>`);
-  parts.push(`<tbody>`);
-  parts.push(`<tr><td style="font-weight:700">Ads activos</td><td>~66 anuncios activos</td><td>0 (primera vez pautando)</td></tr>`);
-  parts.push(`<tr><td style="font-weight:700">Posicionamiento</td><td>Industrial, masivo, supermercado</td><td>Artesanal, fresco, familiar</td></tr>`);
-  parts.push(`<tr><td style="font-weight:700">Formato principal</td><td>Imagen estatica, recetas</td><td>Reels proceso artesanal + storytelling</td></tr>`);
-  parts.push(`<tr><td style="font-weight:700">Diferencial</td><td colspan="2" style="color:${COLORS.red};font-weight:600">Unico artesanal con habilitacion sanitaria. Fresco del dia. Historia familiar autentica.</td></tr>`);
-  parts.push(`</tbody></table>`);
-  parts.push(`</div>`);
-  parts.push(`<div style="font-size:13px;margin-bottom:24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=AR&q=soyana" target="_blank" style="color:${COLORS.red};font-weight:600">Ver ads de Soyana en Meta Ad Library</a></div>`);
+  const sub1: string[] = [];
+  sub1.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px">Analisis de los ads activos de la competencia en Meta Ad Library:</p>`);
+
+  // Competencia cards
+  const competidores = [
+    { nombre: "Soyana", estado: "63 anuncios activos", activo: true },
+    { nombre: "Soyland", estado: "Sin pauta activa", activo: false },
+    { nombre: "TofuMania", estado: "Sin pauta activa", activo: false },
+    { nombre: "Sozoe", estado: "Sin pauta activa", activo: false },
+  ];
+  sub1.push(`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px">`);
+  for (const comp of competidores) {
+    const borderColor = comp.activo ? COLORS.red : COLORS.border;
+    const statusColor = comp.activo ? COLORS.red : COLORS.muted;
+    const icon = comp.activo
+      ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
+      : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+    const avatarSrc = COMPETITOR_AVATARS[comp.nombre] || "";
+    const avatarHtml = avatarSrc
+      ? `<img src="${avatarSrc}" width="40" height="40" style="border-radius:50%;object-fit:cover;flex-shrink:0" alt="${escapeHtml(comp.nombre)}">`
+      : `<div style="width:40px;height:40px;border-radius:50%;background:${COLORS.border};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:${COLORS.muted};flex-shrink:0">${comp.nombre.charAt(0)}</div>`;
+    sub1.push(`<div style="padding:14px 16px;border:1px solid ${borderColor};border-radius:8px;background:${COLORS.surface};box-shadow:0 1px 3px rgba(0,0,0,0.06);display:flex;align-items:center;gap:12px">`);
+    sub1.push(avatarHtml);
+    sub1.push(`<div>`);
+    sub1.push(`<div style="font-weight:700;font-size:14px;margin-bottom:4px">${escapeHtml(comp.nombre)}</div>`);
+    sub1.push(`<div style="font-size:12px;color:${statusColor};display:flex;align-items:center;gap:6px">${icon} ${escapeHtml(comp.estado)}</div>`);
+    sub1.push(`</div></div>`);
+  }
+  sub1.push(`</div>`);
+
+  sub1.push(`<div style="font-size:13px;margin-bottom:24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=AR&q=soyana" target="_blank" style="color:${COLORS.red};font-weight:600">Ver ads de Soyana en Meta Ad Library</a></div>`);
 
   // Soyana reference ads — simulated IG posts with dolor tags
   const refImages = loadSoyanaRefImages();
@@ -370,281 +473,349 @@ function renderFoundationB2C(data: FoundationData): string {
     }
   }
 
-  if (refImages.length) {
-    parts.push(`<div class="card-label" style="margin-bottom:12px">Referencia de ads activos (${refImages.length} formato${refImages.length > 1 ? "s" : ""})</div>`);
-    parts.push(`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px">`);
-
-    for (const fmt of refImages) {
-      const isCarousel = fmt.slides.length > 1;
-      const formatNum = parseInt(fmt.id.replace("f", ""), 10);
-      const meta = formatMeta[fmt.id];
-      const tipoLabel = meta?.tipo || (isCarousel ? "Carrusel" : "Imagen");
-
-      // IG post simulation
-      parts.push(`<div style="background:#000;border-radius:8px;overflow:hidden;border:1px solid #333">`);
-
-      // Header: profile + name + Publicidad
-      parts.push(`<div style="display:flex;align-items:center;gap:8px;padding:10px 12px">`);
-      parts.push(`<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4caf50,#81c784);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:12px">${escapeHtml(cuenta.charAt(0).toUpperCase())}</span></div>`);
-      parts.push(`<div style="flex:1;min-width:0">`);
-      parts.push(`<div style="font-size:12px;font-weight:700;color:#fff;line-height:1.2">${escapeHtml(cuenta)}</div>`);
-      parts.push(`<div style="font-size:10px;color:#aaa">Publicidad</div>`);
-      parts.push(`</div>`);
-      parts.push(`<div style="color:#aaa;font-family:${FONTS.mono};font-size:9px;text-transform:uppercase;text-align:right;line-height:1.3"><div>${escapeHtml(tipoLabel)}</div><div style="color:#666">#${formatNum}</div></div>`);
-      parts.push(`</div>`);
-
-      // Slides — horizontal scroll
-      parts.push(`<div style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch">`);
-      for (const slide of fmt.slides) {
-        parts.push(`<div style="flex:0 0 100%;scroll-snap-align:start"><img src="${slide}" style="width:100%;display:block" alt=""></div>`);
-      }
-      parts.push(`</div>`);
-
-      // Carousel dots
-      if (isCarousel) {
-        parts.push(`<div style="display:flex;justify-content:center;gap:4px;padding:8px 0">`);
-        for (let d = 0; d < fmt.slides.length; d++) {
-          const dotColor = d === 0 ? "#3897f0" : "#555";
-          parts.push(`<div style="width:5px;height:5px;border-radius:50%;background:${dotColor}"></div>`);
+  // References — formatos with postUrl (iframe) or imageFile (static image)
+  const refFormats = compAds?.formatos.filter(f => f.postUrl || f.imageFile) ?? [];
+  if (refFormats.length) {
+    sub1.push(`<div class="card-label" style="margin-bottom:12px">REFERENCIAS DE ADS ACTIVOS (REELS / STORIES / CARRUSELES)</div>`);
+    sub1.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">`);
+    for (const ef of refFormats) {
+      sub1.push(`<div>`);
+      if (ef.postUrl) {
+        const embedUrl = ef.postUrl.replace(/\/$/, "") + "/embed";
+        sub1.push(`<iframe src="${embedUrl}" style="width:100%;min-height:430px;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`);
+      } else if (ef.imageFile) {
+        const imgPath = resolve(__dirname, `../assets/${ef.imageFile}`);
+        try {
+          const ext = ef.imageFile.split(".").pop() || "jpeg";
+          const mime = ext === "png" ? "image/png" : "image/jpeg";
+          const b64 = readFileSync(imgPath).toString("base64");
+          sub1.push(`<img src="data:${mime};base64,${b64}" style="width:100%;min-height:430px;object-fit:cover;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0;display:block" alt="">`);
+        } catch {
+          sub1.push(`<div style="width:100%;min-height:430px;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0;background:${COLORS.bg};display:flex;align-items:center;justify-content:center;color:${COLORS.muted};font-size:13px">Imagen no disponible</div>`);
         }
-        parts.push(`</div>`);
       }
-
-      // CTA row
-      parts.push(`<div style="padding:8px 12px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #222">`);
-      parts.push(`<span style="font-size:12px;font-weight:600;color:#3897f0">Comprar</span>`);
-      parts.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3897f0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`);
-      parts.push(`</div>`);
-
-      // Dolor tag
-      if (meta?.dolor) {
-        parts.push(`<div style="padding:8px 12px 10px;border-top:1px solid #222">`);
-        parts.push(`<div style="display:flex;align-items:flex-start;gap:6px">`);
-        parts.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`);
-        parts.push(`<span style="font-size:11px;color:#ccc;line-height:1.4"><span style="color:${COLORS.red};font-weight:600">Dolor:</span> ${escapeHtml(meta.dolor)}</span>`);
-        parts.push(`</div></div>`);
+      // Dolor / Solucion card — pegado al iframe
+      sub1.push(`<div style="padding:10px 12px;border:1px solid ${COLORS.border};border-top:none;border-radius:0 0 8px 8px;background:${COLORS.surface};box-shadow:0 1px 3px rgba(0,0,0,0.06);font-size:12px;line-height:1.5">`);
+      sub1.push(`<div style="display:flex;align-items:flex-start;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><span style="color:${COLORS.red};font-weight:700">Dolor:</span> ${escapeHtml(ef.dolor)}</span></div>`);
+      if (ef.solucion) {
+        sub1.push(`<hr style="border:none;border-top:1px solid ${COLORS.border};margin:8px 0">`);
+        sub1.push(`<div style="display:flex;align-items:flex-start;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span><span style="color:#16a34a;font-weight:700">Solucion:</span> ${escapeHtml(ef.solucion)}</span></div>`);
       }
-
-      parts.push(`</div>`); // close IG post
+      sub1.push(`</div>`);
+      sub1.push(`</div>`);
     }
-
-    parts.push(`</div>`); // close grid
+    sub1.push(`</div>`);
   }
 
-  // Instagram embed videos (formatos with postUrl)
-  const embedFormats = compAds?.formatos.filter(f => f.postUrl) ?? [];
-  if (embedFormats.length) {
-    parts.push(`<div class="card-label" style="margin-bottom:12px">Referencia de Reels activos (${embedFormats.length} formato${embedFormats.length > 1 ? "s" : ""})</div>`);
-    parts.push(`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:24px">`);
-    for (const ef of embedFormats) {
-      const formatNum = parseInt(ef.id.replace("f", ""), 10);
-      const embedUrl = ef.postUrl!.replace(/\/$/, "") + "/embed";
-      parts.push(`<div style="border:1px solid ${COLORS.border};border-radius:8px;overflow:hidden">`);
-      // Header
-      parts.push(`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:${COLORS.bg}">`);
-      parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;color:${COLORS.muted};text-transform:uppercase">${escapeHtml(ef.tipo)} #${formatNum}</span>`);
-      parts.push(`<a href="${ef.postUrl}" target="_blank" style="font-size:11px;color:${COLORS.red};text-decoration:none;font-weight:600">Ver en IG</a>`);
-      parts.push(`</div>`);
-      // Iframe
-      parts.push(`<iframe src="${embedUrl}" style="width:100%;min-height:480px;border:none;display:block" allowtransparency="true" scrolling="no" frameborder="0"></iframe>`);
-      // Dolor tag
-      parts.push(`<div style="padding:8px 12px;border-top:1px solid ${COLORS.border};display:flex;align-items:flex-start;gap:6px">`);
-      parts.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`);
-      parts.push(`<span style="font-size:11px;color:${COLORS.muted};line-height:1.4"><span style="color:${COLORS.red};font-weight:600">Dolor:</span> ${escapeHtml(ef.dolor)}</span>`);
-      parts.push(`</div>`);
-      parts.push(`</div>`);
-    }
-    parts.push(`</div>`);
-  }
+  parts.push(subsection(1, "Competencia", sub1.join("\n")));
 
-  // ── 2. ICPs + Dolor ─────────────────────────────────────────────────
-  parts.push(`<hr class="section-divider">`);
-  parts.push(`<h3>2. ICPs + Dolor</h3>`);
-  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px">3 perfiles de cliente ideal para la campaña B2C. Cada uno tiene dolores y deseos especificos que atacamos con los angulos creativos:</p>`);
+  // ── 2. ICPs ─────────────────────────────────────────────────────────
+  const sub2: string[] = [];
+
+  const personIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+
+  sub2.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">3 perfiles de cliente ideal para la campaña B2C. Cada uno tiene <strong>dolores</strong>, <strong>deseos</strong> y <strong>objeciones</strong> que atacamos con los <strong>angulos creativos</strong>.</p>`);
 
   if (data.icp.length) {
-    parts.push(`<div style="display:grid;gap:16px;margin-bottom:24px">`);
+    sub2.push(`<div style="display:grid;gap:16px;margin-bottom:24px">`);
     for (let i = 0; i < data.icp.length; i++) {
       const icpItem = data.icp[i];
-      parts.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;border-left:4px solid ${COLORS.red}">`);
-      parts.push(`<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">`);
-      parts.push(`<span style="font-family:${FONTS.mono};font-size:13px;font-weight:700;color:${COLORS.red}">ICP ${i + 1}</span>`);
-      parts.push(`<span style="font-weight:700;font-size:15px">${escapeHtml(icpItem.segmento)}</span>`);
-      parts.push(`</div>`);
-      parts.push(`<p style="font-size:13px;color:${COLORS.muted};margin:0 0 12px">${escapeHtml(icpItem.descripcion)}</p>`);
-      parts.push(`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">`);
+      const isPrimario = icpItem.prioridad === "primario";
+
+      // Card
+      sub2.push(`<div style="border:1px solid ${COLORS.border};border-radius:8px;border-left:4px solid ${COLORS.red};box-shadow:0 2px 8px rgba(0,0,0,0.06);overflow:hidden">`);
+
+      // Header
+      sub2.push(`<div style="padding:18px 20px 14px;display:flex;align-items:center;gap:12px">`);
+      sub2.push(`<div style="width:38px;height:38px;border-radius:50%;background:${COLORS.bg};display:flex;align-items:center;justify-content:center;flex-shrink:0">${personIcon}</div>`);
+      sub2.push(`<div style="flex:1">`);
+      sub2.push(`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">`);
+      sub2.push(`<span style="font-family:${FONTS.mono};font-size:12px;font-weight:700;color:${COLORS.red}">ICP ${i + 1}</span>`);
+      sub2.push(`<span style="font-family:${FONTS.heading};font-weight:700;font-size:15px">${escapeHtml(icpItem.segmento)}</span>`);
+      sub2.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;${isPrimario ? `background:${COLORS.ink};color:${COLORS.surface}` : `background:${COLORS.bg};color:${COLORS.muted};border:1px solid ${COLORS.border}`}">${isPrimario ? "Primario" : "Secundario"}</span>`);
+      const isRecurrente = icpItem.recurrencia === "alta" || icpItem.recurrencia === "media";
+      sub2.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;${isRecurrente ? `background:#F0FDF4;color:#22C55E;border:1px solid #BBF7D0` : `background:${COLORS.gapBg};color:${COLORS.escenario2};border:1px solid #FDE68A`}">${isRecurrente ? "Consumo recurrente" : "Consumo ocasional"}</span>`);
+      sub2.push(`</div>`);
+      sub2.push(`</div>`);
+      sub2.push(`</div>`);
+
+      // Description
+      sub2.push(`<div style="padding:0 20px 14px"><p style="font-size:13px;color:${COLORS.muted};margin:0;line-height:1.6">${escapeHtml(icpItem.descripcion)}</p></div>`);
+
+      // Dolores / Deseos / Objeciones
+      sub2.push(`<div style="padding:0 20px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">`);
+
       // Dolores
-      parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Dolores</div>`);
-      parts.push(`<ul style="font-size:13px;margin:4px 0 0;padding-left:18px;line-height:1.7">`);
+      sub2.push(`<div style="padding:14px;background:${COLORS.bg};border-radius:6px">`);
+      sub2.push(`<div style="font-family:${FONTS.mono};font-size:11px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.red};font-weight:600;margin-bottom:8px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Dolores</div>`);
+      sub2.push(`<ul style="font-size:12px;margin:0;padding-left:16px;line-height:1.65;color:${COLORS.ink}">`);
       for (const dolor of icpItem.dolores) {
-        parts.push(`<li>${escapeHtml(dolor)}</li>`);
+        sub2.push(`<li style="margin-bottom:4px">${escapeHtml(dolor)}</li>`);
       }
-      parts.push(`</ul></div>`);
+      sub2.push(`</ul></div>`);
+
       // Deseos
-      parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Deseos</div>`);
-      parts.push(`<ul style="font-size:13px;margin:4px 0 0;padding-left:18px;line-height:1.7">`);
+      sub2.push(`<div style="padding:14px;background:${COLORS.bg};border-radius:6px">`);
+      sub2.push(`<div style="font-family:${FONTS.mono};font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#22C55E;font-weight:600;margin-bottom:8px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Deseos</div>`);
+      sub2.push(`<ul style="font-size:12px;margin:0;padding-left:16px;line-height:1.65;color:${COLORS.ink}">`);
       for (const deseo of icpItem.deseos) {
-        parts.push(`<li>${escapeHtml(deseo)}</li>`);
+        sub2.push(`<li style="margin-bottom:4px">${escapeHtml(deseo)}</li>`);
       }
-      parts.push(`</ul></div>`);
-      parts.push(`</div>`); // close grid
-      parts.push(`</div>`); // close card
+      sub2.push(`</ul></div>`);
+
+      // Objeciones
+      sub2.push(`<div style="padding:14px;background:${COLORS.bg};border-radius:6px">`);
+      sub2.push(`<div style="font-family:${FONTS.mono};font-size:11px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.escenario2};font-weight:600;margin-bottom:8px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${COLORS.escenario2}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Objeciones</div>`);
+      sub2.push(`<ul style="font-size:12px;margin:0;padding-left:16px;line-height:1.65;color:${COLORS.ink}">`);
+      for (const obj of icpItem.objeciones) {
+        sub2.push(`<li style="margin-bottom:4px">${escapeHtml(obj)}</li>`);
+      }
+      sub2.push(`</ul></div>`);
+
+      sub2.push(`</div>`); // close grid
+      sub2.push(`</div>`); // close card
     }
-    parts.push(`</div>`);
+    sub2.push(`</div>`);
   }
 
-  // ── 3. Angulos Creativos ────────────────────────────────────────────
-  parts.push(`<hr class="section-divider">`);
-  parts.push(`<h3>3. Angulos Creativos</h3>`);
-  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px">Cada angulo ataca un <strong>dolor</strong> del ICP correspondiente. El angulo define el mensaje, el guion y la solucion posicionada:</p>`);
+  parts.push(subsection(2, "ICPs", sub2.join("\n")));
 
-  if (data.creativos && data.creativos.angulos.length) {
-    parts.push(`<div style="display:grid;gap:16px;margin-bottom:24px">`);
-    for (let i = 0; i < data.creativos.angulos.length; i++) {
-      const ang = data.creativos.angulos[i];
-      parts.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;border-left:4px solid ${COLORS.red}">`);
-      parts.push(`<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">`);
-      parts.push(`<span style="font-family:${FONTS.mono};font-size:13px;font-weight:700;color:${COLORS.red}">Angulo ${i + 1}</span>`);
-      parts.push(`<span style="font-weight:700;font-size:15px">${escapeHtml(ang.nombre)}</span>`);
-      parts.push(`</div>`);
-      parts.push(`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">`);
-      parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Dolor</div><p style="font-size:14px;margin:4px 0 0">${escapeHtml(ang.dolorQueResuelve)}</p></div>`);
-      parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Mensaje clave / Guion</div><p style="font-size:14px;margin:4px 0 0;font-style:italic">"${escapeHtml(ang.mensajeClave)}"</p></div>`);
-      parts.push(`</div>`);
-      parts.push(`<div style="margin-top:12px"><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>Formato</div><p style="font-size:13px;margin:4px 0 0;color:${COLORS.muted}">${escapeHtml(ang.formato)}</p></div>`);
-      parts.push(`</div>`);
-    }
-    parts.push(`</div>`);
+  // ── 3. Angulos Creativos + Piezas ──────────────────────────────────
+  const sub3: string[] = [];
 
-    if (data.creativos.tono) {
-      parts.push(`<div class="callout" style="margin-bottom:24px"><strong>Tono de comunicacion:</strong> ${escapeHtml(data.creativos.tono)}</div>`);
+  const piezasPorIcp = data.creativos?.piezasPorIcp?.length ? data.creativos.piezasPorIcp[0].piezas.length : 0;
+  const totalIcps = data.creativos?.piezasPorIcp?.length ?? 0;
+  const totalEnUso = piezasPorIcp * totalIcps;
+
+  sub3.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px"><strong>${totalEnUso} piezas en uso</strong> (${piezasPorIcp} por cada ICP): 3 videos UGC reutilizables para ambos ICPs + 5 piezas graficas personalizadas por cada ICP. Cada pieza ataca un dolor especifico y comunica una solucion.</p>`);
+
+  // Foodie exclusion callout
+  const foodieIcp = data.icp.find(i => i.prioridad === "secundario" && i.recurrencia === "baja");
+  if (foodieIcp) {
+    sub3.push(`<div style="padding:14px 18px;background:${COLORS.gapBg};border-left:3px solid ${COLORS.escenario2};border-radius:0 6px 6px 0;margin-bottom:20px;font-size:13px;line-height:1.6"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.escenario2}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>ICP de ${escapeHtml(foodieIcp.segmento)}</strong> no se incluye en esta etapa. Su consumo es ocasional y conviene optimizar los recursos de produccion creativa y presupuesto de ads, hacia los ICPs de consumo recurrente, que tienen mejor retorno para el negocio.</div>`);
+  }
+
+  const videoIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`;
+  const imgIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+  const shopIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`;
+
+  if (data.creativos?.piezasPorIcp?.length) {
+    for (let g = 0; g < data.creativos.piezasPorIcp.length; g++) {
+      const grupo = data.creativos.piezasPorIcp[g];
+      const piezaCount = grupo.piezas.length;
+
+      // Dropdown per ICP
+      sub3.push(`<details style="border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.05)">`);
+      sub3.push(`<summary style="padding:16px 20px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;user-select:none;background:${COLORS.bg};border-radius:8px">`);
+      sub3.push(`<span style="font-family:${FONTS.mono};font-size:12px;font-weight:700;color:${COLORS.red}">ICP ${g + 1}</span>`);
+      sub3.push(`<span style="font-family:${FONTS.heading};font-weight:700;font-size:15px;flex:1">${escapeHtml(grupo.icp)}</span>`);
+      sub3.push(`<span style="font-family:${FONTS.mono};font-size:11px;color:${COLORS.muted}">${piezaCount} piezas</span>`);
+      sub3.push(`</summary>`);
+
+      // Pieces inside dropdown
+      sub3.push(`<div style="padding:12px 20px 20px;display:grid;gap:10px">`);
+      for (let p = 0; p < grupo.piezas.length; p++) {
+        const pieza = grupo.piezas[p];
+        const fmt = pieza.formato.toLowerCase();
+        const isVideo = fmt.includes("video") || fmt.includes("ugc");
+        const isShopping = fmt.includes("shopping") || fmt.includes("catalogo");
+        const borderLeft = isVideo ? `border-left:4px solid ${COLORS.red}` : isShopping ? `border-left:4px solid #EA580C` : `border-left:4px solid ${COLORS.border}`;
+        const formatIcon = isVideo ? videoIcon : isShopping ? shopIcon : imgIcon;
+        const formatBadgeBg = isVideo ? COLORS.red : isShopping ? "#EA580C" : COLORS.bg;
+        const formatBadgeColor = isVideo || isShopping ? "#fff" : COLORS.muted;
+
+        sub3.push(`<div style="padding:14px 16px;border:1px solid ${COLORS.border};border-radius:8px;${borderLeft};background:${COLORS.surface}">`);
+
+        // Header: format badge
+        sub3.push(`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">`);
+        sub3.push(`<span style="font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;background:${formatBadgeBg};color:${formatBadgeColor};font-family:${FONTS.mono}">${formatIcon}${escapeHtml(pieza.formato)}</span>`);
+        sub3.push(`<span style="font-family:${FONTS.mono};font-size:11px;color:${COLORS.muted}">Pieza ${p + 1}/${piezaCount}</span>`);
+        sub3.push(`</div>`);
+
+        // Dolor
+        sub3.push(`<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:8px">`);
+        sub3.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`);
+        sub3.push(`<span style="font-size:13px;line-height:1.5"><span style="color:${COLORS.red};font-weight:700">Dolor:</span> ${escapeHtml(pieza.dolor)}</span>`);
+        sub3.push(`</div>`);
+
+        // Solucion
+        sub3.push(`<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:8px">`);
+        sub3.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`);
+        sub3.push(`<span style="font-size:13px;line-height:1.5"><span style="color:#16a34a;font-weight:700">Solucion:</span> ${escapeHtml(pieza.solucion)}</span>`);
+        sub3.push(`</div>`);
+
+        // Guion / Mensajes
+        sub3.push(`<hr style="border:none;border-top:1px solid ${COLORS.border};margin:8px 0">`);
+        if (isVideo && pieza.hook) {
+          // Video UGC: Hook / Body / CTA structure
+          sub3.push(`<div style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:${COLORS.muted};margin-bottom:6px">Guion</div>`);
+          sub3.push(`<div style="display:grid;gap:6px;font-size:12px;line-height:1.5">`);
+          sub3.push(`<div style="display:flex;align-items:flex-start;gap:8px"><span style="font-weight:700;color:${COLORS.red};font-family:${FONTS.mono};font-size:11px;flex-shrink:0;min-width:40px">HOOK</span><span>${escapeHtml(pieza.hook)}</span></div>`);
+          if (pieza.body) sub3.push(`<div style="display:flex;align-items:flex-start;gap:8px"><span style="font-weight:700;color:${COLORS.ink};font-family:${FONTS.mono};font-size:11px;flex-shrink:0;min-width:40px">BODY</span><span>${escapeHtml(pieza.body)}</span></div>`);
+          if (pieza.cta) sub3.push(`<div style="display:flex;align-items:flex-start;gap:8px"><span style="font-weight:700;color:#16a34a;font-family:${FONTS.mono};font-size:11px;flex-shrink:0;min-width:40px">CTA</span><span>${escapeHtml(pieza.cta)}</span></div>`);
+          sub3.push(`</div>`);
+        } else if (pieza.mensajes && pieza.mensajes.length) {
+          // Static pieces: Mensajes list
+          sub3.push(`<div style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:${COLORS.muted};margin-bottom:6px">Mensajes</div>`);
+          sub3.push(`<ul style="margin:0;padding-left:16px;font-size:12px;line-height:1.7;color:${COLORS.ink}">`);
+          for (const msg of pieza.mensajes) sub3.push(`<li>${escapeHtml(msg)}</li>`);
+          sub3.push(`</ul>`);
+        } else {
+          // Fallback: comunicacion field
+          sub3.push(`<div style="display:flex;align-items:flex-start;gap:6px">`);
+          sub3.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`);
+          sub3.push(`<span style="font-size:12px;color:${COLORS.muted};line-height:1.5;font-style:italic">${escapeHtml(pieza.comunicacion)}</span>`);
+          sub3.push(`</div>`);
+        }
+
+        sub3.push(`</div>`); // close piece card
+      }
+      sub3.push(`</div>`); // close dropdown body
+      sub3.push(`</details>`); // close dropdown
     }
   }
 
-  // ── 4. Anuncio / Guion ──────────────────────────────────────────────
-  parts.push(`<hr class="section-divider">`);
-  parts.push(`<h3>4. Anuncio / Guion</h3>`);
-  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px">Formatos disponibles para los anuncios de la campaña B2C:</p>`);
-
-  if (data.creativos && data.creativos.formatos.length) {
-    parts.push(`<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">`);
-    for (const formato of data.creativos.formatos) {
-      parts.push(`<span style="font-family:${FONTS.mono};font-size:12px;padding:6px 12px;background:${COLORS.bg};border:1px solid ${COLORS.border};border-radius:4px">${escapeHtml(formato)}</span>`);
-    }
-    parts.push(`</div>`);
+  if (data.creativos?.tono) {
+    sub3.push(`<div class="callout" style="margin-bottom:12px"><strong>Tono de comunicacion:</strong> ${escapeHtml(data.creativos.tono)}</div>`);
   }
 
-  // Nomenclatura 3 columnas (same visual as awareness)
-  const b2c = data.arquitectura.find((c) => c.nombre.toLowerCase().includes("conversion") || c.nombre.toLowerCase().includes("b2c") || c.nombre.toLowerCase().includes("ecommerce"));
+  const b2c = data.arquitectura.find((c) => c.nombre.toLowerCase().includes("conversion") || c.nombre.toLowerCase().includes("b2c") || c.nombre.toLowerCase().includes("ecommerce") || c.nombre.toLowerCase().includes("venta"));
 
-  parts.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:24px;background:${COLORS.bg}">`);
-  parts.push(`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">`);
-  parts.push(`<div style="text-align:center;padding:12px"><div class="card-label" style="justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>Campaña</div><p style="font-size:15px;font-weight:700;margin:8px 0 4px;font-family:${FONTS.mono}">${slug}_Conversion</p><p style="font-size:12px;color:${COLORS.muted};margin:0;font-family:${FONTS.mono}">{Empresa}_{Objetivo}</p></div>`);
-  parts.push(`<div style="text-align:center;padding:12px;border-left:1px solid ${COLORS.border};border-right:1px solid ${COLORS.border}"><div class="card-label" style="justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Ad Set</div><p style="font-size:15px;font-weight:700;margin:8px 0 4px;font-family:${FONTS.mono}">${b2c ? escapeHtml(b2c.adSets[0]?.nombre || "Conjunto_ICP_A") : "Conjunto_ICP_A"}</p><p style="font-size:12px;color:${COLORS.muted};margin:0;font-family:${FONTS.mono}">Conjunto_{Audiencia}</p></div>`);
-  parts.push(`<div style="text-align:center;padding:12px"><div class="card-label" style="justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>Ads (18)</div><p style="font-size:15px;font-weight:700;margin:8px 0 4px;font-family:${FONTS.mono}">Anuncio_Reel_Dolor_V1</p><p style="font-size:12px;color:${COLORS.muted};margin:0;font-family:${FONTS.mono}">Anuncio_{Formato}_{Angulo}_{V}</p></div>`);
-  parts.push(`</div></div>`);
-
-  // Piezas totales
-  parts.push(`<div style="margin-top:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:14px;color:#166534"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><strong>18 piezas</strong> estimadas para la campaña B2C (3 angulos x 3 ICPs x 2 formatos).</div>`);
-
-  // Alert REE Agencia
-  parts.push(`<div class="callout callout-red" style="margin-top:12px"><strong>Pendiente de definir:</strong> Estas 18 piezas de B2C se suman a las 6 de Awareness. Debemos definir con Angel si las piezas de Growth se descuentan de las piezas del mes que tiene acordadas con REE Agencia o si se manejan por separado.</div>`);
+  parts.push(subsection(3, `Angulos Creativos + Piezas <span style="display:inline-block;font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;background:#FEF3C7;color:#92400E;border-radius:4px;margin-left:8px;vertical-align:middle;letter-spacing:0.5px;text-transform:uppercase">En Desarrollo</span>`, sub3.join("\n")));
 
   // ── 5. Campaña B2C en Meta Ads ──────────────────────────────────────
-  parts.push(`<hr class="section-divider">`);
-  parts.push(`<h3>5. Campaña B2C en Meta Ads</h3>`);
+  const sub5: string[] = [];
 
   if (b2c) {
-    // Campaign definition card — same visual pattern as awareness
-    parts.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:24px;background:${COLORS.bg}">`);
-    parts.push(`<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 32px">`);
+    const slugB2C = data.clientInfo.slug?.toUpperCase() || escapeHtml(data.clientInfo.nombreEmpresa);
+
+    // Aclaración sobre relación con awareness
+    sub5.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:24px">Las audiencias son las mismas que en Awareness. La campaña de Awareness nutre al publico con contenido de branding y posicionamiento, y esta campaña le muestra contenido de conversion con enfoque directo a venta. <strong>Mismo publico, distinto objetivo.</strong></p>`);
+
+    // Campaign definition card (same pattern as awareness)
+    sub5.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:24px;background:${COLORS.bg}">`);
+    sub5.push(`<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 32px">`);
+
     // Objetivo
-    parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Objetivo de Campaña</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">Conversion (Purchase)</p></div>`);
+    sub5.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Objetivo de Campaña</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">Ventas</p></div>`);
     // Destino
-    parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8 12 12 16 16 8"/></svg>Destino</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${data.clientInfo.sitioWeb ? escapeHtml(data.clientInfo.sitioWeb) : "E-commerce"} (Tienda Nube)</p></div>`);
+    sub5.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8 12 12 16 16 8"/></svg>Destino</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${data.clientInfo.sitioWeb ? escapeHtml(data.clientInfo.sitioWeb) : "e-commerce"}/[producto]</p></div>`);
 
     // HR
-    parts.push(`<div style="grid-column:1/-1"><hr style="border:none;border-top:1px solid ${COLORS.border};margin:4px 0"></div>`);
+    sub5.push(`<div style="grid-column:1/-1"><hr style="border:none;border-top:1px solid ${COLORS.border};margin:4px 0"></div>`);
 
-    // Audiencia
-    parts.push(`<div style="grid-column:1/-1"><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Audiencia</div>`);
-    parts.push(`<ul style="font-size:14px;margin:8px 0 0;padding-left:20px;line-height:1.8">`);
-    parts.push(`<li><span style="font-weight:600">Edad:</span> 25-45 anos, Buenos Aires</li>`);
-    parts.push(`<li><span style="font-weight:600">Intereses:</span> Alimentacion Saludable, Veggie, Comida China, Cocina Asiatica, Tofu, Comida Artesanal</li>`);
-    parts.push(`<li><span style="font-weight:600">Lookalike:</span> Compradores en Tienda Nube (post-Pixel)</li>`);
-    parts.push(`<li><span style="font-weight:600">Retargeting:</span> Visitantes de ${data.clientInfo.sitioWeb || "e-commerce"} ultimos 14 dias que no compraron</li>`);
-    parts.push(`</ul></div>`);
+    // Audiencias (parsed into Edad/Locación/Intereses, same as awareness)
+    sub5.push(`<div style="grid-column:1/-1"><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Audiencias</div>`);
+    for (let ai = 0; ai < b2c.adSets.length; ai++) {
+      const adSet = b2c.adSets[ai];
+      const seg = adSet.segmentacion;
+      const dotIdx = seg.indexOf(". ");
+      const beforeDot = dotIdx > -1 ? seg.substring(0, dotIdx) : seg;
+      const interesesRaw = dotIdx > -1 ? seg.substring(dotIdx + 2) : "";
+      const commaIdx = beforeDot.indexOf(", ");
+      const edad = commaIdx > -1 ? beforeDot.substring(0, commaIdx).trim() : beforeDot;
+      const locacion = commaIdx > -1 ? beforeDot.substring(commaIdx + 2).trim() : "";
+      const intereses = interesesRaw.replace(/^Intereses:\s*/i, "").split(",").map((s: string) => s.trim()).filter(Boolean);
 
-    // HR
-    parts.push(`<div style="grid-column:1/-1"><hr style="border:none;border-top:1px solid ${COLORS.border};margin:4px 0"></div>`);
-
-    // Conversion (KPIs)
-    parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Conversion (KPIs)</div>`);
-    parts.push(`<ul style="font-size:14px;margin:4px 0 0;padding-left:18px;line-height:1.8">`);
-    parts.push(`<li>CPA (venta): $12,000 ARS</li>`);
-    parts.push(`<li>ROAS: > 1.33x (breakeven)</li>`);
-    parts.push(`<li>Ticket promedio: $40,000+ ARS</li>`);
-    parts.push(`<li>Tasa de conversion: 2%+</li>`);
-    parts.push(`</ul></div>`);
-    // Presupuesto
-    parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">USD $350/mes (~$11.67/dia)</p></div>`);
-
-    parts.push(`</div></div>`); // close grid + card
-
-    // Ad Sets detail
-    for (const adSet of b2c.adSets) {
-      parts.push(`<div style="margin-top:16px;padding:14px 20px;border:1px solid ${COLORS.border};border-radius:8px">`);
-      parts.push(`<div style="font-family:${FONTS.heading};font-weight:700;font-size:14px;margin-bottom:8px">${escapeHtml(adSet.nombre)}</div>`);
-      parts.push(`<div class="card-label">Segmentacion</div>`);
-      parts.push(`<p style="font-size:13px;margin-bottom:8px">${escapeHtml(adSet.segmentacion)}</p>`);
-      if (adSet.ads.length) {
-        parts.push(`<div class="card-label">Anuncios</div>`);
-        parts.push(`<ul class="fase-entregables">${adSet.ads.map((ad) => `<li>${escapeHtml(ad)}</li>`).join("")}</ul>`);
-      }
-      parts.push(`</div>`);
+      if (ai > 0) sub5.push(`<hr style="border:none;border-top:1px solid ${COLORS.border};margin:12px 0">`);
+      sub5.push(`<div style="font-size:13px;font-weight:700;color:${COLORS.red};margin:${ai === 0 ? "8" : "4"}px 0 4px;text-transform:uppercase;letter-spacing:0.5px">${escapeHtml(adSet.nombre)}</div>`);
+      sub5.push(`<ul style="font-size:14px;margin:4px 0 0;padding-left:20px;line-height:1.8">`);
+      sub5.push(`<li><span style="font-weight:600">Edad:</span> ${escapeHtml(edad)}</li>`);
+      if (locacion) sub5.push(`<li><span style="font-weight:600">Locación:</span> ${escapeHtml(locacion)}</li>`);
+      if (intereses.length) sub5.push(`<li><span style="font-weight:600">Intereses:</span> ${intereses.map(i => escapeHtml(i)).join(", ")}</li>`);
+      sub5.push(`</ul>`);
     }
+    sub5.push(`</div>`);
+
+    // HR
+    sub5.push(`<div style="grid-column:1/-1"><hr style="border:none;border-top:1px solid ${COLORS.border};margin:4px 0"></div>`);
+
+    // Conversion | Presupuesto (2 columns)
+    sub5.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Conversion</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">Visitas a pagina de producto / Ventas</p></div>`);
+    sub5.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">USD $350/mes <span style="font-weight:400;color:${COLORS.muted}">($11.5/dia)</span></p><p style="font-size:13px;color:${COLORS.muted};margin:4px 0 0">USD $175 por audiencia ($5.8/dia)</p></div>`);
+
+    // HR before KPIs
+    sub5.push(`<div style="grid-column:1/-1"><hr style="border:none;border-top:1px solid ${COLORS.border};margin:4px 0"></div>`);
+
+    // KPIs a evaluar (full width, flex-row)
+    sub5.push(`<div style="grid-column:1/-1"><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>KPIs a evaluar</div><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px"><span style="font-size:13px;font-weight:600;padding:6px 14px;background:#fff;border:1px solid ${COLORS.border};border-radius:6px">CPA</span><span style="font-size:13px;font-weight:600;padding:6px 14px;background:#fff;border:1px solid ${COLORS.border};border-radius:6px">ROAS</span><span style="font-size:13px;font-weight:600;padding:6px 14px;background:#fff;border:1px solid ${COLORS.border};border-radius:6px">Ticket promedio</span><span style="font-size:13px;font-weight:600;padding:6px 14px;background:#fff;border:1px solid ${COLORS.border};border-radius:6px">Tasa de conversion</span></div></div>`);
+
+    sub5.push(`</div></div>`); // close grid + card
+
+    // Nomenclatura — card separado, 3 columnas (same as awareness)
+    const totalAdsB2C = b2c.adSets.reduce((sum, as_) => sum + as_.ads.length, 0);
+    sub5.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:24px;background:${COLORS.bg}">`);
+    sub5.push(`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">`);
+    sub5.push(`<div style="text-align:center;padding:12px"><div class="card-label" style="justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>Campaña</div><p style="font-size:15px;font-weight:700;margin:8px 0 4px;font-family:${FONTS.mono}">${slugB2C}_Ventas</p><p style="font-size:12px;color:${COLORS.muted};margin:0;font-family:${FONTS.mono}">{Empresa}_{Objetivo}</p></div>`);
+    sub5.push(`<div style="text-align:center;padding:12px;border-left:1px solid ${COLORS.border};border-right:1px solid ${COLORS.border}"><div class="card-label" style="justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Ad Sets (${b2c.adSets.length})</div><p style="font-size:15px;font-weight:700;margin:8px 0 4px;font-family:${FONTS.mono}">${escapeHtml(b2c.adSets[0]?.nombre || "")}</p><p style="font-size:12px;color:${COLORS.muted};margin:0;font-family:${FONTS.mono}">Conjunto_{ICP}</p></div>`);
+    sub5.push(`<div style="text-align:center;padding:12px"><div class="card-label" style="justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>Ads (${totalAdsB2C})</div><p style="font-size:15px;font-weight:700;margin:8px 0 4px;font-family:${FONTS.mono}">Anuncio_VideoUGC_V1</p><p style="font-size:12px;color:${COLORS.muted};margin:0;font-family:${FONTS.mono}">Anuncio_{Formato}_{Angulo}_{V}</p></div>`);
+    sub5.push(`</div></div>`);
   } else {
-    parts.push(`<p style="font-size:14px;color:${COLORS.muted}">Campaña B2C pendiente de definicion.</p>`);
+    sub5.push(`<p style="font-size:14px;color:${COLORS.muted}">Campaña B2C pendiente de definicion.</p>`);
   }
 
+  parts.push(subsection(4, "Campaña B2C en Meta Ads", sub5.join("\n")));
+
   // ── 6. Productos y Ofertas de Ecommerce ─────────────────────────────
-  parts.push(`<hr class="section-divider">`);
-  parts.push(`<h3>6. Productos y Ofertas de Ecommerce</h3>`);
-  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Ofertas diseñadas para bajar la barrera de primera compra y subir el ticket promedio:</p>`);
+  const sub6: string[] = [];
+  sub6.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:24px">Comparativa de pricing de DEFU vs su competidor directo (Soyana).</p>`);
+
+  // ── Comparativa de precios DEFU vs Soyana ──
+  sub6.push(`<div class="card-label" style="margin-bottom:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Comparativa de precios: DEFU vs Soyana</div>`);
+  sub6.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:24px;background:${COLORS.bg}">`);
+  sub6.push(`<table style="width:100%;margin:0"><thead><tr><th style="text-align:left">Producto (envasado al vacio)</th><th style="text-align:right">Precio</th><th style="text-align:right">Precio/kg</th><th style="text-align:center">Diferencia</th></tr></thead><tbody>`);
+  sub6.push(`<tr><td><strong>DEFU</strong> Tofu Comun al Vacio 800g</td><td style="text-align:right">$6.500</td><td style="text-align:right;font-weight:700">$8.125/kg</td><td style="text-align:center"><span style="background:#DCFCE7;color:#166534;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">-67%</span></td></tr>`);
+  sub6.push(`<tr><td><strong>DEFU</strong> Tofu Duro al Vacio 800g</td><td style="text-align:right">$8.000</td><td style="text-align:right;font-weight:700">$10.000/kg</td><td style="text-align:center"><span style="background:#DCFCE7;color:#166534;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">-59%</span></td></tr>`);
+  sub6.push(`<tr style="border-top:2px solid ${COLORS.border}"><td><strong>Soyana</strong> Tofu Organico Natural 350g</td><td style="text-align:right">$8.500</td><td style="text-align:right;font-weight:700;color:${COLORS.red}">$24.286/kg</td><td style="text-align:center"><span style="background:#FEF2F2;color:#991B1B;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">Referencia</span></td></tr>`);
+  sub6.push(`</tbody></table>`);
+  sub6.push(`<p style="font-size:13px;color:${COLORS.muted};margin:12px 0 0">Fuente: <a href="https://www.defu.com.ar/productos/" style="color:${COLORS.red}">defu.com.ar</a> y <a href="https://www.soyana.com.ar" style="color:${COLORS.red}">soyana.com.ar</a>. Precios al 02/09/2026.</p>`);
+  sub6.push(`</div>`);
+
+  // Sugerencia de pricing
+  sub6.push(`<div style="padding:16px 20px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:8px;margin-bottom:24px;font-size:14px;line-height:1.65;color:#9A3412"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>Sugerencia de pricing:</strong> DEFU tiene un diferencial de precio enorme vs Soyana (<strong>hasta 69% mas barato por kg</strong>). Hay margen para subir ligeramente los precios de e-commerce y mejorar la rentabilidad, manteniendo una ventaja clara frente al competidor.</div>`);
+
+  // ── Ofertas propuestas ──
+  sub6.push(`<div class="card-label" style="margin-bottom:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8 12 12 16 16 8"/></svg>Ofertas propuestas</div>`);
 
   if (data.ofertas && data.ofertas.length) {
-    parts.push(`<div class="angulo-group-cards">`);
+    sub6.push(`<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">`);
     for (let i = 0; i < data.ofertas.length; i++) {
       const oferta = data.ofertas[i];
-      parts.push(`
-        <div class="angulo-card">
-          <div class="angulo-header">
-            <div class="angulo-nombre"><span style="font-family:${FONTS.mono};color:${COLORS.red};margin-right:8px">${i + 1}.</span>${escapeHtml(oferta.nombre)}</div>
-          </div>
-          <div class="angulo-body">
-            <div class="angulo-mensaje">${escapeHtml(oferta.descripcion)}</div>
-            ${oferta.precio ? `<div class="angulo-meta"><div class="angulo-palanca"><span class="angulo-meta-label">Precio:</span> ${escapeHtml(oferta.precio)}</div></div>` : `<div style="font-family:${FONTS.mono};font-size:12px;color:${COLORS.escenario2}">Precio por definir con Angel</div>`}
-          </div>
-        </div>`);
+      sub6.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.06)">`);
+      sub6.push(`<div style="font-size:15px;font-weight:700;margin-bottom:8px">${escapeHtml(oferta.nombre)}</div>`);
+      // Split description: items before ". " sentence at the end
+      const descParts = oferta.descripcion.split(". ");
+      const itemsPart = descParts[0];
+      const closingSentences = descParts.slice(1).join(". ");
+      const items = itemsPart.split(" + ").map((s: string) => s.trim()).filter(Boolean);
+      if (items.length > 1) {
+        sub6.push(`<ul style="font-size:13px;line-height:1.8;color:${COLORS.muted};margin:0 0 8px;padding-left:18px">`);
+        for (const item of items) sub6.push(`<li>${escapeHtml(item)}</li>`);
+        sub6.push(`</ul>`);
+        if (closingSentences) sub6.push(`<p style="font-size:13px;line-height:1.5;color:${COLORS.muted};margin:0 0 12px">${escapeHtml(closingSentences)}</p>`);
+      } else {
+        sub6.push(`<p style="font-size:14px;line-height:1.6;color:${COLORS.muted};margin:0 0 12px">${escapeHtml(oferta.descripcion)}</p>`);
+      }
+      sub6.push(`<div style="font-family:${FONTS.mono};font-size:13px;font-weight:600;color:${oferta.precio ? COLORS.red : COLORS.escenario2}">${oferta.precio ? escapeHtml(oferta.precio) : "Precio por definir con Angel"}</div>`);
+      sub6.push(`</div>`);
     }
-    parts.push(`</div>`);
+    sub6.push(`</div>`);
   }
 
   // Packs ecommerce table
   if (data.cambiosEcommerce && data.cambiosEcommerce.length) {
-    parts.push(`<div style="margin-top:24px">`);
-    parts.push(`<div class="card-label" style="margin-bottom:8px">Cambios en Tienda Nube</div>`);
-    parts.push(`<table>`);
-    parts.push(`<thead><tr><th>Cambio</th><th>Objetivo</th></tr></thead>`);
-    parts.push(`<tbody>`);
+    sub6.push(`<div class="card-label" style="margin-bottom:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Cambios en Tienda Nube</div>`);
+    sub6.push(`<table>`);
+    sub6.push(`<thead><tr><th>Cambio</th><th>Objetivo</th></tr></thead>`);
+    sub6.push(`<tbody>`);
     for (const cambio of data.cambiosEcommerce) {
-      parts.push(`<tr><td>${escapeHtml(cambio.cambio)}</td><td>${escapeHtml(cambio.objetivo)}</td></tr>`);
+      sub6.push(`<tr><td>${escapeHtml(cambio.cambio)}</td><td>${escapeHtml(cambio.objetivo)}</td></tr>`);
     }
-    parts.push(`</tbody></table>`);
-    parts.push(`</div>`);
+    sub6.push(`</tbody></table>`);
   }
 
-  parts.push(`<div class="callout callout-red" style="margin-top:16px"><strong>Accion requerida:</strong> Angel debe crear estos productos/packs en Tienda Nube antes de lanzar la campaña B2C.</div>`);
+  sub6.push(`<div class="callout callout-red" style="margin-top:16px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>Accion requerida:</strong> Angel debe crear estos productos/packs en Tienda Nube antes de lanzar la campaña B2C.</div>`);
+  parts.push(subsection(5, "Ecommerce", sub6.join("\n")));
 
   return section(3, "b2c", "Foundation B2C", parts.join("\n"));
 }
@@ -675,7 +846,7 @@ function renderRoadmap(data: FoundationData): string {
     const meets: { semana: string; fecha: string; nombre: string; desc: string; status: "done" | "current" | "pending" }[] = [
       { semana: "S1", fecha: "25/08", nombre: "KO Call", desc: "Kickoff con el cliente. Configuracion de Meta Ads, accesos, credenciales e-commerce. Se deja todo listo para empezar.", status: "done" },
       { semana: "S2", fecha: "03/09", nombre: "Foundation Review", desc: "Revision completa del setup: campaña de awareness ya activa, estrategia B2C, audiencias, ofertas, demo de REE Metrics. Aprobacion para lanzar.", status: "current" },
-      { semana: "S4", fecha: "22/09", nombre: "Launch Funnel B2C", desc: "Lanzamiento de la campaña de conversion B2C. Review de metricas de awareness (alcance, visitas al perfil, followers). Activacion del funnel de e-commerce con las 18 piezas producidas.", status: "pending" },
+      { semana: "S4", fecha: "22/09", nombre: "Launch Funnel B2C", desc: "Lanzamiento de la campaña de conversion B2C. Review de metricas de awareness (alcance, visitas al perfil, followers). Activacion del funnel de e-commerce con las 16 piezas en uso (13 producidas).", status: "pending" },
       { semana: "S6", fecha: "06/10", nombre: "Call ADS", desc: "Seguimiento de campañas activas. Optimizaciones en base a datos, ajustes de audiencias, nuevos angulos creativos si es necesario.", status: "pending" },
       { semana: "S8", fecha: "18/10", nombre: "Review Final", desc: "Revision del periodo completo. Resultados vs KPIs, aprendizajes, recomendaciones para el siguiente ciclo.", status: "pending" },
     ];
@@ -877,12 +1048,12 @@ function renderReeMetrics(): string {
 
   const pasos = [
     { num: "1", titulo: "Ingresa a REE Metrics", desc: "Abri el link en tu navegador (celular o computadora)." },
-    { num: "2", titulo: "Inicia sesion", desc: `Usa las mismas credenciales de ${tentaculosImg} <strong>Tentaculos</strong>. Tu cuenta publicitaria ya esta configurada.` },
+    { num: "2", titulo: "Inicia sesion", desc: `Usa las mismas credenciales de <strong>Tentaculos</strong>. Tu cuenta publicitaria ya esta configurada.` },
   ];
 
   parts.push(`<div style="display:grid;gap:12px;margin-bottom:24px">`);
   for (const paso of pasos) {
-    parts.push(`<div style="display:flex;align-items:flex-start;gap:14px;padding:16px 20px;border:1px solid ${COLORS.border};border-radius:8px">`);
+    parts.push(`<div style="display:flex;align-items:flex-start;gap:14px;padding:16px 20px;border:1px solid ${COLORS.border};border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06)">`);
     parts.push(`<span style="font-family:${FONTS.mono};font-size:14px;font-weight:700;color:${COLORS.surface};background:${COLORS.red};width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:4px;flex-shrink:0">${paso.num}</span>`);
     parts.push(`<div>`);
     parts.push(`<div style="font-weight:700;font-size:14px;margin-bottom:2px">${paso.titulo}</div>`);
@@ -898,20 +1069,20 @@ function renderReeMetrics(): string {
   parts.push(`<a href="https://metrics.reecreativos.com/" target="_blank" style="font-family:${FONTS.mono};font-size:14px;font-weight:700;color:${COLORS.red};text-decoration:none">metrics.reecreativos.com</a></div>`);
   parts.push(`</div>`);
 
-  // Personalizacion
+  // Que vas a ver
   parts.push(`<hr class="section-divider">`);
-  parts.push(`<h3>Personalizacion</h3>`);
-  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px">El dashboard se adapta a lo que necesites medir. Podemos personalizar:</p>`);
+  parts.push(`<h3>Que vas a ver</h3>`);
+  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px">La plataforma conecta tus sistemas en un solo lugar para que puedas ver como rinde tu inversion:</p>`);
 
   const features = [
-    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`, titulo: "KPIs a medida", desc: "Elegir que metricas ves primero: CPL, ROAS, CPA, alcance, visitas al perfil, o lo que mas te sirva." },
-    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>`, titulo: "Data del dashboard", desc: "Configurar que data trae cada vista: por campaña, por periodo, por canal." },
-    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`, titulo: "Vistas personalizadas", desc: "Armar vistas especificas para vos o para tu equipo. Cada uno ve lo que necesita." },
+    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`, titulo: "Dashboard", desc: "Conexion con Tienda Nube, campanas de Meta Ads y crecimiento de Instagram organico. Todo en una sola vista, personalizable segun requerimientos." },
+    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, titulo: "Timeline", desc: "Registro de cada cambio realizado en Meta Ads. Documentamos por que se escala o se frena cada anuncio (Kill/Scale) para que siempre sepas que se hizo y por que." },
+    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`, titulo: "E-Commerce", desc: "Datos de tu Tienda Nube: pedidos, facturacion, ticket promedio, clientes unicos, carritos abandonados, top productos y top clientes." },
   ];
 
   parts.push(`<div style="display:grid;gap:12px;margin-bottom:24px">`);
   for (const feat of features) {
-    parts.push(`<div style="display:flex;align-items:flex-start;gap:14px;padding:14px 20px;border:1px solid ${COLORS.border};border-radius:8px">`);
+    parts.push(`<div style="display:flex;align-items:flex-start;gap:14px;padding:14px 20px;border:1px solid ${COLORS.border};border-radius:8px;background:${COLORS.surface};box-shadow:0 1px 3px rgba(0,0,0,0.06)">`);
     parts.push(`<div style="flex-shrink:0;margin-top:2px">${feat.icon}</div>`);
     parts.push(`<div>`);
     parts.push(`<div style="font-weight:700;font-size:14px;margin-bottom:2px">${feat.titulo}</div>`);
@@ -920,8 +1091,8 @@ function renderReeMetrics(): string {
   }
   parts.push(`</div>`);
 
-  // En constante desarrollo
-  parts.push(`<div class="callout"><strong>En constante desarrollo:</strong> REE Metrics es una plataforma viva. Vamos sumando funcionalidades nuevas constantemente: integraciones con mas plataformas, reportes automaticos, alertas y mas. Lo que necesites, lo construimos.</div>`);
+  // Disclaimer
+  parts.push(`<div class="callout" style="display:flex;align-items:flex-start;gap:12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${COLORS.escenario2}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div><strong>En constante desarrollo:</strong> REE Metrics es una plataforma que estamos mejorando continuamente. A medida que lancemos las campanas y se genere data, vamos a comenzar a relacionar la informacion entre Meta Ads, Tienda Nube e Instagram para tener mayor claridad en la toma de decisiones. En un inicio necesitamos lanzar para despues poder cruzar esa data y optimizar.</div></div>`);
 
   return section(4, "ree-metrics", "REE Metrics", parts.join("\n"));
 }
@@ -935,35 +1106,34 @@ function renderProximosPasos(_data: FoundationData): string {
 
   const pasos = [
     {
-      titulo: "Lanzar Awareness",
-      responsable: "REE Growth (Jonathan Guidi)",
+      titulo: "Lanzar Awareness + Pixel",
+      responsable: "REE Growth + Angel",
       tiempo: "Esta semana",
       items: [
-        "Publicacion de los 6 anuncios de awareness en Meta Ads",
-        "Segmentacion: veganos, saludables y foodies en CABA + GBA",
-        "Monitoreo diario de alcance, CPM y visitas al perfil",
+        "Agregar tarjeta de debito internacional en Meta Ads para el debito de las campanas (Angel)",
+        "Configurar Pixel de Meta en Tienda Nube",
+        "Prender la campana de DEFU_Awareness (ya seteada y lista para lanzar)",
+        "Monitoreo diario de Alcance / Visitas al Perfil / Seguidores / Interaccion",
       ],
     },
     {
-      titulo: "Creacion de Piezas B2C + Armado de Campañas",
+      titulo: "Creacion de Piezas B2C + Setup de Campañas",
       responsable: "REE Creativos / REE Growth",
       tiempo: "Semanas 2 - 3",
       items: [
-        "Produccion de 18 piezas (Reels, Carruseles, Stories, Imagenes)",
-        "3 angulos creativos: uno por cada ICP (vegano, saludable, foodie)",
-        "Armado de campañas, conjuntos y anuncios en el Ad Account",
-        "Definir si las piezas se descuentan de las del acuerdo con REE Agencia",
+        "Produccion de 13 piezas (3 videos UGC reutilizables + 5 graficas por ICP)",
+        "2 angulos creativos: Vegano/Veggie y Alimentacion Saludable",
+        "Armado de campana DEFU_Ventas, conjuntos y anuncios en el Ad Account",
       ],
     },
     {
-      titulo: "Ofertas y Packs en E-commerce",
-      responsable: "Angel",
+      titulo: "Pricing y E-commerce",
+      responsable: "Angel + REE Growth",
       tiempo: "Semanas 2 - 3",
       items: [
-        "Crear pack \"Stockeate el Mes\" (Tofu x3 / x5 + envio bonificado)",
-        "Crear pack \"Comida China en Casa\" (combo wonton + tofu + salsa)",
-        "Definir tercer oferta y descuentos de lanzamiento",
-        "Configurar codigos de descuento y banners en la tienda",
+        "Revisar pricing de productos B2C (hay margen vs competencia)",
+        "Crear ofertas Mix Degustacion y Mix Stockeate en Tienda Nube",
+        "Definir precios finales de los combos antes de lanzar campaña",
       ],
     },
   ];

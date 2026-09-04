@@ -791,13 +791,13 @@ function renderEstrategiaBody(data: FoundationData): string {
   // Oferta
   parts.push(`<hr class="section-divider">`);
   parts.push(`<h3>Oferta</h3>`);
-  if (data.oferta) {
+  if (data.propuestaDeValor) {
     parts.push(`
       <div style="padding:20px;border:1px solid ${COLORS.border};margin-bottom:24px">
-        <p style="font-size:14px;line-height:1.65;margin-bottom:12px">${escapeHtml(data.oferta.descripcion)}</p>
+        <p style="font-size:14px;line-height:1.65;margin-bottom:12px">${escapeHtml(data.propuestaDeValor.descripcion)}</p>
         <div style="padding:12px 16px;background:${COLORS.bg};border-left:3px solid ${COLORS.red}">
           <div class="card-label">Diferenciador</div>
-          <p style="font-size:14px">${escapeHtml(data.oferta.diferenciador)}</p>
+          <p style="font-size:14px">${escapeHtml(data.propuestaDeValor.diferenciador)}</p>
         </div>
       </div>`);
   } else {
@@ -902,7 +902,7 @@ function renderEjecucionBody(data: FoundationData): string {
 
   // Angulos creativos
   parts.push(`<h3>Angulos Creativos</h3>`);
-  if (data.creativos && data.creativos.angulos.length) {
+  if (data.creativos?.angulos?.length) {
     parts.push(`<div class="angulo-group-cards">`);
     for (const angulo of data.creativos.angulos) {
       parts.push(`

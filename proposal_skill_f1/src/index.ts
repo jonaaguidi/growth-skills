@@ -11,6 +11,7 @@ import * as buildRoadmapSection from "./tools/build-roadmap-section.js";
 import * as buildValueProps from "./tools/build-value-props.js";
 import * as calculateInvestment from "./tools/calculate-investment.js";
 import * as composeDiagnostic from "./tools/compose-diagnostic.js";
+import * as generateContract from "./tools/generate-contract.js";
 
 const server = new McpServer({
   name: "diagnostico-skill-f1",
@@ -242,6 +243,21 @@ server.tool(
       .optional(),
   },
   async (args) => composeDiagnostic.handler(args)
+);
+
+// generate-contract
+server.tool(
+  generateContract.name,
+  generateContract.description,
+  {
+    clientName: z.string(),
+    clientResponsible: z.string(),
+    date: z.string(),
+    serviceTitle: z.string().optional(),
+    totalValue: z.string(),
+    sections: z.string(),
+  },
+  async (args) => generateContract.handler(args)
 );
 
 async function main() {
