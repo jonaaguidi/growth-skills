@@ -152,6 +152,12 @@ export interface AnguloCreativo {
   formato: string;
 }
 
+export interface TratamientoCreativo {
+  tipo: string | null;    // "Video" | "Carrusel"
+  tono: string | null;    // "Orgánico (UGC)" | "Cinematic" | "Mixed"
+  estilo: string | null;  // "Lifestyle" | "Motion Graphics" | etc.
+}
+
 export interface PiezaCreativa {
   formato: string;
   dolor: string;
@@ -161,6 +167,28 @@ export interface PiezaCreativa {
   body?: string;
   cta?: string;
   mensajes?: string[];
+
+  // Framework de produccion (opcionales, para Brief)
+  pilar?: string | null;
+  tema?: string | null;
+  formatoNarrativo?: string | null;
+  estructuraNarrativa?: string | null;
+  tratamiento?: TratamientoCreativo | null;
+  duracion?: string | null;
+  referenciaAudiovisual?: string | null;
+  referenciaGrafica?: string | null;
+  referencias?: ReferenciaCreativa[] | null;
+  enRevision?: boolean | null;
+  copyAnuncio?: string | null;
+
+  // Destino (opcionales, para Brief)
+  destinoUrls?: string[] | null;
+}
+
+export interface ReferenciaCreativa {
+  url: string;
+  titulo?: string | null;
+  tipo?: "link" | "iframe" | null;  // null = auto-detect
 }
 
 export interface PiezasICP {
@@ -180,10 +208,19 @@ export interface UTMConvention {
   ejemplos: string[];
 }
 
+export interface CampanaPresupuesto {
+  diario: string;       // "USD $5/día"
+  mensual: string;      // "USD $150/mes"
+}
+
 export interface CampanaDefinida {
   nombre: string;
   objetivo: string;
   adSets: { nombre: string; segmentacion: string; ads: string[] }[];
+  status?: "activa" | "en-desarrollo" | null;
+  destino?: string | null;              // ej. "Perfil de Instagram"
+  kpisCampana?: string[] | null;        // ej. ["Visitas al Perfil"]
+  presupuestoCampana?: CampanaPresupuesto | null;
 }
 
 export interface CapacidadAtencion {
@@ -213,11 +250,62 @@ export interface FormatoCompetencia {
   imageFile?: string;
 }
 
+export interface CompetidorCard {
+  nombre: string;
+  estado: string;         // "63 anuncios activos"
+  activo: boolean;
+  avatarFile?: string | null;  // path relativo a assets/
+}
+
 export interface CompetenciaAds {
   marca: string;
   cuenta: string;
   adLibraryUrl: string;
   formatos: FormatoCompetencia[];
+  competidores?: CompetidorCard[] | null;
+}
+
+// -- Foundation Review presentation --
+
+export interface ReviewEtapa {
+  nombre: string;
+  duracion: string;
+  objetivo: string;
+}
+
+export interface PricingRow {
+  marca: string;
+  producto: string;
+  precio: string;
+  precioPorKg: string;
+  diferencia: string | null;
+  esReferencia?: boolean;
+}
+
+export interface PricingComparativa {
+  titulo: string;
+  rows: PricingRow[];
+  fuente: string;
+  sugerencia: string | null;
+}
+
+export interface ProximoPaso {
+  titulo: string;
+  responsable: string;
+  tiempo: string;
+  items: string[];
+}
+
+export interface ReviewMilestone {
+  semana: number;
+  label: string;
+}
+
+export interface ReviewMeeting {
+  semana: string;
+  nombre: string;
+  desc: string;
+  status: "done" | "current" | "pending";
 }
 
 // -- Roadmap --
@@ -267,6 +355,16 @@ export interface FoundationData {
   // Competencia reference ads
   competenciaAds: CompetenciaAds | null;
 
+  // Referencias moodboard (Pinterest, etc.) for Foundation Review
+  referenciasMoodboard?: ReferenciaCreativa[] | null;
+
   // Roadmap
   roadmap: RoadmapInitiative[];
+
+  // Foundation Review presentation (optional, renderer derives defaults if missing)
+  reviewEtapas?: ReviewEtapa[] | null;
+  pricingComparativa?: PricingComparativa | null;
+  proximosPasos?: ProximoPaso[] | null;
+  reviewMilestones?: ReviewMilestone[] | null;
+  reviewMeetings?: ReviewMeeting[] | null;
 }

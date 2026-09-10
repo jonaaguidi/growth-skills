@@ -1,13 +1,12 @@
 import { z } from "zod";
 import type { FoundationData } from "../types/foundation.js";
-import { renderPlaybookHtml } from "../lib/playbook-renderer.js";
 import { renderOnboardingHtml } from "../lib/onboarding-renderer.js";
 import { renderStrategyHtml } from "../lib/strategy-renderer.js";
 
 export const name = "generar-foundation-doc";
 
 export const description =
-  "Genera 3 documentos HTML branded de Foundation Fase 2: (1) Playbook interno completo, (2) Onboarding para el cliente, (3) Estrategia de campanas para el cliente.";
+  "Genera 2 documentos HTML branded de Foundation Fase 2: (1) Onboarding para el cliente, (2) Foundation Review (estrategia de campanas) para el cliente.";
 
 export const zodSchema = {
   foundationData: z.string().describe(
@@ -56,13 +55,11 @@ export async function handler(args: { foundationData: string }) {
     };
   }
 
-  const playbook = renderPlaybookHtml(data);
   const onboarding = renderOnboardingHtml(data);
   const strategy = renderStrategyHtml(data);
 
   return {
     content: [
-      { type: "text" as const, text: `<!-- PLAYBOOK_HTML -->\n${playbook}` },
       { type: "text" as const, text: `<!-- ONBOARDING_HTML -->\n${onboarding}` },
       { type: "text" as const, text: `<!-- STRATEGY_HTML -->\n${strategy}` },
     ],

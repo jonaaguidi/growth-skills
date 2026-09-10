@@ -740,6 +740,55 @@ export function getBaseStyles(): string {
     .equipo-table td { padding: 10px 16px; border-bottom: 1px solid ${COLORS.border}; }
     .equipo-table .rol { font-family: ${FONTS.mono}; font-size: 11px; color: ${COLORS.muted}; text-transform: uppercase; }
 
+    /* === Mobile (iPhone 14 Pro: 393px) === */
+    @media (max-width: 480px) {
+      body { padding: 16px 8px; }
+      .container { max-width: 100%; }
+      .header { padding: 24px 16px; }
+      .header-title { font-size: 22px; }
+      .header-label { font-size: 10px; letter-spacing: 1.5px; }
+      .header-confidencial { font-size: 10px; }
+      h2 { font-size: 18px; }
+      h3 { font-size: 16px; }
+      .section { padding: 16px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .icp-columns { grid-template-columns: 1fr; }
+      details.collapsible > summary { padding: 16px; font-size: 16px; }
+      details.collapsible > .section-body { padding: 0 16px 16px; }
+      .toc { padding: 16px; }
+      .toc a { font-size: 13px; }
+      .card { padding: 14px; }
+      .card-value { font-size: 16px; }
+      table { font-size: 12px; }
+      th, td { padding: 8px; }
+      .checklist-item { padding: 10px 12px; }
+      .meta-row { flex-direction: column; gap: 8px; }
+
+      /* Brief mobile utility classes */
+      .m-stack { grid-template-columns: 1fr !important; }
+      .m-stack-3 { grid-template-columns: 1fr !important; }
+      .m-scroll { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+      .m-scroll-inner { min-width: 500px; }
+      .m-wrap { flex-wrap: wrap !important; }
+      .m-gap-8 { gap: 8px !important; }
+      .m-pad { padding: 12px 16px !important; }
+      .m-text-sm { font-size: 12px !important; }
+
+      /* Pieza card: hide non-essential in summary */
+      .m-hide { display: none !important; }
+      .pieza-toggle, .pieza-toggle-open { display: none !important; }
+
+      /* Resumen section */
+      .brief-resumen-pad { padding: 16px !important; }
+
+      /* TOC: tighter */
+      .toc-desc { padding-left: 20px; }
+
+      /* Header badges wrap */
+      .header-confidencial { font-size: 9px; }
+    }
+
   `;
 }
 
@@ -1353,6 +1402,46 @@ export function getClientStyles(): string {
       left: 0;
       color: ${COLORS.red};
       font-family: ${FONTS.mono};
+    }
+
+    /* === Mobile (iPhone 14 Pro: 393px) === */
+    @media (max-width: 480px) {
+      body { padding: 16px 8px; }
+      .container { max-width: 100%; }
+      .header-client { padding: 24px 16px; }
+      .header-client .header-title { font-size: 22px; }
+      .header-client .header-label { font-size: 10px; }
+      .header-client .meta-row { flex-direction: column; gap: 8px; }
+      h2 { font-size: 18px; }
+      h3 { font-size: 16px; }
+      .section-client-header { padding: 16px; font-size: 16px; }
+      .section-body { padding: 16px; }
+      .icp-columns { grid-template-columns: 1fr; }
+      .phase-cards { grid-template-columns: 1fr; }
+      .gantt-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .gantt-table { min-width: 600px; }
+      .welcome-box { padding: 16px; font-size: 14px; }
+      .propuesta-diferencial { padding: 16px; font-size: 14px; }
+      .campana-header { flex-wrap: wrap; padding: 12px 16px; }
+      .campana-body { padding: 16px; }
+      .var-card-header { padding: 10px 16px; }
+      .var-card-body { padding: 16px; }
+      .step-list li { padding: 12px 16px 12px 40px; font-size: 13px; }
+      .callout { padding: 12px 16px; }
+      table { font-size: 12px; }
+      th, td { padding: 8px; }
+      .kpi-chip, .canal-chip { font-size: 11px; padding: 4px 10px; }
+      .angulo-header { padding: 12px 16px; }
+      .angulo-body { padding: 16px; }
+      .icp-desc { padding: 12px 16px; font-size: 14px; }
+
+      /* Shared mobile utility classes */
+      .m-stack { grid-template-columns: 1fr !important; }
+      .m-stack-3 { grid-template-columns: 1fr !important; }
+      .m-scroll { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+      .m-scroll-inner { min-width: 500px; }
+      .m-wrap { flex-wrap: wrap !important; }
+      .m-pad { padding: 12px 16px !important; }
     }
   `;
 }

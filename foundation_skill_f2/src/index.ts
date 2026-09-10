@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
 import * as generarFoundationDoc from "./tools/generar-foundation-doc.js";
+import * as generarBriefCreativos from "./tools/generar-brief-creativos.js";
 
 const server = new McpServer({
   name: "foundation-skill-f2",
@@ -13,6 +14,13 @@ server.tool(
   generarFoundationDoc.description,
   generarFoundationDoc.zodSchema,
   async (args) => generarFoundationDoc.handler(args)
+);
+
+server.tool(
+  generarBriefCreativos.name,
+  generarBriefCreativos.description,
+  generarBriefCreativos.zodSchema,
+  async (args) => generarBriefCreativos.handler(args)
 );
 
 async function main() {
