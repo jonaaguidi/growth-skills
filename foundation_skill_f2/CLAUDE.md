@@ -6,29 +6,28 @@ Servidor MCP para generar documentos de Foundation (Fase 2) de Ree Creativos.
 
 **Cada cliente es independiente. NUNCA tocar archivos de un cliente cuando se trabaja en otro.**
 
-1. **No regenerar docs de otros clientes.** Si estas trabajando en `gen-btlandia.mjs`, NO corras `gen-defu.mjs`. Cada script genera SOLO los docs de su cliente.
+1. **No regenerar docs de otros clientes.** Si estas trabajando en `clients/btlandia/gen.mjs`, NO corras `clients/defu/gen.mjs`. Cada script genera SOLO los docs de su cliente.
 2. **No modificar renderers con cambios que afecten docs ya entregados.** Si un Foundation Review ya fue entregado al cliente y esta publicado (ej. `ree-website/public/foundations/{slug}.html`), cualquier cambio en los renderers (`strategy-renderer.ts`, `onboarding-renderer.ts`, `brief-renderer.ts`, `template-parts.ts`) va a alterar el output al regenerar. Antes de modificar un renderer, considerar si hay docs entregados que se van a ver afectados.
-3. **No publicar a ree-website sin verificar.** El script `gen-{slug}.mjs` publica automaticamente a `ree-website/public/foundations/`. Si el doc ya fue entregado y esta live, regenerar va a sobreescribir la version entregada. Verificar con `git status` en ree-website antes de hacer deploy.
+3. **No publicar a ree-website sin verificar.** El script `clients/{slug}/gen.mjs` publica automaticamente a `ree-website/public/foundations/`. Si el doc ya fue entregado y esta live, regenerar va a sobreescribir la version entregada. Verificar con `git status` en ree-website antes de hacer deploy.
 4. **Si se necesita regenerar un doc ya entregado**, verificar que el output sea identico o comunicar los cambios al equipo antes de deployear.
 
 ## REGLA CRITICA: Historial de cambios
 
 **NUNCA sobreescribir un archivo HTML generado sin crear backup primero.**
-Antes de escribir cualquier archivo en `clients-*/`, el script de generacion debe:
+Antes de escribir cualquier archivo en `clients/{slug}/`, el script de generacion debe:
 1. Verificar si el archivo ya existe.
 2. Si existe, copiarlo a `{nombre}.bak.{timestamp}.html` en el mismo directorio.
 3. Recien entonces escribir la version nueva.
 
-Esto aplica a los 4 documentos (playbook, onboarding, foundation-review, brief-creativos) y a cualquier script de generacion (`gen-*.mjs`).
+Esto aplica a los 3 documentos (onboarding, foundation-review, brief-creativos) y a cualquier script de generacion (`clients/{slug}/gen.mjs`).
 
 ## Que hace
 
-Genera 4 documentos HTML branded a partir de un mismo `FoundationData`:
+Genera 3 documentos HTML branded a partir de un mismo `FoundationData`:
 
-1. **Playbook Interno** (INTERNO, no compartir): todo el playbook operativo (onboarding + estrategia + checklists + roadmap) para el equipo REE. Header rojo, logo blanco, badge INTERNO.
-2. **Onboarding del Cliente** (COMPARTIBLE): pasos que el cliente debe hacer para arrancar (crear FB Page, vincular IG, tarjeta de pago, brand assets). Header blanco, logo rojo, sin info confidencial.
-3. **Foundation Review** (COMPARTIBLE): documento para la reunion de Foundation Review (semana 3). Incluye campanas, roadmap, creativos, KPIs, presupuesto y proximos pasos. Header blanco, logo rojo.
-4. **Brief de Creativos** (INTERNO, no compartir): documento de handoff para el equipo de produccion con las piezas creativas desglosadas por ICP. Header rojo, logo blanco, badge INTERNO.
+1. **Onboarding del Cliente** (COMPARTIBLE): pasos que el cliente debe hacer para arrancar (crear FB Page, vincular IG, tarjeta de pago, brand assets). Header blanco, logo rojo, sin info confidencial.
+2. **Foundation Review** (COMPARTIBLE): documento para la reunion de Foundation Review (semana 3). Incluye campanas, roadmap, creativos, KPIs, presupuesto y proximos pasos. Header blanco, logo rojo.
+3. **Brief de Creativos** (INTERNO, no compartir): documento de handoff para el equipo de produccion con las piezas creativas desglosadas por ICP. Header rojo, logo blanco, badge INTERNO.
 
 ## Workflow: como usar esta skill
 
@@ -41,7 +40,7 @@ Los datos vienen de tres fuentes:
 
 ### Paso 2 -- Construir el JSON
 
-Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Usar `gen-defu.mjs` como ejemplo canonico de referencia.
+Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Usar `clients/defu/gen.mjs` como ejemplo canonico de referencia.
 
 **Identidad del cliente** (requeridos):
 - `clientInfo`: datos basicos (empresa, slug, contacto, industria, web). Requerido.
@@ -80,25 +79,24 @@ Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Usar `gen-
 
 ### Paso 3 -- Crear el script de generacion
 
-Copiar `gen-defu.mjs` a `gen-{slug}.mjs` y reemplazar el objeto `data` con los datos del nuevo cliente. El script es un template reutilizable: todo se resuelve dinamicamente por `data.clientInfo.slug`.
+Copiar `clients/defu/gen.mjs` a `clients/{slug}/gen.mjs` y reemplazar el objeto `data` con los datos del nuevo cliente. El script es un template reutilizable: todo se resuelve dinamicamente por `data.clientInfo.slug`.
 
-`gen-defu.mjs` es el ejemplo canonico de referencia.
+`clients/defu/gen.mjs` es el ejemplo canonico de referencia.
 
 ### Paso 4 -- Correr el script
 
 ```bash
-node gen-{slug}.mjs
+npx tsc && node clients/{slug}/gen.mjs
 ```
 
 El script genera automaticamente:
 
 | Output | Ruta |
 |---|---|
-| Playbook interno | `clients-doc-internos/{slug}/foundation-{slug}.html` |
-| Onboarding cliente | `clients-onboardings/{slug}/onboarding-{slug}.html` |
-| Foundation Review | `clients-strategies/{slug}/foundation-review-{slug}.html` |
-| Brief de Creativos | `briefs/{slug}/brief_creatives.html` |
-| Desktop (los 4) | `~/Desktop/foundation-{slug}.html`, `onboarding-{slug}.html`, `foundation-review-{slug}.html`, `brief_creatives.html` |
+| Onboarding cliente | `clients/{slug}/onboardings/onboarding-{slug}.html` |
+| Foundation Review | `clients/{slug}/strategies/foundation-review-{slug}.html` |
+| Brief de Creativos | `clients/{slug}/briefs/brief_creatives.html` |
+| Desktop (los 3) | `~/Desktop/onboarding-{slug}.html`, `foundation-review-{slug}.html`, `brief_creatives_{slug}.html` |
 | ree-website (publish) | `../../ree-website/public/foundations/{slug}.html` |
 
 Si el archivo ya existe, el script crea un backup `.bak.{timestamp}.html` antes de sobreescribir.
@@ -109,7 +107,7 @@ Si el directorio de ree-website no existe (ej. otro dev), el publish se skipea s
 
 1. Hacer deploy de `ree-website` para que el link quede live.
 2. Compartir `https://growth.reecreativos.com/foundation/{slug}` con el cliente.
-3. Los docs internos (playbook, onboarding, brief de creativos) NO se publican online, solo se usan internamente.
+3. Los docs internos (onboarding, brief de creativos) NO se publican online, solo se usan internamente.
 
 ### Paso 6 -- Brief de Creativos (handoff a produccion)
 
@@ -120,10 +118,81 @@ Despues de la Foundation Review, se genera el Brief de Creativos para hacer hand
 **IMPORTANTE:** Siempre compilar TypeScript antes de correr el gen script:
 
 ```bash
-npx tsc && node gen-{slug}.mjs
+npx tsc && node clients/{slug}/gen.mjs
 ```
 
-El gen script importa desde `./dist/` (JS compilado), no desde `./src/` (TS fuente). Si no se compila, los cambios en renderers no se reflejan en el HTML.
+El gen script importa desde `../../dist/` (JS compilado), no desde `./src/` (TS fuente). Si no se compila, los cambios en renderers no se reflejan en el HTML.
+
+#### Guia: como crear piezas para un nuevo cliente
+
+Proceso para ir de "tengo los ICPs y la estrategia" a piezas concretas listas para produccion:
+
+1. **Partir de los dolores del ICP** — Cada pieza ataca un dolor especifico de `data.icp[].dolores`. El dolor define el angulo creativo. Una pieza = un dolor.
+2. **Definir solucion** — La solucion es el producto/oferta que resuelve ese dolor. Debe ser concreta: nombre del combo/pack, precio, beneficio tangible. No generica.
+3. **Elegir formato** — Segun el tipo de mensaje:
+   - Video (9:16): storytelling, demos de producto, talking head, UGC. Para awareness y consideracion.
+   - Posteo rectangular (1080x1350): imagen + copy largo. Para conversion y remarketing.
+   - Carrusel cuadrado (1080x1080): catalogo, comparacion, paso a paso. 3-4 slides por carrusel.
+   - Shopping (Collection Ad): catalogo dinamico con productos del e-commerce. Para venta directa.
+4. **Escribir comunicacion** — Para video: usar formato timeline `[0-3s] HOOK — descripcion de toma. [3-5s] BODY — ...`. Para estatico: describir la pieza visualmente (composicion, texto overlay, producto).
+5. **Escribir hook/body/cta (video) o mensajes (estatico)** — Video: `hook` es la frase de apertura (2-3s), `body` desarrolla el argumento, `cta` cierra con accion. Estatico: `mensajes[]` son los bullets o slides.
+6. **Completar framework de produccion** — `pilar`, `tema`, `formatoNarrativo`, `estructuraNarrativa`, `tratamiento` (tipo/tono/estilo), `duracion` (solo video). Todos deben estar presentes; null = "Por definir" amber en el brief.
+7. **Escribir copyAnuncio** — Copy completo del ad tal como aparece en Meta (ver convencion abajo en "Formato de copyAnuncio").
+8. **Agregar destinoUrls** — URLs del producto/coleccion en el e-commerce. Array de strings.
+9. **Agregar referencias** — Usar `referencias: [{ url, titulo }]` con URLs de IG/Pinterest/YT/TikTok. Preferir embed sobre texto libre.
+10. **Marcar `enRevision: false`** — Para que la pieza sea visible y expandible en el brief. Sin esto, la pieza queda bloqueada en gris.
+
+#### Mix de piezas recomendado
+
+Mix canonico basado en Defu (9 piezas unicas):
+
+| Formato | Cantidad | Uso | Duracion |
+|---------|----------|-----|----------|
+| Video Comercial Vertical (9:16) | 3 | Talking head, demo producto, UGC. Awareness y storytelling | 15-22s |
+| Posteo Rectangular (1080x1350) | 3 | Imagen + copy. Conversion y remarketing. Incluye adaptacion Story (1080x1920) | — |
+| Posteo Cuadrado / Carrusel (1080x1080) | 2 | Catalogo, comparacion, paso a paso. 3-4 slides | — |
+| Meta Ads Shopping (Collection Ad) | 1 | Catalogo dinamico del e-commerce. Venta directa | — |
+
+El mix puede variar segun el cliente y la industria. Lo importante es cubrir las 3 funciones: video (awareness/storytelling), estatico (conversion/producto) y shopping (venta directa). Clientes con e-commerce fuerte pueden necesitar mas shopping; clientes de servicios pueden no necesitar shopping.
+
+#### Patron de duplicacion por ICP
+
+Las mismas piezas se pueden asignar a multiples grupos de ICP cuando:
+- Los dolores son compartidos entre segmentos (no especificos de uno)
+- La diferenciacion entre ICPs se hace en el **ad set de Meta** (targeting por intereses/demograficos), no en el creativo
+
+Metricas del brief:
+- **"Producir"** = piezas unicas (combinaciones unicas de `formato + dolor`). Es el trabajo real de produccion.
+- **"Pautar"** = total de instancias en Meta Ads (piezas × ICPs). Es lo que se configura en la cuenta publicitaria.
+
+Ejemplo Defu: 9 piezas unicas × 2 ICPs = 9 a producir, 18 a pautar.
+
+Si un ICP tiene dolores muy distintos al resto, crear piezas exclusivas para ese segmento en lugar de duplicar.
+
+#### Formato de copyAnuncio
+
+Convenciones para escribir el copy del anuncio (campo `copyAnuncio` de PiezaCreativa):
+
+```
+🔥 [Hook fuerte — primera linea que se ve en el feed]
+
+✅ [Beneficio/argumento 1]
+✅ [Beneficio/argumento 2]
+✅ [Beneficio/argumento 3]
+
+💰 [Precio/oferta concreta]
+📦 [Envio/logistica]
+
+👉 [CTA con URL o instruccion]
+```
+
+Reglas:
+- Primera linea es el hook — debe generar curiosidad o atacar el dolor directo
+- Usar emojis al inicio de cada linea como marcadores visuales
+- Bloques separados por `\n\n` (doble salto de linea)
+- Incluir precio concreto cuando aplique (no "consultar precio")
+- CTA final con emoji de flecha `👉` y accion especifica
+- El copy se renderiza en bloque monoespaciado en el brief
 
 #### Estructura de `creativos.piezasPorIcp`
 
@@ -231,12 +300,12 @@ Soporta las mismas plataformas que las referencias por pieza (IG, YT, TikTok, Pi
 
 #### Output del brief
 
-El brief se genera automaticamente con el resto de los docs al correr `npx tsc && node gen-{slug}.mjs`.
+El brief se genera automaticamente con el resto de los docs al correr `npx tsc && node clients/{slug}/gen.mjs`.
 
 | Output | Ruta |
 |---|---|
-| Brief de Creativos | `briefs/{slug}/brief_creatives.html` |
-| Desktop | `~/Desktop/brief_creatives.html` |
+| Brief de Creativos | `clients/{slug}/briefs/brief_creatives.html` |
+| Desktop | `~/Desktop/brief_creatives_{slug}.html` |
 
 El brief NO se publica en ree-website (es documento interno de produccion).
 
@@ -257,7 +326,6 @@ Con el brief entregado, se cierra la etapa de Foundation.
 - `src/types/foundation.ts` -- interfaces TypeScript (contrato de datos).
 - `src/tools/generar-foundation-doc.ts` -- tool MCP: recibe JSON, devuelve onboarding + foundation review HTMLs.
 - `src/tools/generar-brief-creativos.ts` -- tool MCP: recibe JSON, devuelve brief de creativos HTML.
-- `src/lib/playbook-renderer.ts` -- doc interno completo (8 secciones collapsibles).
 - `src/lib/onboarding-renderer.ts` -- onboarding KO Call para el cliente (4 secciones dropdown).
 - `src/lib/strategy-renderer.ts` -- Foundation Review (6 secciones abiertas).
 - `src/lib/brief-renderer.ts` -- Brief de Creativos (resumen + piezas por ICP con framework de produccion).
@@ -285,19 +353,7 @@ npm run dev    # arranca el server MCP por stdio
 
 **Output:** 1 content item (brief de creativos HTML). Requiere `creativos.piezasPorIcp` con al menos un grupo de piezas.
 
-## Doc 1: Playbook Interno (7 secciones collapsibles)
-
-Header rojo, logo blanco, badge INTERNO, info confidencial.
-
-1. **Setup Interno** -- Equipo asignado, resumen de propuesta (fee, pauta, canales, campanas, duracion), primeros pasos post-cierre (WhatsApp + bienvenida + KO Call)
-2. **Configuracion y Accesos** -- Meta Ads (cuenta maestra + checklist unificada), integraciones de plataforma (Tienda Nube/Shopify con credenciales + conexion Pixel/Meta), requerimientos del cliente (brand assets, acceso web, WhatsApp, atencion leads), edge cases
-3. **KO Call** -- Fecha, agenda, temas WOW, checklist de preparacion
-4. **Roadmap de Ejecucion** -- Gantt 8 semanas + cards por fase (Foundation/Build/Launch/Scale)
-5. **Estrategia** -- Palanca + ICP + oferta + calificacion leads + KPIs + presupuesto + limite de gasto cuenta
-6. **Creativos y Arquitectura** -- Nomenclatura de ads + angulos creativos + UTM + campanas > ad sets > ads + capacidad atencion
-7. **Notas** -- Contexto, bloqueantes, observaciones
-
-## Doc 2: Onboarding del Cliente (4 secciones dropdown)
+## Doc 1: Onboarding del Cliente (4 secciones dropdown)
 
 Documento para compartir con el cliente durante la KO Call. Header rojo, logo blanco (mismo estilo que doc interno), badge "ONBOARDING".
 
@@ -342,7 +398,7 @@ Los milestones se definen en el renderer (no en el JSON del cliente) porque depe
 - Cierre con icono WhatsApp: "Si tenes alguna duda, escribinos al grupo de WhatsApp."
 - Usa getBaseStyles() (estilo interno) y logo blanco sobre header rojo
 
-## Doc 3: Foundation Review (6 pasos fijos)
+## Doc 2: Foundation Review (6 pasos fijos)
 
 Header rojo, logo blanco, titulo "FOUNDATION REVIEW". Documento para la reunion de Foundation Review (semana 3).
 
@@ -372,7 +428,7 @@ Cada campana en `arquitectura` debe tener estos campos para la estructura de 6 p
 
 Si ninguna campana tiene `status` definido, el renderer trata todas como `"en-desarrollo"`. Esto mantiene compatibilidad con datos legacy que no tienen el campo `status`.
 
-## Doc 4: Brief de Creativos (piezas por ICP con framework de produccion)
+## Doc 3: Brief de Creativos (piezas por ICP con framework de produccion)
 
 Header rojo, logo blanco, badge "DOCUMENTO INTERNO". Documento de handoff para el equipo de produccion.
 
@@ -442,7 +498,9 @@ Convencion de nombres para crear campanas, ad sets y ads en Meta Ads:
 | Ad Set | `Conjunto_{ICP}` | `Conjunto_ICP_A` |
 | Ad | `Anuncio_{Formato}_{Angulo}_{Version}` | `Anuncio_Reel_Dolor_V1` |
 
-Se renderiza en el doc de Estrategia (seccion Tus Campanas) y en el Playbook Interno (seccion Creativos y Arquitectura).
+Se renderiza en el doc de Estrategia (seccion Tus Campanas).
+
+La misma convencion se usa en el Brief de Creativos para nombrar las piezas de forma consistente con Meta Ads Manager. Ejemplo: `Anuncio_Reel_TofuDeVerdad_V1`, `Anuncio_Carrusel_Stockeate_V1`, `Anuncio_Shopping_Catalogo_V1`.
 
 ## Limite de Gasto por Cuenta Publicitaria
 
@@ -451,7 +509,6 @@ Campo `presupuesto.limiteGastoCuenta` (string | null). Define el tope de gasto q
 Se renderiza en:
 - Onboarding del Cliente (seccion Cuenta Publicitaria): callout informando al cliente del limite.
 - Estrategia de Campanas (seccion KPIs y Presupuesto): var-card + callout.
-- Playbook Interno (seccion Estrategia/Presupuesto): var-card + nota operativa para el equipo.
 
 ## Meta Business: nota clave
 
@@ -459,8 +516,12 @@ La pauta se paga con la tarjeta del cliente directo en Meta. REE no cobra porcen
 
 ## Clients
 
-Cada cliente tiene sus docs en 4 carpetas:
-- `clients-doc-internos/{slug}/foundation-{slug}.html` -- playbook interno
-- `clients-onboardings/{slug}/onboarding-{slug}.html` -- onboarding cliente
-- `clients-strategies/{slug}/estrategia-{slug}.html` -- estrategia cliente
-- `briefs/{slug}/brief_creatives.html` -- brief de creativos (handoff produccion)
+Cada cliente es una unidad autocontenida en `clients/{slug}/`:
+
+```
+clients/{slug}/
+├── gen.mjs                              ← script de generacion
+├── briefs/brief_creatives.html          ← brief de creativos (handoff produccion)
+├── onboardings/onboarding-{slug}.html   ← onboarding cliente
+└── strategies/foundation-review-{slug}.html ← foundation review
+```
