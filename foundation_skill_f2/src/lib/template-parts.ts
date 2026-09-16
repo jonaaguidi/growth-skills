@@ -232,11 +232,15 @@ export function getBaseStyles(): string {
 
     .meta-row {
       display: flex;
-      gap: 24px;
+      flex-wrap: wrap;
+      gap: 8px 24px;
       font-family: ${FONTS.mono};
       font-size: 13px;
       color: rgba(255,255,255,0.7);
       margin-top: 12px;
+    }
+    .meta-row > span {
+      white-space: nowrap;
     }
 
     /* --- TOC / Indice --- */
@@ -764,6 +768,7 @@ export function getBaseStyles(): string {
       th, td { padding: 8px; }
       .checklist-item { padding: 10px 12px; }
       .meta-row { flex-direction: column; gap: 8px; }
+      .meta-row > span { white-space: normal; }
 
       /* Brief mobile utility classes */
       .m-stack { grid-template-columns: 1fr !important; }

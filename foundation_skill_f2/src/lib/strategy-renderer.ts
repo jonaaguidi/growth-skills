@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
-import type { FoundationData, RoadmapInitiative, ReviewEtapa, ReviewMilestone, ReviewMeeting, ProximoPaso, CampanaDefinida } from "../types/foundation.js";
+import type { FoundationData, RoadmapInitiative, ReviewEtapa, ReviewMilestone, ReviewMeeting, ProximoPaso, CampanaDefinida, PiezaCreativa } from "../types/foundation.js";
 import { getBaseStyles, escapeHtml, COLORS, FONTS } from "./template-parts.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -56,7 +56,7 @@ function deriveReviewEtapas(data: FoundationData): ReviewEtapa[] {
 
   for (const camp of activeCampaigns) {
     etapas.push({
-      nombre: camp.nombre.replace(/^[^_]*_/, ""),
+      nombre: camp.tituloSeccion ?? camp.nombre.replace(/^[^_]*_/, ""),
       duracion: "10 min",
       objetivo: `Campaña de ${camp.objetivo.toLowerCase()} ya seteada.`,
     });
@@ -64,7 +64,7 @@ function deriveReviewEtapas(data: FoundationData): ReviewEtapa[] {
 
   for (const camp of devCampaigns) {
     etapas.push({
-      nombre: camp.nombre.replace(/^[^_]*_/, ""),
+      nombre: camp.tituloSeccion ?? camp.nombre.replace(/^[^_]*_/, ""),
       duracion: "15 min",
       objetivo: `Estrategia de ${camp.objetivo.toLowerCase()}: audiencias, creativos, presupuesto.`,
     });
@@ -156,6 +156,7 @@ interface TocItem {
   id: string;
   title: string;
   desc: string;
+  locked?: boolean;
 }
 
 function buildToc(data: FoundationData): TocItem[] {
@@ -175,20 +176,35 @@ function buildToc(data: FoundationData): TocItem[] {
       title: `Campaña de ${camp.objetivo}`,
       desc: `${totalAds} piezas ya seteadas.`,
     });
+    if (camp.piezas?.length) {
+      items.push({
+        id: "piezas-creativas",
+        title: "Piezas Creativas",
+        desc: `Detalle de las ${camp.piezas.length} piezas de la campaña.`,
+      });
+    }
   }
 
   if (devCampaigns.length) {
-    const campNames = devCampaigns.map(c => c.objetivo).join(" + ");
+    const campNames = devCampaigns.find(c => c.tituloSeccion)?.tituloSeccion
+      ?? `Foundation ${devCampaigns.map(c => c.objetivo).join(" + ")}`;
+    const hasEcom = !!(data.pricingComparativa || data.ofertas?.length || data.cambiosEcommerce?.length);
     items.push({
       id: "foundation-campaign",
-      title: `Foundation ${campNames}`,
-      desc: "Competencia, audiencias, angulos creativos, campaña y e-commerce.",
+      title: campNames,
+      desc: hasEcom
+        ? "Competencia, audiencias, angulos creativos, campaña y e-commerce."
+        : "Competencia, audiencias, angulos creativos y campaña.",
     });
   }
 
   items.push({ id: "ree-metrics", title: "REE Metrics", desc: "Dashboard de performance: como ingresar y que vas a ver." });
   items.push({ id: "roadmap", title: "Roadmap de Ejecución", desc: "Plan de ejecución 8 semanas + reuniones." });
   items.push({ id: "proximos-pasos", title: "Proximos Pasos", desc: "Que sigue con la aprobacion." });
+
+  for (const item of items) {
+    if (isLocked(data, item.id)) item.locked = true;
+  }
 
   return items;
 }
@@ -223,6 +239,12 @@ export function renderStrategyHtml(data: FoundationData): string {
   for (const camp of activeCampaigns) {
     sectionNum++;
     sections.push(renderActiveCampaign(data, camp, sectionNum));
+
+    // Piezas creativas for this campaign (if defined)
+    if (camp.piezas?.length) {
+      sectionNum++;
+      sections.push(renderCampaignPiezas(data, camp, sectionNum));
+    }
   }
 
   // Next. Foundation mega-section (in-development campaigns)
@@ -248,7 +270,7 @@ export function renderStrategyHtml(data: FoundationData): string {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foundation Review — ${empresa}</title>
+<title>Foundation Review | ${empresa}</title>
 ${getFaviconTag()}
 <style>${styles}
   .callout {
@@ -293,6 +315,34 @@ ${getFaviconTag()}
   details.fr-section > .fr-section-body {
     padding: 0 32px 32px;
   }
+  .fr-section.fr-locked {
+    background: ${COLORS.surface};
+    border: 1px solid ${COLORS.border};
+    margin-bottom: 24px;
+    opacity: 0.55;
+  }
+  .fr-locked-summary {
+    font-family: ${FONTS.heading};
+    font-weight: 700;
+    font-size: 20px;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: not-allowed;
+  }
+  .fr-locked-badge {
+    font-family: ${FONTS.mono};
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    background: #FEF3C7;
+    color: #92400E;
+    border-radius: 4px;
+    margin-left: auto;
+    white-space: nowrap;
+  }
   details.fr-subsection {
     border: 1px solid ${COLORS.border};
     border-radius: 8px;
@@ -336,6 +386,9 @@ ${getFaviconTag()}
     color: ${COLORS.red};
     margin-right: 10px;
   }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] > summary .pieza-toggle { display: none; }
+  details:not([open]) > summary .pieza-toggle-open { display: none; }
 </style>
 </head>
 <body>
@@ -375,8 +428,8 @@ function renderHeader(data: FoundationData): string {
     <div class="meta-row">
       ${contacto ? `<span>Contacto: ${contacto}</span>` : ""}
       ${industria ? `<span>Industria: ${industria}</span>` : ""}
-      ${web ? `<span>Web: <a href="https://${web}" target="_blank" style="color:rgba(255,255,255,0.7);text-decoration:underline">${web}</a></span>` : ""}
       ${duracion ? `<span>Duracion: ${duracion}</span>` : ""}
+      ${web ? `<span>Web: <a href="https://${web}" target="_blank" style="color:rgba(255,255,255,0.7);text-decoration:underline">${web}</a></span>` : ""}
     </div>
     ${campanas.length ? `
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
@@ -392,16 +445,25 @@ function renderToc(data: FoundationData): string {
   return `
   <div style="background:${COLORS.surface};border:1px solid ${COLORS.border};padding:24px 32px;margin-bottom:24px">
     <ol style="list-style:none;counter-reset:toc;padding:0;margin:0">
-      ${items.map((s, i) => `<li style="counter-increment:toc;margin-bottom:12px"><a href="#${s.id}" style="color:${COLORS.ink};text-decoration:none;font-size:14px;font-weight:600"><span style="font-family:${FONTS.mono};font-size:12px;color:${COLORS.red};margin-right:8px;font-weight:600">${String(i + 1).padStart(2, "0")}.</span>${escapeHtml(s.title)}</a><div style="font-size:12px;font-weight:400;color:${COLORS.muted};margin-top:2px;padding-left:28px">${escapeHtml(s.desc)}</div></li>`).join("\n      ")}
+      ${items.map((s, i) => s.locked
+        ? `<li style="counter-increment:toc;margin-bottom:12px;opacity:0.5"><span style="color:${COLORS.muted};font-size:14px;font-weight:600"><span style="font-family:${FONTS.mono};font-size:12px;color:${COLORS.muted};margin-right:8px;font-weight:600">${String(i + 1).padStart(2, "0")}.</span>${escapeHtml(s.title)}<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;letter-spacing:0.5px;padding:2px 8px;background:#FEF3C7;color:#92400E;border-radius:4px;margin-left:8px;vertical-align:middle">EN PREPARACION</span></span><div style="font-size:12px;font-weight:400;color:${COLORS.muted};margin-top:2px;padding-left:28px">${escapeHtml(s.desc)}</div></li>`
+        : `<li style="counter-increment:toc;margin-bottom:12px"><a href="#${s.id}" style="color:${COLORS.ink};text-decoration:none;font-size:14px;font-weight:600"><span style="font-family:${FONTS.mono};font-size:12px;color:${COLORS.red};margin-right:8px;font-weight:600">${String(i + 1).padStart(2, "0")}.</span>${escapeHtml(s.title)}</a><div style="font-size:12px;font-weight:400;color:${COLORS.muted};margin-top:2px;padding-left:28px">${escapeHtml(s.desc)}</div></li>`).join("\n      ")}
     </ol>
   </div>`;
 }
 
 // ─── Section wrapper (dropdown) ─────────────────────────────────────
 
-function section(num: number, id: string, title: string, html: string, rawTitle?: boolean): string {
+function section(num: number, id: string, title: string, html: string, rawTitle?: boolean, locked?: boolean): string {
   const pad = String(num).padStart(2, "0");
   const titleHtml = rawTitle ? title : escapeHtml(title);
+  if (locked) {
+    // Locked section: no body shipped, not expandable
+    return `
+  <div class="fr-section fr-locked" id="${id}">
+    <div class="fr-locked-summary"><span class="section-num">${pad}</span>${titleHtml}<span class="fr-locked-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:5px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>EN PREPARACION</span></div>
+  </div>`;
+  }
   return `
   <details class="fr-section" id="${id}">
     <summary><span class="section-num">${pad}</span>${titleHtml}</summary>
@@ -409,6 +471,10 @@ function section(num: number, id: string, title: string, html: string, rawTitle?
       ${html}
     </div>
   </details>`;
+}
+
+function isLocked(data: FoundationData, id: string): boolean {
+  return !!data.seccionesBloqueadas?.includes(id);
 }
 
 function subsection(parentNum: number, subNum: number, title: string, html: string): string {
@@ -438,7 +504,7 @@ function renderEstaReunion(data: FoundationData, num: number): string {
     const etapa = etapas[i];
     const isEdge = i === 0 || i === etapas.length - 1;
     const bg = isEdge ? COLORS.red : COLORS.slate;
-    parts.push(`<div style="flex:1;background:${bg};color:${COLORS.surface};padding:12px 16px;text-align:center">`);
+    parts.push(`<div style="flex:1;background:${bg};color:${COLORS.surface};padding:12px 16px;text-align:center;display:flex;flex-direction:column;justify-content:center">`);
     parts.push(`<div style="font-family:${FONTS.heading};font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">${escapeHtml(etapa.nombre)}</div>`);
     parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;color:rgba(255,255,255,0.55);margin-top:3px">${escapeHtml(etapa.duracion)}</div>`);
     parts.push(`</div>`);
@@ -468,7 +534,11 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
   const slug = data.clientInfo.slug?.toUpperCase() || escapeHtml(data.clientInfo.nombreEmpresa);
 
   parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:8px">Campaña de <strong>${escapeHtml(campaign.objetivo.toLowerCase())}</strong> hacia ${campaign.destino ? escapeHtml(campaign.destino.toLowerCase()) : "el destino definido"} de <strong>${slug}</strong>.</p>`);
-  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:24px">El objetivo es nutrir un público, generar <strong>posicionamiento de marca</strong> y conseguir resultados medibles.</p>`);
+  if (campaign.descripcionCampana) {
+    parts.push(`<div style="padding:16px 20px;background:${COLORS.bg};border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:24px"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:${COLORS.red};margin-bottom:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Objetivo de la campaña</div><p style="font-size:14px;line-height:1.65;margin:0">${campaign.descripcionCampana}</p></div>`);
+  } else {
+    parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:24px">El objetivo es nutrir un público, generar <strong>posicionamiento de marca</strong> y conseguir resultados medibles.</p>`);
+  }
 
   // Campaign definition card
   parts.push(`<div style="padding:20px;border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:24px;background:${COLORS.bg}">`);
@@ -482,13 +552,10 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
   // Audiencia
   const firstAdSet = campaign.adSets[0];
   if (firstAdSet) {
-    const { edad, locacion, intereses } = parseSegmentacion(firstAdSet.segmentacion);
+    const parsed = parseSegmentacion(firstAdSet.segmentacion);
     parts.push(`<div style="grid-column:1/-1"><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Audiencia</div>`);
-    parts.push(`<ul style="font-size:14px;margin:8px 0 0;padding-left:20px;line-height:1.8">`);
-    parts.push(`<li><span style="font-weight:600">Edad:</span> ${escapeHtml(edad)}</li>`);
-    if (locacion) parts.push(`<li><span style="font-weight:600">Locación:</span> ${escapeHtml(locacion)}</li>`);
-    if (intereses.length) parts.push(`<li><span style="font-weight:600">Intereses:</span> ${intereses.map(i => escapeHtml(i)).join(", ")}</li>`);
-    parts.push(`</ul></div>`);
+    parts.push(renderSegmentacion(parsed));
+    parts.push(`</div>`);
   }
 
   // HR
@@ -497,7 +564,7 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
   // KPIs + Presupuesto
   const kpisText = campaign.kpisCampana?.length ? campaign.kpisCampana.join(" / ") : "Por definir";
   const presupuestoText = campaign.presupuestoCampana
-    ? `${campaign.presupuestoCampana.diario} — ${campaign.presupuestoCampana.mensual}`
+    ? `${campaign.presupuestoCampana.diario} / ${campaign.presupuestoCampana.mensual}`
     : "Por definir";
   parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Conversión (KPIs)</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(kpisText)}</p></div>`);
   parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(presupuestoText)}</p></div>`);
@@ -516,8 +583,8 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
   parts.push(`<div style="text-align:center;padding:12px"><div class="card-label" style="justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>Ads (${totalAds})</div><p style="font-size:15px;font-weight:700;margin:8px 0 4px;font-family:${FONTS.mono}">Anuncio_Reel_V1</p><p style="font-size:12px;color:${COLORS.muted};margin:0;font-family:${FONTS.mono}">Anuncio_{Formato}_{Angulo}_{V}</p></div>`);
   parts.push(`</div></div>`);
 
-  // Embed grid: Instagram previews
-  const allEmbeds: { label: string; embedUrl: string }[] = [];
+  // Embed grid: Instagram previews + pending mockups
+  const allPieces: { label: string; embedUrl: string | null }[] = [];
   for (const adSet of campaign.adSets) {
     for (const ad of adSet.ads) {
       const pipeIdx = ad.indexOf(" | ");
@@ -527,28 +594,40 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
       const reelMatch = urlP.match(/\/reel\/([^/]+)/);
       const postMatch = urlP.match(/\/p\/([^/]+)/);
       if (reelMatch) {
-        allEmbeds.push({ label: lbl, embedUrl: `https://www.instagram.com/reel/${reelMatch[1]}/embed/` });
+        allPieces.push({ label: lbl, embedUrl: `https://www.instagram.com/reel/${reelMatch[1]}/embed/` });
       } else if (postMatch) {
-        allEmbeds.push({ label: lbl, embedUrl: `https://www.instagram.com/p/${postMatch[1]}/embed/` });
+        allPieces.push({ label: lbl, embedUrl: `https://www.instagram.com/p/${postMatch[1]}/embed/` });
+      } else {
+        allPieces.push({ label: lbl, embedUrl: null });
       }
     }
   }
-  if (allEmbeds.length) {
-    parts.push(`<div class="card-label">Preview de piezas (${allEmbeds.length})</div>`);
+  if (allPieces.length) {
+    const readyCount = allPieces.filter(p => p.embedUrl).length;
+    const pendingCount = allPieces.length - readyCount;
+    parts.push(`<div class="card-label">Preview de piezas (${allPieces.length})</div>`);
     parts.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px">`);
-    for (const embed of allEmbeds) {
+    for (const piece of allPieces) {
       parts.push(`<div style="text-align:center">`);
-      parts.push(`<iframe src="${embed.embedUrl}" style="width:100%;min-height:340px;border:1px solid ${COLORS.border};border-radius:8px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`);
-      parts.push(`<div style="font-size:11px;font-family:${FONTS.mono};color:${COLORS.muted};margin-top:4px">${escapeHtml(embed.label)}</div>`);
+      if (piece.embedUrl) {
+        parts.push(`<iframe src="${piece.embedUrl}" style="width:100%;min-height:340px;border:1px solid ${COLORS.border};border-radius:8px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`);
+      } else {
+        parts.push(`<div style="width:100%;min-height:340px;border:2px dashed ${COLORS.border};border-radius:8px;background:${COLORS.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:12px;color:${COLORS.muted};font-weight:600">Mockup pendiente</span><span style="font-size:11px;color:${COLORS.muted}">A definir con Sergio</span></div>`);
+      }
+      parts.push(`<div style="font-size:11px;font-family:${FONTS.mono};color:${COLORS.muted};margin-top:4px">${escapeHtml(piece.label)}</div>`);
       parts.push(`</div>`);
     }
     parts.push(`</div>`);
+
+    if (pendingCount > 0) {
+      parts.push(`<div style="margin-top:16px;padding:12px 16px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:14px;color:#92400e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>${readyCount} piezas listas</strong> · ${pendingCount} mockups pendientes a definir.</div>`);
+    } else {
+      parts.push(`<div style="margin-top:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:14px;color:#166534"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><strong>${totalAds} piezas listas.</strong> Estas piezas ya están producidas y disponibles para subir a Meta Ads.</div>`);
+    }
   }
 
-  parts.push(`<div style="margin-top:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:14px;color:#166534"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><strong>${totalAds} piezas listas.</strong> Estas piezas ya están producidas y disponibles para subir a Meta Ads.</div>`);
-
   const sectionId = slugify(campaign.nombre);
-  return section(num, sectionId, `Campaña de ${campaign.objetivo}`, parts.join("\n"));
+  return section(num, sectionId, `Campaña de ${campaign.objetivo}`, parts.join("\n"), false, isLocked(data, sectionId));
 }
 
 // ─── Foundation Campaigns (in-development) ──────────────────────────
@@ -567,29 +646,33 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     // Competitor cards
     const competidores = data.competenciaAds.competidores ?? [];
     if (competidores.length) {
-      sub.push(`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px">`);
+      sub.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px">`);
       for (const comp of competidores) {
-        const borderColor = comp.activo ? COLORS.red : COLORS.border;
-        const statusColor = comp.activo ? COLORS.red : COLORS.muted;
-        const icon = comp.activo
-          ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
-          : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
         const avatarSrc = loadAssetBase64(comp.avatarFile);
-        const avatarHtml = avatarSrc
-          ? `<img src="${avatarSrc}" width="40" height="40" style="border-radius:50%;object-fit:cover;flex-shrink:0" alt="${escapeHtml(comp.nombre)}">`
-          : `<div style="width:40px;height:40px;border-radius:50%;background:${COLORS.border};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:${COLORS.muted};flex-shrink:0">${comp.nombre.charAt(0)}</div>`;
-        sub.push(`<div style="padding:14px 16px;border:1px solid ${borderColor};border-radius:8px;background:${COLORS.surface};box-shadow:0 1px 3px rgba(0,0,0,0.06);display:flex;align-items:center;gap:12px">`);
-        sub.push(avatarHtml);
-        sub.push(`<div>`);
-        sub.push(`<div style="font-weight:700;font-size:14px;margin-bottom:4px">${escapeHtml(comp.nombre)}</div>`);
-        sub.push(`<div style="font-size:12px;color:${statusColor};display:flex;align-items:center;gap:6px">${icon} ${escapeHtml(comp.estado)}</div>`);
-        sub.push(`</div></div>`);
+        const avatarImg = avatarSrc
+          ? `<img src="${avatarSrc}" width="28" height="28" style="border-radius:50%;object-fit:cover;flex-shrink:0" alt="${escapeHtml(comp.nombre)}">`
+          : `<div style="width:28px;height:28px;border-radius:50%;background:${COLORS.border};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:${COLORS.muted};flex-shrink:0">${comp.nombre.charAt(0)}</div>`;
+        const avatarHtml = comp.instagramUrl
+          ? `<a href="${escapeHtml(comp.instagramUrl)}" target="_blank" style="display:inline-block;line-height:0">${avatarImg}</a>`
+          : avatarImg;
+        const nombreHtml = comp.instagramUrl
+          ? `<a href="${escapeHtml(comp.instagramUrl)}" target="_blank" style="font-weight:600;font-size:12px;color:inherit;text-decoration:none">${escapeHtml(comp.nombre)}</a>`
+          : `<span style="font-weight:600;font-size:12px">${escapeHtml(comp.nombre)}</span>`;
+        sub.push(`<div style="padding:8px 10px;border:1px solid ${COLORS.border};border-radius:8px;background:${COLORS.surface};display:flex;align-items:flex-start;gap:8px">`);
+        sub.push(`<div style="padding-top:1px">${avatarHtml}</div>`);
+        sub.push(`<div>${nombreHtml}<div style="font-size:11px;color:${COLORS.muted};line-height:1.4;margin-top:2px">${escapeHtml(comp.estado)}</div></div>`);
+        sub.push(`</div>`);
       }
       sub.push(`</div>`);
     }
 
     // Ad Library link
     sub.push(`<div style="font-size:13px;margin-bottom:24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><a href="${escapeHtml(data.competenciaAds.adLibraryUrl)}" target="_blank" style="color:${COLORS.red};font-weight:600">Ver ads de ${escapeHtml(data.competenciaAds.marca)} en Meta Ad Library</a></div>`);
+
+    // Strategic observation
+    if (data.competenciaAds.observacion) {
+      sub.push(`<div style="padding:16px 20px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-bottom:24px;font-size:14px;line-height:1.65;color:#92400e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><strong>Oportunidad:</strong> ${escapeHtml(data.competenciaAds.observacion).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\n\n/g, "<br><br>").replace(/\n/g, "<br>")}</div>`);
+    }
 
     // Reference ads — formatos with postUrl (iframe) or imageFile (static image)
     const refFormats = data.competenciaAds.formatos.filter(f => f.postUrl || f.imageFile);
@@ -647,13 +730,44 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
       sub.push(`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">`);
       sub.push(`<span style="font-family:${FONTS.mono};font-size:12px;font-weight:700;color:${COLORS.red}">ICP ${i + 1}</span>`);
       sub.push(`<span style="font-family:${FONTS.heading};font-weight:700;font-size:15px">${escapeHtml(icpItem.segmento)}</span>`);
-      sub.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;${isPrimario ? `background:${COLORS.ink};color:${COLORS.surface}` : `background:${COLORS.bg};color:${COLORS.muted};border:1px solid ${COLORS.border}`}">${isPrimario ? "Primario" : "Secundario"}</span>`);
+      if (icpItem.prioridad) {
+        sub.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;${isPrimario ? `background:${COLORS.ink};color:${COLORS.surface}` : `background:${COLORS.bg};color:${COLORS.muted};border:1px solid ${COLORS.border}`}">${isPrimario ? "Primario" : "Secundario"}</span>`);
+      }
       const isRecurrente = icpItem.recurrencia === "alta" || icpItem.recurrencia === "media";
-      sub.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;${isRecurrente ? `background:#F0FDF4;color:#22C55E;border:1px solid #BBF7D0` : `background:${COLORS.gapBg};color:${COLORS.escenario2};border:1px solid #FDE68A`}">${isRecurrente ? "Consumo recurrente" : "Consumo ocasional"}</span>`);
+      sub.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;${isRecurrente ? `background:#F0FDF4;color:#22C55E;border:1px solid #BBF7D0` : `background:${COLORS.gapBg};color:${COLORS.escenario2};border:1px solid #FDE68A`}">${escapeHtml(icpItem.badge ?? (isRecurrente ? "Consumo recurrente" : "Consumo ocasional"))}</span>`);
       sub.push(`</div></div></div>`);
 
       // Description
       sub.push(`<div style="padding:0 20px 14px"><p style="font-size:13px;color:${COLORS.muted};margin:0;line-height:1.6">${escapeHtml(icpItem.descripcion)}</p></div>`);
+
+      // Ejemplos de marcas del perfil (Argentina)
+      if (icpItem.ejemplosMarcas?.length) {
+        const buildingIcon = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${COLORS.ink}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><line x1="9" y1="9" x2="9" y2="9.01"/><line x1="9" y1="12" x2="9" y2="12.01"/><line x1="9" y1="15" x2="9" y2="15.01"/></svg>`;
+        sub.push(`<div style="padding:0 20px 14px">`);
+        sub.push(`<div style="padding:14px;background:${COLORS.bg};border-radius:6px;border:1px dashed ${COLORS.border}">`);
+        sub.push(`<div style="font-family:${FONTS.mono};font-size:11px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.ink};font-weight:600;margin-bottom:10px">${buildingIcon}Ejemplos del perfil en Argentina</div>`);
+        sub.push(`<div style="display:grid;grid-template-columns:repeat(${Math.min(icpItem.ejemplosMarcas.length, 3)},1fr);gap:10px">`);
+        for (const ej of icpItem.ejemplosMarcas) {
+          const ejAvatarSrc = ej.avatarFile ? loadAssetBase64(ej.avatarFile) : "";
+          const ejAvatar = ejAvatarSrc
+            ? `<img src="${ejAvatarSrc}" width="34" height="34" style="border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid ${COLORS.border}" alt="${escapeHtml(ej.marca)}">`
+            : "";
+          sub.push(`<div style="padding:12px;background:${COLORS.surface};border:1px solid ${COLORS.border};border-radius:6px">`);
+          sub.push(`<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">`);
+          if (ejAvatar) sub.push(ejAvatar);
+          sub.push(`<div><div style="font-family:${FONTS.heading};font-weight:700;font-size:13px;margin-bottom:2px">${escapeHtml(ej.marca)}</div>`);
+          sub.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:0.5px;color:${COLORS.muted}">${escapeHtml(ej.rubro)}</div></div>`);
+          sub.push(`</div>`);
+          if (ej.rol) {
+            const rolIcon = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+            sub.push(`<div style="font-family:${FONTS.mono};font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:${COLORS.ink};margin-bottom:6px">${rolIcon}Decisor: <span style="color:${COLORS.red}">${escapeHtml(ej.rol)}</span></div>`);
+          }
+          sub.push(`<p style="font-size:12px;color:${COLORS.muted};margin:0;line-height:1.55">${escapeHtml(ej.caso)}</p>`);
+          sub.push(`</div>`);
+        }
+        sub.push(`</div>`);
+        sub.push(`</div></div>`);
+      }
 
       // Dolores / Deseos / Objeciones grid
       sub.push(`<div style="padding:0 20px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">`);
@@ -702,10 +816,6 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
       sub.push(`<div style="padding:14px 18px;background:${COLORS.gapBg};border-left:3px solid ${COLORS.escenario2};border-radius:0 6px 6px 0;margin-bottom:20px;font-size:13px;line-height:1.6"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.escenario2}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>ICP de ${escapeHtml(excluded.segmento)}</strong> no se incluye en esta etapa. Su consumo es ocasional y conviene optimizar los recursos de produccion creativa y presupuesto de ads, hacia los ICPs de consumo recurrente, que tienen mejor retorno para el negocio.</div>`);
     }
 
-    const videoIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`;
-    const imgIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
-    const shopIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`;
-
     if (data.creativos?.piezasPorIcp?.length) {
       for (let g = 0; g < data.creativos.piezasPorIcp.length; g++) {
         const grupo = data.creativos.piezasPorIcp[g];
@@ -718,54 +828,9 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
         sub.push(`<span style="font-family:${FONTS.mono};font-size:11px;color:${COLORS.muted}">${piezaCount} piezas</span>`);
         sub.push(`</summary>`);
 
-        sub.push(`<div style="padding:12px 20px 20px;display:grid;gap:10px">`);
+        sub.push(`<div style="padding:12px 20px 20px">`);
         for (let p = 0; p < grupo.piezas.length; p++) {
-          const pieza = grupo.piezas[p];
-          const fmt = pieza.formato.toLowerCase();
-          const isVideo = fmt.includes("video") || fmt.includes("ugc");
-          const isShopping = fmt.includes("shopping") || fmt.includes("catalogo");
-          const borderLeft = isVideo ? `border-left:4px solid ${COLORS.red}` : isShopping ? `border-left:4px solid #EA580C` : `border-left:4px solid ${COLORS.border}`;
-          const formatIcon = isVideo ? videoIcon : isShopping ? shopIcon : imgIcon;
-          const formatBadgeBg = isVideo ? COLORS.red : isShopping ? "#EA580C" : COLORS.bg;
-          const formatBadgeColor = isVideo || isShopping ? "#fff" : COLORS.muted;
-
-          sub.push(`<div style="padding:14px 16px;border:1px solid ${COLORS.border};border-radius:8px;${borderLeft};background:${COLORS.surface}">`);
-          sub.push(`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">`);
-          sub.push(`<span style="font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;background:${formatBadgeBg};color:${formatBadgeColor};font-family:${FONTS.mono}">${formatIcon}${escapeHtml(pieza.formato)}</span>`);
-          sub.push(`<span style="font-family:${FONTS.mono};font-size:11px;color:${COLORS.muted}">Pieza ${p + 1}/${piezaCount}</span>`);
-          sub.push(`</div>`);
-
-          sub.push(`<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:8px">`);
-          sub.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`);
-          sub.push(`<span style="font-size:13px;line-height:1.5"><span style="color:${COLORS.red};font-weight:700">Dolor:</span> ${escapeHtml(pieza.dolor)}</span>`);
-          sub.push(`</div>`);
-
-          sub.push(`<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:8px">`);
-          sub.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`);
-          sub.push(`<span style="font-size:13px;line-height:1.5"><span style="color:#16a34a;font-weight:700">Solucion:</span> ${escapeHtml(pieza.solucion)}</span>`);
-          sub.push(`</div>`);
-
-          sub.push(`<hr style="border:none;border-top:1px solid ${COLORS.border};margin:8px 0">`);
-          if (isVideo && pieza.hook) {
-            sub.push(`<div style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:${COLORS.muted};margin-bottom:6px">Guion</div>`);
-            sub.push(`<div style="display:grid;gap:6px;font-size:12px;line-height:1.5">`);
-            sub.push(`<div style="display:flex;align-items:flex-start;gap:8px"><span style="font-weight:700;color:${COLORS.red};font-family:${FONTS.mono};font-size:11px;flex-shrink:0;min-width:40px">HOOK</span><span>${escapeHtml(pieza.hook)}</span></div>`);
-            if (pieza.body) sub.push(`<div style="display:flex;align-items:flex-start;gap:8px"><span style="font-weight:700;color:${COLORS.ink};font-family:${FONTS.mono};font-size:11px;flex-shrink:0;min-width:40px">BODY</span><span>${escapeHtml(pieza.body)}</span></div>`);
-            if (pieza.cta) sub.push(`<div style="display:flex;align-items:flex-start;gap:8px"><span style="font-weight:700;color:#16a34a;font-family:${FONTS.mono};font-size:11px;flex-shrink:0;min-width:40px">CTA</span><span>${escapeHtml(pieza.cta)}</span></div>`);
-            sub.push(`</div>`);
-          } else if (pieza.mensajes && pieza.mensajes.length) {
-            sub.push(`<div style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:${COLORS.muted};margin-bottom:6px">Mensajes</div>`);
-            sub.push(`<ul style="margin:0;padding-left:16px;font-size:12px;line-height:1.7;color:${COLORS.ink}">`);
-            for (const msg of pieza.mensajes) sub.push(`<li>${escapeHtml(msg)}</li>`);
-            sub.push(`</ul>`);
-          } else {
-            sub.push(`<div style="display:flex;align-items:flex-start;gap:6px">`);
-            sub.push(`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`);
-            sub.push(`<span style="font-size:12px;color:${COLORS.muted};line-height:1.5;font-style:italic">${escapeHtml(pieza.comunicacion)}</span>`);
-            sub.push(`</div>`);
-          }
-
-          sub.push(`</div>`);
+          sub.push(renderPiezaCardStrategy(grupo.piezas[p], p));
         }
         sub.push(`</div></details>`);
       }
@@ -802,15 +867,11 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     sub.push(`<div style="grid-column:1/-1"><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Audiencias</div>`);
     for (let ai = 0; ai < camp.adSets.length; ai++) {
       const adSet = camp.adSets[ai];
-      const { edad, locacion, intereses } = parseSegmentacion(adSet.segmentacion);
+      const parsed = parseSegmentacion(adSet.segmentacion);
 
       if (ai > 0) sub.push(`<hr style="border:none;border-top:1px solid ${COLORS.border};margin:12px 0">`);
       sub.push(`<div style="font-size:13px;font-weight:700;color:${COLORS.red};margin:${ai === 0 ? "8" : "4"}px 0 4px;text-transform:uppercase;letter-spacing:0.5px">${escapeHtml(adSet.nombre)}</div>`);
-      sub.push(`<ul style="font-size:14px;margin:4px 0 0;padding-left:20px;line-height:1.8">`);
-      sub.push(`<li><span style="font-weight:600">Edad:</span> ${escapeHtml(edad)}</li>`);
-      if (locacion) sub.push(`<li><span style="font-weight:600">Locación:</span> ${escapeHtml(locacion)}</li>`);
-      if (intereses.length) sub.push(`<li><span style="font-weight:600">Intereses:</span> ${intereses.map(i => escapeHtml(i)).join(", ")}</li>`);
-      sub.push(`</ul>`);
+      sub.push(renderSegmentacion(parsed));
     }
     sub.push(`</div>`);
 
@@ -923,8 +984,9 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     parts.push(subsection(num, subNum, "Ecommerce", sub.join("\n")));
   }
 
-  const campNames = devCampaigns.map(c => c.objetivo).join(" + ");
-  return section(num, "foundation-campaign", `Foundation ${campNames}`, parts.join("\n"));
+  const sectionTitle = devCampaigns.find(c => c.tituloSeccion)?.tituloSeccion
+    ?? `Foundation ${devCampaigns.map(c => c.objetivo).join(" + ")}`;
+  return section(num, "foundation-campaign", sectionTitle, parts.join("\n"), false, isLocked(data, "foundation-campaign"));
 }
 
 // ─── REE Metrics ─────────────────────────────────────────────────────
@@ -965,11 +1027,20 @@ function renderReeMetrics(data: FoundationData, num: number): string {
   parts.push(`<h3>Que vas a ver</h3>`);
   parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px">La plataforma conecta tus sistemas en un solo lugar para que puedas ver como rinde tu inversion:</p>`);
 
-  const features = [
-    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`, titulo: "Dashboard", desc: `Conexion con ${escapeHtml(plataforma)}, campanas de Meta Ads y crecimiento de Instagram organico. Todo en una sola vista, personalizable segun requerimientos.` },
-    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, titulo: "Timeline", desc: "Registro de cada cambio realizado en Meta Ads. Documentamos por que se escala o se frena cada anuncio (Kill/Scale) para que siempre sepas que se hizo y por que." },
-    { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`, titulo: "E-Commerce", desc: `Datos de tu ${escapeHtml(plataforma)}: pedidos, facturacion, ticket promedio, clientes unicos, carritos abandonados, top productos y top clientes.` },
+  const featureIcon = (titulo: string): string => {
+    const t = titulo.toLowerCase();
+    if (t.includes("timeline")) return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+    if (t.includes("commerce")) return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`;
+    if (t.includes("lead") || t.includes("whatsapp")) return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>`;
+    return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`;
+  };
+
+  const featuresData = data.reeMetricsFeatures?.length ? data.reeMetricsFeatures : [
+    { titulo: "Dashboard", desc: `Conexion con ${escapeHtml(plataforma)}, campañas de Meta Ads y crecimiento de Instagram organico. Todo en una sola vista, personalizable segun requerimientos.` },
+    { titulo: "Timeline", desc: "Registro de cada cambio realizado en Meta Ads. Documentamos por que se escala o se frena cada anuncio (Kill/Scale) para que siempre sepas que se hizo y por que." },
+    { titulo: "E-Commerce", desc: `Datos de tu ${escapeHtml(plataforma)}: pedidos, facturacion, ticket promedio, clientes unicos, carritos abandonados, top productos y top clientes.` },
   ];
+  const features = featuresData.map(f => ({ icon: featureIcon(f.titulo), titulo: escapeHtml(f.titulo), desc: data.reeMetricsFeatures?.length ? escapeHtml(f.desc) : f.desc }));
 
   parts.push(`<div style="display:grid;gap:12px;margin-bottom:24px">`);
   for (const feat of features) {
@@ -983,9 +1054,9 @@ function renderReeMetrics(data: FoundationData, num: number): string {
   parts.push(`</div>`);
 
   // Disclaimer
-  parts.push(`<div class="callout" style="display:flex;align-items:flex-start;gap:12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${COLORS.escenario2}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div><strong>En constante desarrollo:</strong> REE Metrics es una plataforma que estamos mejorando continuamente. A medida que lancemos las campanas y se genere data, vamos a comenzar a relacionar la informacion entre Meta Ads, ${escapeHtml(plataforma)} e Instagram para tener mayor claridad en la toma de decisiones. En un inicio necesitamos lanzar para despues poder cruzar esa data y optimizar.</div></div>`);
+  parts.push(`<div class="callout" style="display:flex;align-items:flex-start;gap:12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${COLORS.escenario2}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div><strong>En constante desarrollo:</strong> REE Metrics es una plataforma que estamos mejorando continuamente. A medida que lancemos las campañas y se genere data, vamos a comenzar a relacionar la informacion entre Meta Ads, ${escapeHtml(data.reeMetricsFuente ?? plataforma)} e Instagram para tener mayor claridad en la toma de decisiones. En un inicio necesitamos lanzar para despues poder cruzar esa data y optimizar.</div></div>`);
 
-  return section(num, "ree-metrics", "REE Metrics", parts.join("\n"));
+  return section(num, "ree-metrics", "REE Metrics", parts.join("\n"), false, isLocked(data, "ree-metrics"));
 }
 
 // ─── Roadmap ─────────────────────────────────────────────────────────
@@ -1002,7 +1073,7 @@ function renderRoadmap(data: FoundationData, num: number): string {
     const ganttMilestones: GanttMilestone[] = milestones.map(m => ({
       semana: m.semana,
       label: m.label,
-      fecha: fechaISO ? weekDate(fechaISO, m.semana) : "",
+      fecha: m.fecha ?? (fechaISO ? weekDate(fechaISO, m.semana) : ""),
     }));
     parts.push(renderGantt(data.roadmap, fechaISO, ganttMilestones));
 
@@ -1047,7 +1118,7 @@ function renderRoadmap(data: FoundationData, num: number): string {
     parts.push(`<p style="font-size:14px;color:${COLORS.muted}">Roadmap pendiente de definición.</p>`);
   }
 
-  return section(num, "roadmap", "Roadmap de Ejecución", parts.join("\n"));
+  return section(num, "roadmap", "Roadmap de Ejecución", parts.join("\n"), false, isLocked(data, "roadmap"));
 }
 
 // ─── Gantt helpers ───────────────────────────────────────────────────
@@ -1220,27 +1291,287 @@ function renderProximosPasos(data: FoundationData, num: number): string {
     for (const item of p.items) {
       parts.push(`<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5;margin-bottom:4px">`);
       parts.push(`<span style="color:${COLORS.red};font-size:8px;margin-top:5px;flex-shrink:0">&#9632;</span>`);
-      parts.push(`<span>${escapeHtml(item)}</span>`);
+      const itemHtml = escapeHtml(item).replace(/(https?:\/\/[^\s]+)/g, (u) => `<a href="${u}" target="_blank" style="color:${COLORS.red};font-weight:600;text-decoration:underline">${u.replace(/^https?:\/\//, "")}</a>`);
+      parts.push(`<span>${itemHtml}</span>`);
       parts.push(`</div>`);
     }
     parts.push(`</div>`);
   }
   parts.push(`</div>`);
 
-  return section(num, "proximos-pasos", "Proximos Pasos", parts.join("\n"));
+  return section(num, "proximos-pasos", "Proximos Pasos", parts.join("\n"), false, isLocked(data, "proximos-pasos"));
 }
 
 // ─── Segmentacion parser ─────────────────────────────────────────────
 
-function parseSegmentacion(seg: string): { edad: string; locacion: string; intereses: string[] } {
-  const dotIdx = seg.indexOf(". ");
-  const beforeDot = dotIdx > -1 ? seg.substring(0, dotIdx) : seg;
-  const interesesRaw = dotIdx > -1 ? seg.substring(dotIdx + 2) : "";
-  const commaIdx = beforeDot.indexOf(", ");
-  const edad = commaIdx > -1 ? beforeDot.substring(0, commaIdx).trim() : beforeDot;
-  const locacion = commaIdx > -1 ? beforeDot.substring(commaIdx + 2).trim() : "";
-  const intereses = interesesRaw.replace(/^Intereses:\s*/i, "").split(",").map((s: string) => s.trim()).filter(Boolean);
-  return { edad, locacion, intereses };
+interface SegCategoria { label: string; items: string[]; }
+interface SegParsed { edad: string; locacion: string; categorias: SegCategoria[]; nota: string | null; }
+
+function parseSegmentacion(seg: string): SegParsed {
+  const segments = seg.split(". ");
+  const firstSeg = segments[0];
+  const commaIdx = firstSeg.indexOf(", ");
+  const edad = commaIdx > -1 ? firstSeg.substring(0, commaIdx).trim() : firstSeg;
+  const locacion = commaIdx > -1 ? firstSeg.substring(commaIdx + 2).trim() : "";
+
+  const categorias: SegCategoria[] = [];
+  let nota: string | null = null;
+
+  for (let i = 1; i < segments.length; i++) {
+    const s = segments[i];
+    const colonIdx = s.indexOf(": ");
+    if (colonIdx > -1) {
+      const label = s.substring(0, colonIdx).trim();
+      const itemsStr = s.substring(colonIdx + 2).trim();
+      if (label.toLowerCase() === "nota") {
+        nota = itemsStr;
+      } else {
+        categorias.push({ label, items: itemsStr.split(",").map(x => x.trim()).filter(Boolean) });
+      }
+    } else {
+      const items = s.split(",").map(x => x.trim()).filter(Boolean);
+      if (items.length) categorias.push({ label: "Intereses", items });
+    }
+  }
+
+  return { edad, locacion, categorias, nota };
+}
+
+function renderSegmentacion(s: SegParsed): string {
+  const lines: string[] = [];
+  lines.push(`<ul style="font-size:14px;margin:8px 0 0;padding-left:20px;line-height:1.8">`);
+  lines.push(`<li><span style="font-weight:600">Edad:</span> ${escapeHtml(s.edad)}</li>`);
+  if (s.locacion) lines.push(`<li><span style="font-weight:600">Locación:</span> ${escapeHtml(s.locacion)}</li>`);
+  for (const cat of s.categorias) {
+    lines.push(`<li><span style="font-weight:600">${escapeHtml(cat.label)}:</span>`);
+    lines.push(`<ul style="margin:2px 0 4px;padding-left:18px;line-height:1.6">`);
+    for (const item of cat.items) {
+      lines.push(`<li>${escapeHtml(item)}</li>`);
+    }
+    lines.push(`</ul></li>`);
+  }
+  if (s.nota) {
+    lines.push(`<li style="color:${COLORS.muted};font-style:italic;margin-top:4px">${escapeHtml(s.nota)}</li>`);
+  }
+  lines.push(`</ul>`);
+  return lines.join("\n");
+}
+
+// ─── Campaign Piezas (creative briefs) ──────────────────────────────
+
+function piezaFormatBadge(formato: string): { label: string; color: string; icon: string } {
+  const f = formato.toLowerCase();
+  const s = `width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"`;
+  if (f.includes("reel") || f.includes("video")) {
+    return { label: formato.toUpperCase(), color: COLORS.red, icon: `<svg ${s}><polygon points="5 3 19 12 5 21 5 3"/></svg>` };
+  }
+  if (f.includes("carrusel")) {
+    return { label: formato.toUpperCase(), color: "#7C3AED", icon: `<svg ${s}><rect x="2" y="7" width="15" height="15" rx="2"/><path d="M7 2h13a2 2 0 0 1 2 2v13"/></svg>` };
+  }
+  return { label: formato.toUpperCase(), color: COLORS.slate, icon: `<svg ${s}><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>` };
+}
+
+function piezaPorDefinir(val: string | null | undefined): string {
+  return val
+    ? escapeHtml(val)
+    : `<span style="font-family:${FONTS.mono};font-size:11px;padding:2px 8px;background:#FEF3C7;color:#92400E;">Por definir</span>`;
+}
+
+function renderPiezaCardStrategy(pieza: PiezaCreativa, index: number): string {
+  const badge = piezaFormatBadge(pieza.formato);
+  const isVideo = pieza.formato.toLowerCase().includes("reel") || pieza.formato.toLowerCase().includes("video");
+  const parts: string[] = [];
+
+  // Header: format badge + pieza number + duration + pillar/tema (collapsible, closed by default)
+  const dolorPreview = pieza.dolor.length > 60 ? pieza.dolor.slice(0, 57) + "..." : pieza.dolor;
+  parts.push(`<details style="border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:16px;overflow:hidden">`);
+  parts.push(`<summary style="padding:14px 20px;background:${COLORS.bg};display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer;list-style:none;user-select:none">`);
+  parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;font-weight:600;padding:3px 10px;background:${badge.color};color:${COLORS.surface};text-transform:uppercase;display:inline-flex;align-items:center">${badge.icon}${badge.label}</span>`);
+  parts.push(`<span style="font-family:${FONTS.mono};font-size:12px;color:${COLORS.muted}">Pieza ${index + 1}</span>`);
+  if (isVideo && pieza.duracion) {
+    parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;padding:3px 8px;background:${COLORS.ink};color:${COLORS.surface}">${escapeHtml(pieza.duracion)}</span>`);
+  }
+  parts.push(`<span style="font-size:13px;color:${COLORS.slate};flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(dolorPreview)}</span>`);
+  if (pieza.tema) {
+    parts.push(`<span style="font-size:12px;color:${COLORS.muted}">${escapeHtml(pieza.tema)}</span>`);
+  }
+  parts.push(`<span class="pieza-toggle" style="font-family:${FONTS.mono};font-size:18px;font-weight:400;color:${COLORS.muted};margin-left:auto">+</span><span class="pieza-toggle-open" style="font-family:${FONTS.mono};font-size:18px;font-weight:400;color:${COLORS.muted};margin-left:auto">&minus;</span>`);
+  parts.push(`</summary>`);
+
+  // Body
+  parts.push(`<div style="border-top:1px solid ${COLORS.border}">`);
+
+  // Framework grid (Pilar/Tema, Formato Narrativo/Estructura Narrativa, Tratamiento)
+  if (pieza.pilar || pieza.tema || pieza.formatoNarrativo || pieza.estructuraNarrativa || pieza.tratamiento) {
+    const fwRow = (label1: string, val1: string | null | undefined, label2: string, val2: string | null | undefined) => `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:4px">${label1}</div>
+          <div style="font-size:13px">${piezaPorDefinir(val1)}</div>
+        </div>
+        <div>
+          <div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:4px">${label2}</div>
+          <div style="font-size:13px">${piezaPorDefinir(val2)}</div>
+        </div>
+      </div>`;
+
+    const trat = pieza.tratamiento;
+    const tratParts: string[] = [];
+    if (trat?.tipo) tratParts.push(escapeHtml(trat.tipo));
+    if (trat?.tono) tratParts.push(escapeHtml(trat.tono));
+    if (trat?.estilo) tratParts.push(escapeHtml(trat.estilo));
+    const tratLine = tratParts.length
+      ? tratParts.map(t => `<span style="font-family:${FONTS.mono};font-size:11px;padding:3px 8px;background:${COLORS.bg};border:1px solid ${COLORS.border};margin-right:6px">${t}</span>`).join("")
+      : piezaPorDefinir(null);
+
+    parts.push(`<div style="padding:16px 20px;border-bottom:1px solid ${COLORS.border}">`);
+    parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:12px;font-weight:600">Framework</div>`);
+    parts.push(`<div style="display:flex;flex-direction:column;gap:12px">`);
+    parts.push(fwRow("Pilar", pieza.pilar, "Tema", pieza.tema));
+    parts.push(fwRow("Formato Narrativo", pieza.formatoNarrativo, "Estructura Narrativa", pieza.estructuraNarrativa));
+    parts.push(`<div><div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:4px">Tratamiento</div><div style="font-size:13px">${tratLine}</div></div>`);
+    parts.push(`</div></div>`);
+  }
+
+  // Destino (URLs)
+  if (pieza.destinoUrls?.length) {
+    const urlsList = pieza.destinoUrls.map(url =>
+      `<a href="${escapeHtml(url)}" target="_blank" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid ${COLORS.border};text-decoration:none;color:${COLORS.ink};font-family:${FONTS.mono};font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(url)}</span>
+      </a>`
+    ).join("");
+    parts.push(`<div style="padding:16px 20px;border-bottom:1px solid ${COLORS.border}">`);
+    parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:8px;font-weight:600">Destino</div>`);
+    parts.push(`<div style="display:flex;flex-direction:column;gap:6px">${urlsList}</div></div>`);
+  }
+
+  // Dolor / Solucion
+  parts.push(`<div style="padding:16px 20px;border-bottom:1px solid ${COLORS.border}">`);
+  parts.push(`<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">`);
+  parts.push(`<div><div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.red};margin-bottom:6px;font-weight:600">&#9888; Dolor</div><div style="font-size:13px;line-height:1.5">${escapeHtml(pieza.dolor)}</div></div>`);
+  parts.push(`<div><div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.escenario1};margin-bottom:6px;font-weight:600">&#10003; Solución</div><div style="font-size:13px;line-height:1.5">${escapeHtml(pieza.solucion)}</div></div>`);
+  parts.push(`</div></div>`);
+
+  // Desglose de Produccion (comunicacion with [0-3s] timeline format)
+  if (pieza.comunicacion && /\[\d+-\d+s\]/.test(pieza.comunicacion)) {
+    const segments = pieza.comunicacion.match(/\[\d+-\d+s\][^[]+/g) ?? [];
+    const rows = segments.map(seg => {
+      const timeMatch = seg.match(/\[(\d+-\d+s)\]/);
+      const time = timeMatch ? timeMatch[1] : "";
+      const rest = seg.replace(/\[\d+-\d+s\]\s*/, "").trim();
+      const dashIdx = rest.indexOf("\u2014");
+      let label = "";
+      let content = rest;
+      if (dashIdx > -1) {
+        label = rest.slice(0, dashIdx).trim();
+        content = rest.slice(dashIdx + 1).trim();
+      }
+      let toma = content;
+      let dialogo = "";
+      const colonIdx = content.indexOf(":");
+      if (colonIdx > -1) {
+        toma = content.slice(0, colonIdx).trim();
+        dialogo = content.slice(colonIdx + 1).trim().replace(/^'|'$/g, "").replace(/^'|'$/g, "");
+      }
+      const labelColor = label.toUpperCase().includes("HOOK") ? COLORS.red
+        : label.toUpperCase().includes("CTA") ? COLORS.escenario1
+        : label.toUpperCase().includes("CIERRE") ? COLORS.slate
+        : COLORS.ink;
+      const dialogoHtml = dialogo
+        ? `<span style="color:${COLORS.ink};font-weight:600;font-style:italic">&ldquo;${escapeHtml(dialogo)}&rdquo;</span>`
+        : `<span style="color:${COLORS.muted};font-style:italic">Sin dialogo</span>`;
+      return `
+        <div style="display:grid;grid-template-columns:55px 70px 1fr 1fr;gap:12px;padding:10px 0;border-bottom:1px solid ${COLORS.border}">
+          <div style="font-family:${FONTS.mono};font-size:12px;font-weight:700;color:${COLORS.red}">${escapeHtml(time)}</div>
+          <div style="font-family:${FONTS.mono};font-size:10px;font-weight:700;color:${labelColor};text-transform:uppercase;padding-top:2px">${escapeHtml(label)}</div>
+          <div style="font-size:12px;line-height:1.5;color:${COLORS.slate}">${escapeHtml(toma)}</div>
+          <div style="font-size:12px;line-height:1.5">${dialogoHtml}</div>
+        </div>`;
+    }).join("");
+
+    parts.push(`<div style="padding:16px 20px;border-bottom:1px solid ${COLORS.border}">`);
+    parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:12px;font-weight:600">Desglose de Producción</div>`);
+    parts.push(`<div style="display:grid;grid-template-columns:55px 70px 1fr 1fr;gap:12px;padding:8px 0;border-bottom:2px solid ${COLORS.ink};margin-bottom:4px">
+      <div style="font-family:${FONTS.mono};font-size:9px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};font-weight:600">Tiempo</div>
+      <div style="font-family:${FONTS.mono};font-size:9px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};font-weight:600">Momento</div>
+      <div style="font-family:${FONTS.mono};font-size:9px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};font-weight:600">Toma / Visual</div>
+      <div style="font-family:${FONTS.mono};font-size:9px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};font-weight:600">Dialogo</div>
+    </div>`);
+    parts.push(`<div>${rows}</div></div>`);
+  }
+
+  // Content: Hook/Body/CTA for video, Mensajes for static
+  const hasCopyBelow = !!pieza.copyAnuncio || !isVideo;
+  if (isVideo && (pieza.hook || pieza.body || pieza.cta)) {
+    parts.push(`<div style="padding:16px 20px${hasCopyBelow ? `;border-bottom:1px solid ${COLORS.border}` : ""}">`);
+    parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:12px;font-weight:600">Guión</div>`);
+    parts.push(`<div style="display:flex;flex-direction:column;gap:10px">`);
+    if (pieza.hook) parts.push(`<div><span style="font-family:${FONTS.mono};font-size:10px;font-weight:700;color:${COLORS.red};text-transform:uppercase;margin-right:8px">HOOK</span><span style="font-size:13px">${escapeHtml(pieza.hook)}</span></div>`);
+    if (pieza.body) parts.push(`<div><span style="font-family:${FONTS.mono};font-size:10px;font-weight:700;color:${COLORS.muted};text-transform:uppercase;margin-right:8px">BODY</span><span style="font-size:13px">${escapeHtml(pieza.body)}</span></div>`);
+    if (pieza.cta) parts.push(`<div><span style="font-family:${FONTS.mono};font-size:10px;font-weight:700;color:${COLORS.escenario1};text-transform:uppercase;margin-right:8px">CTA</span><span style="font-size:13px">${escapeHtml(pieza.cta)}</span></div>`);
+    parts.push(`</div></div>`);
+  } else if (pieza.mensajes?.length) {
+    parts.push(`<div style="padding:16px 20px${hasCopyBelow ? `;border-bottom:1px solid ${COLORS.border}` : ""}">`);
+    parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:12px;font-weight:600">Mensajes</div>`);
+    parts.push(`<ul style="list-style:none;padding:0;margin:0">`);
+    for (const m of pieza.mensajes) {
+      parts.push(`<li style="font-size:13px;padding:4px 0 4px 16px;position:relative;border-bottom:1px solid ${COLORS.border}"><span style="position:absolute;left:0;color:${COLORS.red};font-family:${FONTS.mono}">&gt;</span>${escapeHtml(m)}</li>`);
+    }
+    parts.push(`</ul></div>`);
+  }
+
+  // Copy Anuncio
+  if (pieza.copyAnuncio) {
+    const copyLines = pieza.copyAnuncio.split("\n").map(line =>
+      line.trim() === "" ? "<br>" : `<div>${escapeHtml(line)}</div>`
+    ).join("");
+    parts.push(`<div style="padding:16px 20px${!isVideo ? `;border-bottom:1px solid ${COLORS.border}` : ""}">`);
+    parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:12px;font-weight:600">Copy Anuncio</div>`);
+    parts.push(`<div style="background:${COLORS.bg};border:1px solid ${COLORS.border};padding:16px 20px;font-size:13px;line-height:1.6;white-space:pre-line">${copyLines}</div></div>`);
+  }
+
+  // Adaptaciones (static pieces include Story adaptation)
+  if (!isVideo) {
+    parts.push(`<div style="padding:16px 20px">`);
+    parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:8px;font-weight:600">Adaptaciones</div>`);
+    parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;padding:4px 10px;background:#E0F2FE;color:#0369A1;display:inline-block">Incluye adaptación Story (1080x1920)</span></div>`);
+  }
+
+  parts.push(`</div></details>`);
+  return parts.join("\n");
+}
+
+function renderCampaignPiezas(data: FoundationData, campaign: CampanaDefinida, num: number): string {
+  const piezas = campaign.piezas;
+  if (!piezas?.length) return "";
+
+  const parts: string[] = [];
+
+  // Count by format
+  const videoCount = piezas.filter(p => p.formato.toLowerCase().includes("reel") || p.formato.toLowerCase().includes("video")).length;
+  const staticCount = piezas.length - videoCount;
+
+  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Lineamiento creativo de las <strong>${piezas.length} piezas pendientes</strong> de la campaña de ${escapeHtml(campaign.objetivo.toLowerCase())}. ${videoCount > 0 ? `<strong>${videoCount} videos</strong>` : ""}${videoCount > 0 && staticCount > 0 ? " + " : ""}${staticCount > 0 ? `<strong>${staticCount} piezas estáticas</strong>` : ""} a producir con Sergio.</p>`);
+
+  for (let i = 0; i < piezas.length; i++) {
+    parts.push(renderPiezaCardStrategy(piezas[i], i));
+  }
+
+  let title = `Piezas Creativas (x${piezas.length})`;
+  let rawTitle = false;
+  if (campaign.badgesPiezas?.length) {
+    const badgeStyles = [
+      `background:#FEF3C7;color:#92400E`,
+      `background:${COLORS.bg};color:${COLORS.muted};border:1px solid ${COLORS.border}`,
+    ];
+    const badges = campaign.badgesPiezas.map((b, i) =>
+      `<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-left:10px;vertical-align:2px;${badgeStyles[Math.min(i, badgeStyles.length - 1)]}">${escapeHtml(b)}</span>`
+    ).join("");
+    title = `${escapeHtml(title)}${badges}`;
+    rawTitle = true;
+  }
+  return section(num, "piezas-creativas", title, parts.join("\n"), rawTitle, isLocked(data, "piezas-creativas"));
 }
 
 // ─── Footer ──────────────────────────────────────────────────────────

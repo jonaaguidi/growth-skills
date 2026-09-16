@@ -1,6 +1,6 @@
-import { renderOnboardingHtml } from "./dist/lib/onboarding-renderer.js";
-import { renderStrategyHtml } from "./dist/lib/strategy-renderer.js";
-import { renderBriefHtml } from "./dist/lib/brief-renderer.js";
+import { renderOnboardingHtml } from "../../dist/lib/onboarding-renderer.js";
+import { renderStrategyHtml } from "../../dist/lib/strategy-renderer.js";
+import { renderBriefHtml } from "../../dist/lib/brief-renderer.js";
 import { writeFileSync, mkdirSync, existsSync, copyFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
@@ -116,7 +116,7 @@ const data = {
       {
         condicion: "Sin vehiculo propio para distribucion",
         aplica: true,
-        instrucciones: "Defu no tiene vehiculo propio actualmente. Dependen de Uber y fletes. Esto impacta el costo por envio y el margen neto B2C. Al definir combos y minimo de compra para envio gratis, considerar que el costo de envio puede ser alto. Validar con Angel el costo promedio por envio.",
+        instrucciones: "Defu no tiene vehiculo propio actualmente. Dependen de Uber y fletes. Esto impacta el costo por envio y el margen neto B2C. Al definir combos y minimo de compra para envio, considerar que el costo de envio puede ser alto. Validar con Angel el costo promedio por envio.",
       },
     ],
   },
@@ -335,8 +335,8 @@ const data = {
             formato: "Video Comercial Vertical (9:16)",
             dolor: "El tofu es feo, sin sabor y de mala calidad — la experiencia generica del super",
             solucion: "Combo Degustacion de Tofu Completo: variedades de tofu artesanal fresco elaborado con soja agroecologica. Cada uno con su sabor y textura propia.",
-            comunicacion: "[0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si pensas que el tofu es feo y no tiene sabor...' [3-5s] Camara baja revelando el Combo Degustacion desplegado debajo de Angel: '...es porque nunca probaste tofu de verdad.' [5-10s] BODY — Angel senala los productos, close-ups de cada variedad, texturas y colores: 'Este es el Combo Degustacion de Defu: distintas variedades de tofu artesanal fresco...' [10-15s] Inserts rapidos: corte de tofu mostrando interior, variedad visual del combo completo: '...elaborado con soja agroecologica. Cada uno con su sabor y textura propia.' [15-19s] CTA — Angel cierra mirando a camara, gesto de invitacion. Badge en edicion: Envio en el dia CABA: 'Entra a defu.com.ar, hace tu pedido y te lo enviamos en el dia.' [19-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
-            hook: "Si pensas que el tofu es feo y no tiene sabor, es porque nunca probaste tofu de verdad.",
+            comunicacion: "[0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si pensas que el tofu es feo y no tiene sabor...' [3-5s] Camara baja revelando el Combo Degustacion desplegado debajo de Angel: '...es porque nunca probaste tofu artesanal.' [5-10s] BODY — Angel senala los productos, close-ups de cada variedad, texturas y colores: 'Este es el Combo Degustacion de Defu: distintas variedades de tofu artesanal fresco...' [10-15s] BODY — Inserts rapidos, corte de tofu mostrando interior, variedad visual del combo completo: '...elaborado con soja agroecologica. Cada uno con su sabor y textura propia.' [15-19s] CTA — Angel cierra mirando a camara, gesto de invitacion. Badge en edicion, Envio en el dia CABA: 'Entra a defu.com.ar, hace tu pedido y te lo enviamos en el dia.' [19-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
+            hook: "Si pensas que el tofu es feo y no tiene sabor, es porque nunca probaste tofu artesanal.",
             body: "Este es el Combo Degustacion de Defu: distintas variedades de tofu artesanal fresco, elaborado con soja agroecologica. Cada uno con su sabor y textura propia.",
             cta: "Entra a defu.com.ar, hace tu pedido y te lo enviamos en el dia.",
             pilar: "Producto",
@@ -352,8 +352,8 @@ const data = {
             formato: "Video Comercial Vertical (9:16)",
             dolor: "Come mal porque no sabe como cocinar rico y sano a la vez — sin ideas, sin variedad, sin ingredientes listos",
             solucion: "Combos Restock de tofu artesanal para todo el mes. Sumalo a ensaladas, salteados, tacos, frito — come rico y sano todos los dias.",
-            comunicacion: "[0-3s] HOOK — Angel en cocina, plano medio directo a camara. Fondo limpio, sin productos a la vista: 'Estas cansado de comer mal por no saber que cocinar rico y sano?' [3-7s] BODY — Angel presenta los combos Restock. El pack de tofu comun x6, el pack de tofu duro x6 y el combo saborizado surtido x9 entran a cuadro, los acomoda sobre la mesada mostrando la variedad de productos, colores y contrastes entre variedades: 'Con nuestros combos Restock tenes tofu artesanal para todo el mes.' [7-13s] BODY — Montaje rapido: corte a tofu en ensalada, salteado con verduras en sarten, armando tacos, tofu frito dorado. Cada plato 1.5s: 'Sumalo a ensaladas, salteados, tacos, frito... come rico y sano todos los dias.' [13-18s] CTA — Angel vuelve a camara, gesto de invitacion. Combos Restock visibles en mesada detras. Badge en edicion: Envio en el dia CABA: 'Pedi tu combo en la tienda online y te lo enviamos en el dia a tu casa.' [18-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
-            hook: "Estas cansado de comer mal por no saber que cocinar rico y sano?",
+            comunicacion: "[0-3s] HOOK — Angel en cocina, plano medio directo a camara. Fondo limpio, sin productos a la vista: 'Estas cansado de no saber que cocinar?' [3-7s] BODY — Angel presenta los combos Restock. El pack de tofu comun x6, el pack de tofu duro x6 y el combo saborizado surtido x9 entran a cuadro, los acomoda sobre la mesada mostrando la variedad de productos, colores y contrastes entre variedades: 'Con nuestros combos Restock tenes tofu artesanal para todo el mes.' [7-13s] BODY — Montaje rapido, corte a tofu en ensalada, salteado con verduras en sarten, armando tacos, tofu frito dorado. Cada plato 1.5s: 'Sumalo a ensaladas, salteados, tacos, frito... come rico y sano todos los dias.' [13-18s] CTA — Angel vuelve a camara, gesto de invitacion. Combos Restock visibles en mesada detras. Badge en edicion, Envio en el dia CABA: 'Pedi tu combo en la tienda online y te lo enviamos en el dia a tu casa.' [18-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
+            hook: "Estas cansado de no saber que cocinar?",
             body: "Con nuestros combos Restock tenes tofu artesanal para todo el mes. Sumalo a ensaladas, salteados, tacos, frito... come rico y sano todos los dias.",
             cta: "Pedi tu combo en la tienda online y te lo enviamos en el dia a tu casa.",
             pilar: "Producto",
@@ -369,9 +369,9 @@ const data = {
             formato: "Video Comercial Vertical (9:16)",
             dolor: "Consume proteina vegetal de mala calidad, ultraprocesada y con aditivos — no sabe que hay algo mejor",
             solucion: "Packs de tofu artesanal nutritivo de Defu en x3, x6 y x9 unidades. Distintas variedades para elegir: comun, duro, saborizados. Elaborado con soja agroecologica, agua y nigari.",
-            comunicacion: "[0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si queres comer sano de verdad, empeza por la proteina vegetal de calidad.' [3-8s] BODY — Inserts cinematicos de los packs sobre mesada: pack de tofu comun x6, pack de tofu duro x6 y combo saborizado surtido x9. Angel los va presentando, close-ups de cada pack entrando a cuadro: 'Esto es tofu artesanal de Defu: packs de x3, x6 y x9 en distintas variedades.' [8-13s] BODY — Montaje de close-ups: corte de tofu mostrando textura, variedades lado a lado destacando colores y contrastes: 'Comun, duro, saborizados. Proteina pura de soja agroecologica, agua y nigari — nada mas.' [13-18s] CTA — Angel vuelve a camara con pack en mano, gesto de invitacion. Badge en edicion: Envio en el dia CABA: 'Elegi tu pack en defu.com.ar y te lo enviamos en el dia.' [18-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
+            comunicacion: "[0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si queres comer sano de verdad, empeza por la proteina vegetal de calidad.' [3-8s] BODY — Inserts cinematicos de los packs sobre mesada, pack de tofu comun x6, pack de tofu duro x6 y combo saborizado surtido x9. Angel los va presentando, close-ups de cada pack entrando a cuadro: 'No consumas mas ese tofu procesado. Esto es tofu artesanal de Defu: packs de x3, x6 y x9 en distintas variedades.' [8-13s] BODY — Montaje de close-ups, corte de tofu mostrando textura, variedades lado a lado destacando colores y contrastes: 'Comun, duro, saborizados. Proteina pura de soja agroecologica, agua y nigari — nada mas.' [13-18s] CTA — Angel vuelve a camara con pack en mano, gesto de invitacion. Badge en edicion, Envio en el dia CABA: 'Elegi tu pack en defu.com.ar y te lo enviamos en el dia.' [18-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
             hook: "Si queres comer sano de verdad, empeza por la proteina vegetal de calidad.",
-            body: "Esto es tofu artesanal de Defu: packs de x3, x6 y x9 en distintas variedades. Comun, duro, saborizados. Proteina pura de soja agroecologica, agua y nigari — nada mas.",
+            body: "No consumas mas ese tofu procesado. Esto es tofu artesanal de Defu: packs de x3, x6 y x9 en distintas variedades. Comun, duro, saborizados. Proteina pura de soja agroecologica, agua y nigari — nada mas.",
             cta: "Elegi tu pack en defu.com.ar y te lo enviamos en el dia.",
             pilar: "Producto",
             tema: "Proteina vegetal de calidad",
@@ -382,25 +382,24 @@ const data = {
             enRevision: false,
             destinoUrls: ["https://www.defu.com.ar/combos-defu/"],
           },
-          // --- PIEZA 1: DOLOR ICP VEGANO/VEGGIE (Feed + Story) ---
+          // --- PIEZA 1: DOLOR PROTEINA VEGETAL + BAJAS CALORIAS (Feed + Story) ---
           {
             formato: "Posteo Rectangular (1080x1350)",
-            dolor: "Esta cansado del tofu del super: sin sabor, textura gomosa, siempre igual. Cree que el tofu es asi y ya se resigno a comer algo feo.",
-            solucion: "Tofu artesanal Defu: fresco del dia, con sabor y textura de verdad. Combo Degustacion con 11 variedades para descubrir que el tofu puede ser rico.",
-            comunicacion: "Dolor/Solucion: contraste emocional entre la frustracion del tofu generico y la experiencia Defu. Producto hero con claim de calidad. Adaptar a Story (1080x1920).",
+            dolor: "Consume proteina vegetal de mala calidad — ultraprocesada, con aditivos y llena de calorias vacias. No sabe que hay una alternativa limpia y baja en calorias.",
+            solucion: "Tofu artesanal Defu: proteina vegetal pura, baja en calorias, sin aditivos. Soja agroecologica, agua y nigari. Combos con envio en el dia a CABA.",
+            comunicacion: "Flyer comparativo: proteina vegetal industrial vs tofu artesanal Defu. Contraste visual de ingredientes y calorias. Adaptar a Story (1080x1920).",
             mensajes: [
-              "Visual de contraste: tofu generico (gris, plano, empaque industrial) vs tofu Defu (colores, textura, frescura artesanal)",
-              "Copy dolor: 'Si sos veggie y pensas que el tofu no tiene sabor, es porque nunca probaste uno de verdad.'",
-              "Copy solucion: 'Tofu artesanal, fresco del dia, 11 variedades. Combo Degustacion con envio en el dia a CABA.' CTA: 'Descubrilo en defu.com.ar'",
+              "Visual de contraste: etiqueta nutricional de proteina vegetal industrial (calorias altas, lista larga de ingredientes) vs tofu Defu (bajo en calorias, 3 ingredientes)",
+              "Copy solucion: 'Tofu artesanal Defu: bajo en calorias, alto en proteina. Soja agroecologica, agua y nigari.' CTA: 'Conocelos en defu.com.ar'",
             ],
-            copyAnuncio: "Si sos veggie y pensas que el tofu no tiene sabor, es porque nunca probaste uno de verdad 👀\n\n🌿 Tofu artesanal Defu: fresco del dia, 11 variedades. Cada uno con su sabor y textura propia.\n\n🚀 Combo Degustacion con envio en el dia a CABA.\n\n👉 Descubrilo en defu.com.ar",
+            copyAnuncio: "Tu proteina vegetal tiene mas calorias y aditivos que proteina real 😳\n\n🫘 Tofu artesanal Defu: bajo en calorias, alto en proteina.\n🌱 Soja agroecologica, agua y nigari. Nada mas.\n\n📦 Envio en el dia a CABA.\n\n👉 Conocelos en defu.com.ar",
             pilar: "Marca",
-            tema: "Upgrade de calidad veggie",
-            formatoNarrativo: "Producto — Lifestyle",
+            tema: "Proteina limpia y baja en calorias",
+            formatoNarrativo: "Producto — Showcase",
             estructuraNarrativa: "Expectativa - Contraste",
             tratamiento: { tipo: "Imagen", tono: "Mixed", estilo: "Lifestyle" },
             enRevision: false,
-            destinoUrls: ["https://www.defu.com.ar/productos/combo-degustacion-de-tofu-completo-3o7l4/"],
+            destinoUrls: ["https://www.defu.com.ar/combos-defu/"],
           },
           // --- PIEZA 2: DOLOR COMPARTIDO — COME TOFU DE VERDAD (Feed + Story) ---
           {
@@ -426,18 +425,19 @@ const data = {
           {
             formato: "Posteo Rectangular (1080x1350)",
             dolor: "No sabe que tofu elegir entre tantas opciones, paralisis de eleccion",
-            solucion: "Combo Degustacion de Tofu Completo: 11 variedades de tofu artesanal en 1 pedido para probar todos. $73.350 con 10% OFF.",
+            solucion: "Combo Degustacion de Tofu Completo: 11 variedades de tofu artesanal en 1 pedido para probar todos.",
             comunicacion: "Producto hero con las 11 variedades desplegadas y precio. Eliminar la paralisis de eleccion con un solo combo. Adaptar a Story (1080x1920).",
             mensajes: [
               "Visual del Combo Degustacion desplegado mostrando las 11 variedades con nombre de cada una",
-              "Copy: 'No elijas. Proba todos. 11 variedades de tofu artesanal en 1 combo.'",
-              "Badge precio: '$73.350 con 10% OFF + envio gratis en el dia a CABA'. CTA: 'Compralo en defu.com.ar'",
+              "Copy: 'NO ELIJAS. PROBA TODOS. 11 variedades de tofu artesanal en 1 combo.'",
+              "Badge: 'Envio en el dia a CABA'. CTA: 'Compralo en defu.com.ar'",
             ],
-            copyAnuncio: "No elijas. Proba todos 🙌\n\n✨ 11 variedades de tofu artesanal en 1 combo.\n💰 Combo Degustacion $73.350 con 10% OFF.\n\n📦 Envio gratis en el dia a CABA.\n\n👉 Compralo en defu.com.ar",
+            copyAnuncio: "NO ELIJAS. PROBA TODOS 🙌\n\n✨ 11 variedades de tofu artesanal en 1 combo.\n\n📦 Envio en el dia a CABA.\n\n👉 Compralo en defu.com.ar",
             pilar: "Producto",
             tema: "Primera compra sin riesgo",
             formatoNarrativo: "Producto — Showcase",
             estructuraNarrativa: "Afirmacion - Evidencia",
+            tratamiento: { tipo: "Imagen", tono: "Mixed", estilo: "Lifestyle" },
             enRevision: false,
             destinoUrls: ["https://www.defu.com.ar/productos/combo-degustacion-de-tofu-completo-3o7l4/"],
           },
@@ -445,15 +445,15 @@ const data = {
           {
             formato: "Posteo Cuadrado (1080x1080)",
             dolor: "Se le acaba el tofu y tiene que comprar cada semana. No tiene forma simple de stockearse con variedad ni de probar saborizados.",
-            solucion: "Combos Restock y Saborizados Defu: Tofu Comun x6 ($35.100), Tofu Duro x6 ($43.200), Saborizados desde $16.500 c/u, Surtido x9 ($48.600). Tu mes de tofu resuelto en 1 pedido.",
+            solucion: "Combos Restock y Saborizados Defu: Tofu Comun x6, Tofu Duro x6, Saborizados (Espinaca y Nuez, Provenzal, Aji), Surtido x9. Tu mes de tofu resuelto en 1 pedido.",
             comunicacion: "Carrusel x4 slides mostrando toda la linea de combos de stockeo. Cada slide un grupo de producto con precio. Estilo referencia Soyana. Adaptar a Story (1080x1920).",
             mensajes: [
-              "Slide 1: '1 pedido. Todo el mes resuelto.' — Visual hero tipo Soyana: caja/display con productos, copy grande de conveniencia. Badge: 'Envio gratis en el dia a CABA'",
-              "Slide 2: Combos Restock — Tofu Comun x6: $35.100 (10% OFF) + Tofu Duro x6: $43.200 (10% OFF). Visual de ambos packs juntos mostrando volumen",
-              "Slide 3: Combos Saborizados — Espinaca y Nuez / Provenzal / Aji: $16.500 c/u (8% OFF) + Surtido x9 (los 3 sabores): $48.600 (10% OFF). Visual de los 3 sabores + surtido",
+              "Slide 1: '1 pedido. Todo el mes resuelto.' — Visual hero tipo Soyana: caja/display con productos, copy grande de conveniencia. Badge: 'Envio en el dia a CABA'",
+              "Slide 2: Combos Restock — Tofu Comun x6 + Tofu Duro x6. Visual de ambos packs juntos mostrando volumen",
+              "Slide 3: Combos Saborizados — Espinaca y Nuez / Provenzal / Aji + Surtido x9 (los 3 sabores). Visual de los 3 sabores + surtido",
               "Slide 4: CTA 'Arma tu combo en defu.com.ar/combos-defu — Envio en el dia a CABA'",
             ],
-            copyAnuncio: "1 pedido. Todo el mes resuelto 💪\n\nCombos Restock y Saborizados de tofu artesanal:\n🟢 Comun x6: $35.100 (10% OFF)\n🟢 Duro x6: $43.200 (10% OFF)\n🟡 Saborizados: desde $16.500 (8% OFF)\n🟡 Surtido x9: $48.600 (10% OFF)\n\n📦 Envio gratis en el dia a CABA.\n\n👉 Arma tu combo en defu.com.ar",
+            copyAnuncio: "1 pedido. Todo el mes resuelto 💪\n\nCombos Restock y Saborizados de tofu artesanal:\n🟢 Tofu Comun x6\n🟢 Tofu Duro x6\n🟡 Saborizados: Espinaca y Nuez / Provenzal / Aji\n🟡 Surtido x9 (los 3 sabores)\n\n📦 Envio en el dia a CABA.\n\n👉 Arma tu combo en defu.com.ar",
             pilar: "Producto",
             tema: "Conveniencia y recompra",
             formatoNarrativo: "Producto — Showcase",
@@ -467,14 +467,14 @@ const data = {
           {
             formato: "Posteo Cuadrado (1080x1080)",
             dolor: "No conoce todas las opciones de combos disponibles ni sabe cual le conviene",
-            solucion: "Catalogo completo de combos Defu: Degustacion, Restock Comun, Restock Duro, Saborizados y Surtido. Todos con envio gratis en el dia a CABA.",
+            solucion: "Catalogo completo de combos Defu: Degustacion, Restock Comun, Restock Duro, Saborizados y Surtido. Todos con envio en el dia a CABA",
             comunicacion: "Guia de compra rapida: presentar todos los combos como opciones claras segun necesidad del usuario. Carrusel x3 slides max. Adaptar a Story (1080x1920).",
             mensajes: [
-              "Slide 1: 'Cual es tu combo ideal? Todos con envio gratis en el dia a CABA.'",
-              "Slide 2: Grid visual — Para probar: Degustacion $73.350 (10% OFF) / Para stockearte: Restock Comun x6 $35.100 - Duro x6 $43.200 (10% OFF) / Saborizados: desde $16.500 (8% OFF) / Surtido x9: $48.600 (10% OFF)",
+              "Slide 1: 'Cual es tu combo ideal? Todos con envio en el dia a CABA.'",
+              "Slide 2: Grid visual — Para probar: Combo Degustacion / Para stockearte: Restock Comun x6 - Duro x6 / Saborizados: Espinaca y Nuez, Provenzal, Aji / Surtido x9 (los 3 sabores)",
               "Slide 3: CTA 'Elegi el tuyo en defu.com.ar/combos-defu — Envio en el dia a CABA'",
             ],
-            copyAnuncio: "¿Cual es tu combo ideal? 🤔\n\n🥇 Para probar: Degustacion $73.350 (10% OFF)\n📦 Para stockearte: Comun x6 $35.100 · Duro x6 $43.200 (10% OFF)\n🌶️ Saborizados: desde $16.500 (8% OFF)\n🎁 Surtido x9: $48.600 (10% OFF)\n\n🚀 Todos con envio gratis en el dia a CABA.\n\n👉 Elegi el tuyo en defu.com.ar",
+            copyAnuncio: "¿Cual es tu combo ideal? 🤔\n\n🥇 Para probar: Combo Degustacion\n📦 Para stockearte: Tofu Comun x6 · Tofu Duro x6\n🌶️ Saborizados: Espinaca y Nuez / Provenzal / Aji\n🎁 Surtido x9 (los 3 sabores)\n\n🚀 Todos con envio en el dia a CABA.\n\n👉 Elegi el tuyo en defu.com.ar",
             pilar: "Producto",
             tema: "Catalogo de combos",
             formatoNarrativo: "Producto — Showcase",
@@ -487,20 +487,20 @@ const data = {
           {
             formato: "Meta Ads Shopping (Collection Ad)",
             dolor: "No conoce la marca ni sabe que puede comprar tofu artesanal online con delivery en el dia",
-            solucion: "Anuncio de catalogo dinamico con la coleccion completa de combos Defu. El usuario ve todos los productos y compra directo.",
-            comunicacion: "Collection Ad en Meta Ads: imagen hero de producto (lifestyle, caja de combos abierta o mesada con variedad) + catalogo de productos debajo con precios. El usuario navega los combos sin salir de Instagram/Facebook. Destino: coleccion completa en defu.com.ar/combos-defu/.",
+            solucion: "Anuncio de catalogo dinamico con varios productos de Defu: combos, tofu por unidad, saborizados, masas y mas. El usuario navega el catalogo completo y compra directo.",
+            comunicacion: "Collection Ad en Meta Ads: imagen hero de producto (lifestyle, variedad de productos sobre mesada) + catalogo dinamico debajo. El usuario navega toda la tienda sin salir de Instagram/Facebook. Destino: tienda completa defu.com.ar.",
             mensajes: [
-              "Hero image: foto lifestyle de los combos Defu (variedad de productos sobre mesada o en caja abierta). Copy overlay: 'Tofu artesanal con envio en el dia a CABA'",
-              "Catalogo debajo: Combo Degustacion $73.350 / Restock Comun x6 $35.100 / Restock Duro x6 $43.200 / Saborizados desde $16.500 / Surtido x9 $48.600",
-              "CTA del anuncio: 'Comprar ahora' → defu.com.ar/combos-defu/. Formato nativo de Meta Ads Shopping, no requiere pieza grafica tradicional.",
+              "Hero image: foto lifestyle con variedad de productos Defu (tofus, saborizados, masas, combos). Copy overlay: 'Tofu artesanal con envio en el dia a CABA'",
+              "Catalogo debajo: productos individuales (Tofu Comun, Duro, Especiado), saborizados, masas para gyozas/wantan/arrolladitos, combos",
+              "CTA del anuncio: 'Comprar ahora' → defu.com.ar. Formato nativo de Meta Ads Shopping, no requiere pieza grafica tradicional.",
             ],
-            copyAnuncio: "🌱 Tofu artesanal con envio en el dia a CABA.\n\n🛒 Explora todos nuestros combos y compra directo.\n\n👉 defu.com.ar",
+            copyAnuncio: "🌱 Tofu artesanal con envio en el dia a CABA.\n\n🛒 Explora todos nuestros productos y compra directo.\n\n👉 defu.com.ar",
             pilar: "Producto",
             tema: "Catalogo shopping",
             formatoNarrativo: "Meta Ads — Collection / Advantage+ Shopping",
             estructuraNarrativa: "Catalogo - CTA directo",
             enRevision: false,
-            destinoUrls: ["https://www.defu.com.ar/combos-defu/"],
+            destinoUrls: ["https://www.defu.com.ar/"],
           },
         ],
       },
@@ -513,8 +513,8 @@ const data = {
             formato: "Video Comercial Vertical (9:16)",
             dolor: "El tofu es feo, sin sabor y de mala calidad — la experiencia generica del super",
             solucion: "Combo Degustacion de Tofu Completo: variedades de tofu artesanal fresco elaborado con soja agroecologica. Cada uno con su sabor y textura propia.",
-            comunicacion: "[0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si pensas que el tofu es feo y no tiene sabor...' [3-5s] Camara baja revelando el Combo Degustacion desplegado debajo de Angel: '...es porque nunca probaste tofu de verdad.' [5-10s] BODY — Angel senala los productos, close-ups de cada variedad, texturas y colores: 'Este es el Combo Degustacion de Defu: distintas variedades de tofu artesanal fresco...' [10-15s] Inserts rapidos: corte de tofu mostrando interior, variedad visual del combo completo: '...elaborado con soja agroecologica. Cada uno con su sabor y textura propia.' [15-19s] CTA — Angel cierra mirando a camara, gesto de invitacion. Badge en edicion: Envio en el dia CABA: 'Entra a defu.com.ar, hace tu pedido y te lo enviamos en el dia.' [19-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
-            hook: "Si pensas que el tofu es feo y no tiene sabor, es porque nunca probaste tofu de verdad.",
+            comunicacion: "[0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si pensas que el tofu es feo y no tiene sabor...' [3-5s] Camara baja revelando el Combo Degustacion desplegado debajo de Angel: '...es porque nunca probaste tofu artesanal.' [5-10s] BODY — Angel senala los productos, close-ups de cada variedad, texturas y colores: 'Este es el Combo Degustacion de Defu: distintas variedades de tofu artesanal fresco...' [10-15s] BODY — Inserts rapidos, corte de tofu mostrando interior, variedad visual del combo completo: '...elaborado con soja agroecologica. Cada uno con su sabor y textura propia.' [15-19s] CTA — Angel cierra mirando a camara, gesto de invitacion. Badge en edicion, Envio en el dia CABA: 'Entra a defu.com.ar, hace tu pedido y te lo enviamos en el dia.' [19-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
+            hook: "Si pensas que el tofu es feo y no tiene sabor, es porque nunca probaste tofu artesanal.",
             body: "Este es el Combo Degustacion de Defu: distintas variedades de tofu artesanal fresco, elaborado con soja agroecologica. Cada uno con su sabor y textura propia.",
             cta: "Entra a defu.com.ar, hace tu pedido y te lo enviamos en el dia.",
             pilar: "Producto",
@@ -530,8 +530,8 @@ const data = {
             formato: "Video Comercial Vertical (9:16)",
             dolor: "Come mal porque no sabe como cocinar rico y sano a la vez — sin ideas, sin variedad, sin ingredientes listos",
             solucion: "Combos Restock de tofu artesanal para todo el mes. Sumalo a ensaladas, salteados, tacos, frito — come rico y sano todos los dias.",
-            comunicacion: "[0-3s] HOOK — Angel en cocina, plano medio directo a camara. Fondo limpio, sin productos a la vista: 'Estas cansado de comer mal por no saber que cocinar rico y sano?' [3-7s] BODY — Angel presenta los combos Restock. El pack de tofu comun x6, el pack de tofu duro x6 y el combo saborizado surtido x9 entran a cuadro, los acomoda sobre la mesada mostrando la variedad de productos, colores y contrastes entre variedades: 'Con nuestros combos Restock tenes tofu artesanal para todo el mes.' [7-13s] BODY — Montaje rapido: corte a tofu en ensalada, salteado con verduras en sarten, armando tacos, tofu frito dorado. Cada plato 1.5s: 'Sumalo a ensaladas, salteados, tacos, frito... come rico y sano todos los dias.' [13-18s] CTA — Angel vuelve a camara, gesto de invitacion. Combos Restock visibles en mesada detras. Badge en edicion: Envio en el dia CABA: 'Pedi tu combo en la tienda online y te lo enviamos en el dia a tu casa.' [18-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
-            hook: "Estas cansado de comer mal por no saber que cocinar rico y sano?",
+            comunicacion: "[0-3s] HOOK — Angel en cocina, plano medio directo a camara. Fondo limpio, sin productos a la vista: 'Estas cansado de no saber que cocinar?' [3-7s] BODY — Angel presenta los combos Restock. El pack de tofu comun x6, el pack de tofu duro x6 y el combo saborizado surtido x9 entran a cuadro, los acomoda sobre la mesada mostrando la variedad de productos, colores y contrastes entre variedades: 'Con nuestros combos Restock tenes tofu artesanal para todo el mes.' [7-13s] BODY — Montaje rapido, corte a tofu en ensalada, salteado con verduras en sarten, armando tacos, tofu frito dorado. Cada plato 1.5s: 'Sumalo a ensaladas, salteados, tacos, frito... come rico y sano todos los dias.' [13-18s] CTA — Angel vuelve a camara, gesto de invitacion. Combos Restock visibles en mesada detras. Badge en edicion, Envio en el dia CABA: 'Pedi tu combo en la tienda online y te lo enviamos en el dia a tu casa.' [18-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
+            hook: "Estas cansado de no saber que cocinar?",
             body: "Con nuestros combos Restock tenes tofu artesanal para todo el mes. Sumalo a ensaladas, salteados, tacos, frito... come rico y sano todos los dias.",
             cta: "Pedi tu combo en la tienda online y te lo enviamos en el dia a tu casa.",
             pilar: "Producto",
@@ -547,9 +547,9 @@ const data = {
             formato: "Video Comercial Vertical (9:16)",
             dolor: "Consume proteina vegetal de mala calidad, ultraprocesada y con aditivos — no sabe que hay algo mejor",
             solucion: "Packs de tofu artesanal nutritivo de Defu en x3, x6 y x9 unidades. Distintas variedades para elegir: comun, duro, saborizados. Elaborado con soja agroecologica, agua y nigari.",
-            comunicacion: "[0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si queres comer sano de verdad, empeza por la proteina vegetal de calidad.' [3-8s] BODY — Inserts cinematicos de los packs sobre mesada: pack de tofu comun x6, pack de tofu duro x6 y combo saborizado surtido x9. Angel los va presentando, close-ups de cada pack entrando a cuadro: 'Esto es tofu artesanal de Defu: packs de x3, x6 y x9 en distintas variedades.' [8-13s] BODY — Montaje de close-ups: corte de tofu mostrando textura, variedades lado a lado destacando colores y contrastes: 'Comun, duro, saborizados. Proteina pura de soja agroecologica, agua y nigari — nada mas.' [13-18s] CTA — Angel vuelve a camara con pack en mano, gesto de invitacion. Badge en edicion: Envio en el dia CABA: 'Elegi tu pack en defu.com.ar y te lo enviamos en el dia.' [18-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
+            comunicacion: "[0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si queres comer sano de verdad, empeza por la proteina vegetal de calidad.' [3-8s] BODY — Inserts cinematicos de los packs sobre mesada, pack de tofu comun x6, pack de tofu duro x6 y combo saborizado surtido x9. Angel los va presentando, close-ups de cada pack entrando a cuadro: 'No consumas mas ese tofu procesado. Esto es tofu artesanal de Defu: packs de x3, x6 y x9 en distintas variedades.' [8-13s] BODY — Montaje de close-ups, corte de tofu mostrando textura, variedades lado a lado destacando colores y contrastes: 'Comun, duro, saborizados. Proteina pura de soja agroecologica, agua y nigari — nada mas.' [13-18s] CTA — Angel vuelve a camara con pack en mano, gesto de invitacion. Badge en edicion, Envio en el dia CABA: 'Elegi tu pack en defu.com.ar y te lo enviamos en el dia.' [18-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu en color original + defu.com.ar.",
             hook: "Si queres comer sano de verdad, empeza por la proteina vegetal de calidad.",
-            body: "Esto es tofu artesanal de Defu: packs de x3, x6 y x9 en distintas variedades. Comun, duro, saborizados. Proteina pura de soja agroecologica, agua y nigari — nada mas.",
+            body: "No consumas mas ese tofu procesado. Esto es tofu artesanal de Defu: packs de x3, x6 y x9 en distintas variedades. Comun, duro, saborizados. Proteina pura de soja agroecologica, agua y nigari — nada mas.",
             cta: "Elegi tu pack en defu.com.ar y te lo enviamos en el dia.",
             pilar: "Producto",
             tema: "Proteina vegetal de calidad",
@@ -560,22 +560,22 @@ const data = {
             enRevision: false,
             destinoUrls: ["https://www.defu.com.ar/combos-defu/"],
           },
-          // --- PIEZA 1: DOLOR ICP ALIMENTACION SALUDABLE (Feed + Story) ---
+          // --- PIEZA 1: DOLOR PROTEINA VEGETAL + BAJAS CALORIAS (Feed + Story) ---
           {
             formato: "Posteo Rectangular (1080x1350)",
-            dolor: "Quiere comer mas sano y sumar proteina vegetal, pero todo lo que encuentra es ultraprocesado: milanesas de soja con 20 ingredientes, hamburguesas veganas llenas de aditivos. No existe una opcion limpia.",
-            solucion: "Tofu artesanal Defu: soja agroecologica, agua y nigari. Tres ingredientes. Proteina real, sin quimicos, sin conservantes. Combos con envio en el dia.",
-            comunicacion: "Dolor/Solucion: contraste entre la lista de ingredientes de un ultraprocesado y la de Defu (3 ingredientes). Producto hero con claim nutricional. Adaptar a Story (1080x1920).",
+            dolor: "Consume proteina vegetal de mala calidad — ultraprocesada, con aditivos y llena de calorias vacias. No sabe que hay una alternativa limpia y baja en calorias.",
+            solucion: "Tofu artesanal Defu: proteina vegetal pura, baja en calorias, sin aditivos. Soja agroecologica, agua y nigari. Combos con envio en el dia a CABA.",
+            comunicacion: "Flyer comparativo: proteina vegetal industrial vs tofu artesanal Defu. Contraste visual de ingredientes y calorias. Adaptar a Story (1080x1920).",
             mensajes: [
-              "Visual de contraste: etiqueta de milanesa de soja (lista larga de ingredientes) vs etiqueta Defu (soja agroecologica, agua, nigari)",
-              "Copy dolor: 'Queres comer sano pero tu proteina vegetal tiene 20 ingredientes que no podes pronunciar.'",
-              "Copy solucion: 'Tofu artesanal Defu: soja, agua y nigari. Nada mas. Combos desde $16.500 con envio en el dia a CABA.' CTA: 'Conocelos en defu.com.ar'",
+              "Visual de contraste: etiqueta nutricional de proteina vegetal industrial (calorias altas, lista larga de ingredientes) vs tofu Defu (bajo en calorias, 3 ingredientes)",
+              "Copy solucion: 'Tofu artesanal Defu: bajo en calorias, alto en proteina. Soja agroecologica, agua y nigari.' CTA: 'Conocelos en defu.com.ar'",
             ],
-            copyAnuncio: "Queres comer sano pero tu proteina vegetal tiene 20 ingredientes que no podes pronunciar 😳\n\n🫘 Tofu artesanal Defu: soja agroecologica, agua y nigari. Nada mas.\n\n💰 Combos desde $16.500 con envio en el dia a CABA.\n\n👉 Conocelos en defu.com.ar",
+            copyAnuncio: "Tu proteina vegetal tiene mas calorias y aditivos que proteina real 😳\n\n🫘 Tofu artesanal Defu: bajo en calorias, alto en proteina.\n🌱 Soja agroecologica, agua y nigari. Nada mas.\n\n📦 Envio en el dia a CABA.\n\n👉 Conocelos en defu.com.ar",
             pilar: "Marca",
-            tema: "Proteina limpia vs ultraprocesados",
+            tema: "Proteina limpia y baja en calorias",
             formatoNarrativo: "Producto — Showcase",
             estructuraNarrativa: "Expectativa - Contraste",
+            tratamiento: { tipo: "Imagen", tono: "Mixed", estilo: "Lifestyle" },
             enRevision: false,
             destinoUrls: ["https://www.defu.com.ar/combos-defu/"],
           },
@@ -603,18 +603,19 @@ const data = {
           {
             formato: "Posteo Rectangular (1080x1350)",
             dolor: "No sabe que tofu elegir entre tantas opciones, paralisis de eleccion",
-            solucion: "Combo Degustacion de Tofu Completo: 11 variedades de tofu artesanal en 1 pedido para probar todos. $73.350 con 10% OFF.",
+            solucion: "Combo Degustacion de Tofu Completo: 11 variedades de tofu artesanal en 1 pedido para probar todos.",
             comunicacion: "Producto hero con las 11 variedades desplegadas y precio. Eliminar la paralisis de eleccion con un solo combo. Adaptar a Story (1080x1920).",
             mensajes: [
               "Visual del Combo Degustacion desplegado mostrando las 11 variedades con nombre de cada una",
-              "Copy: 'No elijas. Proba todos. 11 variedades de tofu artesanal en 1 combo.'",
-              "Badge precio: '$73.350 con 10% OFF + envio gratis en el dia a CABA'. CTA: 'Compralo en defu.com.ar'",
+              "Copy: 'NO ELIJAS. PROBA TODOS. 11 variedades de tofu artesanal en 1 combo.'",
+              "Badge: 'Envio en el dia a CABA'. CTA: 'Compralo en defu.com.ar'",
             ],
-            copyAnuncio: "No elijas. Proba todos 🙌\n\n✨ 11 variedades de tofu artesanal en 1 combo.\n💰 Combo Degustacion $73.350 con 10% OFF.\n\n📦 Envio gratis en el dia a CABA.\n\n👉 Compralo en defu.com.ar",
+            copyAnuncio: "NO ELIJAS. PROBA TODOS 🙌\n\n✨ 11 variedades de tofu artesanal en 1 combo.\n\n📦 Envio en el dia a CABA.\n\n👉 Compralo en defu.com.ar",
             pilar: "Producto",
             tema: "Primera compra sin riesgo",
             formatoNarrativo: "Producto — Showcase",
             estructuraNarrativa: "Afirmacion - Evidencia",
+            tratamiento: { tipo: "Imagen", tono: "Mixed", estilo: "Lifestyle" },
             enRevision: false,
             destinoUrls: ["https://www.defu.com.ar/productos/combo-degustacion-de-tofu-completo-3o7l4/"],
           },
@@ -622,15 +623,15 @@ const data = {
           {
             formato: "Posteo Cuadrado (1080x1080)",
             dolor: "Se le acaba el tofu y tiene que comprar cada semana. No tiene forma simple de stockearse con variedad ni de probar saborizados.",
-            solucion: "Combos Restock y Saborizados Defu: Tofu Comun x6 ($35.100), Tofu Duro x6 ($43.200), Saborizados desde $16.500 c/u, Surtido x9 ($48.600). Tu mes de tofu resuelto en 1 pedido.",
+            solucion: "Combos Restock y Saborizados Defu: Tofu Comun x6, Tofu Duro x6, Saborizados (Espinaca y Nuez, Provenzal, Aji), Surtido x9. Tu mes de tofu resuelto en 1 pedido.",
             comunicacion: "Carrusel x4 slides mostrando toda la linea de combos de stockeo. Cada slide un grupo de producto con precio. Estilo referencia Soyana. Adaptar a Story (1080x1920).",
             mensajes: [
-              "Slide 1: '1 pedido. Todo el mes resuelto.' — Visual hero tipo Soyana: caja/display con productos, copy grande de conveniencia. Badge: 'Envio gratis en el dia a CABA'",
-              "Slide 2: Combos Restock — Tofu Comun x6: $35.100 (10% OFF) + Tofu Duro x6: $43.200 (10% OFF). Visual de ambos packs juntos mostrando volumen",
-              "Slide 3: Combos Saborizados — Espinaca y Nuez / Provenzal / Aji: $16.500 c/u (8% OFF) + Surtido x9 (los 3 sabores): $48.600 (10% OFF). Visual de los 3 sabores + surtido",
+              "Slide 1: '1 pedido. Todo el mes resuelto.' — Visual hero tipo Soyana: caja/display con productos, copy grande de conveniencia. Badge: 'Envio en el dia a CABA'",
+              "Slide 2: Combos Restock — Tofu Comun x6 + Tofu Duro x6. Visual de ambos packs juntos mostrando volumen",
+              "Slide 3: Combos Saborizados — Espinaca y Nuez / Provenzal / Aji + Surtido x9 (los 3 sabores). Visual de los 3 sabores + surtido",
               "Slide 4: CTA 'Arma tu combo en defu.com.ar/combos-defu — Envio en el dia a CABA'",
             ],
-            copyAnuncio: "1 pedido. Todo el mes resuelto 💪\n\nCombos Restock y Saborizados de tofu artesanal:\n🟢 Comun x6: $35.100 (10% OFF)\n🟢 Duro x6: $43.200 (10% OFF)\n🟡 Saborizados: desde $16.500 (8% OFF)\n🟡 Surtido x9: $48.600 (10% OFF)\n\n📦 Envio gratis en el dia a CABA.\n\n👉 Arma tu combo en defu.com.ar",
+            copyAnuncio: "1 pedido. Todo el mes resuelto 💪\n\nCombos Restock y Saborizados de tofu artesanal:\n🟢 Tofu Comun x6\n🟢 Tofu Duro x6\n🟡 Saborizados: Espinaca y Nuez / Provenzal / Aji\n🟡 Surtido x9 (los 3 sabores)\n\n📦 Envio en el dia a CABA.\n\n👉 Arma tu combo en defu.com.ar",
             pilar: "Producto",
             tema: "Conveniencia y recompra",
             formatoNarrativo: "Producto — Showcase",
@@ -644,14 +645,14 @@ const data = {
           {
             formato: "Posteo Cuadrado (1080x1080)",
             dolor: "No conoce todas las opciones de combos disponibles ni sabe cual le conviene",
-            solucion: "Catalogo completo de combos Defu: Degustacion, Restock Comun, Restock Duro, Saborizados y Surtido. Todos con envio gratis en el dia a CABA.",
+            solucion: "Catalogo completo de combos Defu: Degustacion, Restock Comun, Restock Duro, Saborizados y Surtido. Todos con envio en el dia a CABA",
             comunicacion: "Guia de compra rapida: presentar todos los combos como opciones claras segun necesidad del usuario. Carrusel x3 slides max. Adaptar a Story (1080x1920).",
             mensajes: [
-              "Slide 1: 'Cual es tu combo ideal? Todos con envio gratis en el dia a CABA.'",
-              "Slide 2: Grid visual — Para probar: Degustacion $73.350 (10% OFF) / Para stockearte: Restock Comun x6 $35.100 - Duro x6 $43.200 (10% OFF) / Saborizados: desde $16.500 (8% OFF) / Surtido x9: $48.600 (10% OFF)",
+              "Slide 1: 'Cual es tu combo ideal? Todos con envio en el dia a CABA.'",
+              "Slide 2: Grid visual — Para probar: Combo Degustacion / Para stockearte: Restock Comun x6 - Duro x6 / Saborizados: Espinaca y Nuez, Provenzal, Aji / Surtido x9 (los 3 sabores)",
               "Slide 3: CTA 'Elegi el tuyo en defu.com.ar/combos-defu — Envio en el dia a CABA'",
             ],
-            copyAnuncio: "¿Cual es tu combo ideal? 🤔\n\n🥇 Para probar: Degustacion $73.350 (10% OFF)\n📦 Para stockearte: Comun x6 $35.100 · Duro x6 $43.200 (10% OFF)\n🌶️ Saborizados: desde $16.500 (8% OFF)\n🎁 Surtido x9: $48.600 (10% OFF)\n\n🚀 Todos con envio gratis en el dia a CABA.\n\n👉 Elegi el tuyo en defu.com.ar",
+            copyAnuncio: "¿Cual es tu combo ideal? 🤔\n\n🥇 Para probar: Combo Degustacion\n📦 Para stockearte: Tofu Comun x6 · Tofu Duro x6\n🌶️ Saborizados: Espinaca y Nuez / Provenzal / Aji\n🎁 Surtido x9 (los 3 sabores)\n\n🚀 Todos con envio en el dia a CABA.\n\n👉 Elegi el tuyo en defu.com.ar",
             pilar: "Producto",
             tema: "Catalogo de combos",
             formatoNarrativo: "Producto — Showcase",
@@ -664,20 +665,20 @@ const data = {
           {
             formato: "Meta Ads Shopping (Collection Ad)",
             dolor: "No conoce la marca ni sabe que puede comprar tofu artesanal online con delivery en el dia",
-            solucion: "Anuncio de catalogo dinamico con la coleccion completa de combos Defu. El usuario ve todos los productos y compra directo.",
-            comunicacion: "Collection Ad en Meta Ads: imagen hero de producto (lifestyle, caja de combos abierta o mesada con variedad) + catalogo de productos debajo con precios. El usuario navega los combos sin salir de Instagram/Facebook. Destino: coleccion completa en defu.com.ar/combos-defu/.",
+            solucion: "Anuncio de catalogo dinamico con varios productos de Defu: combos, tofu por unidad, saborizados, masas y mas. El usuario navega el catalogo completo y compra directo.",
+            comunicacion: "Collection Ad en Meta Ads: imagen hero de producto (lifestyle, variedad de productos sobre mesada) + catalogo dinamico debajo. El usuario navega toda la tienda sin salir de Instagram/Facebook. Destino: tienda completa defu.com.ar.",
             mensajes: [
-              "Hero image: foto lifestyle de los combos Defu (variedad de productos sobre mesada o en caja abierta). Copy overlay: 'Tofu artesanal con envio en el dia a CABA'",
-              "Catalogo debajo: Combo Degustacion $73.350 / Restock Comun x6 $35.100 / Restock Duro x6 $43.200 / Saborizados desde $16.500 / Surtido x9 $48.600",
-              "CTA del anuncio: 'Comprar ahora' → defu.com.ar/combos-defu/. Formato nativo de Meta Ads Shopping, no requiere pieza grafica tradicional.",
+              "Hero image: foto lifestyle con variedad de productos Defu (tofus, saborizados, masas, combos). Copy overlay: 'Tofu artesanal con envio en el dia a CABA'",
+              "Catalogo debajo: productos individuales (Tofu Comun, Duro, Especiado), saborizados, masas para gyozas/wantan/arrolladitos, combos",
+              "CTA del anuncio: 'Comprar ahora' → defu.com.ar. Formato nativo de Meta Ads Shopping, no requiere pieza grafica tradicional.",
             ],
-            copyAnuncio: "🌱 Tofu artesanal con envio en el dia a CABA.\n\n🛒 Explora todos nuestros combos y compra directo.\n\n👉 defu.com.ar",
+            copyAnuncio: "🌱 Tofu artesanal con envio en el dia a CABA.\n\n🛒 Explora todos nuestros productos y compra directo.\n\n👉 defu.com.ar",
             pilar: "Producto",
             tema: "Catalogo shopping",
             formatoNarrativo: "Meta Ads — Collection / Advantage+ Shopping",
             estructuraNarrativa: "Catalogo - CTA directo",
             enRevision: false,
-            destinoUrls: ["https://www.defu.com.ar/combos-defu/"],
+            destinoUrls: ["https://www.defu.com.ar/"],
           },
         ],
       },
@@ -841,13 +842,14 @@ const brief = renderBriefHtml(data);
 
 // Output dirs
 const slug = data.clientInfo.slug;
-const baseDir = new URL("./", import.meta.url).pathname;
+const clientDir = new URL("./", import.meta.url).pathname;
+const projectRoot = new URL("../../", import.meta.url).pathname;
 const desktop = join(homedir(), "Desktop");
 
 const outputs = [
-  { dir: join(baseDir, "clients-onboardings", slug), file: `onboarding-${slug}.html`, html: onboarding },
-  { dir: join(baseDir, "clients-strategies", slug), file: `foundation-review-${slug}.html`, html: strategy },
-  { dir: join(baseDir, "briefs", slug), file: `brief_creatives.html`, html: brief },
+  { dir: join(clientDir, "onboardings"), file: `onboarding-${slug}.html`, html: onboarding },
+  { dir: join(clientDir, "strategies"), file: `foundation-review-${slug}.html`, html: strategy },
+  { dir: join(clientDir, "briefs"), file: `brief_creatives.html`, html: brief },
 ];
 
 for (const out of outputs) {
@@ -866,14 +868,15 @@ for (const out of outputs) {
   writeFileSync(path, out.html, "utf-8");
   console.log(`Done: ${path}`);
 
-  // Copy to Desktop
-  const desktopPath = join(desktop, out.file);
+  // Copy to Desktop (use slug-suffixed name to avoid cross-client collisions)
+  const desktopFile = out.file.includes("brief_creatives") ? `brief_creatives_${slug}.html` : out.file;
+  const desktopPath = join(desktop, desktopFile);
   writeFileSync(desktopPath, out.html, "utf-8");
   console.log(`Copy: ${desktopPath}`);
 }
 
 // Publish Foundation Review to ree-website
-const reeWebsiteFoundations = join(baseDir, "..", "..", "ree-website", "public", "foundations");
+const reeWebsiteFoundations = join(projectRoot, "..", "..", "ree-website", "public", "foundations");
 if (existsSync(reeWebsiteFoundations)) {
   const publishPath = join(reeWebsiteFoundations, `${slug}.html`);
   if (existsSync(publishPath)) {

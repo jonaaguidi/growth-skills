@@ -109,6 +109,14 @@ export interface PalancaElegida {
   justificacion: string;
 }
 
+export interface EjemploMarcaICP {
+  marca: string;
+  rubro: string;
+  caso: string; // por que esta marca encaja en el perfil
+  rol?: string | null; // rol del decisor (ej. "Director de Marketing")
+  avatarFile?: string | null; // path relativo a assets/ (ej. "tostado-avatar.jpg")
+}
+
 export interface ICPEstrategico {
   segmento: string;
   descripcion: string;
@@ -116,8 +124,10 @@ export interface ICPEstrategico {
   dolores: string[];
   deseos: string[];
   objeciones: string[];
-  prioridad: "primario" | "secundario";
+  prioridad?: "primario" | "secundario" | null; // si no se define, no se renderiza el badge
   recurrencia: "alta" | "media" | "baja" | null;
+  badge?: string | null; // label custom del segundo badge (ej. "Demanda activa"); si no se define, se deriva de recurrencia
+  ejemplosMarcas?: EjemploMarcaICP[] | null; // ejemplos ilustrativos de marcas que encajan en el perfil
 }
 
 export interface PropuestaDeValor {
@@ -216,11 +226,15 @@ export interface CampanaPresupuesto {
 export interface CampanaDefinida {
   nombre: string;
   objetivo: string;
+  descripcionCampana?: string | null;   // descripción estratégica del objetivo
   adSets: { nombre: string; segmentacion: string; ads: string[] }[];
   status?: "activa" | "en-desarrollo" | null;
+  tituloSeccion?: string | null;        // titulo custom de la seccion Foundation en el review (ej. "Campaña B2B (WhatsApp)")
   destino?: string | null;              // ej. "Perfil de Instagram"
   kpisCampana?: string[] | null;        // ej. ["Visitas al Perfil"]
   presupuestoCampana?: CampanaPresupuesto | null;
+  piezas?: PiezaCreativa[] | null;      // creative briefs for pieces in this campaign
+  badgesPiezas?: string[] | null;       // badges junto al titulo de la seccion Piezas Creativas (ej. ["En desarrollo", "Equipo Creativo"])
 }
 
 export interface CapacidadAtencion {
@@ -255,6 +269,7 @@ export interface CompetidorCard {
   estado: string;         // "63 anuncios activos"
   activo: boolean;
   avatarFile?: string | null;  // path relativo a assets/
+  instagramUrl?: string | null; // URL del perfil de Instagram
 }
 
 export interface CompetenciaAds {
@@ -263,6 +278,7 @@ export interface CompetenciaAds {
   adLibraryUrl: string;
   formatos: FormatoCompetencia[];
   competidores?: CompetidorCard[] | null;
+  observacion?: string | null; // Insight estratégico sobre el panorama competitivo
 }
 
 // -- Foundation Review presentation --
@@ -299,6 +315,7 @@ export interface ProximoPaso {
 export interface ReviewMilestone {
   semana: number;
   label: string;
+  fecha?: string | null; // fecha explicita (ej. "18/09"); si no se define, se calcula como inicio de la semana
 }
 
 export interface ReviewMeeting {
@@ -358,10 +375,18 @@ export interface FoundationData {
   // Referencias moodboard (Pinterest, etc.) for Foundation Review
   referenciasMoodboard?: ReferenciaCreativa[] | null;
 
+  // REE Metrics: override de las cards "Que vas a ver" (opcional; fallback: Dashboard/Timeline/E-Commerce)
+  reeMetricsFeatures?: { titulo: string; desc: string }[] | null;
+  // REE Metrics: fuente de datos que se cruza en el disclaimer, reemplaza a la plataforma e-commerce (ej. "WhatsApp")
+  reeMetricsFuente?: string | null;
+
   // Roadmap
   roadmap: RoadmapInitiative[];
 
   // Foundation Review presentation (optional, renderer derives defaults if missing)
+  // Section ids rendered as locked (grey, no body, "EN PREPARACION" badge):
+  // "foundation-campaign" | "ree-metrics" | "roadmap" | "proximos-pasos" | "piezas-creativas" | slug de campana activa
+  seccionesBloqueadas?: string[] | null;
   reviewEtapas?: ReviewEtapa[] | null;
   pricingComparativa?: PricingComparativa | null;
   proximosPasos?: ProximoPaso[] | null;

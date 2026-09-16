@@ -36,7 +36,7 @@ export function renderOnboardingHtml(data: FoundationData): string {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KO Call — ${empresa}</title>
+<title>KO Call | ${empresa}</title>
 ${getFaviconTag()}
 <style>${styles}
   .step-list {
@@ -300,9 +300,9 @@ function renderProximosPasos(data: FoundationData): string {
   const pasos = [
     "Integrar Meta Ads y Tienda Nube en REE Metrics para tener toda la data centralizada",
     "Configurar los KPIs que vamos a medir en la plataforma",
-    "Armar la estructura de campanas y audiencias en Meta Ads",
-    "Definir los creativos para la campana de Awareness",
-    "Definir los angulos de venta para la campana B2C (se presentan en la Foundation Review)",
+    "Armar la estructura de campañas y audiencias en Meta Ads",
+    "Definir los creativos para la campaña de Awareness",
+    "Definir los angulos de venta para la campaña B2C (se presentan en la Foundation Review)",
   ];
 
   parts.push(`<ul style="list-style:none;padding:0">`);

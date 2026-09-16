@@ -3,7 +3,4 @@ dist/
 *.tsbuildinfo
 .env
 .env.*
-clients-doc-internos/
-clients-onboardings/
-clients-strategies/
-Clients/
+discovery_skill_f0/Clients/

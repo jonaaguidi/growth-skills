@@ -11,6 +11,13 @@ Servidor MCP para generar documentos de Foundation (Fase 2) de Ree Creativos.
 3. **No publicar a ree-website sin verificar.** El script `clients/{slug}/gen.mjs` publica automaticamente a `ree-website/public/foundations/`. Si el doc ya fue entregado y esta live, regenerar va a sobreescribir la version entregada. Verificar con `git status` en ree-website antes de hacer deploy.
 4. **Si se necesita regenerar un doc ya entregado**, verificar que el output sea identico o comunicar los cambios al equipo antes de deployear.
 
+## REGLA: Uso de la ñ en texto renderizado
+
+**Todo texto visible en los documentos generados debe usar la ñ correctamente** (campañas, diseño, señal, pequeña, etc.). NUNCA escribir "campanas", "diseno", "manana" en strings que se renderizan al HTML — ni en los renderers (`src/lib/*.ts`) ni en los datos de cliente (`clients/{slug}/gen.mjs`).
+
+- Aplica solo a texto visible: nombres de variables, tipos, clases CSS e ids (`campanas`, `.campana-card`, `CampanaDefinida`) quedan sin ñ.
+- Al terminar un doc, verificar con grep sobre el HTML generado: `grep -o 'campana[s]*\|diseno\|manana\|pequena' clients/{slug}/**/*.html` debe devolver 0 resultados de texto visible.
+
 ## REGLA CRITICA: Historial de cambios
 
 **NUNCA sobreescribir un archivo HTML generado sin crear backup primero.**
@@ -23,11 +30,42 @@ Esto aplica a los 3 documentos (onboarding, foundation-review, brief-creativos) 
 
 ## Que hace
 
-Genera 3 documentos HTML branded a partir de un mismo `FoundationData`:
+**El entregable principal de esta skill es UNO solo: el Foundation Review.** Los otros dos documentos (Onboarding y Brief de Creativos) se mantienen como herramientas de backup, pero en el flujo actual no son necesarios: el Foundation Review ya incluye las piezas creativas con la estructura completa del brief (ver "REGLA: estructura unica de piezas").
 
-1. **Onboarding del Cliente** (COMPARTIBLE): pasos que el cliente debe hacer para arrancar (crear FB Page, vincular IG, tarjeta de pago, brand assets). Header blanco, logo rojo, sin info confidencial.
-2. **Foundation Review** (COMPARTIBLE): documento para la reunion de Foundation Review (semana 3). Incluye campanas, roadmap, creativos, KPIs, presupuesto y proximos pasos. Header blanco, logo rojo.
-3. **Brief de Creativos** (INTERNO, no compartir): documento de handoff para el equipo de produccion con las piezas creativas desglosadas por ICP. Header rojo, logo blanco, badge INTERNO.
+Documentos que puede generar a partir de un mismo `FoundationData`:
+
+1. **Foundation Review** (COMPARTIBLE, **entregable principal**): documento para la reunion de Foundation Review (semana 3). Incluye campanas, ICPs, angulos + piezas creativas completas, roadmap, KPIs, presupuesto y proximos pasos. Header blanco, logo rojo. Es el unico que se publica online.
+2. **Onboarding del Cliente** (COMPARTIBLE, backup): pasos que el cliente debe hacer para arrancar (crear FB Page, vincular IG, tarjeta de pago, brand assets). Header blanco, logo rojo, sin info confidencial.
+3. **Brief de Creativos** (INTERNO, backup): documento de handoff para el equipo de produccion con las piezas creativas desglosadas por ICP. Header rojo, logo blanco, badge INTERNO. Solo generarlo si el equipo de produccion pide un doc separado; las mismas cards ya viven en el Foundation Review.
+
+## REGLA: Modelos de Foundation segun tipo de negocio (B2C vs B2B)
+
+Existen **dos modelos de Foundation**. Antes de armar el `FoundationData` de un cliente nuevo, definir cual aplica:
+
+### Modelo B2C (referencia canonica: `clients/defu/gen.mjs`)
+
+Es el modelo original. Aplica a clientes que venden a consumidor final (e-commerce, retail, alimentos, etc.):
+
+- **Destino de campanas**: e-commerce del cliente. Las piezas llevan `destinoUrls` a paginas de producto/coleccion.
+- **Campanas**: orientadas a venta/conversion. Puede incluir Shopping (Collection Ad) con catalogo dinamico.
+- **ICPs**: segmentos de consumo (recurrencia alta/media/baja). La prioridad se define por recurrencia de compra.
+- **Piezas**: mix canonico de 9 piezas (3 video + 3 posteo rectangular + 2 carrusel + 1 shopping). Pilares "Producto" / "Marca" / "Comunidad".
+- **Duplicacion por ICP**: las mismas piezas se asignan a varios ICPs; la diferenciacion se hace en el ad set de Meta (targeting), no en el creativo. Ej. Defu: 9 unicas x 2 ICPs = 18 a pautar.
+- **Extras tipicos**: `ofertas` (packs), `cambiosEcommerce`, `pricingComparativa`.
+
+### Modelo B2B (referencia canonica: `clients/btlandia/gen.mjs`)
+
+Aplica a clientes que venden a empresas (servicios, agencias, proveedores corporativos):
+
+- **Destino de campanas**: WhatsApp Business (click-to-message) o perfil de Instagram. Las piezas normalmente NO llevan `destinoUrls` (el destino es WhatsApp, sin URL de producto).
+- **Campanas**: lead generation. Los conjuntos de anuncios se arman por **nivel de conciencia/demanda del ICP**, no por demografia de consumo. Ej. BTLandia: `Conjunto_Demanda_Activa` (ya compra este tipo de servicio) y `Conjunto_Demanda_Latente` (todavia no lo compra, hay que educarlo).
+- **ICPs**: definidos por madurez de demanda. Usar `badge` custom ("Demanda activa" / "Demanda latente") y `ejemplosMarcas` con empresas reales que encajan en el perfil (con rol del decisor y avatar).
+- **Segmentacion de ad sets**: por cargo del decisor (ej. "Cargos: Director de Marketing, Gerente de RRHH...") + tamano de empresa (empleados) + intereses profesionales.
+- **Piezas**: exclusivas por ICP (NO duplicadas). Cada pieza ataca 1 dolor especifico del ICP (1 pieza = 1 dolor). Ej. BTLandia: 5 piezas por ICP, 10 en total. El ICP de demanda latente lleva piezas **educativas** (como funciona el proceso, cuanto cuesta, valor del servicio); el de demanda activa lleva piezas de **diferenciacion** (por que nosotros, track record, servicio integral).
+- **Pilares**: adaptados al negocio (ej. BTLandia: "Interno (eventos para el equipo)" / "Externo (eventos para clientes)"), no los pilares B2C de Producto/Marca/Comunidad.
+- **Formatos**: Video 9:16 + Carrusel 1080x1080 + Imagen 1080x1350. Sin Shopping (no hay catalogo e-commerce).
+
+En ambos modelos las piezas usan la MISMA estructura completa de `PiezaCreativa` (ver regla siguiente); lo que cambia es la logica estrategica, no el formato de datos.
 
 ## Workflow: como usar esta skill
 
@@ -40,7 +78,10 @@ Los datos vienen de tres fuentes:
 
 ### Paso 2 -- Construir el JSON
 
-Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Usar `clients/defu/gen.mjs` como ejemplo canonico de referencia.
+Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Primero definir el modelo segun el tipo de negocio (ver "REGLA: Modelos de Foundation segun tipo de negocio"):
+
+- **B2C** → usar `clients/defu/gen.mjs` como ejemplo canonico.
+- **B2B** → usar `clients/btlandia/gen.mjs` como ejemplo canonico.
 
 **Identidad del cliente** (requeridos):
 - `clientInfo`: datos basicos (empresa, slug, contacto, industria, web). Requerido.
@@ -62,7 +103,7 @@ Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Usar `clie
 - `presupuesto` (tipo `Presupuesto`): pauta, fee, total, cplTarget, limiteGastoCuenta. Opcional (null).
 - `creativos` (tipo `Creativos`): puede usar `angulos` (AnguloCreativo[]) o `piezasPorIcp` (PiezasICP[]) + formatos + tono. Opcional (null).
 - `utm`: formato de campaign + ejemplos. Opcional (null).
-- `arquitectura`: campanas con ad sets y ads. Array, requerido.
+- `arquitectura`: campanas con ad sets y ads. Array, requerido. Cada campana puede incluir `piezas` (PiezaCreativa[]) — **las piezas de campana usan SIEMPRE la estructura completa del Brief de Creativos** (ver "REGLA: estructura unica de piezas" abajo).
 - `capacidadAtencion`: quien atiende, capacidad diaria, tiempo de respuesta, validado. Opcional (null).
 
 **Extras** (opcionales):
@@ -79,9 +120,7 @@ Armar la estructura `FoundationData` (ver `src/types/foundation.ts`). Usar `clie
 
 ### Paso 3 -- Crear el script de generacion
 
-Copiar `clients/defu/gen.mjs` a `clients/{slug}/gen.mjs` y reemplazar el objeto `data` con los datos del nuevo cliente. El script es un template reutilizable: todo se resuelve dinamicamente por `data.clientInfo.slug`.
-
-`clients/defu/gen.mjs` es el ejemplo canonico de referencia.
+Copiar el gen.mjs del modelo que corresponda (`clients/defu/gen.mjs` para B2C, `clients/btlandia/gen.mjs` para B2B) a `clients/{slug}/gen.mjs` y reemplazar el objeto `data` con los datos del nuevo cliente. El script es un template reutilizable: todo se resuelve dinamicamente por `data.clientInfo.slug`.
 
 ### Paso 4 -- Correr el script
 
@@ -123,9 +162,25 @@ npx tsc && node clients/{slug}/gen.mjs
 
 El gen script importa desde `../../dist/` (JS compilado), no desde `./src/` (TS fuente). Si no se compila, los cambios en renderers no se reflejan en el HTML.
 
+#### REGLA: estructura unica de piezas (brief Y foundation review)
+
+Existe **una sola forma de desarrollar piezas creativas** en esta skill: la estructura completa de `PiezaCreativa` documentada en esta seccion (la del Brief de Creativos, con `clients/defu/gen.mjs` como ejemplo canonico B2C y `clients/btlandia/gen.mjs` como ejemplo canonico B2B). Aplica en los DOS lugares donde viven piezas:
+
+1. **`creativos.piezasPorIcp`** — piezas renderizadas en la subseccion "Angulos Creativos + Piezas" del Foundation Review (paso 03) y en el Brief de Creativos.
+2. **`arquitectura[].piezas`** — piezas de campana activa, renderizadas en la seccion "Piezas Creativas (xN)" del Foundation Review.
+
+**Ambos lugares renderizan la MISMA card completa del brief** (`renderPiezaCardStrategy` en `strategy-renderer.ts`): card expandible con Framework (pilar, tema, formato narrativo, estructura narrativa, tratamiento), Destino, Dolor/Solucion, Desglose de Produccion (timeline parseado de `comunicacion`), Guion o Mensajes, Copy Anuncio y Adaptaciones. En "Angulos Creativos + Piezas" las cards van agrupadas en un dropdown por ICP. NO existe una version "resumida" de card: toda pieza que entre al Foundation Review se levanta con la estructura completa del brief.
+
+En ambos casos, **toda pieza (video o grafica) debe tener la estructura completa**:
+
+- **Video (Reel/UGC)**: `dolor`, `solucion`, `comunicacion` en formato timeline `[Xs-Ys] LABEL — visual: 'dialogo'` (un solo `:` por segmento), `hook`/`body`/`cta`, framework completo (`pilar`, `tema`, `formatoNarrativo`, `estructuraNarrativa`, `tratamiento`, `duracion`), `copyAnuncio`, `destinoUrls`, `enRevision: false`.
+- **Grafica (Imagen/Carrusel/Story/Shopping)**: `dolor`, `solucion`, `comunicacion` descriptiva, `mensajes[]` estructurados (patron Visual / Copy / Badge+CTA; en carruseles cada item = "Slide N: ..."), framework completo (sin `duracion`), `copyAnuncio`, `destinoUrls`, `enRevision: false`.
+
+**NUNCA crear piezas "resumidas"** (solo dolor/solucion/hook suelto): sin la estructura completa, el Foundation Review y el brief renderizan campos "Por definir" en amber y el desglose de produccion no aparece. Si una pieza todavia no esta desarrollada, dejarla con `enRevision: true` en lugar de entregarla incompleta.
+
 #### Guia: como crear piezas para un nuevo cliente
 
-Proceso para ir de "tengo los ICPs y la estrategia" a piezas concretas listas para produccion:
+Proceso para ir de "tengo los ICPs y la estrategia" a piezas concretas listas para produccion. Aplica igual para `creativos.piezasPorIcp` (brief) y `arquitectura[].piezas` (foundation review):
 
 1. **Partir de los dolores del ICP** — Cada pieza ataca un dolor especifico de `data.icp[].dolores`. El dolor define el angulo creativo. Una pieza = un dolor.
 2. **Definir solucion** — La solucion es el producto/oferta que resuelve ese dolor. Debe ser concreta: nombre del combo/pack, precio, beneficio tangible. No generica.
@@ -134,7 +189,33 @@ Proceso para ir de "tengo los ICPs y la estrategia" a piezas concretas listas pa
    - Posteo rectangular (1080x1350): imagen + copy largo. Para conversion y remarketing.
    - Carrusel cuadrado (1080x1080): catalogo, comparacion, paso a paso. 3-4 slides por carrusel.
    - Shopping (Collection Ad): catalogo dinamico con productos del e-commerce. Para venta directa.
-4. **Escribir comunicacion** — Para video: usar formato timeline `[0-3s] HOOK — descripcion de toma. [3-5s] BODY — ...`. Para estatico: describir la pieza visualmente (composicion, texto overlay, producto).
+4. **Escribir comunicacion** — Para video: usar formato timeline con separacion estricta entre visual y dialogo. Para estatico: describir la pieza visualmente (composicion, texto overlay, producto).
+
+   **Formato timeline para video (campo `comunicacion`):**
+
+   Cada segmento sigue el patron: `[Xs-Ys] LABEL — descripcion visual/toma: 'dialogo hablado'`
+
+   - **LABEL**: `HOOK`, `BODY`, `CTA` o `CIERRE`. Siempre en mayusculas, seguido de ` — ` (em dash con espacios). Se renderiza en la columna "Momento".
+   - **Descripcion visual** (antes del `:`): todo lo que se VE en pantalla (plano, movimiento de camara, inserts, badges, graficos). Se renderiza en la columna "Toma / Visual".
+   - **Dialogo** (despues del `:`): SOLO la parte hablada, entre comillas simples `'...'`. Se renderiza en la columna "Dialogo".
+
+   **Regla critica: un solo `:` por segmento.** El parser separa toma de dialogo en el PRIMER `:` que encuentra despues del `—`. Si la descripcion visual contiene `:` extra (ej. `Badge en edicion: Envio en el dia`), el parser va a cortar mal. Usar comas o parentesis en su lugar.
+
+   Ejemplo correcto:
+   ```
+   [0-3s] HOOK — Angel plano medio, directo a camara, fondo limpio: 'Si pensas que el tofu es feo y no tiene sabor...'
+   [3-5s] HOOK — Camara baja revelando el Combo Degustacion: '...es porque nunca probaste tofu artesanal.'
+   [5-10s] BODY — Angel senala los productos, close-ups de cada variedad: 'Este es el Combo Degustacion de Defu...'
+   [10-15s] BODY — Inserts rapidos, corte de tofu mostrando interior: '...elaborado con soja agroecologica.'
+   [15-19s] CTA — Angel cierra mirando a camara. Badge en edicion, Envio en el dia CABA: 'Entra a defu.com.ar y te lo enviamos en el dia.'
+   [19-22s] CIERRE — Motion graphics sobre fondo amarillo. Logo Defu + defu.com.ar.
+   ```
+
+   Ejemplo incorrecto (`:` extra rompe el parser):
+   ```
+   [10-15s] Inserts rapidos: corte de tofu mostrando interior: '...elaborado con soja agroecologica.'
+   [15-19s] CTA — Badge en edicion: Envio en el dia CABA: 'Entra a defu.com.ar...'
+   ```
 5. **Escribir hook/body/cta (video) o mensajes (estatico)** — Video: `hook` es la frase de apertura (2-3s), `body` desarrolla el argumento, `cta` cierra con accion. Estatico: `mensajes[]` son los bullets o slides.
 6. **Completar framework de produccion** — `pilar`, `tema`, `formatoNarrativo`, `estructuraNarrativa`, `tratamiento` (tipo/tono/estilo), `duracion` (solo video). Todos deben estar presentes; null = "Por definir" amber en el brief.
 7. **Escribir copyAnuncio** — Copy completo del ad tal como aparece en Meta (ver convencion abajo en "Formato de copyAnuncio").
@@ -155,6 +236,16 @@ Mix canonico basado en Defu (9 piezas unicas):
 
 El mix puede variar segun el cliente y la industria. Lo importante es cubrir las 3 funciones: video (awareness/storytelling), estatico (conversion/producto) y shopping (venta directa). Clientes con e-commerce fuerte pueden necesitar mas shopping; clientes de servicios pueden no necesitar shopping.
 
+**Mix B2B** (referencia BTLandia, 5 piezas por ICP, exclusivas):
+
+| Formato | Cantidad por ICP | Uso | Duracion |
+|---------|------------------|-----|----------|
+| Video Comercial Vertical (9:16) | 2 | Talking head del founder, BTS/timelapse. Autoridad y educacion | 20-25s |
+| Carrusel (1080x1080) | 2 | Proceso paso a paso, comparacion, diferenciacion. 4 slides | — |
+| Imagen (1080x1350) | 1 | Flyer de confianza/metricas. Incluye adaptacion Story (1080x1920) | — |
+
+Sin Shopping. El CTA de todas las piezas apunta a WhatsApp.
+
 #### Patron de duplicacion por ICP
 
 Las mismas piezas se pueden asignar a multiples grupos de ICP cuando:
@@ -168,6 +259,8 @@ Metricas del brief:
 Ejemplo Defu: 9 piezas unicas × 2 ICPs = 9 a producir, 18 a pautar.
 
 Si un ICP tiene dolores muy distintos al resto, crear piezas exclusivas para ese segmento en lugar de duplicar.
+
+**Este patron de duplicacion es tipico de B2C.** En el modelo B2B las piezas son exclusivas por ICP (los niveles de conciencia son distintos: demanda activa vs latente), asi que no se duplica: cada ICP recibe sus propias piezas atacando sus propios dolores (ver "REGLA: Modelos de Foundation segun tipo de negocio").
 
 #### Formato de copyAnuncio
 
@@ -218,7 +311,7 @@ creativos: {
 | `formato` | string | Tipo de pieza. Define badge de color y logica de render | `"Video Comercial Vertical (9:16)"`, `"Posteo Rectangular (1080x1350)"`, `"Posteo Cuadrado (1080x1080)"`, `"Meta Ads Shopping (Collection Ad)"` |
 | `dolor` | string | Dolor del ICP que ataca esta pieza | `"El tofu es feo, sin sabor y de mala calidad — la experiencia generica del super"` |
 | `solucion` | string | Solucion que presenta la pieza | `"Combo Degustacion de Tofu Completo: variedades de tofu artesanal fresco..."` |
-| `comunicacion` | string | Descripcion de la pieza. Si tiene formato `[0-3s] HOOK —` se parsea como desglose de produccion con timeline | `"[0-3s] HOOK — Angel plano medio... [3-5s] BODY — ..."` |
+| `comunicacion` | string | Descripcion de la pieza. Si tiene formato `[0-3s] HOOK —` se parsea como desglose de produccion con timeline. **Separar visual de dialogo con un unico `:` por segmento** (ver "Formato timeline para video" arriba) | `"[0-3s] HOOK — Angel plano medio, fondo limpio: 'Si pensas que el tofu es feo...' [3-5s] BODY — ..."` |
 
 **Video (cuando formato contiene "video", "reel" o "ugc"):**
 
@@ -423,6 +516,42 @@ Cada campana en `arquitectura` debe tener estos campos para la estructura de 6 p
 - `destino`: string describiendo a donde apunta la campana (ej. "Perfil de Instagram (@defu.tofuco)", "WhatsApp Business de BTLandia").
 - `kpisCampana`: array de strings con los KPIs de la campana (ej. ["Visitas al Perfil", "Alcance", "Interacciones"]).
 - `presupuestoCampana`: objeto con `diario` y `mensual` (ej. { diario: "USD $5/dia", mensual: "USD $150/mes" }).
+
+### Subseccion "Angulos Creativos + Piezas" (`creativos.piezasPorIcp`, paso 03)
+
+Dentro de la mega-seccion Foundation (paso 03), la subseccion "Angulos Creativos + Piezas" renderiza las piezas de `creativos.piezasPorIcp` agrupadas en un dropdown `<details>` por ICP (header: "ICP N" + nombre del segmento + contador de piezas). Dentro de cada grupo, **cada pieza se renderiza con la card completa del brief** (`renderPiezaCardStrategy`), exactamente la misma que usa la seccion "Piezas Creativas (xN)" de la campana activa: Framework, Destino, Dolor/Solucion, Desglose de Produccion, Guion/Mensajes, Copy Anuncio y Adaptaciones.
+
+**Esta es la forma estandar de levantar piezas en todo Foundation Review nuevo.** Al generar o regenerar un Foundation, las piezas de `creativos.piezasPorIcp` deben venir con la estructura completa de `PiezaCreativa` (ver "REGLA: estructura unica de piezas"); si una pieza viene resumida, la card muestra "Por definir" en amber y el desglose de produccion no aparece.
+
+Ejemplo de referencia: `clients/btlandia/gen.mjs` (`creativos.piezasPorIcp` con 2 ICPs x 5 piezas, todas con framework completo, timeline y copyAnuncio).
+
+### Seccion "Piezas Creativas" (`arquitectura[].piezas`)
+
+Si la campana activa tiene `piezas` (PiezaCreativa[]), el Foundation Review inserta una seccion **"Piezas Creativas (xN)"** despues de la campana activa (la numeracion del TOC y de las secciones se ajusta automaticamente).
+
+**Las piezas de campana siguen la MISMA estructura que el Brief de Creativos** (ver "REGLA: estructura unica de piezas" arriba). El renderer (`renderPiezaCardStrategy` en `strategy-renderer.ts`) muestra por pieza una card expandible con las mismas secciones que la card del brief:
+
+| Seccion | Fuente | Notas |
+|---|---|---|
+| Framework | `pilar`, `tema`, `formatoNarrativo`, `estructuraNarrativa`, `tratamiento` | null = "Por definir" amber |
+| Destino | `destinoUrls` | Links clickeables |
+| Dolor / Solucion | `dolor`, `solucion` | Grid 2 columnas |
+| Desglose de Produccion | `comunicacion` con formato timeline `[Xs-Ys]` | Columnas Tiempo / Momento / Toma-Visual / Dialogo. Solo si `comunicacion` matchea el formato |
+| Guion (video) / Mensajes (grafica) | `hook`/`body`/`cta` o `mensajes[]` | Hook rojo, CTA verde |
+| Copy Anuncio | `copyAnuncio` | Bloque monoespaciado |
+| Adaptaciones | automatico (solo graficas) | Badge "Incluye adaptacion Story (1080x1920)" |
+
+Ejemplo de referencia: `clients/btlandia/gen.mjs` (campana `BTLandia_Awareness`, 4 piezas: 2 Reels con timeline + 1 Imagen + 1 Carrusel).
+
+### Secciones bloqueadas (`seccionesBloqueadas`)
+
+Campo opcional en `FoundationData`. Array de ids de seccion que se renderizan bloqueadas: grises, sin body (el contenido NO se incluye en el HTML), badge amber "EN PREPARACION", y el item del TOC queda gris sin link. Util para entregas parciales (ej. entregar solo hasta el paso 03).
+
+Ids validos: `"foundation-campaign"`, `"ree-metrics"`, `"roadmap"`, `"proximos-pasos"`, `"piezas-creativas"`, o el slug de la campana activa.
+
+```js
+seccionesBloqueadas: ["foundation-campaign", "ree-metrics", "roadmap", "proximos-pasos"],
+```
 
 ### Fallback para backward compatibility
 

@@ -154,7 +154,7 @@ function renderHeader(data: FoundationData): string {
     <div class="header-label">Brief de Creativos</div>
     <div class="header-title">${empresa}</div>
     ${campanaBadges}
-    <div class="header-confidencial">DOCUMENTO INTERNO — NO COMPARTIR CON EL CLIENTE</div>
+    <div class="header-confidencial">DOCUMENTO INTERNO - NO COMPARTIR CON EL CLIENTE</div>
   </div>`;
 }
 
@@ -247,59 +247,6 @@ function renderResumen(data: FoundationData): string {
       <div style="display:flex;flex-wrap:wrap;gap:10px;">${formatChips}</div>
     </div>`;
 
-  // --- Piezas por ICP (table-like) ---
-  // Build set of dolores per ICP to detect shared vs unique
-  const allGroups = creativos.piezasPorIcp;
-  const dolorCountMap = new Map<string, number>();
-  for (const g of allGroups) {
-    for (const p of g.piezas) {
-      const key = `${p.formato}|||${p.dolor}`;
-      dolorCountMap.set(key, (dolorCountMap.get(key) || 0) + 1);
-    }
-  }
-
-  const icpRows = allGroups.map(group => {
-    const groupTotal = group.piezas.length;
-    const groupVideos = group.piezas.filter(p => isVideoFormat(p.formato)).length;
-    const groupStatic = groupTotal - groupVideos;
-    const slug = group.icp.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-
-    // Count unique (only in this ICP) vs shared (in multiple ICPs)
-    let uniqueCount = 0;
-    let sharedCount = 0;
-    for (const p of group.piezas) {
-      const key = `${p.formato}|||${p.dolor}`;
-      if ((dolorCountMap.get(key) || 0) > 1) {
-        sharedCount++;
-      } else {
-        uniqueCount++;
-      }
-    }
-
-    const descParts: string[] = [];
-    if (uniqueCount > 0) descParts.push(`${uniqueCount} unica${uniqueCount !== 1 ? "s" : ""} de este ICP`);
-    if (sharedCount > 0) descParts.push(`${sharedCount} compartida${sharedCount !== 1 ? "s" : ""} entre audiencias`);
-    const descText = descParts.join(" + ");
-
-    return `<a href="#piezas-${slug}" class="m-wrap m-pad" style="display:block;padding:14px 20px;border-bottom:1px solid ${COLORS.border};text-decoration:none;color:${COLORS.ink};transition:background 0.15s;" onmouseover="this.style.background='${COLORS.bg}'" onmouseout="this.style.background='transparent'">
-      <div style="display:flex;align-items:center;">
-        <span style="font-family:${FONTS.heading};font-weight:700;font-size:14px;flex:1;min-width:0;">${escapeHtml(group.icp)}</span>
-        <span style="font-family:${FONTS.mono};font-size:12px;color:${COLORS.muted};margin-right:16px;">${groupVideos} video${groupVideos !== 1 ? "s" : ""}</span>
-        <span style="font-family:${FONTS.mono};font-size:12px;color:${COLORS.muted};margin-right:16px;">${groupStatic} estatica${groupStatic !== 1 ? "s" : ""}</span>
-        <span style="font-family:${FONTS.mono};font-size:14px;font-weight:700;background:${COLORS.ink};color:${COLORS.surface};width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${groupTotal}</span>
-      </div>
-      <div style="font-family:${FONTS.mono};font-size:11px;color:${COLORS.muted};margin-top:6px;">${descText}</div>
-    </a>`;
-  }).join("");
-
-  const icpTable = `
-    <div style="border:1px solid ${COLORS.border};margin-bottom:24px;">
-      <div style="padding:14px 20px;background:${COLORS.bg};border-bottom:1px solid ${COLORS.border};">
-        <span style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:${COLORS.muted};font-weight:600;">Piezas por audiencia</span>
-      </div>
-      ${icpRows}
-    </div>`;
-
   return `
   <div style="background:${COLORS.surface};border:1px solid ${COLORS.border};margin-bottom:24px;" id="resumen">
     <div style="display:flex;align-items:center;padding:24px 32px;border-bottom:1px solid ${COLORS.border};">
@@ -309,7 +256,6 @@ function renderResumen(data: FoundationData): string {
     <div style="padding:32px;">
       ${statCards}
       ${tiposFormato}
-      ${icpTable}
     </div>
   </div>`;
 }
@@ -411,16 +357,16 @@ function renderFrameworkGuide(data: FoundationData): string {
         <div style="border:1px solid ${COLORS.border};padding:16px;">
           <div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.red};font-weight:600;margin-bottom:12px;">Tipo</div>
           <div style="font-size:12px;line-height:2;">
-            <div><strong>Video</strong> — Pieza audiovisual con guion</div>
-            <div><strong>Carrusel</strong> — Secuencia de slides</div>
+            <div><strong>Video</strong> - Pieza audiovisual con guion</div>
+            <div><strong>Carrusel</strong> - Secuencia de slides</div>
           </div>
         </div>
         <div style="border:1px solid ${COLORS.border};padding:16px;">
           <div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.red};font-weight:600;margin-bottom:12px;">Tono</div>
           <div style="font-size:12px;line-height:2;">
-            <div><strong>Organico (UGC)</strong> — Celular, persona real, sin produccion pesada</div>
-            <div><strong>Cinematic</strong> — Produccion profesional, cinematografia cuidada</div>
-            <div><strong>Mixed</strong> — Combina elementos organicos con edicion profesional</div>
+            <div><strong>Organico (UGC)</strong> - Celular, persona real, sin produccion pesada</div>
+            <div><strong>Cinematic</strong> - Produccion profesional, cinematografia cuidada</div>
+            <div><strong>Mixed</strong> - Combina elementos organicos con edicion profesional</div>
           </div>
         </div>
         <div style="border:1px solid ${COLORS.border};padding:16px;">
@@ -668,35 +614,6 @@ function renderPiezaCard(pieza: PiezaCreativa, index: number, total: number): st
     </div>`;
   }
 
-  // Reference section — show content or empty state
-  let refSection = "";
-  if (pieza.referencias?.length) {
-    refSection = `
-    <div style="padding:16px 20px;">
-      <div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:12px;font-weight:600;">Referencias</div>
-      ${renderReferencias(pieza.referencias)}
-    </div>`;
-  } else if (isVideo && pieza.referenciaAudiovisual) {
-    refSection = `
-    <div style="padding:16px 20px;">
-      <div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:6px;font-weight:600;">Referencia Audiovisual</div>
-      <div style="font-size:13px;line-height:1.5;">${escapeHtml(pieza.referenciaAudiovisual)}</div>
-    </div>`;
-  } else if (!isVideo && pieza.referenciaGrafica) {
-    refSection = `
-    <div style="padding:16px 20px;">
-      <div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:6px;font-weight:600;">Referencia Grafica</div>
-      <div style="font-size:13px;line-height:1.5;">${escapeHtml(pieza.referenciaGrafica)}</div>
-    </div>`;
-  } else {
-    // Empty state
-    refSection = `
-    <div style="padding:16px 20px;">
-      <div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:8px;font-weight:600;">Referencias</div>
-      <div style="background:${COLORS.gapBg};border:1px dashed ${COLORS.gapBorder};padding:14px 20px;font-size:13px;color:${COLORS.muted};font-family:${FONTS.mono};">A completar</div>
-    </div>`;
-  }
-
   // Summary label: dolor truncated for preview
   const dolorPreview = pieza.dolor.length > 60 ? pieza.dolor.slice(0, 57) + "..." : pieza.dolor;
   const enRevision = pieza.enRevision !== false;
@@ -732,7 +649,6 @@ function renderPiezaCard(pieza: PiezaCreativa, index: number, total: number): st
     ${copyAnuncioSection}
     ${breakdownSection}
     ${adaptacionesSection}
-    ${refSection}
     </div>
   </details>`;
 }
@@ -816,7 +732,7 @@ function renderIcpSection(icpName: string, piezas: PiezaCreativa[], sectionNum: 
 
 function renderFooter(): string {
   const year = new Date().getFullYear();
-  return `<div class="footer">${year} REE Creativos — Brief de Creativos<br><a href="https://growth.reecreativos.com">growth.reecreativos.com</a></div>`;
+  return `<div class="footer">${year} REE Creativos - Brief de Creativos<br><a href="https://growth.reecreativos.com">growth.reecreativos.com</a></div>`;
 }
 
 // ─── Main render ────────────────────────────────────────────────────
@@ -846,7 +762,7 @@ export function renderBriefHtml(data: FoundationData): string {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brief de Creativos — ${empresa}</title>
+<title>Brief de Creativos | ${empresa}</title>
 ${getFaviconTag()}
 <style>${styles}
   details > summary::-webkit-details-marker { display: none; }
