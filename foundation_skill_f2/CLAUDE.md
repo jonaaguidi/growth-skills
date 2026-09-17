@@ -58,7 +58,7 @@ Es el modelo original. Aplica a clientes que venden a consumidor final (e-commer
 Aplica a clientes que venden a empresas (servicios, agencias, proveedores corporativos):
 
 - **Destino de campanas**: WhatsApp Business (click-to-message) o perfil de Instagram. Las piezas normalmente NO llevan `destinoUrls` (el destino es WhatsApp, sin URL de producto).
-- **Campanas**: lead generation. Los conjuntos de anuncios se arman por **nivel de conciencia/demanda del ICP**, no por demografia de consumo. Ej. BTLandia: `Conjunto_Demanda_Activa` (ya compra este tipo de servicio) y `Conjunto_Demanda_Latente` (todavia no lo compra, hay que educarlo).
+- **Campanas**: lead generation. Los conjuntos de anuncios se arman por **nivel de conciencia/demanda del ICP**, no por demografia de consumo. Ej. BTLandia: `Conjunto_Mediana_Activa` (ya compra este tipo de servicio) y `Conjunto_Mediana_Latente` (todavia no lo compra, hay que educarlo).
 - **ICPs**: definidos por madurez de demanda. Usar `badge` custom ("Demanda activa" / "Demanda latente") y `ejemplosMarcas` con empresas reales que encajan en el perfil (con rol del decisor y avatar).
 - **Segmentacion de ad sets**: por cargo del decisor (ej. "Cargos: Director de Marketing, Gerente de RRHH...") + tamano de empresa (empleados) + intereses profesionales.
 - **Piezas**: exclusivas por ICP (NO duplicadas). Cada pieza ataca 1 dolor especifico del ICP (1 pieza = 1 dolor). Ej. BTLandia: 5 piezas por ICP, 10 en total. El ICP de demanda latente lleva piezas **educativas** (como funciona el proceso, cuanto cuesta, valor del servicio); el de demanda activa lleva piezas de **diferenciacion** (por que nosotros, track record, servicio integral).
@@ -166,10 +166,10 @@ El gen script importa desde `../../dist/` (JS compilado), no desde `./src/` (TS 
 
 Existe **una sola forma de desarrollar piezas creativas** en esta skill: la estructura completa de `PiezaCreativa` documentada en esta seccion (la del Brief de Creativos, con `clients/defu/gen.mjs` como ejemplo canonico B2C y `clients/btlandia/gen.mjs` como ejemplo canonico B2B). Aplica en los DOS lugares donde viven piezas:
 
-1. **`creativos.piezasPorIcp`** — piezas renderizadas en la subseccion "Angulos Creativos + Piezas" del Foundation Review (paso 03) y en el Brief de Creativos.
-2. **`arquitectura[].piezas`** — piezas de campana activa, renderizadas en la seccion "Piezas Creativas (xN)" del Foundation Review.
+1. **`creativos.piezasPorIcp`** — piezas renderizadas en la subseccion "Guiones + Piezas Creativas" del Foundation Review (paso 03) y en el Brief de Creativos.
+2. **`arquitectura[].piezas`** — piezas de campana activa, renderizadas en la seccion "Piezas Creativas ({sufijo de campana})" del Foundation Review (ej. "Piezas Creativas (Awareness)").
 
-**Ambos lugares renderizan la MISMA card completa del brief** (`renderPiezaCardStrategy` en `strategy-renderer.ts`): card expandible con Framework (pilar, tema, formato narrativo, estructura narrativa, tratamiento), Destino, Dolor/Solucion, Desglose de Produccion (timeline parseado de `comunicacion`), Guion o Mensajes, Copy Anuncio y Adaptaciones. En "Angulos Creativos + Piezas" las cards van agrupadas en un dropdown por ICP. NO existe una version "resumida" de card: toda pieza que entre al Foundation Review se levanta con la estructura completa del brief.
+**Ambos lugares renderizan la MISMA card completa del brief** (`renderPiezaCardStrategy` en `strategy-renderer.ts`): card expandible con Framework (pilar, tema, formato narrativo, estructura narrativa, tratamiento), Destino, Dolor/Solucion, Desglose de Produccion (timeline parseado de `comunicacion`), Guion o Mensajes, Copy Anuncio y Adaptaciones. En "Guiones + Piezas Creativas" las cards van agrupadas en un dropdown por ICP. NO existe una version "resumida" de card: toda pieza que entre al Foundation Review se levanta con la estructura completa del brief.
 
 En ambos casos, **toda pieza (video o grafica) debe tener la estructura completa**:
 
@@ -236,13 +236,13 @@ Mix canonico basado en Defu (9 piezas unicas):
 
 El mix puede variar segun el cliente y la industria. Lo importante es cubrir las 3 funciones: video (awareness/storytelling), estatico (conversion/producto) y shopping (venta directa). Clientes con e-commerce fuerte pueden necesitar mas shopping; clientes de servicios pueden no necesitar shopping.
 
-**Mix B2B** (referencia BTLandia, 5 piezas por ICP, exclusivas):
+**Mix B2B** (referencia BTLandia, 4 piezas por ICP, exclusivas). El orden dentro de cada ICP es fijo: video / video / posteo + story / carrusel x3:
 
-| Formato | Cantidad por ICP | Uso | Duracion |
-|---------|------------------|-----|----------|
-| Video Comercial Vertical (9:16) | 2 | Talking head del founder, BTS/timelapse. Autoridad y educacion | 20-25s |
-| Carrusel (1080x1080) | 2 | Proceso paso a paso, comparacion, diferenciacion. 4 slides | — |
-| Imagen (1080x1350) | 1 | Flyer de confianza/metricas. Incluye adaptacion Story (1080x1920) | — |
+| Orden | Formato | Cantidad por ICP | Uso | Duracion |
+|-------|---------|------------------|-----|----------|
+| 1-2 | Video Comercial Vertical (9:16) | 2 | Talking head del founder, highlights de eventos. Autoridad y educacion. Siempre hablan a interno + externo | 20-25s |
+| 3 | Posteo Rectangular (1080x1350) | 1 | Flyer de confianza/metricas. Incluye adaptacion Story (1080x1920) | — |
+| 4 | Carrusel (1080x1080) | 1 | Diferenciacion, transparencia de presupuesto. 3 slides | — |
 
 Sin Shopping. El CTA de todas las piezas apunta a WhatsApp.
 
@@ -503,7 +503,7 @@ La estructura es dinamica: las secciones se generan segun el `status` de las cam
 |------|--------|-----------|
 | 01 | Foundation Review | Timeline bar con etapas de la llamada (derivadas automaticamente de las campanas) |
 | 02 | Campaña [Activa] | Campaña lista para lanzar: nomenclatura, audiencia, KPIs, embeds IG, callout verde "N piezas listas". **Se omite si no hay campanas activas.** |
-| 03 | Foundation [Strategy] | Mega-seccion con subsecciones: Competencia, ICPs, Angulos+Piezas, Campaña en Meta Ads, E-commerce. **Se omite si no hay campanas en desarrollo.** |
+| 03 | Foundation [Strategy] | Mega-seccion con subsecciones: Competencia, ICPs, Guiones + Piezas Creativas, Campaña en Meta Ads, E-commerce. **Se omite si no hay campanas en desarrollo.** |
 | 04 | REE Metrics | Dashboard: como ingresar, que vas a ver |
 | 05 | Roadmap | Gantt 8 semanas + reuniones del proyecto |
 | 06 | Proximos Pasos | Cards con responsable, tiempo, items |
@@ -516,10 +516,12 @@ Cada campana en `arquitectura` debe tener estos campos para la estructura de 6 p
 - `destino`: string describiendo a donde apunta la campana (ej. "Perfil de Instagram (@defu.tofuco)", "WhatsApp Business de BTLandia").
 - `kpisCampana`: array de strings con los KPIs de la campana (ej. ["Visitas al Perfil", "Alcance", "Interacciones"]).
 - `presupuestoCampana`: objeto con `diario` y `mensual` (ej. { diario: "USD $5/dia", mensual: "USD $150/mes" }).
+- `tituloSubseccion` (opcional): titulo custom de la subseccion "Campaña en Meta Ads" del paso 03 (ej. "Campaña B2B en Meta Ads"). Si no se define, se usa `Campaña {objetivo} en Meta Ads`.
+- `conversionCampana` (opcional): evento de conversion mostrado en la card "Conversion" (ej. "Cantidad de Mensajes a WhatsApp"). Si no se define, se usa el join de `kpisCampana`.
 
-### Subseccion "Angulos Creativos + Piezas" (`creativos.piezasPorIcp`, paso 03)
+### Subseccion "Guiones + Piezas Creativas" (`creativos.piezasPorIcp`, paso 03)
 
-Dentro de la mega-seccion Foundation (paso 03), la subseccion "Angulos Creativos + Piezas" renderiza las piezas de `creativos.piezasPorIcp` agrupadas en un dropdown `<details>` por ICP (header: "ICP N" + nombre del segmento + contador de piezas). Dentro de cada grupo, **cada pieza se renderiza con la card completa del brief** (`renderPiezaCardStrategy`), exactamente la misma que usa la seccion "Piezas Creativas (xN)" de la campana activa: Framework, Destino, Dolor/Solucion, Desglose de Produccion, Guion/Mensajes, Copy Anuncio y Adaptaciones.
+Dentro de la mega-seccion Foundation (paso 03), la subseccion "Guiones + Piezas Creativas" renderiza las piezas de `creativos.piezasPorIcp` agrupadas en un dropdown `<details>` por ICP (header: "ICP N" + nombre del segmento + contador de piezas). Dentro de cada grupo, **cada pieza se renderiza con la card completa del brief** (`renderPiezaCardStrategy`), exactamente la misma que usa la seccion "Piezas Creativas ({sufijo de campana})" de la campana activa: Framework, Destino, Dolor/Solucion, Desglose de Produccion, Guion/Mensajes, Copy Anuncio y Adaptaciones.
 
 **Esta es la forma estandar de levantar piezas en todo Foundation Review nuevo.** Al generar o regenerar un Foundation, las piezas de `creativos.piezasPorIcp` deben venir con la estructura completa de `PiezaCreativa` (ver "REGLA: estructura unica de piezas"); si una pieza viene resumida, la card muestra "Por definir" en amber y el desglose de produccion no aparece.
 
@@ -527,7 +529,7 @@ Ejemplo de referencia: `clients/btlandia/gen.mjs` (`creativos.piezasPorIcp` con 
 
 ### Seccion "Piezas Creativas" (`arquitectura[].piezas`)
 
-Si la campana activa tiene `piezas` (PiezaCreativa[]), el Foundation Review inserta una seccion **"Piezas Creativas (xN)"** despues de la campana activa (la numeracion del TOC y de las secciones se ajusta automaticamente).
+Si la campana activa tiene `piezas` (PiezaCreativa[]), el Foundation Review inserta una seccion **"Piezas Creativas ({sufijo de campana})"** despues de la campana activa, ej. "Piezas Creativas (Awareness)" para `BTLandia_Awareness` (fallback "(xN)" si el nombre de campana no tiene sufijo). La numeracion del TOC y de las secciones se ajusta automaticamente.
 
 **Las piezas de campana siguen la MISMA estructura que el Brief de Creativos** (ver "REGLA: estructura unica de piezas" arriba). El renderer (`renderPiezaCardStrategy` en `strategy-renderer.ts`) muestra por pieza una card expandible con las mismas secciones que la card del brief:
 

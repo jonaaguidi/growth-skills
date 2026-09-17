@@ -193,8 +193,8 @@ function buildToc(data: FoundationData): TocItem[] {
       id: "foundation-campaign",
       title: campNames,
       desc: hasEcom
-        ? "Competencia, audiencias, angulos creativos, campaña y e-commerce."
-        : "Competencia, audiencias, angulos creativos y campaña.",
+        ? "Competencia, audiencias, guiones + piezas creativas, campaña y e-commerce."
+        : "Competencia, audiencias, guiones + piezas creativas y campaña.",
     });
   }
 
@@ -840,7 +840,7 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
       sub.push(`<div class="callout" style="margin-bottom:12px"><strong>Tono de comunicacion:</strong> ${escapeHtml(data.creativos.tono)}</div>`);
     }
 
-    parts.push(subsection(num, subNum, `Angulos Creativos + Piezas <span style="display:inline-block;font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;background:#FEF3C7;color:#92400E;border-radius:4px;margin-left:8px;vertical-align:middle;letter-spacing:0.5px;text-transform:uppercase">En Desarrollo</span>`, sub.join("\n")));
+    parts.push(subsection(num, subNum, `Guiones + Piezas Creativas <span style="display:inline-block;font-family:${FONTS.mono};font-size:10px;font-weight:600;padding:2px 8px;background:#FEF3C7;color:#92400E;border-radius:4px;margin-left:8px;vertical-align:middle;letter-spacing:0.5px;text-transform:uppercase">En Revision</span>`, sub.join("\n")));
   }
 
   // ── Subsection: Campaign in Meta Ads (per dev campaign) ────────────
@@ -878,7 +878,7 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     sub.push(`<div style="grid-column:1/-1"><hr style="border:none;border-top:1px solid ${COLORS.border};margin:4px 0"></div>`);
 
     // Conversion + Presupuesto
-    const kpisText = camp.kpisCampana?.length ? camp.kpisCampana.join(" / ") : "Por definir";
+    const kpisText = camp.conversionCampana ?? (camp.kpisCampana?.length ? camp.kpisCampana.join(" / ") : "Por definir");
     const presupuestoText = camp.presupuestoCampana
       ? `${camp.presupuestoCampana.mensual} <span style="font-weight:400;color:${COLORS.muted}">(${camp.presupuestoCampana.diario})</span>`
       : "Por definir";
@@ -905,7 +905,7 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     sub.push(`<div style="text-align:center;padding:12px"><div class="card-label" style="justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>Ads (${totalAds})</div><p style="font-size:15px;font-weight:700;margin:8px 0 4px;font-family:${FONTS.mono}">Anuncio_VideoUGC_V1</p><p style="font-size:12px;color:${COLORS.muted};margin:0;font-family:${FONTS.mono}">Anuncio_{Formato}_{Angulo}_{V}</p></div>`);
     sub.push(`</div></div>`);
 
-    parts.push(subsection(num, subNum, `Campaña ${camp.objetivo} en Meta Ads`, sub.join("\n")));
+    parts.push(subsection(num, subNum, camp.tituloSubseccion ?? `Campaña ${camp.objetivo} en Meta Ads`, sub.join("\n")));
   }
 
   // ── Subsection: Ecommerce ──────────────────────────────────────────
@@ -1558,7 +1558,8 @@ function renderCampaignPiezas(data: FoundationData, campaign: CampanaDefinida, n
     parts.push(renderPiezaCardStrategy(piezas[i], i));
   }
 
-  let title = `Piezas Creativas (x${piezas.length})`;
+  const campSuffix = campaign.nombre.includes("_") ? campaign.nombre.split("_").slice(1).join(" ") : "";
+  let title = campSuffix ? `Piezas Creativas (${campSuffix})` : `Piezas Creativas (x${piezas.length})`;
   let rawTitle = false;
   if (campaign.badgesPiezas?.length) {
     const badgeStyles = [

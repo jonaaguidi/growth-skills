@@ -230,8 +230,10 @@ export interface CampanaDefinida {
   adSets: { nombre: string; segmentacion: string; ads: string[] }[];
   status?: "activa" | "en-desarrollo" | null;
   tituloSeccion?: string | null;        // titulo custom de la seccion Foundation en el review (ej. "Campaña B2B (WhatsApp)")
+  tituloSubseccion?: string | null;     // titulo custom de la subseccion "Campaña en Meta Ads" (ej. "Campaña B2B en Meta Ads")
   destino?: string | null;              // ej. "Perfil de Instagram"
   kpisCampana?: string[] | null;        // ej. ["Visitas al Perfil"]
+  conversionCampana?: string | null;    // evento de conversion de la campana (ej. "Cantidad de Mensajes a WhatsApp"); si no se define, se usa el join de kpisCampana
   presupuestoCampana?: CampanaPresupuesto | null;
   piezas?: PiezaCreativa[] | null;      // creative briefs for pieces in this campaign
   badgesPiezas?: string[] | null;       // badges junto al titulo de la seccion Piezas Creativas (ej. ["En desarrollo", "Equipo Creativo"])
