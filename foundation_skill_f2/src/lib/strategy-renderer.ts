@@ -584,7 +584,7 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
   parts.push(`</div></div>`);
 
   // Embed grid: Instagram previews + pending mockups
-  const allPieces: { label: string; embedUrl: string | null }[] = [];
+  const allPieces: { label: string; embedUrl: string | null; isVideo?: boolean; isCarousel?: boolean }[] = [];
   for (const adSet of campaign.adSets) {
     for (const ad of adSet.ads) {
       const pipeIdx = ad.indexOf(" | ");
@@ -593,7 +593,11 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
       const urlP = ad.substring(pipeIdx + 3);
       const reelMatch = urlP.match(/\/reel\/([^/]+)/);
       const postMatch = urlP.match(/\/p\/([^/]+)/);
-      if (reelMatch) {
+      if (urlP.startsWith("data:video") || urlP.endsWith(".mp4")) {
+        allPieces.push({ label: lbl, embedUrl: urlP, isVideo: true });
+      } else if (urlP.startsWith("data:image")) {
+        allPieces.push({ label: lbl, embedUrl: urlP, isCarousel: true });
+      } else if (reelMatch) {
         allPieces.push({ label: lbl, embedUrl: `https://www.instagram.com/reel/${reelMatch[1]}/embed/` });
       } else if (postMatch) {
         allPieces.push({ label: lbl, embedUrl: `https://www.instagram.com/p/${postMatch[1]}/embed/` });
@@ -609,8 +613,24 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
     parts.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px">`);
     for (const piece of allPieces) {
       parts.push(`<div style="text-align:center">`);
-      if (piece.embedUrl) {
-        parts.push(`<iframe src="${piece.embedUrl}" style="width:100%;min-height:340px;border:1px solid ${COLORS.border};border-radius:8px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`);
+      if (piece.embedUrl && piece.isVideo) {
+        parts.push(`<video src="${piece.embedUrl}" controls playsinline preload="metadata" style="width:100%;aspect-ratio:9/16;border:1px solid ${COLORS.border};border-radius:8px;background:#000;object-fit:cover;display:block"></video>`);
+      } else if (piece.embedUrl && piece.isCarousel && !piece.embedUrl.includes("||")) {
+        parts.push(`<img src="${piece.embedUrl}" style="width:100%;border:1px solid ${COLORS.border};border-radius:8px;display:block">`);
+      } else if (piece.embedUrl && piece.isCarousel) {
+        const slides = piece.embedUrl.split("||");
+        const slidesHtml = slides
+          .map(s => `<img src="${s}" style="width:100%;flex:0 0 100%;scroll-snap-align:start;display:block;object-fit:cover">`)
+          .join("");
+        parts.push(`<style>.ree-carousel::-webkit-scrollbar{display:none}</style>`);
+        parts.push(`<div style="position:relative">`);
+        parts.push(`<div class="ree-carousel" onscroll="const i=Math.round(this.scrollLeft/this.clientWidth)+1;this.parentElement.querySelector('.ree-car-ind').textContent=i+' / '+this.children.length" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border:1px solid ${COLORS.border};border-radius:8px;background:#000">${slidesHtml}</div>`);
+        parts.push(`<div class="ree-car-ind" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;pointer-events:none">1 / ${slides.length}</div>`);
+        parts.push(`<button type="button" onclick="const c=this.parentElement.querySelector('.ree-carousel');c.scrollBy({left:-c.clientWidth,behavior:'smooth'})" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;border:none;background:rgba(255,255,255,.92);cursor:pointer;font-size:16px;line-height:1;box-shadow:0 1px 4px rgba(0,0,0,.3)">&#8249;</button>`);
+        parts.push(`<button type="button" onclick="const c=this.parentElement.querySelector('.ree-carousel');c.scrollBy({left:c.clientWidth,behavior:'smooth'})" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;border:none;background:rgba(255,255,255,.92);cursor:pointer;font-size:16px;line-height:1;box-shadow:0 1px 4px rgba(0,0,0,.3)">&#8250;</button>`);
+        parts.push(`</div>`);
+      } else if (piece.embedUrl) {
+        parts.push(`<iframe src="${piece.embedUrl}" loading="lazy" style="width:100%;aspect-ratio:9/17.5;min-height:520px;border:1px solid ${COLORS.border};border-radius:8px;background:#fff;display:block" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`);
       } else {
         parts.push(`<div style="width:100%;min-height:340px;border:2px dashed ${COLORS.border};border-radius:8px;background:${COLORS.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:12px;color:${COLORS.muted};font-weight:600">Mockup pendiente</span><span style="font-size:11px;color:${COLORS.muted}">A definir con Sergio</span></div>`);
       }
@@ -1075,7 +1095,7 @@ function renderRoadmap(data: FoundationData, num: number): string {
       label: m.label,
       fecha: m.fecha ?? (fechaISO ? weekDate(fechaISO, m.semana) : ""),
     }));
-    parts.push(renderGantt(data.roadmap, fechaISO, ganttMilestones));
+    parts.push(renderGantt(data.roadmap, fechaISO, ganttMilestones, data.datosF1?.fechaFin));
 
     // Meetings
     const meets = deriveMeetings(data, fechaISO);
@@ -1097,9 +1117,9 @@ function renderRoadmap(data: FoundationData, num: number): string {
           ? `<span style="margin-left:4px">${checkIcon}</span>`
           : "";
 
-        // Derive fecha from semana string
+        // Fecha explicita si existe; si no, derivada de la semana
         const weekNum = parseInt(meet.semana.replace(/\D/g, ""), 10);
-        const meetFecha = fechaISO && weekNum ? weekDate(fechaISO, weekNum) : "";
+        const meetFecha = meet.fecha ?? (fechaISO && weekNum ? weekDate(fechaISO, weekNum) : "");
 
         parts.push(`<div style="padding:14px 20px;border:1px solid ${borderColor};border-radius:8px;${isCurrent || isDone ? `border-width:2px;` : ""}${bg}">`);
         parts.push(`<div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">`);
@@ -1123,7 +1143,7 @@ function renderRoadmap(data: FoundationData, num: number): string {
 
 // ─── Gantt helpers ───────────────────────────────────────────────────
 
-function computeWeekDateRanges(fechaInicioISO: string): Array<{ start: string; end: string }> {
+function computeWeekDateRanges(fechaInicioISO: string, fechaFin?: string | null): Array<{ start: string; end: string }> {
   const base = new Date(fechaInicioISO + "T00:00:00");
   const fmt = (d: Date) => `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
   const ranges: Array<{ start: string; end: string }> = [];
@@ -1134,6 +1154,8 @@ function computeWeekDateRanges(fechaInicioISO: string): Array<{ start: string; e
     weekEnd.setDate(weekStart.getDate() + 7);
     ranges.push({ start: fmt(weekStart), end: fmt(weekEnd) });
   }
+  // fechaFin explicita (DD/MM) estira el cierre de la ultima semana
+  if (fechaFin && ranges.length) ranges[ranges.length - 1].end = fechaFin;
   return ranges;
 }
 
@@ -1160,7 +1182,7 @@ function weekDate(fechaInicioISO: string, semana: number): string {
   return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
 
-function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | null, milestones?: GanttMilestone[]): string {
+function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | null, milestones?: GanttMilestone[], fechaFin?: string | null): string {
   if (!roadmap.length) return "";
 
   const weeks = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -1171,7 +1193,7 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
     Scale: COLORS.escenario1,
   };
 
-  const weekRanges = fechaInicioISO ? computeWeekDateRanges(fechaInicioISO) : [];
+  const weekRanges = fechaInicioISO ? computeWeekDateRanges(fechaInicioISO, fechaFin) : [];
   const currentWeek = fechaInicioISO ? computeCurrentWeek(fechaInicioISO) : 0;
   const totalWeeks = 8;
   const cols = `200px repeat(${totalWeeks}, 1fr)`;

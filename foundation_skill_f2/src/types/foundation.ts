@@ -325,6 +325,7 @@ export interface ReviewMeeting {
   nombre: string;
   desc: string;
   status: "done" | "current" | "pending";
+  fecha?: string | null; // fecha explicita (ej. "23/09"); si no se define, se calcula desde fechaInicioISO + semana
 }
 
 // -- Roadmap --

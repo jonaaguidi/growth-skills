@@ -1,9 +1,30 @@
 import { renderOnboardingHtml } from "../../dist/lib/onboarding-renderer.js";
 import { renderStrategyHtml } from "../../dist/lib/strategy-renderer.js";
 import { renderBriefHtml } from "../../dist/lib/brief-renderer.js";
-import { writeFileSync, mkdirSync, existsSync, copyFileSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync, copyFileSync, readFileSync } from "fs";
 import { homedir } from "os";
-import { join } from "path";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Previews comprimidos (540x960) embebidos como data URI en el Foundation Review
+const videoDataUri = (file) =>
+  `data:video/mp4;base64,${readFileSync(join(__dirname, "assets", file)).toString("base64")}`;
+const REEL_VERANO = videoDataUri("reel-verano-externo.mp4");
+const REEL_FINDEANO = videoDataUri("reel-findeano-interno.mp4");
+const imgDataUri = (file) =>
+  `data:image/jpeg;base64,${readFileSync(join(__dirname, "assets", file)).toString("base64")}`;
+// Slides del carrusel unidos por "||" — el renderer los muestra como carrusel navegable
+const CARRUSEL_CIERRE = ["05", "06", "07", "08"]
+  .map((n) => imgDataUri(`carrusel-cierredeano-${n}.jpg`))
+  .join("||");
+// Imagen Verano: formato story 9:16 para el preview (existe tambien la version feed 4:5 en assets/imagen-verano-04.jpg)
+const IMAGEN_VERANO = imgDataUri("imagen-verano-03.jpg");
+// Carrusel Temporada Alta: hook stand en verano → experiencias → metricas 2.000/200 → CTA 18 años
+const CARRUSEL_TEMPORADA = ["01", "02", "03", "04"]
+  .map((n) => imgDataUri(`carrusel-temporadaalta-${n}.jpg`))
+  .join("||");
 
 const data = {
   clientInfo: {
@@ -25,7 +46,7 @@ const data = {
     campanasVendidas: ["B2B Lead Gen (WhatsApp)", "Awareness (Instagram)"],
     duracionProyecto: "8 semanas",
     fechaInicio: null,
-    fechaFin: null,
+    fechaFin: "30/10",
     fechaInicioISO: "2026-09-02",
   },
 
@@ -545,29 +566,29 @@ const data = {
     {
       nombre: "BTLandia_Awareness",
       objetivo: "Awareness",
-      descripcionCampana: "Dar <b>visibilidad de BTLandia en la gran empresa</b> y generar <b>conciencia en la mediana empresa</b> sobre la importancia de la <b>brand experience</b>, tanto para usuarios internos y externos (empleados, proveedores) como para clientes. La <b>temporada de verano</b> es clave: las marcas buscan generar incentivos y alinear objetivos. Esta campaña sienta las bases para luego empujar la <b>campaña B2B con foco en conversión</b>.",
+      descripcionCampana: "Dar <b>visibilidad de BTLandia como marca</b> y generar <b>conciencia en la mediana empresa</b> sobre la importancia de la <b>brand experience</b>, tanto para usuarios internos y externos (empleados, proveedores) como para clientes. La <b>temporada de verano</b> es clave: las marcas buscan generar incentivos y alinear objetivos. Esta campaña sienta las bases para luego empujar la <b>campaña B2B con foco en conversión</b>.",
       status: "activa",
       destino: "Perfil de Instagram (@btlandia)",
       kpisCampana: ["Visitas al Perfil", "Alcance", "Seguidores"],
       presupuestoCampana: { diario: "USD $5/día (≈ ARS $7.700)", mensual: "USD $150/mes (≈ ARS $231.000)" },
-      badgesPiezas: ["En desarrollo", "Equipo Creativo"],
       adSets: [
         {
           nombre: "Conjunto_General_CABA_GBA",
-          segmentacion: "28-55 años, CABA + GBA. Roles: Business Decision Makers, Founders/CEOs, Directores, Gerentes. Industrias: Retail, Franquicias gastronomicas, Tech/SaaS, Servicios profesionales, Salud/Pharma, Agro. Intereses: Eventos corporativos, Brand experience, Team building, Incentive travel, Marketing BTL, Cultura organizacional. Comportamiento: Business Page Admins.",
+          segmentacion: "30-55 años, CABA + GBA. Roles: Business Decision Makers, Founders/CEOs, Directores, Gerentes. Industrias: Retail, Franquicias gastronomicas, Tech/SaaS, Servicios profesionales, Salud/Pharma, Agro. Intereses: Eventos corporativos, Brand experience, Team building, Incentive travel, Marketing BTL, Cultura organizacional. Comportamiento: Business Page Admins.",
           ads: [
-            "Reel_BTS_ExpoAgro_V1 | https://www.instagram.com/p/DcenJEiEzVA/",
+            "Reel_Top3_V1 | https://www.instagram.com/p/DcenJEiEzVA/",
             "Reel_Momentos_V1 | https://www.instagram.com/p/DbWkSCmEvjd/",
             "Reel_BTS_Produccion_V1 | https://www.instagram.com/p/DcKAqs8iAIz/",
-            "Reel_SalonVacio_V1 | https://www.instagram.com/p/DbrHAoXChtc/",
-            "Imagen_Portfolio_V1 | Portfolio: Fiat, Jeep, Iveco, Stellantis, YPF Agro, Avon, Club Med, Citroen",
-            "Imagen_18años_V1 | 18 años creando experiencias que hacen hablar",
-            "Reel_IncentiveTravel_V1 | Incentive travel: la experiencia que alinea objetivos y premia equipos",
-            "Reel_BrandExperience_V1 | Brand experience: eventos que construyen marca y generan impacto",
+            `Reel_Verano_Externo_V1 | ${REEL_VERANO}`,
+            `Reel_FinDeAño_Interno_V1 | ${REEL_FINDEANO}`,
+            `Imagen_Verano_V1 | ${IMAGEN_VERANO}`,
+            `Carrusel_CierreDeAño_V1 | ${CARRUSEL_CIERRE}`,
+            `Carrusel_TemporadaAlta_V1 | ${CARRUSEL_TEMPORADA}`,
           ],
         },
       ],
-      piezas: [
+      // piezasOcultas: renombrado para que NO se renderice la seccion "Piezas Creativas" (indice + page). Renombrar a "piezas" para reactivarla.
+      piezasOcultas: [
         {
           formato: "Reel",
           dolor: "La mediana empresa no visualiza el impacto real que un evento puede generar en su audiencia externa.",
@@ -781,18 +802,18 @@ const data = {
 
   reviewMilestones: [
     { semana: 1, label: "KO Call" },
-    { semana: 3, label: "Awareness + Review", fecha: "18/09" },
-    { semana: 5, label: "Launch B2B + Review" },
-    { semana: 7, label: "Review Ads" },
-    { semana: 8, label: "Review Final", fecha: "28/10" },
+    { semana: 3, label: "Awareness + Review", fecha: "23/09" },
+    { semana: 5, label: "Launch B2B + Review", fecha: "06/10" },
+    { semana: 7, label: "Review Ads", fecha: "20/10" },
+    { semana: 8, label: "Review Final", fecha: "30/10" },
   ],
 
   reviewMeetings: [
     { semana: "S1", nombre: "Propuesta + KO Call", desc: "Call del 02/09 con Celes: propuesta, kickoff y onboarding. Configuracion de Meta Ads, accesos, CRM. Se deja todo listo para empezar.", status: "done" },
-    { semana: "S3", nombre: "Lanzamiento Awareness + Review Foundation", desc: "Viernes 18/09. Lanzamiento de la campaña de Awareness + review del Foundation para comenzar a desarrollar las piezas y armar el funnel B2B. Catchup CRM / Producto KO.", status: "current" },
-    { semana: "S5", nombre: "Campaña B2B (WhatsApp)", desc: "Miércoles 30/09. Lanzamiento de la campaña B2B Lead Gen + Call ADS. Review de metricas de awareness. Activacion del funnel de WhatsApp.", status: "pending" },
-    { semana: "S7", nombre: "Review Ads", desc: "Miércoles 14/10. Seguimiento de campañas activas. Optimizaciones en base a datos, ajustes de audiencias.", status: "pending" },
-    { semana: "S8", nombre: "Review Final", desc: "Miércoles 28/10. Revision del periodo completo (8 semanas). Resultados vs KPIs, aprendizajes, recomendaciones para el siguiente ciclo.", status: "pending" },
+    { semana: "S3", nombre: "Lanzamiento Awareness + Review Foundation", desc: "Martes 23/09. Lanzamiento de la campaña de Awareness + review del Foundation para comenzar a desarrollar las piezas y armar el funnel B2B. Catchup CRM / Producto KO.", status: "current", fecha: "23/09" },
+    { semana: "S5", nombre: "Campaña B2B (WhatsApp)", desc: "Martes 06/10. Lanzamiento de la campaña B2B Lead Gen + Call ADS. Review de metricas de awareness. Activacion del funnel de WhatsApp.", status: "pending", fecha: "06/10" },
+    { semana: "S7", nombre: "Review Ads", desc: "Martes 20/10. Seguimiento de campañas activas. Optimizaciones en base a datos, ajustes de audiencias.", status: "pending", fecha: "20/10" },
+    { semana: "S8", nombre: "Review Final", desc: "Viernes 30/10. Revision del periodo completo (8 semanas). Resultados vs KPIs, aprendizajes, recomendaciones para el siguiente ciclo.", status: "pending", fecha: "30/10" },
   ],
 };
 
