@@ -574,7 +574,7 @@ const data = {
       adSets: [
         {
           nombre: "Conjunto_General_CABA_GBA",
-          segmentacion: "30-55 años, CABA + GBA. Roles: Business Decision Makers, Founders/CEOs, Directores, Gerentes. Industrias: Retail, Franquicias gastronomicas, Tech/SaaS, Servicios profesionales, Salud/Pharma, Agro. Intereses: Eventos corporativos, Brand experience, Team building, Incentive travel, Marketing BTL, Cultura organizacional. Comportamiento: Business Page Admins.",
+          segmentacion: "30-55 años, CABA + GBA (radio 40 km). Puestos: Event Planner/Coordinator, Human Resources Manager, Director of Human Resources. Tamaño de empresa: 11-100 empleados, 101-500 empleados, más de 500 empleados. Intereses: Gestión de eventos, Gestión de recursos humanos, Pequeñas y medianas empresas. Comportamientos: Administradores de páginas de empresa, Pequeños empresarios.",
           ads: [
             "Reel_Top3_V1 | https://www.instagram.com/p/DcenJEiEzVA/",
             "Reel_Momentos_V1 | https://www.instagram.com/p/DbWkSCmEvjd/",
