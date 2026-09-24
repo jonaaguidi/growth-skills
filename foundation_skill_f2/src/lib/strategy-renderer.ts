@@ -642,7 +642,10 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
     if (pendingCount > 0) {
       parts.push(`<div style="margin-top:16px;padding:12px 16px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:14px;color:#92400e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>${readyCount} piezas listas</strong> · ${pendingCount} mockups pendientes a definir.</div>`);
     } else {
-      parts.push(`<div style="margin-top:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:14px;color:#166534"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><strong>${totalAds} piezas listas.</strong> Estas piezas ya están producidas y disponibles para subir a Meta Ads.</div>`);
+      const bannerText = campaign.bannerPiezas
+        ? `<strong>${escapeHtml(campaign.bannerPiezas)}</strong>`
+        : `<strong>${totalAds} piezas listas.</strong> Estas piezas ya están producidas y disponibles para subir a Meta Ads.`;
+      parts.push(`<div style="margin-top:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:14px;color:#166534"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>${bannerText}</div>`);
     }
   }
 
@@ -734,7 +737,8 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     const sub: string[] = [];
     const personIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
 
-    sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">${data.icp.length} perfiles de cliente ideal. Cada uno tiene <strong>dolores</strong>, <strong>deseos</strong> y <strong>objeciones</strong> que atacamos con los <strong>angulos creativos</strong>.</p>`);
+    const icpLabel = data.icp.length === 1 ? "1 perfil de cliente ideal. Tiene" : `${data.icp.length} perfiles de cliente ideal. Cada uno tiene`;
+    sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">${icpLabel} <strong>dolores</strong>, <strong>deseos</strong> y <strong>objeciones</strong> que atacamos con los <strong>angulos creativos</strong>.</p>`);
 
     sub.push(`<div style="display:grid;gap:16px;margin-bottom:24px">`);
     for (let i = 0; i < data.icp.length; i++) {
@@ -826,8 +830,14 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     const totalIcps = data.creativos?.piezasPorIcp?.length ?? 0;
     const totalEnUso = piezasPorIcpCount * totalIcps;
 
-    if (totalEnUso > 0) {
+    if (data.creativos?.resumenPiezas) {
+      sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px"><strong>${escapeHtml(data.creativos.resumenPiezas)}</strong>. Cada pieza ataca un dolor especifico y comunica una solucion.</p>`);
+    } else if (totalEnUso > 0) {
       sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px"><strong>${totalEnUso} piezas en uso</strong> (${piezasPorIcpCount} por cada ICP). Cada pieza ataca un dolor especifico y comunica una solucion.</p>`);
+    }
+
+    if (data.creativos?.notaPiezas) {
+      sub.push(`<div style="padding:14px 18px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-bottom:20px;font-size:13px;line-height:1.65;color:#92400e"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>${escapeHtml(data.creativos.notaPiezas)}</div>`);
     }
 
     // ICP exclusion callout (secondary ICPs with low recurrence not included in piezas)
@@ -867,6 +877,10 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
   for (const camp of devCampaigns) {
     subNum++;
     const sub: string[] = [];
+
+    if (camp.notaCampana) {
+      sub.push(`<div style="padding:14px 18px;background:${COLORS.bg};border-left:3px solid ${COLORS.red};border-radius:0 6px 6px 0;margin-bottom:20px;font-size:14px;line-height:1.6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><strong>${escapeHtml(camp.notaCampana)}</strong></div>`);
+    }
 
     // Relationship to active campaigns
     const activeCamps = data.arquitectura.filter(c => c.status === "activa");

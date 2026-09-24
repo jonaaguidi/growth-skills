@@ -211,6 +211,8 @@ export interface Creativos {
   piezasPorIcp?: PiezasICP[];
   formatos: string[];
   tono: string | null;
+  resumenPiezas?: string | null; // texto custom del resumen (ej. "4 piezas en revision (ICP 1)"); si no se define, se deriva del conteo
+  notaPiezas?: string | null;    // callout visible arriba del bloque de piezas (ej. estado de revision con el cliente)
 }
 
 export interface UTMConvention {
@@ -237,6 +239,8 @@ export interface CampanaDefinida {
   presupuestoCampana?: CampanaPresupuesto | null;
   piezas?: PiezaCreativa[] | null;      // creative briefs for pieces in this campaign
   badgesPiezas?: string[] | null;       // badges junto al titulo de la seccion Piezas Creativas (ej. ["En desarrollo", "Equipo Creativo"])
+  bannerPiezas?: string | null;         // texto custom del banner verde de piezas (ej. "8 piezas activas desde el 24/09."); si no se define, se usa el default
+  notaCampana?: string | null;          // linea destacada al inicio de la subseccion de campana en desarrollo (ej. "Producto a comunicar: Kickoff...")
 }
 
 export interface CapacidadAtencion {
