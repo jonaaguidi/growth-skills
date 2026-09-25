@@ -121,6 +121,7 @@ npm run dev    # arranca el server MCP por stdio
 
 La presentación se renderiza en `ree-website` en la ruta `/proposals/[slug]`.
 El JSON va en `ree-website/public/proposals/[slug].json`.
+URL de producción: `https://growth.reecreativos.com/proposals/[slug]` (deploy automático al pushear a `main` de reecreativos/growth).
 
 ### Viewer UI
 
