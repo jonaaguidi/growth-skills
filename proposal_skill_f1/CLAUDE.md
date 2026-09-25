@@ -53,6 +53,14 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 
 **Orden de presentacion:** El metodo (como trabajamos) va ANTES del roadmap. Primero se explica el framework (Foundation, Build, Launch, Scale) y despues se muestra como se aplica al cliente.
 
+**Sin discovery call:** Si no hubo llamada (el brief viene directo del cliente o de founders), la seccion 01 se renombra a "EL PUNTO DE PARTIDA" en vez de "LA LLAMADA" (en el slide content y en el item del indice). El resto de la estructura no cambia; el research se hace con el brief + web research (ecommerce, IG, competencia).
+
+## Notas sobre competencia (slide 6)
+
+- Cada competidor soporta `description` (texto secundario bajo el nombre, ej. lista de marcas del segmento: "King of the Kongo · Bomba Project · Fréres") e `icon`.
+- `icon` acepta URL de imagen (empieza con "/" o "http", se renderiza circular 44px) o nombre de SVG built-in: `"crown"` (segmento lider) | `"tag"` (moda masiva/precio). Los SVG siguen el estilo de los icons de medios de pago: outline rojo REE, fondo `rgba(221,5,19,0.06)`, rect redondeado.
+- Verificar competidores con web research antes de afirmarlos (que existan, que pauten, tamano relativo). Linkear `adsLibraryUrl` a la Meta Ads Library cuando pautan.
+
 ## Flujo de orquestación
 
 ```
@@ -73,9 +81,12 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 ## Notas sobre el roadmap
 
 - El Gantt usa **segmentos** con los terminos del framework: Foundation, Build, Launch, Scale.
-- Cada segmento tiene un color progresivo (claro = foundation, oscuro = scale).
+- **Cada etapa del framework tiene un color fijo, identico en todas las barras** (patron btlandia/caribetienda/kabala): Foundation `#DD0513` (rojo), Build `#0E0D0C` (negro), Launch `#E8A013` (amarillo), Scale `#12A150` (verde). NO usar shades progresivos por barra ni colores del cliente en el Gantt.
+- Las **phase cards** de abajo son las 4 etapas del framework (Foundation/Build/Launch/Scale), NO una card por campana. Cada card explica que se hace en esa etapa para este cliente, con el `color` de su etapa.
+- La `description` del slide soporta `<b>` (se renderiza con dangerouslySetInnerHTML). Usar negritas para guiar la lectura: cantidad de piezas, nombres de campanas, objetivos.
 - Foundation siempre es 1 semana. Build, Launch y Scale varían segun la complejidad del canal.
 - Ambos canales deben sumar el mismo total de semanas.
+- Los deliverables solo incluyen trabajo que REE ejecuta. No prometer puesta a punto de perfiles de IG ni cambios en el ecommerce del cliente salvo acuerdo explicito.
 
 ## Notas sobre medios de pago (slide 11)
 
@@ -91,7 +102,9 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 ## Notas sobre pricing
 
 - La pauta de Meta Ads se paga con la tarjeta del cliente directo en Meta. El cliente controla su propia cuenta.
-- REE Metrics se desglosa como linea separada en el breakdown (USD 50/mes), el fee de REE Growth se ajusta para que el total no cambie.
+- Para fees chicos (ej. USD 500/mes) el breakdown puede simplificarse a 2 lineas: "Servicio mensual REE Growth" (con nota de que incluye REE Metrics e integraciones como Tienda Nube) + "Pauta Meta Ads". Para fees mas grandes, REE Metrics se desglosa como linea separada (USD 50/mes) y el fee se ajusta para que el total no cambie.
+- Las integraciones de setup (Pixel, CAPI, eventos en Tienda Nube/Shopify) entran dentro del servicio, no se cobran como pago unico salvo que se acuerde lo contrario.
+- **Cajas de resumen del breakdown**: `monthly` renderiza la caja roja "Fee mensual"; `adSpend` agrega una caja gris "Presupuesto Ads (mensual)"; `firstMonth` agrega una tercera caja "Implementacion (1er mes)". Cuando fee y pauta son componentes separados, usar `monthly` + `adSpend` (2 cajas con distinto color), no sumarlos en una sola caja.
 - En el breakdown, dejar claro que la pauta no pasa por REE: "Se pone tu tarjeta directamente en Meta Ads, el gasto publicitario se debita de tu cuenta."
 - Los precios siempre deben indicar que no incluyen IVA (en bold en el footnote).
 - Moneda: USD con espacio (ej. "USD 500/mes").
