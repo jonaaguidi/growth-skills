@@ -46,7 +46,7 @@ const data = {
     campanasVendidas: ["B2B Lead Gen (WhatsApp)", "Awareness (Instagram)"],
     duracionProyecto: "8 semanas",
     fechaInicio: null,
-    fechaFin: "30/10",
+    fechaFin: "06/11",
     fechaInicioISO: "2026-09-02",
   },
 
@@ -629,9 +629,9 @@ const data = {
   roadmap: [
     { nombre: "B2B Lead Gen (WhatsApp)", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
-      { nombre: "Build", semanaInicio: 3, semanaFin: 4 },
-      { nombre: "Launch", semanaInicio: 5, semanaFin: 6 },
-      { nombre: "Scale", semanaInicio: 7, semanaFin: 8 },
+      { nombre: "Build", semanaInicio: 3, semanaFin: 5 },
+      { nombre: "Launch", semanaInicio: 6, semanaFin: 7 },
+      { nombre: "Scale", semanaInicio: 8, semanaFin: 8 },
     ]},
     { nombre: "Awareness (Instagram)", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 1 },
@@ -689,17 +689,16 @@ const data = {
   reviewMilestones: [
     { semana: 1, label: "KO Call" },
     { semana: 3, label: "Awareness + Review", fecha: "23/09" },
-    { semana: 5, label: "Launch B2B + Review", fecha: "06/10" },
-    { semana: 7, label: "Review Ads", fecha: "20/10" },
-    { semana: 8, label: "Review Final", fecha: "30/10" },
+    { semana: 6, label: "Launch B2B + Review", fecha: "13/10" },
+    { semana: 8, label: "Review Ads + Final", fecha: "27/10 · 06/11" },
   ],
 
   reviewMeetings: [
     { semana: "S1", nombre: "Propuesta + KO Call", desc: "Call del 02/09 con Celes: propuesta, kickoff y onboarding. Configuracion de Meta Ads, accesos, CRM. Se deja todo listo para empezar.", status: "done" },
     { semana: "S3", nombre: "Lanzamiento Awareness + Review Foundation", desc: "Martes 23/09. Review del Foundation con Celes: ajustes de audiencia, ICP y piezas. La campaña de Awareness se lanzó el 24/09 con la audiencia ajustada. Catchup CRM / Producto Kickoff.", status: "done", fecha: "23/09" },
-    { semana: "S5", nombre: "Campaña B2B (WhatsApp)", desc: "Martes 06/10. Lanzamiento de la campaña B2B Lead Gen + Call ADS. Review de 2 semanas de awareness: pieza ganadora, redistribución de presupuesto y chequeo de que la audiencia que trae Meta sea del perfil decisor. Activacion del funnel de WhatsApp.", status: "pending", fecha: "06/10" },
-    { semana: "S7", nombre: "Review Ads", desc: "Martes 20/10. Seguimiento de campañas activas. Optimizaciones en base a datos, ajustes de audiencias.", status: "pending", fecha: "20/10" },
-    { semana: "S8", nombre: "Review Final", desc: "Viernes 30/10. Revision del periodo completo (8 semanas). Resultados vs KPIs, aprendizajes, recomendaciones para el siguiente ciclo.", status: "pending", fecha: "30/10" },
+    { semana: "S6", nombre: "Campaña B2B (WhatsApp)", desc: "Martes 13/10. Lanzamiento de la campaña B2B Lead Gen + Call ADS. Review de 3 semanas de awareness: pieza ganadora, redistribución de presupuesto y chequeo de que la audiencia que trae Meta sea del perfil decisor. Activacion del funnel de WhatsApp.", status: "pending", fecha: "13/10" },
+    { semana: "S8", nombre: "Review Ads", desc: "Martes 27/10. Seguimiento de campañas activas. Optimizaciones en base a datos, ajustes de audiencias.", status: "pending", fecha: "27/10" },
+    { semana: "S9", nombre: "Review Final", desc: "Viernes 06/11. Revision del ciclo completo. Resultados vs KPIs, aprendizajes, recomendaciones para el siguiente ciclo.", status: "pending", fecha: "06/11" },
     { semana: "NOV", nombre: "Campaña Expo Agro", desc: "Noviembre. Segmentación por ciudades del agro, marcas de maquinaria, semillas, agtech y drones. Relato de la experiencia de BTLandia en el sector desde 2003. Posterior a Expo Agro vienen los lanzamientos de campaña (marzo-abril) y congresos.", status: "pending", fecha: null },
   ],
 };

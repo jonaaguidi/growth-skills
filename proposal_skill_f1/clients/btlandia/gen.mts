@@ -109,8 +109,8 @@ const acuerdo: AcuerdoData = {
           items: [
             "**Foundation (S1-3):** Kick Off el **02/09**, configuración de Meta Ads, accesos e integración con REE Metrics, brief creativo de ambas campañas. Foundation Review el **23/09** con ajustes de ICP, audiencia y piezas.",
             "**Build (S2-5):** desarrollo de las 8 piezas de Awareness y las 8 piezas de conversión de la campaña B2B, estructuración de campañas con conjuntos por ICP y ángulo, validación end to end del funnel (anuncio, WhatsApp, REE Metrics).",
-            "**Launch (S3-6):** Awareness activa desde el **24/09**. Lanzamiento de la campaña B2B Lead Gen el **06/10** junto a la Call ADS, con review de las primeras 2 semanas de Awareness.",
-            "**Scale (S6-8):** escalado de presupuesto a los anuncios ganadores, pausa de los que no traccionan y optimización de audiencias. Review Ads el **20/10** y Review Final el **30/10**.",
+            "**Launch (S3-7):** Awareness activa desde el **24/09**. Lanzamiento de la campaña B2B Lead Gen el **13/10** junto a la Call ADS, con review de las primeras **3 semanas** de Awareness.",
+            "**Scale (S7-8):** escalado de presupuesto a los anuncios ganadores, pausa de los que no traccionan y optimización de audiencias. Review Ads el **27/10** y Review Final el **06/11**.",
           ],
         },
         DEFINICION_GO_LIVE,
