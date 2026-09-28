@@ -710,7 +710,7 @@ const data = {
       status: "activa",
       destino: "Perfil de Instagram (@defu.tofuco)",
       kpisCampana: ["Visitas al Perfil", "Alcance", "Interacciones"],
-      presupuestoCampana: { diario: "USD $3/día", mensual: "USD $90/mes" },
+      presupuestoCampana: { diario: "USD $5/día", mensual: "USD $150/mes" },
       adSets: [
         {
           nombre: "Conjunto_General_CABA/ZN",
@@ -732,7 +732,7 @@ const data = {
       status: "en-desarrollo",
       destino: "defu.com.ar/[producto]",
       kpisCampana: ["Visitas a pagina de producto", "Compras", "ROAS"],
-      presupuestoCampana: { diario: "USD $5/día", mensual: "USD $150/mes" },
+      presupuestoCampana: { diario: "USD $11,7/día", mensual: "USD $350/mes" },
       adSets: [
         {
           nombre: "Conjunto_Vegano_Veggie",

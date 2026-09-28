@@ -4,3 +4,4 @@ dist/
 .env
 .env.*
 discovery_skill_f0/Clients/
+.mcp.json
