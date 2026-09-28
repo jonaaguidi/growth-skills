@@ -39,7 +39,7 @@ const acuerdo: AcuerdoData = {
         {
           type: "excludes",
           items: [
-            "Producción audiovisual (video, fotografía profesional)",
+            "Producción audiovisual (video, fotografía profesional). Queda sujeta a la disponibilidad de piezas con REE Agencia. La cantidad de piezas puede extenderse en caso de ser necesario y se cotiza de forma aparte.",
             "Pauta publicitaria (se paga con la tarjeta del cliente directo en Meta)",
             "Licencias o suscripciones de herramientas de terceros",
             "Desarrollo de chatbot o automatización de WhatsApp (objeto de una propuesta separada)",

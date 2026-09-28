@@ -40,10 +40,9 @@ const acuerdo: AcuerdoData = {
         {
           type: "excludes",
           items: [
-            "Producción audiovisual (video, fotografía profesional)",
+            "Producción audiovisual (video, fotografía profesional). Queda sujeta a la disponibilidad de piezas con REE Agencia. La cantidad de piezas puede extenderse en caso de ser necesario y se cotiza de forma aparte.",
             "Creación de productos, packs y definición de precios en el ecommerce (a cargo de Defu)",
             "Pauta publicitaria (se paga con la tarjeta del cliente directo en Meta)",
-            "Licencias de terceros o herramientas no incluidas en REE Metrics",
           ],
         },
         {
