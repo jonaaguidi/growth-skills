@@ -107,7 +107,7 @@ const acuerdo: AcuerdoData = {
             "**Foundation (S1-2):** Kick Off el **25/08**, accesos y configuración de Meta Ads, estrategia de ambas campañas, definición de audiencias, Pixel y eventos en Tienda Nube, integración con REE Metrics. Foundation Review el **01/09**.",
             "**Build (S2-4):** producción y montaje de las 6 piezas de Awareness y las 9 piezas creativas de Ventas, estructuración de campañas y duplicado en los 2 conjuntos por ICP.",
             "**Launch (S4-6):** activación de la campaña de Awareness el **15/09** y testeo de piezas con inversión real. El **23/09** se hace la review de Awareness y se lanza el funnel B2C de ventas.",
-            "**Scale (S6-8):** optimización de presupuesto, retargeting, escalado de creativos ganadores y pausa de los que no traccionan. Review Final el **13/10**.",
+            "**Scale (S6-8):** optimización de presupuesto, retargeting, escalado de creativos ganadores y pausa de los que no traccionan. Call ADS de seguimiento el **07/10** y Review Final el **13/10**.",
           ],
         },
         DEFINICION_GO_LIVE,

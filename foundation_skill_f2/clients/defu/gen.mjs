@@ -838,6 +838,26 @@ const data = {
       { nombre: "Scale", semanaInicio: 7, semanaFin: 8 },
     ]},
   ],
+
+  // Calendario real de DEFU. Sin esto el renderer usa los defaults genericos
+  // (Call ADS en S6) que no corresponden a las fechas de este proyecto.
+  reviewMilestones: [
+    { semana: 1, label: "KO Call", fecha: "25/08" },
+    { semana: 2, label: "Foundation Review", fecha: "01/09" },
+    { semana: 4, label: "Launch AW", fecha: "15/09" },
+    { semana: 5, label: "Launch B2C", fecha: "23/09" },
+    { semana: 7, label: "Call ADS", fecha: "07/10" },
+    { semana: 8, label: "Review Final", fecha: "13/10" },
+  ],
+
+  reviewMeetings: [
+    { semana: "S1", nombre: "KO Call", fecha: "25/08", desc: "Kickoff con el cliente. Configuracion de Meta Ads y accesos.", status: "done" },
+    { semana: "S2", nombre: "Foundation Review", fecha: "01/09", desc: "Revision completa del setup. Aprobacion para lanzar.", status: "done" },
+    { semana: "S4", nombre: "Launch Awareness", fecha: "15/09", desc: "Activacion de DEFU_Awareness. Testeo de piezas con inversion real.", status: "done" },
+    { semana: "S5", nombre: "Review Awareness + Launch B2C", fecha: "23/09", desc: "Review de los primeros resultados de Awareness y lanzamiento del funnel B2C hacia defu.com.ar.", status: "done" },
+    { semana: "S7", nombre: "Call ADS", fecha: "07/10", desc: "Seguimiento de ambas campanas activas. Optimizacion de presupuesto y creativos.", status: "pending" },
+    { semana: "S8", nombre: "Review Final", fecha: "13/10", desc: "Revision del periodo completo. Resultados vs KPIs y plan del siguiente ciclo.", status: "pending" },
+  ],
 };
 
 // --- Generate 3 HTMLs ---
