@@ -43,7 +43,6 @@ const acuerdo: AcuerdoData = {
             "Producción y edición de piezas creativas (las 10 piezas se pautan con material provisto por Kabala)",
             "Producción audiovisual (video, fotografía profesional)",
             "Pauta publicitaria (se paga con la tarjeta del cliente directo en Meta)",
-            "Licencias de terceros o herramientas no incluidas en REE Metrics",
           ],
         },
         {
@@ -58,7 +57,7 @@ const acuerdo: AcuerdoData = {
       blocks: [
         {
           type: "paragraph",
-          text: "El roadmap inicial cubre **8 semanas** contadas desde el Kick Off (fecha a definir con el equipo de Kabala para hacer el traspaso de accesos), con las fases **Foundation, Build, Launch y Scale**. Cumplido ese periodo, el servicio se renueva automáticamente por periodos mensuales. Cualquiera de las partes puede notificar la baja con **30 días** de anticipación.",
+          text: "El roadmap inicial cubre **8 semanas** (equivalente a **2 meses** de servicio) contadas desde el Kick Off del **28/09/2026**, con las fases **Foundation, Build, Launch y Scale**. Cumplido ese periodo, el servicio se renueva automáticamente por periodos mensuales. Cualquiera de las partes puede notificar la baja con **30 días** de anticipación.",
         },
       ],
     },
@@ -106,12 +105,12 @@ const acuerdo: AcuerdoData = {
       blocks: [
         {
           type: "paragraph",
-          text: "El proyecto se ejecuta en **8 semanas** a partir del Kick Off. Las semanas se cuentan desde esa fecha.",
+          text: "El proyecto se ejecuta en **8 semanas** (**2 meses**) a partir del Kick Off del **28/09/2026**. Las semanas se cuentan desde esa fecha.",
         },
         {
           type: "bullets",
           items: [
-            "**Foundation (S1):** Kick Off, accesos y configuración de Meta Business, Tienda Nube y REE Metrics, estrategia de ambas campañas, research de competencia y definición de segmentación (varones de 20 a 32 años, CABA y alrededores, interesados en moda, streetwear y cultura urbana).",
+            "**Foundation (S1):** Kick Off el **28/09**, accesos y configuración de Meta Business, Tienda Nube y REE Metrics, estrategia de ambas campañas, research de competencia y definición de segmentación (varones de 20 a 32 años, CABA y alrededores, interesados en moda, streetwear y cultura urbana).",
             "**Build (S2-3):** montaje de la campaña de Awareness con enfoque de branding hacia Instagram, montaje de la campaña de Ecommerce con cada pieza dirigida a su categoría, integración de Tienda Nube con Pixel, CAPI y eventos de conversión.",
             "**Launch (S3-5):** Awareness activa en la **semana 3** y Ecommerce en la **semana 4**, testeo de las 10 piezas con inversión real y primeros eventos de conversión medidos en vivo en REE Metrics.",
             "**Scale (S5-8):** presupuesto al creativo y la audiencia ganadora de cada campaña, retargeting, validación del producto ganador y planificación del siguiente ciclo.",
@@ -127,7 +126,7 @@ const acuerdo: AcuerdoData = {
       blocks: [
         {
           type: "paragraph",
-          text: "El cliente tiene acceso al dashboard REE Metrics (**USD 50/mes** incluido en el fee) con métricas en tiempo real de Meta Ads, Tienda Nube e Instagram orgánico. Utilizando la plataforma como apalancamiento, se entregan reportes de performance con análisis y recomendaciones: **quincenales** durante Launch, **mensuales** a partir de Scale.",
+          text: "El cliente tiene acceso al dashboard REE Metrics (**USD 50/mes** incluido en el fee) con métricas en tiempo real de Meta Ads y Tienda Nube. Utilizando la plataforma como apalancamiento, se entregan reportes de performance con análisis y recomendaciones: **quincenales** durante Launch, **mensuales** a partir de Scale.",
         },
       ],
     },
