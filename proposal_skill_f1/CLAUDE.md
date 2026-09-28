@@ -169,16 +169,64 @@ URL de producción: `https://growth.reecreativos.com/proposals/[slug]` (deploy a
 
 Despues de que el cliente acepta la propuesta (slides), se genera un acuerdo comercial de terminos y condiciones. El tool `generate-contract` produce un HTML con branding REE listo para imprimir/exportar a PDF.
 
+### Un acuerdo por cliente en `clients/<slug>/`
+
+Cada acuerdo vive en su propia carpeta, con el generador y el HTML juntos. Misma convencion que `foundation_skill_f2/clients/<slug>/`.
+
+```
+clients/
+  _render.mts              helper compartido: AcuerdoData + renderContract()
+  defu/
+    gen.mts                datos del acuerdo (fuente de verdad)
+    acuerdo-defu.html      output generado, NO editar a mano
+  btlandia/
+    gen.mts
+    acuerdo-btlandia.html
+  kabala/
+    gen.mts
+    acuerdo-kabala.html
+  grupo-lente/
+    acuerdo-grupo-lente.html   legacy, hecho a mano, sin generador
+```
+
+Regenerar un acuerdo:
+
+```bash
+npx tsx clients/<slug>/gen.mts
+```
+
+`renderContract(acuerdo, import.meta.url)` escribe `acuerdo-<slug>.html` al lado del `gen.mts` que lo invoca. El HTML es un artefacto: **cualquier cambio de contenido se hace en el `gen.mts` y se regenera**, nunca editando el HTML.
+
+### Clausulas compartidas
+
+El texto legal que no cambia entre clientes vive en `src/lib/contract-templates.ts` y se importa desde cada `gen.mts`:
+
+| Export | Que es | Donde va |
+|--------|--------|----------|
+| `BLOQUES_PAGOS` | Cotizacion dolar, medios de pago, recargo 10% | Seccion 4, al final |
+| `DEFINICION_GO_LIVE` | Definicion de go-live | Seccion 5 |
+| `CLAUSULA_PLAZOS` | Los plazos no se pausan | Seccion 5, obligatoria |
+| `seccionesFijas(desde)` | Datos/confidencialidad + Comunicacion | Cierre, `...seccionesFijas(7)` |
+| `DEFAULT_GROWTH_SECTIONS` | Las 8 secciones default completas | Base para un cliente nuevo |
+
+Si hay que cambiar una clausula legal, se cambia ahi y se regeneran todos los acuerdos. No duplicar el texto en el `gen.mts` del cliente.
+
 ### Flujo del acuerdo
 
 ```
 1. Cliente acepta la propuesta (slides)
-2. Claude lee la propuesta y extrae datos relevantes
-3. Claude arma las secciones del acuerdo usando datos de la propuesta
-4. Claude usa generate-contract para renderizar el HTML
-5. Claude guarda el HTML en contracts/{slug}-contrato.html
-6. Se abre en navegador para imprimir/exportar a PDF
+2. Claude lee ree-website/public/proposals/<slug>.json y extrae datos relevantes
+3. Claude crea clients/<slug>/gen.mts copiando el de un cliente similar,
+   arma las secciones 1-6 con los datos de la propuesta e importa las
+   clausulas compartidas para 4, 5, 7 y 8
+4. npx tsx clients/<slug>/gen.mts genera acuerdo-<slug>.html
+5. Se abre en navegador para imprimir/exportar a PDF
+6. Se commitean juntos el gen.mts y el HTML
 ```
+
+El acuerdo debe quedar **alineado con la propuesta**: montos, cantidad de piezas, campanas, fechas del roadmap y presupuesto de pauta tienen que coincidir con el JSON. Si se corrige uno, corregir el otro en el mismo commit.
+
+El tool MCP `generate-contract` es el mismo renderer, para el caso en que se quiera generar un acuerdo sin dejar un `gen.mts` en el repo.
 
 ### Mapping: Slide de propuesta a Seccion del acuerdo
 

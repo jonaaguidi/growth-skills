@@ -1,6 +1,6 @@
 // ── Default contract sections for Growth (Paid Media) ──
 
-import type { ContractSection } from "./contract-types.js";
+import type { ContractBlock, ContractSection } from "./contract-types.js";
 
 export const DEFAULT_GROWTH_SECTIONS: ContractSection[] = [
   {
@@ -148,6 +148,66 @@ export const DEFAULT_GROWTH_SECTIONS: ContractSection[] = [
       {
         type: "paragraph",
         text: "El horario de atencion de REE es de lunes a viernes de **10:00 hs a 18:00 hs** (hora Argentina). La comunicacion oficial se realiza mediante WhatsApp. Los mensajes fuera de horario se responden el siguiente dia habil.",
+      },
+    ],
+  },
+];
+
+// ── Clausulas estandar de REE, compartidas por todos los acuerdos ──
+// Los acuerdos por cliente viven en clients/<slug>/gen.mts y arman sus
+// secciones 1-6 a medida, pero reutilizan estos bloques para que el texto
+// legal no se reescriba (ni se desincronice) en cada contrato.
+
+/** Bloques de condiciones de pago para la seccion "Facturacion y pagos". */
+export const BLOQUES_PAGOS: ContractBlock[] = [
+  {
+    type: "paragraph",
+    text: "Los pagos en pesos se toman a la **cotización de venta del dólar oficial** publicada en **dolarhoy.com** el día del pago.",
+  },
+  {
+    type: "paragraph",
+    text: "Aceptamos **efectivo, transferencia bancaria y transferencia en USDT** (a la dirección y red que indiquemos; las comisiones de red corren por cuenta del cliente).",
+  },
+  {
+    type: "paragraph",
+    text: "Desde el día 10 de vencido el pago se aplica un recargo del **10%** sobre el saldo, y REE puede **suspender el servicio** hasta regularizar.",
+  },
+];
+
+/** Definicion de go-live. Va en la seccion "Plan de ejecucion". */
+export const DEFINICION_GO_LIVE: ContractBlock = {
+  type: "paragraph",
+  text: "Se entiende por **go-live** el momento en que las campañas están activas en Meta Ads y generando alcance e impresiones, con el tracking configurado y el dashboard operativo.",
+};
+
+/** Clausula de plazos. Obligatoria en la seccion "Plan de ejecucion". */
+export const CLAUSULA_PLAZOS: ContractBlock = {
+  type: "paragraph",
+  text: "**Los plazos del roadmap no se pausan** por demoras en la entrega de creativos, accesos o aprobaciones por parte del cliente o de su equipo. El calendario y la facturación siguen corriendo independientemente de estos tiempos de espera.",
+};
+
+/**
+ * Secciones fijas de cierre (datos/confidencialidad y comunicacion).
+ * No dependen del cliente. `desde` es el numero de la primera seccion.
+ */
+export const seccionesFijas = (desde: number): ContractSection[] => [
+  {
+    number: desde,
+    title: "Datos y confidencialidad",
+    blocks: [
+      {
+        type: "paragraph",
+        text: "Los datos de campañas, audiencias y resultados son **propiedad del cliente**. REE los procesa exclusivamente para operar el servicio contratado. Ambas partes se comprometen a mantener **confidencialidad** sobre la información técnica y comercial a la que accedan durante la relación comercial.",
+      },
+    ],
+  },
+  {
+    number: desde + 1,
+    title: "Comunicación",
+    blocks: [
+      {
+        type: "paragraph",
+        text: "El horario de atención es de **lunes a viernes de 10:00 a 18:00 hs** (hora Argentina). La comunicación oficial del proyecto se realiza por WhatsApp. Las solicitudes fuera de horario se atienden el siguiente día hábil.",
       },
     ],
   },

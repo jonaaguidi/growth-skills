@@ -17,8 +17,8 @@ const data = {
     fechaCierre: "2026-08-12",
   },
   datosF1: {
-    inversionMensual: "USD 200-350/mes (fee REE)",
-    presupuestoPauta: "USD 100-250/mes",
+    inversionMensual: "USD 500/mes (fee REE, USD 650 el primer mes)",
+    presupuestoPauta: "USD 500/mes",
     cplObjetivo: "$240 ARS (visita al e-commerce)",
     canalesRecomendados: ["Instagram Ads", "Facebook Ads", "E-commerce (defu.com.ar)", "WhatsApp Business"],
     palancaPropuesta: "Captacion: awareness + funnel B2C ecommerce",
@@ -315,11 +315,11 @@ const data = {
   ],
 
   presupuesto: {
-    pauta: "USD 100-250/mes (tarjeta de Angel en Meta)",
-    fee: "USD 200-350/mes (fee REE Growth)",
-    total: "USD 300-600/mes",
+    pauta: "USD 500/mes (tarjeta de Angel en Meta): USD 150 Awareness + USD 350 B2C",
+    fee: "USD 500/mes (fee REE Growth, USD 650 el primer mes)",
+    total: "USD 1.000/mes (USD 1.150 el primer mes)",
     cplTarget: "$240 ARS por visita al e-commerce",
-    limiteGastoCuenta: "USD 300/mes",
+    limiteGastoCuenta: "USD 550/mes",
   },
 
   creativos: {

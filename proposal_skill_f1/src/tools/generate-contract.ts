@@ -7,7 +7,7 @@ export const description =
   "Genera un acuerdo comercial (terminos y condiciones) en HTML con branding REE. " +
   "Se usa despues de que el cliente aprueba la propuesta (slides). " +
   "Recibe datos del cliente, secciones del acuerdo y valor total. " +
-  "Devuelve HTML listo para guardar en contracts/{slug}-contrato.html e imprimir/exportar a PDF.";
+  "Devuelve HTML listo para guardar en clients/{slug}/acuerdo-{slug}.html e imprimir/exportar a PDF.";
 
 export const inputSchema = {
   type: "object" as const,
