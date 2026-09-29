@@ -203,11 +203,11 @@ El texto legal que no cambia entre clientes vive en `src/lib/contract-templates.
 
 | Export | Que es | Donde va |
 |--------|--------|----------|
-| `BLOQUES_PAGOS` | Cotizacion dolar, medios de pago, recargo 10% | Seccion 4, al final |
-| `CLAUSULA_PRORRATEO` | Prorrateo del fee en meses parciales | Seccion 4, despues de la tabla |
-| `DEFINICION_GO_LIVE` | Definicion de go-live | Seccion 5 |
-| `CLAUSULA_PLAZOS` | Los plazos no se pausan | Seccion 5, obligatoria |
-| `seccionesFijas(desde)` | Datos/confidencialidad + Comunicacion | Cierre, `...seccionesFijas(7)` |
+| `BLOQUES_PAGOS` | Cotizacion dolar, medios de pago, recargo 10% | Facturacion y pagos, al final |
+| `seccionProrrateo(n)` | Seccion completa de prorrateo del fee | Seccion propia, despues de Facturacion |
+| `DEFINICION_GO_LIVE` | Definicion de go-live | Plan de ejecucion |
+| `CLAUSULA_PLAZOS` | Los plazos no se pausan | Plan de ejecucion, obligatoria |
+| `seccionesFijas(desde)` | Datos/confidencialidad + Comunicacion | Cierre, `...seccionesFijas(8)` |
 | `DEFAULT_GROWTH_SECTIONS` | Las 8 secciones default completas | Base para un cliente nuevo |
 
 Si hay que cambiar una clausula legal, se cambia ahi y se regeneran todos los acuerdos. No duplicar el texto en el `gen.mts` del cliente.
@@ -218,8 +218,9 @@ Si hay que cambiar una clausula legal, se cambia ahi y se regeneran todos los ac
 1. Cliente acepta la propuesta (slides)
 2. Claude lee ree-website/public/proposals/<slug>.json y extrae datos relevantes
 3. Claude crea clients/<slug>/gen.mts copiando el de un cliente similar,
-   arma las secciones 1-6 con los datos de la propuesta e importa las
-   clausulas compartidas para 4, 5, 7 y 8
+   arma las secciones de contenido con los datos de la propuesta e importa
+   las clausulas compartidas (BLOQUES_PAGOS, seccionProrrateo,
+   DEFINICION_GO_LIVE, CLAUSULA_PLAZOS, seccionesFijas)
 4. npx tsx clients/<slug>/gen.mts genera acuerdo-<slug>.html
 5. Se abre en navegador para imprimir/exportar a PDF
 6. Se commitean juntos el gen.mts y el HTML
@@ -235,16 +236,17 @@ El tool MCP `generate-contract` es el mismo renderer, para el caso en que se qui
 |----------------|-----------------|-------------------|
 | Slide 3: LA LLAMADA | 1. Alcance | Producto, equipo, canales, que incluye/no incluye |
 | Slide 4: LA AUDITORIA | 1. Alcance (setup tecnico) | Findings de tracking: que instalar (Pixel, Shopping, REE Metrics) |
-| Slide 9: ROADMAP | 5. Plan de ejecucion | Semanas por fase (Foundation/Build/Launch/Scale), semana de go-live |
-| Slide 10: CAMPANAS | 1. Alcance + 5. Plan de ejecucion | Cantidad de campanas, nombre y objetivo de cada una (sin conteo de piezas) |
+| Slide 9: ROADMAP | 6. Plan de ejecucion | Semanas por fase (Foundation/Build/Launch/Scale), semana de go-live |
+| Slide 10: CAMPANAS | 1. Alcance + 6. Plan de ejecucion | Cantidad de campanas, nombre y objetivo de cada una (sin conteo de piezas) |
 | Slide 11: PRICING | 4. Facturacion y pagos | Montos (setup, mensual, pauta), breakdown Concepto/Monto |
 | Slide 11: PRICING | 3. Pauta publicitaria | Presupuesto total de pauta sugerido (sin distribucion por campana) |
-| Slide 11: PRICING | 6. Reportes y metricas | REE Metrics USD 50/mes incluido en fee |
+| Slide 11: PRICING | 7. Reportes y metricas | REE Metrics USD 50/mes incluido en fee |
 | Slide 8: METODO | 2. Duracion del servicio | Fases del framework, duracion total |
-| (Reglas fijas REE) | 7. Datos y confidencialidad | Siempre igual |
-| (Reglas fijas REE) | 8. Comunicacion | Siempre igual (L-V 10:00-18:00 Argentina) |
+| (Reglas fijas REE) | 5. Prorrateo por dias | Siempre igual, `seccionProrrateo(5)` |
+| (Reglas fijas REE) | 8. Datos y confidencialidad | Siempre igual |
+| (Reglas fijas REE) | 9. Comunicacion | Siempre igual (L-V 10:00-18:00 Argentina) |
 
-Las secciones 7 y 8 son fijas (no dependen de la propuesta). Las secciones 1-6 se arman con datos de la propuesta. El mapping es una referencia, no una regla rigida. Claude usa su criterio para extraer los datos relevantes.
+Las secciones 5, 8 y 9 son fijas (no dependen de la propuesta). Las secciones 1-4, 6 y 7 se arman con datos de la propuesta. El mapping es una referencia, no una regla rigida. Claude usa su criterio para extraer los datos relevantes.
 
 ### Reglas de contenido
 
@@ -264,7 +266,7 @@ El acuerdo fija el **compromiso comercial**, no el plan operativo. Todo lo que p
 
 > "**2 campanas** en Meta Ads: **DEFU_Awareness** (interaccion hacia el perfil @defu.tofuco) y **DEFU_Ventas** (conversion hacia defu.com.ar)."
 
-La cantidad de piezas vive en la propuesta (slides) y en el Foundation (F2), donde se puede ajustar sin tocar el acuerdo. En el bullet de Build de la seccion 5 se dice "los creativos de ambas campanas", no un numero. Tampoco se promete extension de piezas en el bloque de excludes: la produccion audiovisual "queda sujeta a la disponibilidad de REE Agencia y se cotiza de forma aparte".
+La cantidad de piezas vive en la propuesta (slides) y en el Foundation (F2), donde se puede ajustar sin tocar el acuerdo. En el bullet de Build del Plan de ejecucion se dice "los creativos de ambas campanas", no un numero. Tampoco se promete extension de piezas en el bloque de excludes: la produccion audiovisual "queda sujeta a la disponibilidad de REE Agencia y se cotiza de forma aparte".
 
 **No incluir la distribucion de pauta por campana.** Nada de "USD 150/mes para Awareness y USD 350/mes para Ventas". En la seccion 3 va solo el **total sugerido** y quien decide el reparto:
 
@@ -280,39 +282,51 @@ Excepcion: si el cliente pidio explicitamente un split fijo por campana, se deja
 - `page-break-inside: avoid` en cada seccion.
 - body font-size: `10.5px`, h2: `11.5px`.
 
-### Secciones default (8)
+### Secciones del acuerdo (9)
 
 Las secciones default estan en `src/lib/contract-templates.ts`. Claude las usa como base y puede agregar, quitar o modificar secciones segun el cliente.
 
 1. Alcance de la propuesta (incluye/no incluye)
 2. Duracion del servicio (3 meses minimo)
-3. Pauta publicitaria (tarjeta del cliente en Meta)
-4. Facturacion y pagos (tabla Concepto/Monto, mes vencido, prorrateo por dias, cotizacion dolar, recargo 10%)
-5. Plan de ejecucion (Foundation, Build, Launch, Scale con semanas, clausula de plazos)
-6. Reportes y metricas (REE Metrics USD 50/mes incluido, quincenales/mensuales)
-7. Datos y confidencialidad
-8. Comunicacion (lunes a viernes 10:00-18:00 hora Argentina)
+3. Pauta publicitaria (tarjeta del cliente en Meta, presupuesto total sugerido)
+4. Facturacion y pagos (tabla Concepto/Monto, mes vencido, cotizacion dolar, recargo 10%)
+5. Prorrateo por dias de servicio (`seccionProrrateo(5)`)
+6. Plan de ejecucion (Foundation, Build, Launch, Scale con semanas, clausula de plazos)
+7. Reportes y metricas (REE Metrics USD 50/mes incluido, quincenales/mensuales)
+8. Datos y confidencialidad
+9. Comunicacion (lunes a viernes 10:00-18:00 hora Argentina)
 
-### Clausula de plazos (obligatoria en seccion 5)
+`DEFAULT_GROWTH_SECTIONS` todavia trae las 8 originales (sin prorrateo). Al armar un cliente nuevo, agregar `seccionProrrateo` y renumerar. Los acuerdos vigentes con la estructura nueva son `clients/defu/` y `clients/btlandia/`, sirven de molde.
+
+### Clausula de plazos (obligatoria en Plan de ejecucion)
 
 "Los plazos del roadmap no se pausan por demoras en la entrega de creativos, accesos o aprobaciones por parte del cliente o de su equipo. El calendario y la facturacion siguen corriendo independientemente de estos tiempos de espera."
 
-### Clausula de prorrateo (obligatoria en seccion 4)
+### Prorrateo: seccion propia, no una oracion suelta
 
-El fee es mensual pero el Kick Off casi nunca cae el dia 1 del mes, y la baja tampoco cae a fin de mes. Sin esta clausula queda ambiguo si el mes de arranque se cobra completo. Va en `CLAUSULA_PRORRATEO`, **despues de la `paymentTable`** y **antes de `BLOQUES_PAGOS`**:
+El fee es mensual pero el Kick Off casi nunca cae el dia 1, y la baja tampoco cae a fin de mes. Sin esto queda ambiguo si el mes de arranque se cobra completo.
+
+Va como **seccion propia** del acuerdo, no como un parrafo perdido dentro de Facturacion y pagos. Es una condicion economica que el cliente tiene que poder encontrar y citar, y enterrada al final de la seccion 4 (entre cotizacion del dolar, medios de pago y recargo por mora) se lee como letra chica. Se usa `seccionProrrateo(n)` y se ubica **inmediatamente despues de Facturacion y pagos**:
 
 ```ts
 {
-  type: "paymentTable",
-  rows: [ /* ... */ ],
+  number: 4,
+  title: "Facturación y pagos",
+  blocks: [ /* paymentTable */, ...BLOQUES_PAGOS ],
 },
-CLAUSULA_PRORRATEO,
-...BLOQUES_PAGOS,
+seccionProrrateo(5),
+{
+  number: 6,
+  title: "Plan de ejecución",
+  // ...
+},
 ```
 
-"Cuando el periodo facturado es parcial, el fee mensual se prorratea por dias efectivos de servicio sobre el mes calendario correspondiente. El mes de inicio se cuenta desde la fecha del Kick Off y el mes de baja hasta la fecha de finalizacion del servicio."
+Insertarla **corre la numeracion** del resto: Plan de ejecucion pasa a 6, Reportes a 7 y el cierre a `...seccionesFijas(8)`. El acuerdo queda de **9 secciones**.
 
-Aplica **solo al fee de REE**, no a la pauta: la pauta se debita de la tarjeta del cliente segun lo que Meta gaste, asi que ya es proporcional por definicion. Ojo con el mes 1 cuando tiene un monto distinto (ej. incluye una integracion de setup): el prorrateo se aplica sobre el fee, el cargo unico de setup se cobra completo.
+La seccion tiene tres bloques: la regla general, un `bullets` con los dos casos (mes de inicio desde el Kick Off, mes de baja hasta la finalizacion) y un `note` que acota el alcance. Ese ultimo bloque importa: el prorrateo aplica **solo al fee de REE**, no a la pauta, porque la pauta se debita de la tarjeta del cliente segun lo que Meta gaste y ya es proporcional por definicion.
+
+Ojo con el mes 1 cuando tiene un monto distinto al recurrente (ej. incluye una integracion de setup): el prorrateo corre sobre el fee, el cargo unico de setup se cobra completo. Si el cliente arranca a mitad de mes y el mes 1 esta bundleado en una sola linea de la `paymentTable`, conviene separar fee y setup en dos filas para que el calculo sea inequivoco.
 
 ### Block types para secciones
 

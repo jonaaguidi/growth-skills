@@ -5,9 +5,9 @@
 import {
   BLOQUES_PAGOS,
   CLAUSULA_PLAZOS,
-  CLAUSULA_PRORRATEO,
   DEFINICION_GO_LIVE,
   seccionesFijas,
+  seccionProrrateo,
 } from "../../src/lib/contract-templates.js";
 import { renderContract, type AcuerdoData } from "../_render.mts";
 
@@ -91,12 +91,12 @@ const acuerdo: AcuerdoData = {
             { concept: "Mes 2 en adelante (servicio + REE Metrics)", amount: "USD 500/mes" },
           ],
         },
-        CLAUSULA_PRORRATEO,
         ...BLOQUES_PAGOS,
       ],
     },
+    seccionProrrateo(5),
     {
-      number: 5,
+      number: 6,
       title: "Plan de ejecución",
       blocks: [
         {
@@ -117,7 +117,7 @@ const acuerdo: AcuerdoData = {
       ],
     },
     {
-      number: 6,
+      number: 7,
       title: "Reportes y métricas",
       blocks: [
         {
@@ -126,7 +126,7 @@ const acuerdo: AcuerdoData = {
         },
       ],
     },
-    ...seccionesFijas(7),
+    ...seccionesFijas(8),
   ],
 };
 
