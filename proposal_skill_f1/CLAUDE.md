@@ -204,6 +204,7 @@ El texto legal que no cambia entre clientes vive en `src/lib/contract-templates.
 | Export | Que es | Donde va |
 |--------|--------|----------|
 | `BLOQUES_PAGOS` | Cotizacion dolar, medios de pago, recargo 10% | Seccion 4, al final |
+| `CLAUSULA_PRORRATEO` | Prorrateo del fee en meses parciales | Seccion 4, despues de la tabla |
 | `DEFINICION_GO_LIVE` | Definicion de go-live | Seccion 5 |
 | `CLAUSULA_PLAZOS` | Los plazos no se pausan | Seccion 5, obligatoria |
 | `seccionesFijas(desde)` | Datos/confidencialidad + Comunicacion | Cierre, `...seccionesFijas(7)` |
@@ -224,7 +225,7 @@ Si hay que cambiar una clausula legal, se cambia ahi y se regeneran todos los ac
 6. Se commitean juntos el gen.mts y el HTML
 ```
 
-El acuerdo debe quedar **alineado con la propuesta**: montos, cantidad de piezas, campanas, fechas del roadmap y presupuesto de pauta tienen que coincidir con el JSON. Si se corrige uno, corregir el otro en el mismo commit.
+El acuerdo debe quedar **alineado con la propuesta**: montos, campanas, fechas del roadmap y presupuesto total de pauta tienen que coincidir con el JSON. Si se corrige uno, corregir el otro en el mismo commit. El detalle operativo (cantidad de piezas, distribucion de pauta por campana) vive en la propuesta y **no baja al acuerdo**, ver "Nivel de detalle".
 
 El tool MCP `generate-contract` es el mismo renderer, para el caso en que se quiera generar un acuerdo sin dejar un `gen.mts` en el repo.
 
@@ -235,9 +236,9 @@ El tool MCP `generate-contract` es el mismo renderer, para el caso en que se qui
 | Slide 3: LA LLAMADA | 1. Alcance | Producto, equipo, canales, que incluye/no incluye |
 | Slide 4: LA AUDITORIA | 1. Alcance (setup tecnico) | Findings de tracking: que instalar (Pixel, Shopping, REE Metrics) |
 | Slide 9: ROADMAP | 5. Plan de ejecucion | Semanas por fase (Foundation/Build/Launch/Scale), semana de go-live |
-| Slide 10: CAMPANAS | 1. Alcance + 5. Plan de ejecucion | Cantidad de campanas, piezas, tipos (venta/interaccion) |
+| Slide 10: CAMPANAS | 1. Alcance + 5. Plan de ejecucion | Cantidad de campanas, nombre y objetivo de cada una (sin conteo de piezas) |
 | Slide 11: PRICING | 4. Facturacion y pagos | Montos (setup, mensual, pauta), breakdown Concepto/Monto |
-| Slide 11: PRICING | 3. Pauta publicitaria | Presupuesto de pauta sugerido |
+| Slide 11: PRICING | 3. Pauta publicitaria | Presupuesto total de pauta sugerido (sin distribucion por campana) |
 | Slide 11: PRICING | 6. Reportes y metricas | REE Metrics USD 50/mes incluido en fee |
 | Slide 8: METODO | 2. Duracion del servicio | Fases del framework, duracion total |
 | (Reglas fijas REE) | 7. Datos y confidencialidad | Siempre igual |
@@ -255,6 +256,22 @@ Las secciones 7 y 8 son fijas (no dependen de la propuesta). Las secciones 1-6 s
 - Precios en USD con espacio: "USD 1,500/mes". Footer siempre aclara "NO incluyen IVA".
 - `footerValue`: si el pricing tiene estructura variable (ej. primer mes distinto al recurrente), usar `footerValue` para texto descriptivo como "USD 1,500 (primer mes) / USD 1,000/mes (recurrente)". Si se omite, el footer usa `totalValue`.
 
+### Nivel de detalle: que NO va en el acuerdo
+
+El acuerdo fija el **compromiso comercial**, no el plan operativo. Todo lo que puede variar mes a mes sin renegociar el contrato se deja fuera, para no generar una obligacion contractual sobre un numero que en la practica se ajusta.
+
+**No incluir cantidad de piezas creativas.** Nada de "8 piezas", "9 piezas creativas en 2 conjuntos por ICP", "18 anuncios". Las campanas se describen por **nombre, tipo y objetivo**:
+
+> "**2 campanas** en Meta Ads: **DEFU_Awareness** (interaccion hacia el perfil @defu.tofuco) y **DEFU_Ventas** (conversion hacia defu.com.ar)."
+
+La cantidad de piezas vive en la propuesta (slides) y en el Foundation (F2), donde se puede ajustar sin tocar el acuerdo. En el bullet de Build de la seccion 5 se dice "los creativos de ambas campanas", no un numero. Tampoco se promete extension de piezas en el bloque de excludes: la produccion audiovisual "queda sujeta a la disponibilidad de REE Agencia y se cotiza de forma aparte".
+
+**No incluir la distribucion de pauta por campana.** Nada de "USD 150/mes para Awareness y USD 350/mes para Ventas". En la seccion 3 va solo el **total sugerido** y quien decide el reparto:
+
+> "El presupuesto de pauta sugerido es de **USD 500/mes**. La distribucion entre campanas la define REE dentro de ese presupuesto y se reasigna mes a mes segun los resultados de performance."
+
+Excepcion: si el cliente pidio explicitamente un split fijo por campana, se deja documentado. Por default, no.
+
 ### Reglas de diseno/impresion
 
 - @page margin: `20mm 20mm` para impresion correcta en PDF.
@@ -270,7 +287,7 @@ Las secciones default estan en `src/lib/contract-templates.ts`. Claude las usa c
 1. Alcance de la propuesta (incluye/no incluye)
 2. Duracion del servicio (3 meses minimo)
 3. Pauta publicitaria (tarjeta del cliente en Meta)
-4. Facturacion y pagos (tabla Concepto/Monto, mes vencido, cotizacion dolar, recargo 10%)
+4. Facturacion y pagos (tabla Concepto/Monto, mes vencido, prorrateo por dias, cotizacion dolar, recargo 10%)
 5. Plan de ejecucion (Foundation, Build, Launch, Scale con semanas, clausula de plazos)
 6. Reportes y metricas (REE Metrics USD 50/mes incluido, quincenales/mensuales)
 7. Datos y confidencialidad
@@ -279,6 +296,23 @@ Las secciones default estan en `src/lib/contract-templates.ts`. Claude las usa c
 ### Clausula de plazos (obligatoria en seccion 5)
 
 "Los plazos del roadmap no se pausan por demoras en la entrega de creativos, accesos o aprobaciones por parte del cliente o de su equipo. El calendario y la facturacion siguen corriendo independientemente de estos tiempos de espera."
+
+### Clausula de prorrateo (obligatoria en seccion 4)
+
+El fee es mensual pero el Kick Off casi nunca cae el dia 1 del mes, y la baja tampoco cae a fin de mes. Sin esta clausula queda ambiguo si el mes de arranque se cobra completo. Va en `CLAUSULA_PRORRATEO`, **despues de la `paymentTable`** y **antes de `BLOQUES_PAGOS`**:
+
+```ts
+{
+  type: "paymentTable",
+  rows: [ /* ... */ ],
+},
+CLAUSULA_PRORRATEO,
+...BLOQUES_PAGOS,
+```
+
+"Cuando el periodo facturado es parcial, el fee mensual se prorratea por dias efectivos de servicio sobre el mes calendario correspondiente. El mes de inicio se cuenta desde la fecha del Kick Off y el mes de baja hasta la fecha de finalizacion del servicio."
+
+Aplica **solo al fee de REE**, no a la pauta: la pauta se debita de la tarjeta del cliente segun lo que Meta gaste, asi que ya es proporcional por definicion. Ojo con el mes 1 cuando tiene un monto distinto (ej. incluye una integracion de setup): el prorrateo se aplica sobre el fee, el cargo unico de setup se cobra completo.
 
 ### Block types para secciones
 

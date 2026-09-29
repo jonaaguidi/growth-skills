@@ -5,6 +5,7 @@
 import {
   BLOQUES_PAGOS,
   CLAUSULA_PLAZOS,
+  CLAUSULA_PRORRATEO,
   DEFINICION_GO_LIVE,
   seccionesFijas,
 } from "../../src/lib/contract-templates.js";
@@ -30,8 +31,8 @@ const acuerdo: AcuerdoData = {
           items: [
             "Estrategia de campañas, definición de audiencias y ángulos por ICP (Marketing, Comercial y RRHH de medianas y grandes empresas).",
             "Setup técnico: Meta Business Suite y cuenta publicitaria, conexión de WhatsApp Business como destino de campaña, integración de Meta Ads con REE Metrics.",
-            "**2 campañas** en Meta Ads con **16 piezas** a desarrollar: **BTLANDIA_Awareness** (**8 piezas** hacia el perfil @btlandia) y **BTLANDIA_B2B_LeadGen** (**8 piezas** de conversión hacia WhatsApp Business).",
-            "Bajada de línea creativa (briefs, guiones y ángulos) para las piezas de ambas campañas.",
+            "**2 campañas** en Meta Ads: **BTLANDIA_Awareness** (interacción hacia el perfil @btlandia) y **BTLANDIA_B2B_LeadGen** (conversión hacia WhatsApp Business).",
+            "Bajada de línea creativa (briefs, guiones y ángulos) para los creativos de ambas campañas.",
             "Dashboard en tiempo real vía REE Metrics: alcance, visitas al perfil, mensajes y CPL.",
             "Reportes de performance y reuniones de seguimiento quincenales.",
           ],
@@ -39,7 +40,7 @@ const acuerdo: AcuerdoData = {
         {
           type: "excludes",
           items: [
-            "Producción audiovisual (video, fotografía profesional). Queda sujeta a la disponibilidad de piezas con REE Agencia. La cantidad de piezas puede extenderse en caso de ser necesario y se cotiza de forma aparte.",
+            "Producción audiovisual (video, fotografía profesional). Queda sujeta a la disponibilidad de REE Agencia y se cotiza de forma aparte.",
             "Pauta publicitaria (se paga con la tarjeta del cliente directo en Meta)",
             "Licencias o suscripciones de herramientas de terceros",
             "Desarrollo de chatbot o automatización de WhatsApp (objeto de una propuesta separada)",
@@ -75,7 +76,7 @@ const acuerdo: AcuerdoData = {
         },
         {
           type: "paragraph",
-          text: "El presupuesto de pauta sugerido es de **USD 500/mes**, distribuido actualmente en **USD 150/mes** para Awareness y **USD 350/mes** para B2B Lead Gen. La distribución se redistribuye al final de cada ciclo quincenal según los resultados de performance.",
+          text: "El presupuesto de pauta sugerido es de **USD 500/mes**. La distribución entre campañas la define REE dentro de ese presupuesto y se reasigna al final de cada ciclo quincenal según los resultados de performance.",
         },
       ],
     },
@@ -93,6 +94,7 @@ const acuerdo: AcuerdoData = {
             { concept: "Servicio mensual REE Growth (incluye REE Metrics)", amount: "USD 500/mes" },
           ],
         },
+        CLAUSULA_PRORRATEO,
         ...BLOQUES_PAGOS,
       ],
     },
@@ -108,7 +110,7 @@ const acuerdo: AcuerdoData = {
           type: "bullets",
           items: [
             "**Foundation (S1-3):** Kick Off el **02/09**, configuración de Meta Ads, accesos e integración con REE Metrics, brief creativo de ambas campañas. Foundation Review el **23/09** con ajustes de ICP, audiencia y piezas.",
-            "**Build (S2-5):** desarrollo de las 8 piezas de Awareness y las 8 piezas de conversión de la campaña B2B, estructuración de campañas con conjuntos por ICP y ángulo, validación end to end del funnel (anuncio, WhatsApp, REE Metrics).",
+            "**Build (S2-5):** desarrollo de los creativos de Awareness y de la campaña B2B, estructuración de campañas con conjuntos por ICP y ángulo, validación end to end del funnel (anuncio, WhatsApp, REE Metrics).",
             "**Launch (S3-7):** Awareness activa desde el **24/09**. Lanzamiento de la campaña B2B Lead Gen el **13/10** junto a la Call ADS, con review de las primeras **3 semanas** de Awareness.",
             "**Scale (S7-8):** escalado de presupuesto a los anuncios ganadores, pausa de los que no traccionan y optimización de audiencias. Review Ads el **27/10** y Review Final el **06/11**.",
           ],

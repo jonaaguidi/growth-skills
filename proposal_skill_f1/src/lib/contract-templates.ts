@@ -174,6 +174,15 @@ export const BLOQUES_PAGOS: ContractBlock[] = [
   },
 ];
 
+/**
+ * Prorrateo del fee en meses parciales (inicio y baja).
+ * Va en la seccion "Facturacion y pagos", despues de la tabla de montos.
+ */
+export const CLAUSULA_PRORRATEO: ContractBlock = {
+  type: "paragraph",
+  text: "Cuando el período facturado es **parcial**, el fee mensual se **prorratea por días efectivos de servicio** sobre el mes calendario correspondiente. El mes de inicio se cuenta desde la fecha del Kick Off y el mes de baja hasta la fecha de finalización del servicio.",
+};
+
 /** Definicion de go-live. Va en la seccion "Plan de ejecucion". */
 export const DEFINICION_GO_LIVE: ContractBlock = {
   type: "paragraph",

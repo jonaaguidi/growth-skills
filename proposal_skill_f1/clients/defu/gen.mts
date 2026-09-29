@@ -5,6 +5,7 @@
 import {
   BLOQUES_PAGOS,
   CLAUSULA_PLAZOS,
+  CLAUSULA_PRORRATEO,
   DEFINICION_GO_LIVE,
   seccionesFijas,
 } from "../../src/lib/contract-templates.js";
@@ -31,7 +32,7 @@ const acuerdo: AcuerdoData = {
           items: [
             "Estrategia de campañas, definición de audiencias y ángulos de comunicación.",
             "Setup técnico: instalación del Pixel de Meta, CAPI y eventos de compra en Tienda Nube, conexión de Meta Ads y Tienda Nube a REE Metrics.",
-            "**2 campañas** en Meta Ads: **DEFU_Awareness** (interacción hacia el perfil @defu.tofuco, **6 piezas**) y **DEFU_Ventas** (conversión hacia defu.com.ar, **9 piezas creativas** publicadas en **2 conjuntos por ICP**, lo que da **18 anuncios** en pauta).",
+            "**2 campañas** en Meta Ads: **DEFU_Awareness** (interacción hacia el perfil @defu.tofuco) y **DEFU_Ventas** (conversión hacia defu.com.ar).",
             "Retargeting de visitantes del sitio y de quienes interactúan con el perfil de Instagram.",
             "Dashboard en tiempo real vía REE Metrics: CPA, ROAS, ticket promedio y tasa de conversión.",
             "Reportes de performance y reuniones de seguimiento quincenales.",
@@ -40,7 +41,7 @@ const acuerdo: AcuerdoData = {
         {
           type: "excludes",
           items: [
-            "Producción audiovisual (video, fotografía profesional). Queda sujeta a la disponibilidad de piezas con REE Agencia. La cantidad de piezas puede extenderse en caso de ser necesario y se cotiza de forma aparte.",
+            "Producción audiovisual (video, fotografía profesional). Queda sujeta a la disponibilidad de REE Agencia y se cotiza de forma aparte.",
             "Creación de productos, packs y definición de precios en el ecommerce (a cargo de Defu)",
             "Pauta publicitaria (se paga con la tarjeta del cliente directo en Meta)",
           ],
@@ -71,7 +72,7 @@ const acuerdo: AcuerdoData = {
         },
         {
           type: "paragraph",
-          text: "El presupuesto de pauta sugerido es de **USD 500/mes**, distribuido actualmente en **USD 150/mes** para Awareness y **USD 350/mes** para el funnel B2C de ventas. La distribución se redistribuye mes a mes según los resultados de performance.",
+          text: "El presupuesto de pauta sugerido es de **USD 500/mes**. La distribución entre campañas la define REE dentro de ese presupuesto y se reasigna mes a mes según los resultados de performance.",
         },
       ],
     },
@@ -90,6 +91,7 @@ const acuerdo: AcuerdoData = {
             { concept: "Mes 2 en adelante (servicio + REE Metrics)", amount: "USD 500/mes" },
           ],
         },
+        CLAUSULA_PRORRATEO,
         ...BLOQUES_PAGOS,
       ],
     },
@@ -105,7 +107,7 @@ const acuerdo: AcuerdoData = {
           type: "bullets",
           items: [
             "**Foundation (S1-2):** Kick Off el **25/08**, accesos y configuración de Meta Ads, estrategia de ambas campañas, definición de audiencias, Pixel y eventos en Tienda Nube, integración con REE Metrics. Foundation Review el **01/09**.",
-            "**Build (S2-4):** producción y montaje de las 6 piezas de Awareness y las 9 piezas creativas de Ventas, estructuración de campañas y duplicado en los 2 conjuntos por ICP.",
+            "**Build (S2-4):** producción y montaje de los creativos de ambas campañas, estructuración de campañas y segmentación de conjuntos por ICP.",
             "**Launch (S4-6):** activación de la campaña de Awareness el **15/09** y testeo de piezas con inversión real. El **23/09** se hace la review de Awareness y se lanza el funnel B2C de ventas.",
             "**Scale (S6-8):** optimización de presupuesto, retargeting, escalado de creativos ganadores y pausa de los que no traccionan. Call ADS de seguimiento el **07/10** y Review Final el **13/10**.",
           ],
