@@ -76,7 +76,7 @@ export const DEFAULT_PAYMENT_METHODS: PaymentMethod[] = [
     name: "Cripto (USDT)",
     icon: "crypto",
     details: [
-      "Transferencia en USDT a la direccion y red que indiquemos.",
+      "Transferencia en USDT a la dirección y red que indiquemos.",
       "Las comisiones de red corren por cuenta del cliente.",
     ],
   },
@@ -85,15 +85,15 @@ export const DEFAULT_PAYMENT_METHODS: PaymentMethod[] = [
     icon: "bank",
     details: [
       "Transferencia a cuenta bancaria de REE.",
-      "Pagos en pesos: cotizacion de venta del dolar oficial (dolarhoy.com) el dia del pago.",
+      "Pagos en pesos: cotización de venta del dólar oficial (dolarhoy.com) el día del pago.",
     ],
   },
 ];
 
 export const DEFAULT_PAYMENT_TERMS = {
   paymentTerms: "El servicio se factura a mes vencido, del 1 al 10 del mes siguiente.",
-  currencyNote: "Pagos en pesos: se toman a la cotizacion de venta del dolar oficial publicada en dolarhoy.com el dia del pago.",
-  latePayment: "Desde el dia 10 de vencido el pago, se aplica un recargo del 10% sobre el saldo. REE puede suspender el servicio hasta regularizar.",
+  currencyNote: "Pagos en pesos: se toman a la cotización de venta del dólar oficial publicada en dolarhoy.com el día del pago.",
+  latePayment: "Desde el día 10 de vencido el pago, se aplica un recargo del 10% sobre el saldo. REE puede suspender el servicio hasta regularizar.",
 };
 
 // ── Index section names ──
