@@ -40,9 +40,14 @@ export interface AuditSection {
 /** Competitor (for competitors slide) */
 export interface Competitor {
   name: string;
+  /** Texto secundario bajo el nombre (ej. lista de marcas del segmento) */
+  description?: string;
   share: string;
   strengths: string[];
   weaknesses: string[];
+  adsLibraryUrl?: string;
+  /** URL de imagen (empieza con "/" o "http") o nombre de SVG built-in: "crown" | "tag" */
+  icon?: string;
 }
 
 /** ICP profile (for icp slide) */
@@ -79,7 +84,10 @@ export interface RoadmapPhase {
   weeks: string;
   budget?: string;
   description: string;
+  /** Texto plano: el viewer NO interpreta HTML en los deliverables */
   deliverables: string[];
+  /** Color de la etapa del framework (Foundation/Build/Launch/Scale) */
+  color?: string;
 }
 
 /** A value proposition angle (legacy, used by build-value-props) */
@@ -125,8 +133,11 @@ export interface PricingPackage {
 /** Pricing breakdown */
 export interface PricingBreakdown {
   items: { concept: string; amount: string; note: string; recurring?: boolean }[];
-  firstMonth: string;
+  /** Caja "Implementacion (1er mes)". Omitir cuando no hay cargo de setup */
+  firstMonth?: string;
   monthly: string;
+  /** Caja gris "Presupuesto Ads (mensual)" */
+  adSpend?: string;
 }
 
 /** Investment section output */
@@ -143,7 +154,7 @@ export interface InvestmentSection {
 export interface MethodPhase {
   number: string;
   name: string;
-  duration: string;
+  duration?: string;
   description: string;
   deliverable?: string;
   deliverableIcon?: string;
@@ -184,6 +195,9 @@ export interface CoverSlide {
   title: string;
   subtitle: string;
   confidential?: string;
+  /** Logo del cliente junto al de REE. Debe ser una version blanca: el fondo es rojo */
+  clientLogo?: string;
+  icon?: "chatbot";
 }
 
 export interface IndexSlide {
@@ -207,6 +221,7 @@ export interface FindingsSlide {
   sectionLabel: string;
   headline: string;
   findings: AuditFinding[];
+  clientValue?: { label: string; text: string };
   keyInsight: string;
 }
 
@@ -231,6 +246,7 @@ export interface ICPSlide {
   sectionLabel: string;
   headline: string;
   profiles: ICPProfile[];
+  footnote?: string;
 }
 
 export interface ValuePropsSlide {
@@ -248,6 +264,7 @@ export interface RoadmapSlide {
   description?: string;
   gantt: { totalWeeks: number; bars: GanttBar[] };
   phases: RoadmapPhase[];
+  footnote?: string;
 }
 
 export interface MethodSlide {
@@ -256,6 +273,7 @@ export interface MethodSlide {
   headline: string;
   phases: MethodPhase[];
   currentPhase?: number;
+  bottomNote?: string;
 }
 
 export interface PricingSlide {
@@ -292,22 +310,26 @@ export interface ClosingSlide {
   partnership: string;
   headline: string;
   steps: { number: string; text: string }[];
+  /** Logo del cliente junto al de REE. Debe ser una version blanca: el fondo es rojo */
+  clientLogo?: string;
 }
 
+type SlideExtras = { hidden?: boolean };
+
 export type Slide =
-  | CoverSlide
-  | IndexSlide
-  | ContentSlide
-  | FindingsSlide
-  | ResearchSlide
-  | CompetitorsSlide
-  | ICPSlide
-  | ValuePropsSlide
-  | RoadmapSlide
-  | MethodSlide
-  | PricingSlide
-  | PaymentMethodsSlide
-  | ClosingSlide;
+  | (CoverSlide & SlideExtras)
+  | (IndexSlide & SlideExtras)
+  | (ContentSlide & SlideExtras)
+  | (FindingsSlide & SlideExtras)
+  | (ResearchSlide & SlideExtras)
+  | (CompetitorsSlide & SlideExtras)
+  | (ICPSlide & SlideExtras)
+  | (ValuePropsSlide & SlideExtras)
+  | (RoadmapSlide & SlideExtras)
+  | (MethodSlide & SlideExtras)
+  | (PricingSlide & SlideExtras)
+  | (PaymentMethodsSlide & SlideExtras)
+  | (ClosingSlide & SlideExtras);
 
 /** Full diagnostic presentation JSON */
 export interface DiagnosticPresentation {

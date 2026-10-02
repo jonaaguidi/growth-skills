@@ -192,10 +192,12 @@ server.tool(
             concept: z.string(),
             amount: z.string(),
             note: z.string(),
+            recurring: z.boolean().optional(),
           })
         ),
-        firstMonth: z.string(),
+        firstMonth: z.string().optional(),
         monthly: z.string(),
+        adSpend: z.string().optional(),
       })
       .optional(),
   },
@@ -229,7 +231,7 @@ server.tool(
         z.object({
           number: z.string(),
           name: z.string(),
-          duration: z.string(),
+          duration: z.string().optional(),
           description: z.string(),
           deliverable: z.string().optional(),
           deliverableIcon: z.string().optional(),
