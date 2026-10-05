@@ -53,6 +53,8 @@ export interface Competitor {
 /** ICP profile (for icp slide) */
 export interface ICPProfile {
   segment: string;
+  /** Pill junto al nombre del segmento (ej. nivel de conciencia del producto) */
+  badge?: string;
   description: string;
   pains: string[];
   desires: string[];
@@ -136,8 +138,12 @@ export interface PricingBreakdown {
   /** Caja "Implementacion (1er mes)". Omitir cuando no hay cargo de setup */
   firstMonth?: string;
   monthly: string;
+  /** Label de la caja roja. Default: "Fee mensual" */
+  monthlyLabel?: string;
   /** Caja gris "Presupuesto Ads (mensual)" */
   adSpend?: string;
+  /** Label de la caja gris. Default: "Presupuesto Ads (mensual)" */
+  adSpendLabel?: string;
 }
 
 /** Investment section output */

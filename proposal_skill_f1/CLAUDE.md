@@ -84,9 +84,45 @@ Convierte los datos de la Discovery Call (Fase 0) + la visión de founders en un
 - **Cada etapa del framework tiene un color fijo, identico en todas las barras** (patron btlandia/caribetienda/kabala): Foundation `#DD0513` (rojo), Build `#0E0D0C` (negro), Launch `#E8A013` (amarillo), Scale `#12A150` (verde). NO usar shades progresivos por barra ni colores del cliente en el Gantt.
 - Las **phase cards** de abajo son las 4 etapas del framework (Foundation/Build/Launch/Scale), NO una card por campana. Cada card explica que se hace en esa etapa para este cliente, con el `color` de su etapa.
 - La `description` del slide soporta `<b>` (se renderiza con dangerouslySetInnerHTML). Usar negritas para guiar la lectura: cantidad de piezas, nombres de campanas, objetivos.
+- Los `deliverables` de las phase cards son **texto plano**: el viewer los renderiza como `{d}`, no con dangerouslySetInnerHTML. Un `<b>` ahi sale impreso literal como `&lt;b&gt;`. Ver "Que campos aceptan HTML".
 - Foundation siempre es 1 semana. Build, Launch y Scale varían segun la complejidad del canal.
 - Ambos canales deben sumar el mismo total de semanas.
 - Los deliverables solo incluyen trabajo que REE ejecuta. No prometer puesta a punto de perfiles de IG ni cambios en el ecommerce del cliente salvo acuerdo explicito.
+
+## Que campos aceptan HTML
+
+Solo estos campos pasan por `dangerouslySetInnerHTML`. En cualquier otro, un `<b>` sale impreso literal:
+
+| Slide | Campos con HTML |
+|-------|-----------------|
+| `content` | `summary.value`, `cards[].value` |
+| `findings` | `findings[].finding`, `clientValue.text` |
+| `research` | `marketCards[].text`, `summary` |
+| `competitors` | `summary` |
+| `icp` | `footnote` |
+| `roadmap` | `description`, `footnote` |
+| `pricing` | `footnote` |
+| `payment-methods` | `footnote` |
+| `campaigns` | `description` |
+
+**No aceptan HTML** (texto plano): `roadmap.phases[].deliverables`, `findings.keyInsight`, `pricing.breakdown.items[].note`, `competitors[].strengths/weaknesses/description`, `icp.profiles[].pains/desires/objections`, `content.quote.text`, `index.items[].description`.
+
+Chequeo rapido sobre el JSON generado: buscar `<` en los campos que no estan en la tabla de arriba.
+
+## Verificar overflow antes de entregar
+
+Los slides se renderizan a **1920x1080 fijo** y el contenido que no entra **se desborda en silencio**: no hay scroll ni clamp, el viewer solo escala el contenedor. Nada en el typecheck lo detecta.
+
+Hay que medirlo en el browser con el server local arriba:
+
+```js
+// playwright: por cada div de 1920x1080, el bottom del hijo mas bajo
+const bottom = Math.max(...[...el.querySelectorAll("*")]
+  .map(c => (c.getBoundingClientRect().bottom - top) / scale));
+// bottom > 1080  =>  desborda
+```
+
+Los que se desbordan primero son **competencia** (3 competidores con 4 fortalezas y 4 debilidades cada uno ya queda al limite, sumado al `summary`) y **roadmap** (`description` larga mas 5 deliverables por card). Referencias sanas: `description` del roadmap hasta ~300 caracteres, 2 competidores con 4 y 4, o 3 competidores con 3 y 3.
 
 ## Notas sobre medios de pago (slide 11)
 
