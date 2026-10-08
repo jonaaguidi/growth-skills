@@ -463,12 +463,12 @@ const data = {
   arquitectura: [
     {
       nombre: "BTLandia_B2B_ExpoAgro",
-      objetivo: "Mensajes (WhatsApp)",
+      objetivo: "Clientes potenciales",
       tituloSeccion: "Campaña B2B Expo Agro (WhatsApp)",
       tituloSubseccion: `Campaña Expo Agro en Meta Ads<span style="display:inline-block;font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:10px;font-weight:600;padding:2px 8px;background:#FEF3C7;color:#92400E;border-radius:4px;margin-left:8px;vertical-align:middle;letter-spacing:0.5px;text-transform:uppercase">En Revision</span>`,
       status: "en-desarrollo",
       destino: "WhatsApp Business de BTLandia",
-      conversionCampana: "Cantidad de Mensajes a WhatsApp",
+      conversionCampana: "Clientes potenciales vía WhatsApp",
       descripcionCampana: "Generar <b>leads calificados vía WhatsApp</b> de <b>empresas radicadas en las ciudades agro-ganaderas</b> que venden productos y servicios al campo (maquinaria, semillas, agtech, drones, servicios) y <b>quieren un stand en Expo Agro 2027 para llegar a ese público</b>. El decisor es el dueño o responsable comercial/marketing de esas empresas, no el visitante de la expo. La temporalidad es clave: los stands se definen entre octubre y noviembre, por eso esta campaña se adelanta y el producto Kickoff pasa a fin de noviembre (repriorización call 30/09). BTLandia produce para el sector desde 2003.",
       kpisCampana: ["Cantidad de Conversaciones (leads que entran)", "CPL (costo por lead)", "CTR (interés que genera el anuncio)"],
       presupuestoCampana: { diario: "USD $11.6/día (≈ ARS $17.900)", mensual: "USD $350/mes (≈ ARS $539.000)" },
