@@ -198,7 +198,7 @@ export interface PiezaCreativa {
 export interface ReferenciaCreativa {
   url: string;
   titulo?: string | null;
-  tipo?: "link" | "iframe" | null;  // null = auto-detect
+  tipo?: "link" | "iframe" | "image" | "video" | "carousel" | null;  // null = auto-detect
 }
 
 export interface PiezasICP {
@@ -241,6 +241,9 @@ export interface CampanaDefinida {
   badgesPiezas?: string[] | null;       // badges junto al titulo de la seccion Piezas Creativas (ej. ["En desarrollo", "Equipo Creativo"])
   bannerPiezas?: string | null;         // texto custom del banner verde de piezas (ej. "8 piezas activas desde el 24/09."); si no se define, se usa el default
   notaCampana?: string | null;          // linea destacada al inicio de la subseccion de campana en desarrollo (ej. "Producto a comunicar: Kickoff...")
+  conSubsecciones?: boolean | null;     // render as one section with subsections (Meta Ads + Guiones) instead of separate sections
+  referencias?: ReferenciaCreativa[] | null;  // creative references for the campaign (visual inspiration grid)
+  postesDirectos?: ReferenciaCreativa[] | null;  // content to post organically from the profile (rendered below pieces)
 }
 
 export interface CapacidadAtencion {
