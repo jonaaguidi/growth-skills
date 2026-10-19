@@ -558,7 +558,7 @@ const data = {
         ],
       },
     ],
-    resumenPiezas: "10 anuncios de Ventas: 5 por ICP (1 video UGC + 3 carruseles post+historia + 1 Shopping). 2 carruseles por dolor + 1 carrusel de productos CyberMonday con envío gratis. Cada ICP tiene su propia colección de Shopping.",
+    resumenPiezas: "10 anuncios de Ventas: 5 por ICP (1 video UGC + 3 carruseles post+historia + 1 Shopping). Al Consciente del Síntoma: 2 carruseles por dolor + 1 de productos individuales para CyberMonday. Al Consciente del Producto: combo x6, escalera de packs x2/x4/x6 y CyberMonday. Cada ICP tiene su propia colección de Shopping.",
     formatos: ["Video Comercial (9:16)", "Feed (1080x1350)", "Reel / Story (1080x1920)", "Carrusel (1080x1080)"],
     tono: "Cercano, directo, educativo. Se habla como alguien que sabe del tema y quiere compartirlo, sin sobrevender: explicar con calma, como en una charla. Evitar lenguaje corporativo o demasiado publicitario. Priorizar transparencia, autenticidad y confianza del founder sobre claims genéricos. El tono refleja que Micelic es una marca con un humano detrás. Las piezas que produce la creadora UGC mantienen el mismo tono: cambia la cara, no la forma de hablar.",
     notaPiezas: "Pauta de edición para handoff a la creadora UGC — aplica a los 4 videos guionados: (1) Isotipo de Micelic fijo en la esquina superior izquierda, chico, permanente todo el video. (2) Subtítulos centrados a la altura de la cara, nunca en el tercio inferior: ahí la UI de Reels tapa el texto. (3) Close-ups de etiqueta con la concentración visible — cada extracto tiene su color, el detalle del frasco es lo que diferencia. (4) Entrega en 9:16 (1080x1920) a Drive compartido. El reparto de producción es: creadora UGC los 4 videos guionados (2 de Awareness + 2 de Ventas), Julián los 8 carruseles y los packs en Tienda Nube.",
@@ -715,7 +715,7 @@ const data = {
           enRevision: false,
         },
       ],
-      bannerPiezas: "6 anuncios de Awareness (2 reels curados + 2 videos + 2 carruseles).",
+      bannerPiezas: "7 anuncios de Awareness (3 reels curados + 2 videos + 2 carruseles).",
     },
     {
       nombre: "MICELIC_Ventas",
@@ -823,14 +823,14 @@ const data = {
 
   // Roadmap
   roadmap: [
-    // Awareness: no hubo Build de produccion (se curaron 2 reels existentes de @micelic.ar),
-    // por eso pasa de Foundation (S1: setup + accesos) a Launch el 15/10 (S2).
+    // Awareness: no hubo Build de produccion (se curo 1 reel de @micelic.ar + 2 videos del Drive),
+    // por eso pasa de Foundation (S1-S2: setup + accesos) directo a Launch el 21/10 (S3).
     { nombre: "Awareness de Marca", fases: [
-      { nombre: "Foundation", semanaInicio: 1, semanaFin: 1 },
-      { nombre: "Launch", semanaInicio: 2, semanaFin: 3 },
+      { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
+      { nombre: "Launch", semanaInicio: 3, semanaFin: 3 },
       { nombre: "Scale", semanaInicio: 4, semanaFin: 8 },
     ]},
-    // Ventas: Foundation (setup + pixel + REE Metrics) S1-S2, produccion de las 4 piezas
+    // Ventas: Foundation (setup + pixel + REE Metrics) S1-S2, produccion de las 10 piezas
     // en S3 tras el Foundation Review del 19/10, Launch 27/10 (S4) + CyberMonday (S5), Scale S6-S8.
     { nombre: "Ventas (E-commerce)", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
@@ -851,7 +851,7 @@ const data = {
         "Crear los packs x2 (extracto individual), x4 (dúo) y x6 (alto rendimiento) en Tienda Nube como productos nuevos, con foto, precio de pack y stock cargado",
         "Dar de baja el badge \"hasta 15% comprando en cantidad\" de la web: lo reemplazan los packs como producto",
         "Producir las piezas gráficas: 2 carruseles de Awareness + 6 carruseles de Ventas (post + historia) sobre la bajada creativa de este documento",
-        "Regrabar los 2 reels orgánicos con el packaging actual (las etiquetas que muestran son las viejas). Se pautan igual mientras tanto: son de interacción, no de conversión",
+        "Regrabar el reel orgánico con el packaging actual (la etiqueta de Mushblend que muestra es la vieja). Se pauta igual mientras tanto: es de interacción, no de conversión",
         "Pasar a la creadora UGC los 4 guiones de video + la pauta de edición de este documento",
       ],
     },
@@ -871,7 +871,7 @@ const data = {
       responsable: "REE Growth",
       tiempo: "Esta semana",
       items: [
-        "Lanzar MICELIC_Awareness el 21/10 con los 4 reels curados (2 orgánicos de @micelic.ar + 2 del Drive). Sumar los 2 videos UGC y los 2 carruseles a medida que se produzcan",
+        "Lanzar MICELIC_Awareness el 21/10 con los 3 reels curados (1 orgánico de @micelic.ar + 2 del Drive). Sumar los 2 videos UGC y los 2 carruseles a medida que se produzcan",
         "Lanzar MICELIC_Ventas una vez recibidas las piezas de ventas — objetivo: tener ambas campañas activas antes del primer Review de ADS (10/11) y CyberMonday (02/11)",
         "Configurar las 2 colecciones de Meta Shopping (una por ICP) una vez que Julián tenga los packs cargados en Tienda Nube",
         "Testear creadora UGC (mujer) contra Julián (hombre) como variable de performance en Awareness",
@@ -881,7 +881,7 @@ const data = {
 
   reviewMilestones: [
     { semana: 1, label: "KO Call", fecha: "07/10" },
-    { semana: 2, label: "Foundation Review", fecha: "19/10" },
+    { semana: 3, label: "Foundation Review", fecha: "19/10" },
     { semana: 3, label: "Launch AW", fecha: "21/10" },
     { semana: 4, label: "Launch Ventas", fecha: "27/10" },
     { semana: 5, label: "CyberMonday", fecha: "02/11" },
@@ -891,9 +891,9 @@ const data = {
 
   reviewMeetings: [
     { semana: "S1", nombre: "Propuesta + KO Call", desc: "Propuesta el 05/10 (aceptada) y Kick Off el 07/10. Configuración de Meta Business Suite, conexión de @micelic.ar, acceso a Tienda Nube. Todo listo para arrancar.", status: "done", fecha: "07/10" },
-    { semana: "S2", nombre: "Foundation Review", desc: "Domingo 19/10. Revisión completa: plan creativo, guiones, piezas, segmentación, demo REE Metrics. Aprobación para producir contenido y lanzar awareness + ventas.", status: "current", fecha: "19/10" },
-    { semana: "S3", nombre: "Launch Awareness", desc: "Martes 21/10. Activación de MICELIC_Awareness con 2 reels curados de @micelic.ar. Primera señal de alcance y costo por resultado con la identidad de Julián al frente.", status: "pending", fecha: "21/10" },
-    { semana: "S4", nombre: "Launch Ventas", desc: "Martes 27/10. Activación de MICELIC_Ventas. Julián produce contenido sobre la bajada creativa de REE. Primer testeo con 4 piezas × 2 ICPs.", status: "pending", fecha: "27/10" },
+    { semana: "S3", nombre: "Foundation Review", desc: "Domingo 19/10. Revisión completa: plan creativo, guiones, piezas, segmentación, demo REE Metrics. Aprobación para producir contenido y lanzar awareness + ventas.", status: "current", fecha: "19/10" },
+    { semana: "S3", nombre: "Launch Awareness", desc: "Martes 21/10. Activación de MICELIC_Awareness con 3 reels curados (1 orgánico de @micelic.ar + 2 videos del Drive). Primera señal de alcance y costo por resultado con la identidad de Julián al frente.", status: "pending", fecha: "21/10" },
+    { semana: "S4", nombre: "Launch Ventas", desc: "Martes 27/10. Activación de MICELIC_Ventas. La creadora UGC produce los videos y Julián los carruseles, sobre la bajada creativa de REE. Primer testeo con 5 piezas × 2 ICPs.", status: "pending", fecha: "27/10" },
     { semana: "S6", nombre: "Call ADS", desc: "Martes 10/11. Review de CyberMonday, análisis de pieza ganadora, redistribución de presupuesto. Preparar variantes de Black Friday: definir oferta, combos y copies con Julián.", status: "pending", fecha: "10/11" },
     { semana: "S8", nombre: "Review Final + Black Friday", desc: "Martes 24/11. Black Friday (27/11) con variantes activas dentro de MICELIC_Ventas. Revisión del ciclo completo, resultados vs KPIs y plan del siguiente periodo.", status: "pending", fecha: "24/11" },
   ],
