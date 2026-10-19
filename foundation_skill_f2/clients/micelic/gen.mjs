@@ -309,7 +309,7 @@ const data = {
   kpis: [
     { nombre: "CPL (visita e-commerce)", objetivo: null, fuente: "Meta Ads + REE Metrics" },
     { nombre: "CPA (venta Tienda Nube)", objetivo: null, fuente: "Tienda Nube + Pixel" },
-    { nombre: "ROAS", objetivo: "> 1.5x", fuente: "Meta Ads + REE Metrics" },
+    { nombre: "ROAS", objetivo: null, fuente: "Meta Ads + REE Metrics" },
     { nombre: "CAC (costo adquisición cliente)", objetivo: null, fuente: "Meta Ads + Tienda Nube" },
     { nombre: "Ticket promedio", objetivo: null, fuente: "Tienda Nube" },
     { nombre: "Tasa de conversión e-commerce", objetivo: "2%+ (benchmark D2C)", fuente: "Tienda Nube Analytics" },
