@@ -180,11 +180,17 @@ function buildToc(data: FoundationData): TocItem[] {
   for (const camp of activeCampaigns) {
     const totalAds = camp.adSets.reduce((s, as_) => s + as_.ads.length, 0);
     const tocTitle = camp.tituloSeccion ?? `Campaña de ${camp.objetivo}`;
-    if (camp.conSubsecciones && camp.piezas?.length) {
+    const tieneSubs = camp.conSubsecciones && (camp.piezas?.length || camp.referencias?.length);
+    if (tieneSubs) {
+      const nPiezas = camp.piezas?.length ?? 0;
+      const nRefs = camp.referencias?.length ?? 0;
+      const detalle = nPiezas
+        ? `${nPiezas} piezas a producir${nRefs ? ` y ${nRefs} ya publicadas` : ""}`
+        : `${nRefs} piezas ya publicadas`;
       items.push({
         id: slugify(camp.nombre),
         title: tocTitle,
-        desc: `Bajada creativa, campaña en Meta Ads y ${camp.piezas.length} piezas.`,
+        desc: `Campaña en Meta Ads y piezas creativas, ${detalle}.`,
       });
     } else {
       items.push({
@@ -255,7 +261,7 @@ export function renderStrategyHtml(data: FoundationData): string {
   // 02+. Active campaigns (each gets its own section)
   for (const camp of activeCampaigns) {
     sectionNum++;
-    if (camp.conSubsecciones && camp.piezas?.length) {
+    if (camp.conSubsecciones && (camp.piezas?.length || camp.referencias?.length)) {
       sections.push(renderActiveCampaignConSubsecciones(data, camp, sectionNum));
     } else {
       sections.push(renderActiveCampaign(data, camp, sectionNum));
@@ -752,7 +758,16 @@ function renderActiveCampaignConSubsecciones(data: FoundationData, campaign: Cam
     const videoCount = piezas.filter(p => p.formato.toLowerCase().includes("reel") || p.formato.toLowerCase().includes("video")).length;
     const staticCount = piezas.length - videoCount;
 
-    sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Bajada creativa de las <strong>${piezas.length} piezas</strong> de la campaña de ${escapeHtml(campaign.objetivo.toLowerCase())}. ${videoCount > 0 ? `<strong>${videoCount} video${videoCount > 1 ? "s" : ""}</strong>` : ""}${videoCount > 0 && staticCount > 0 ? " + " : ""}${staticCount > 0 ? `<strong>${staticCount} posteo${staticCount > 1 ? "s" : ""}</strong>` : ""}.</p>`);
+    const campLabel = campaign.tituloSeccion
+      ? campaign.tituloSeccion.replace(/^Campaña\s+(de\s+)?/i, "")
+      : campaign.objetivo.toLowerCase();
+    const nRefs = campaign.referencias?.length ?? 0;
+    if (piezas.length) {
+      const mix = `${videoCount > 0 ? `<strong>${videoCount} video${videoCount > 1 ? "s" : ""}</strong>` : ""}${videoCount > 0 && staticCount > 0 ? " + " : ""}${staticCount > 0 ? `<strong>${staticCount} posteo${staticCount > 1 ? "s" : ""}</strong>` : ""}`;
+      sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Bajada creativa de las <strong>${piezas.length} piezas a producir</strong> de la campaña de ${escapeHtml(campLabel)}. ${mix}.${nRefs ? ` Debajo, las <strong>${nRefs} piezas ya publicadas</strong> que se reutilizan.` : ""}</p>`);
+    } else {
+      sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">La campaña de ${escapeHtml(campLabel)} se arma con <strong>${nRefs} piezas ya publicadas</strong> en el perfil. No requiere producción nueva.</p>`);
+    }
 
     // Campaign references grid
     if (campaign.referencias?.length) {
