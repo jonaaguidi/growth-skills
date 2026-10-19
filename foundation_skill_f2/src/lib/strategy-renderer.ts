@@ -679,7 +679,8 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
   }
 
   const sectionId = slugify(campaign.nombre);
-  return section(num, sectionId, `Campaña de ${campaign.objetivo}`, parts.join("\n"), false, isLocked(data, sectionId));
+  const sectionTitle = campaign.tituloSeccion ?? `Campaña de ${campaign.objetivo}`;
+  return section(num, sectionId, sectionTitle, parts.join("\n"), false, isLocked(data, sectionId));
 }
 
 // ─── Active Campaign with Subsections (conSubsecciones) ─────────────

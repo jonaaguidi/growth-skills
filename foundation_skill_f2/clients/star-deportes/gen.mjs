@@ -557,6 +557,8 @@ const data = {
     {
       nombre: "StarDeportes_Awareness",
       objetivo: "Interacción",
+      tituloSeccion: "Campaña de Awareness",
+      tituloSubseccion: "Campaña de Awareness en Meta Ads",
       descripcionCampana: "Generar reconocimiento de marca en La Plata y alrededores reutilizando contenido orgánico existente de @stardeportes. No requiere producción nueva: se seleccionan los mejores reels e imágenes ya publicados. Objetivo: que el consumidor conozca Star Deportes, confíe y opte por la marca.",
       status: "activa",
       destino: "Perfil de Instagram (@stardeportes)",
