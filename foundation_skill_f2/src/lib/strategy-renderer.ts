@@ -158,6 +158,15 @@ function deriveProximosPasos(data: FoundationData): ProximoPaso[] {
   return pasos;
 }
 
+function renderEntregaMaterial(data: FoundationData): string {
+  const e = data.entregaMaterial;
+  if (!e) return "";
+  const arbol = e.arbol?.length
+    ? `<pre style="font-family:${FONTS.mono};font-size:12px;line-height:1.6;margin:10px 0 0;padding:12px 14px;background:${COLORS.surface};border:1px solid ${COLORS.border};border-radius:6px;overflow-x:auto">${e.arbol.map(l => escapeHtml(l)).join("\n")}</pre>`
+    : "";
+  return `<div class="callout" style="margin:0 0 20px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="${COLORS.escenario2}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:7px"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg><strong>Entrega del material en ${escapeHtml(e.destino)}:</strong> ${escapeHtml(e.descripcion)}${arbol}</div>`;
+}
+
 // ─── TOC builder ─────────────────────────────────────────────────────
 
 interface TocItem {
@@ -769,6 +778,8 @@ function renderActiveCampaignConSubsecciones(data: FoundationData, campaign: Cam
       sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">La campaña de ${escapeHtml(campLabel)} se arma con <strong>${nRefs} piezas ya publicadas</strong> en el perfil. No requiere producción nueva.</p>`);
     }
 
+    sub.push(renderEntregaMaterial(data));
+
     // Campaign references grid
     if (campaign.referencias?.length) {
       sub.push(`<div class="card-label" style="margin-bottom:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>REFERENCIAS (${campaign.referencias.length})</div>`);
@@ -1054,6 +1065,8 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     } else if (totalEnUso > 0) {
       sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:16px"><strong>${totalEnUso} piezas en uso</strong> (${piezasPorIcpCount} por cada ICP). Cada pieza ataca un dolor especifico y comunica una solucion.</p>`);
     }
+
+    sub.push(renderEntregaMaterial(data));
 
     if (data.creativos?.notaPiezas) {
       sub.push(`<div style="padding:14px 18px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-bottom:20px;font-size:13px;line-height:1.65;color:#92400e"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>${data.creativos.notaPiezas}</div>`);
@@ -1914,6 +1927,8 @@ function renderCampaignPiezas(data: FoundationData, campaign: CampanaDefinida, n
   const staticTxt = `<strong>${staticCount} pieza${staticCount === 1 ? "" : "s"} estática${staticCount === 1 ? "" : "s"}</strong>`;
   const productor = campaign.productorPiezas ?? "Sergio";
   parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Lineamiento creativo de las <strong>${piezas.length} piezas pendientes</strong> de la campaña de ${escapeHtml(campLabel)}. ${videoCount > 0 ? videoTxt : ""}${videoCount > 0 && staticCount > 0 ? " + " : ""}${staticCount > 0 ? staticTxt : ""} a producir con ${escapeHtml(productor)}.</p>`);
+
+  parts.push(renderEntregaMaterial(data));
 
   for (let i = 0; i < piezas.length; i++) {
     parts.push(renderPiezaCardStrategy(piezas[i], i));

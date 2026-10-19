@@ -787,6 +787,33 @@ const data = {
 
   notas: "Star Deportes (Grupo Lente) es un caso clásico de empresa madura en lo físico pero sin desarrollar en lo digital. 13 sucursales, 13 años de trayectoria, 189k seguidores en IG, pero cero atribución digital y un e-commerce que representa el 0.01% de las ventas.\n\nEl crédito personal es el diferencial más fuerte: ningún competidor lo ofrece. Pero solo funciona presencialmente, por lo que las campañas de crédito deben ser estrictamente geolocalizadas.\n\nEl equipo de branding del cliente (5 personas, 2 diseñadores) produce las piezas. REE entrega los briefs creativos (pilares, hooks, guiones, referencias). Son 5 campañas con ~46 piezas totales según el acuerdo comercial: B2C Hombre (~10), B2C Mujer (~10), B2C Kids (~10), Awareness (~8) y Crédito Personal (~8). Awareness y Crédito Personal reutilizan contenido existente de @stardeportes (no requieren producción nueva). Las ~30 piezas B2C las produce el equipo de Star Deportes con briefs de REE.\n\nLas 3 campañas comparten el mismo ciclo: Foundation S1-S2, Build S3, Launch S4-S5 y Scale desde S6. Las 2 semanas de Launch son de validación: se prueban formatos, ángulos y categorías, y recién con esa data se redistribuye presupuesto en Scale.\n\nEstacionalidad clave Q4: Día de la Madre (18/10), CyberMonday de CACE (2 al 4/11, con Cyber Week hasta el 8/11), Black Friday (27/11) y Navidad (25/12). El CyberMonday argentino es a principios de noviembre, no el lunes posterior a Black Friday. Al lanzar las 3 campañas en S4 (26/10), el CyberMonday cae a solo una semana del lanzamiento, en plena validación: sirve para leer demanda real, no para escalar. A Black Friday, en cambio, se llega con unas 4 semanas de data y ya en fase Scale.",
 
+  entregaMaterial: {
+    destino: "Google Drive",
+    descripcion: "El material terminado se entrega en una carpeta de Google Drive compartida con REE, separada en una carpeta por campaña. Dentro de cada campaña, una carpeta por tipo de pieza (videos, flyers) y dentro de cada tipo, una carpeta por cada formato solicitado. Los archivos exportados van directo en la carpeta de su formato, sin subcarpetas extra.",
+    arbol: [
+      "Star Deportes — Creativos/",
+      "├── Awareness/",
+      "│   ├── Videos/",
+      "│   │   └── 9x16/",
+      "│   └── Flyers/",
+      "│       ├── 1080x1350/   (posteo)",
+      "│       └── 1080x1920/   (historia)",
+      "├── Credito Personal/",
+      "│   ├── Videos/",
+      "│   │   └── 9x16/",
+      "│   └── Flyers/",
+      "│       ├── 1080x1350/",
+      "│       └── 1080x1920/",
+      "└── B2C Ventas/",
+      "    ├── Videos/",
+      "    │   └── 9x16/",
+      "    └── Flyers/",
+      "        ├── 1080x1350/",
+      "        ├── 1080x1080/   (carrusel)",
+      "        └── 1080x1920/",
+    ],
+  },
+
   // Proximos pasos — explicitos (si no se definen, strategy-renderer los deriva de arquitectura/ofertas)
   proximosPasos: [
     {

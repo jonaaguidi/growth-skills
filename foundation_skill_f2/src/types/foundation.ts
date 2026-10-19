@@ -316,6 +316,12 @@ export interface PricingComparativa {
   sugerencia: string | null;
 }
 
+export interface EntregaMaterial {
+  destino: string;          // ej. "Google Drive"
+  descripcion: string;      // como se organiza la entrega
+  arbol?: string[] | null;  // ejemplo de estructura de carpetas, una linea por fila
+}
+
 export interface ProximoPaso {
   titulo: string;
   responsable: string;
@@ -403,6 +409,7 @@ export interface FoundationData {
   seccionesBloqueadas?: string[] | null;
   reviewEtapas?: ReviewEtapa[] | null;
   pricingComparativa?: PricingComparativa | null;
+  entregaMaterial?: EntregaMaterial | null;  // aclaracion de entrega; se renderiza en cada subseccion de piezas creativas
   proximosPasos?: ProximoPaso[] | null;
   reviewMilestones?: ReviewMilestone[] | null;
   reviewMeetings?: ReviewMeeting[] | null;
