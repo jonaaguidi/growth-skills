@@ -1857,7 +1857,14 @@ function renderCampaignPiezas(data: FoundationData, campaign: CampanaDefinida, n
   const videoCount = piezas.filter(p => p.formato.toLowerCase().includes("reel") || p.formato.toLowerCase().includes("video")).length;
   const staticCount = piezas.length - videoCount;
 
-  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Lineamiento creativo de las <strong>${piezas.length} piezas pendientes</strong> de la campaña de ${escapeHtml(campaign.objetivo.toLowerCase())}. ${videoCount > 0 ? `<strong>${videoCount} videos</strong>` : ""}${videoCount > 0 && staticCount > 0 ? " + " : ""}${staticCount > 0 ? `<strong>${staticCount} piezas estáticas</strong>` : ""} a producir con Sergio.</p>`);
+  // El nombre de la campaña sale de tituloSeccion para no contradecir el titulo de la seccion.
+  const campLabel = campaign.tituloSeccion
+    ? campaign.tituloSeccion.replace(/^Campaña\s+(de\s+)?/i, "")
+    : campaign.objetivo.toLowerCase();
+  const videoTxt = `<strong>${videoCount} video${videoCount === 1 ? "" : "s"}</strong>`;
+  const staticTxt = `<strong>${staticCount} pieza${staticCount === 1 ? "" : "s"} estática${staticCount === 1 ? "" : "s"}</strong>`;
+  const productor = campaign.productorPiezas ?? "Sergio";
+  parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Lineamiento creativo de las <strong>${piezas.length} piezas pendientes</strong> de la campaña de ${escapeHtml(campLabel)}. ${videoCount > 0 ? videoTxt : ""}${videoCount > 0 && staticCount > 0 ? " + " : ""}${staticCount > 0 ? staticTxt : ""} a producir con ${escapeHtml(productor)}.</p>`);
 
   for (let i = 0; i < piezas.length; i++) {
     parts.push(renderPiezaCardStrategy(piezas[i], i));

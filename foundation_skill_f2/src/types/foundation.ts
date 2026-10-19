@@ -233,6 +233,7 @@ export interface CampanaDefinida {
   adSets: { nombre: string; segmentacion: string; ads: string[] }[];
   status?: "activa" | "en-desarrollo" | null;
   tituloSeccion?: string | null;        // titulo custom de la seccion Foundation en el review (ej. "Campaña B2B (WhatsApp)")
+  productorPiezas?: string | null;      // quien produce las piezas pendientes; default "Sergio" (equipo REE)
   tituloSubseccion?: string | null;     // titulo custom de la subseccion "Campaña en Meta Ads" (ej. "Campaña B2B en Meta Ads")
   destino?: string | null;              // ej. "Perfil de Instagram"
   kpisCampana?: string[] | null;        // ej. ["Visitas al Perfil"]
