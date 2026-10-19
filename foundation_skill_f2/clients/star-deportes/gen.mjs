@@ -10,7 +10,7 @@ const data = {
     nombreEmpresa: "Star Deportes",
     slug: "star-deportes",
     logoFile: "star-deportes-logo.webp",
-    nombreContacto: "Matías Chirino / Leandro Chirino",
+    nombreContacto: "el equipo de Star Deportes",
     industria: "Retail de indumentaria deportiva",
     sitioWeb: "stardeportes.com",
     email: null,
@@ -733,7 +733,7 @@ const data = {
     },
     {
       titulo: "Lanzar Awareness y Crédito Personal",
-      responsable: "REE Growth + Matías / Leandro",
+      responsable: "REE Growth + equipo Star Deportes",
       tiempo: "Esta semana",
       items: [
         "Confirmar accesos a la cuenta publicitaria de Meta Ads",
@@ -755,7 +755,7 @@ const data = {
     },
     {
       titulo: "Pricing y E-commerce",
-      responsable: "Matías / Leandro + REE Growth",
+      responsable: "Equipo Star Deportes + REE Growth",
       tiempo: "Semanas 2 - 3",
       items: [
         "Definir precios de los packs (Kit Deportivo Familiar, Equipamiento Completo)",

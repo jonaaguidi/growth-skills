@@ -1468,14 +1468,14 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
   parts.push(`<div style="padding:12px 20px;font-family:${FONTS.mono};font-size:11px;letter-spacing:0.08em;color:${COLORS.muted};text-transform:uppercase"></div>`);
   for (let i = 0; i < weeks.length; i++) {
     const isCurrent = currentWeek === weeks[i];
-    parts.push(`<div style="padding:10px 0;text-align:center;font-family:${FONTS.mono};font-size:12px;font-weight:700;color:${isCurrent ? COLORS.red : COLORS.muted};${cellBorder};${isCurrent ? currentBg : ""}">`);
+    parts.push(`<div style="padding:10px 0;text-align:center;font-family:${FONTS.mono};font-size:13px;font-weight:700;color:${isCurrent ? COLORS.red : COLORS.muted};${cellBorder};${isCurrent ? currentBg : ""}">`);
     parts.push(`S${weeks[i]}`);
     if (isCurrent) {
-      parts.push(`<div style="font-size:8px;font-weight:700;color:#fff;background:${COLORS.red};border-radius:3px;padding:1px 4px;margin-top:2px;display:inline-block">HOY</div>`);
+      parts.push(`<div style="font-size:9px;font-weight:700;color:#fff;background:${COLORS.red};border-radius:3px;padding:1px 4px;margin-top:2px;display:inline-block">HOY</div>`);
     }
     if (weekRanges.length) {
-      parts.push(`<div style="font-size:9px;font-weight:400;color:${COLORS.muted};margin-top:2px">${weekRanges[i].start}</div>`);
-      parts.push(`<div style="font-size:9px;font-weight:400;color:${COLORS.muted}">${weekRanges[i].end}</div>`);
+      parts.push(`<div style="font-size:10px;font-weight:400;color:${COLORS.muted};margin-top:3px">${weekRanges[i].start}</div>`);
+      parts.push(`<div style="font-size:10px;font-weight:400;color:${COLORS.muted}">${weekRanges[i].end}</div>`);
     }
     parts.push(`</div>`);
   }
@@ -1494,7 +1494,7 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
     }
 
     parts.push(`<div style="display:grid;grid-template-columns:${cols};${isLast ? "" : "border-bottom:1px solid rgba(14,13,12,0.08);"}">`);
-    parts.push(`<div style="padding:14px 20px;font-family:${FONTS.heading};font-weight:700;font-size:11px;text-transform:uppercase;display:flex;align-items:center">${escapeHtml(init.nombre)}</div>`);
+    parts.push(`<div style="padding:14px 20px;font-family:${FONTS.heading};font-weight:700;font-size:12px;text-transform:uppercase;display:flex;align-items:center">${escapeHtml(init.nombre)}</div>`);
 
     for (const w of weeks) {
       const faseName = weekMap[w];
@@ -1520,7 +1520,7 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
         parts.push(`<div style="padding:14px 3px;${cellBorder};display:flex;align-items:center;${isCurrent ? currentBg : ""}">`);
         parts.push(`<div style="width:100%;height:28px;background:${color};border-radius:${radius};margin-left:${ml};margin-right:${mr};display:flex;align-items:center;justify-content:center;${separator}">`);
         if (isFirst) {
-          parts.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.9);text-transform:uppercase;white-space:nowrap;overflow:hidden">${escapeHtml(faseName)}</span>`);
+          parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.9);text-transform:uppercase;white-space:nowrap;overflow:hidden">${escapeHtml(faseName)}</span>`);
         }
         parts.push(`</div></div>`);
       }
@@ -1538,8 +1538,8 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
       const isCurrent = currentWeek === w;
       if (ms) {
         parts.push(`<div style="padding:6px 2px;${cellBorder};text-align:center;${isCurrent ? currentBg : ""}">`);
-        parts.push(`<div style="font-family:${FONTS.mono};font-size:8px;font-weight:700;letter-spacing:0.5px;color:${COLORS.red};text-transform:uppercase;line-height:1.3">${escapeHtml(ms.label)}</div>`);
-        if (ms.fecha) parts.push(`<div style="font-family:${FONTS.mono};font-size:8px;color:${COLORS.muted};margin-top:1px">${escapeHtml(ms.fecha)}</div>`);
+        parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.4px;color:${COLORS.red};text-transform:uppercase;line-height:1.35">${escapeHtml(ms.label)}</div>`);
+        if (ms.fecha) parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;color:${COLORS.muted};margin-top:2px">${escapeHtml(ms.fecha)}</div>`);
         parts.push(`</div>`);
       } else {
         parts.push(`<div style="padding:6px 2px;${cellBorder};${isCurrent ? currentBg : ""}"></div>`);
