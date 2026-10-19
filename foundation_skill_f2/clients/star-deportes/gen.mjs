@@ -1,9 +1,20 @@
 import { renderOnboardingHtml } from "../../dist/lib/onboarding-renderer.js";
 import { renderStrategyHtml } from "../../dist/lib/strategy-renderer.js";
 import { renderBriefHtml } from "../../dist/lib/brief-renderer.js";
-import { writeFileSync, mkdirSync, existsSync, copyFileSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync, copyFileSync, readFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
+
+// Helper: read image file as base64 data URI
+const assetsDir = new URL("./assets/", import.meta.url).pathname;
+function assetDataUri(filename) {
+  const path = join(assetsDir, filename);
+  if (!existsSync(path)) return null;
+  const ext = filename.split(".").pop().toLowerCase();
+  const mimeMap = { png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", mp4: "video/mp4", webm: "video/webm" };
+  const mime = mimeMap[ext] || "application/octet-stream";
+  return `data:${mime};base64,${readFileSync(path).toString("base64")}`;
+}
 
 const data = {
   clientInfo: {
@@ -712,6 +723,7 @@ const data = {
         { url: "https://www.instagram.com/p/Dd4K0XhuVYh/", titulo: "Estilos hay muchos, créditos como los nuestros no" },
         { url: "https://www.instagram.com/p/DdUB8IDR6Um/", titulo: "Crédito personal — cupos y financiación" },
         { url: "https://www.instagram.com/p/Dcgi_uauFe3/", titulo: "Crédito personal para regalos" },
+        { url: assetDataUri("ref-credito-historia-montos.jpg"), tipo: "image", titulo: "Historia — montos por documentación ($500.000 con recibo / $450.000 solo DNI)" },
       ],
       destino: "WhatsApp Business (sucursal más cercana)",
       kpisCampana: ["Mensajes a WhatsApp", "CPL por consulta"],
@@ -797,7 +809,7 @@ const data = {
       "│   ├── Flyer_v1/",
       "│   └── Flyer_v2/",
       "├── Credito Personal/",
-      "│   └── (sin producción nueva — se reutilizan 4 reels ya publicados)",
+      "│   └── (sin producción nueva — se reutilizan 5 piezas ya publicadas)",
       "└── B2C Ventas/",
       "    ├── VideoReel_v1/",
       "    ├── VideoReel_v2/",
