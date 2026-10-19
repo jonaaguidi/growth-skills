@@ -268,7 +268,7 @@ const data = {
         "Una marca argentina con un founder visible y una comunidad detrás",
         "Saber exactamente qué hay adentro del frasco",
         "Más variedad de presentaciones: extracto líquido, polvo, combos",
-        "Ofertas y packs que premien la compra recurrente (x3, x6)",
+        "Ofertas y packs que premien la compra recurrente (x2, x4, x6)",
         "Mejores opciones de presentación, envío rápido y atención personalizada",
       ],
       objeciones: [
@@ -339,14 +339,14 @@ const data = {
           {
             formato: "Video UGC Vertical (9:16)",
             dolor: "Estrés sostenido, mal sueño y cansancio crónico. Depende de café o pastillas para funcionar. No conoce los adaptógenos como alternativa.",
-            solucion: "Hongos adaptógenos de Micelic como alternativa natural: Reishi para el sueño, Melena de León para la concentración, Cordyceps para la energía. Disponibles en extracto simple o doble.",
-            comunicacion: "[0-4s] HOOK — Julián a cámara, plano medio, expresión directa. Isotipo de Micelic fijo en esquina superior (pequeño, permanente todo el video). Subtítulos centrados en mitad inferior del cuadro: \"¿Estrés, mal sueño y cansancio? Existe una solución natural.\"\n\n[4-10s] DOLOR — Julián a cámara, tono empático, gesticula contando: \"Tomás café o mate para arrancar, a la noche no dormís bien, y al otro día estás peor. Y así todos los días. Cansado.\"\n\n[10-18s] SOLUCIÓN — Julián levanta los frascos uno por uno, close-up de cada etiqueta: \"Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir mejor. Melena de León para pensar claro. Cordyceps para la energía, sin café.\"\n\n[18-24s] PRODUCTO — Close-up de los extractos simples y dobles sobre la mesa, etiquetas visibles. Julián en off: \"En Micelic los tenés en extracto simple o doble. Elegís el que necesitás.\"\n\n[24-30s] CTA — Julián a cámara, plano medio, tono cercano: \"Entrá a micelic.com y probá el que te hace falta.\" Texto en pantalla: micelic.com + envío gratis.",
+            solucion: "Hongos adaptógenos de Micelic como alternativa natural: Reishi para el sueño, Melena de León para la concentración, Cordyceps para la energía. Disponibles en extracto triple concentrado.",
+            comunicacion: "[0-4s] HOOK — Julián a cámara, plano medio, expresión directa. Isotipo de Micelic fijo en esquina superior (pequeño, permanente todo el video). Subtítulos centrados en mitad inferior del cuadro: \"¿Estrés, mal sueño y cansancio? Existe una solución natural.\"\n\n[4-10s] DOLOR — Julián a cámara, tono empático, gesticula contando: \"Tomás café o mate para arrancar, a la noche no dormís bien, y al otro día estás peor. Y así todos los días. Cansado.\"\n\n[10-18s] SOLUCIÓN — Julián levanta los frascos uno por uno, close-up de cada etiqueta: \"Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir mejor. Melena de León para pensar claro. Cordyceps para la energía, sin café.\"\n\n[18-24s] PRODUCTO — Close-up del producto sobre la mesa: un frasco solo y dos frascos juntos, etiquetas visibles. Julián en off: \"En Micelic los tenés en extracto triple concentrado. Elegís el que necesitás.\"\n\n[24-30s] CTA — Julián a cámara, plano medio, tono cercano: \"Entrá a micelic.com y probá el que te hace falta.\" Texto en pantalla: micelic.com + envío gratis.",
             hook: "¿Estrés, mal sueño y cansancio? Existe una solución natural.",
-            body: "Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir, Melena de León para pensar claro, Cordyceps para la energía. En Micelic los tenés en extracto simple o doble.",
+            body: "Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir, Melena de León para pensar claro, Cordyceps para la energía. En Micelic los tenés en extracto triple concentrado.",
             cta: "Entrá a micelic.com y probá el que necesitás.",
-            copyAnuncio: "¿Estrés, mal sueño y cansancio? Existe una solución natural 🍄\n\nLos hongos adaptógenos regulan tu sistema nervioso:\n🌙 Reishi → Sueño profundo\n🧠 Melena de León → Claridad mental\n⚡ Cordyceps → Energía real\n\n✅ En extracto simple o doble.\n📦 Envíos a todo el país.\n\n👉 Probá el que necesitás en micelic.com",
+            copyAnuncio: "¿Estrés, mal sueño y cansancio? Existe una solución natural 🍄\n\nLos hongos adaptógenos regulan tu sistema nervioso:\n🌙 Reishi → Sueño profundo\n🧠 Melena de León → Claridad mental\n⚡ Cordyceps → Energía real\n\n✅ Extracto triple concentrado.\n📦 Envíos a todo el país.\n\n👉 Probá el que necesitás en micelic.com",
             pilar: "Producto",
-            tema: "Dolores del ICP — extracto simple o doble",
+            tema: "Dolores del ICP — extracto triple concentrado",
             formatoNarrativo: "Direct to Camera — Talking Head",
             estructuraNarrativa: "Dolor - Solución - Acción",
             tratamiento: { tipo: "Video", tono: "Orgánico (UGC)", estilo: "Lifestyle" },
@@ -355,21 +355,21 @@ const data = {
             destinoUrls: ["https://micelic.com"],
           },
 
-          // --- CARRUSEL A: MAL SUEÑO → REISHI (extracto simple o doble) ---
+          // --- CARRUSEL A: MAL SUEÑO → REISHI (extracto triple concentrado) ---
           {
             formato: "Carrusel Post + Historia (1080x1350 / 1080x1920)",
             dolor: "Duerme mal, se despierta cansado. Depende de pastillas o no encuentra alternativa natural. No conoce Reishi.",
-            solucion: "Reishi de Micelic en extracto simple o doble: calmante natural que regula el sistema nervioso y mejora la calidad de sueño.",
+            solucion: "Reishi de Micelic en extracto triple concentrado: calmante natural que regula el sistema nervioso y mejora la calidad de sueño.",
             comunicacion: "Carrusel x4 slides producido en 2 formatos: post (1080x1350) para feed e historia (1080x1920) para Stories. Narrativa de dolor a solución: mal sueño → Reishi como alternativa natural.",
             mensajes: [
               "Slide 1: '¿Dormís mal y te levantás destruido?' — Visual de persona agotada, tipografía impactante",
-              "Slide 2: 'Miles de personas hoy eligen una alternativa natural' — Visual de Reishi de Micelic (extracto simple y doble)",
+              "Slide 2: 'Miles de personas hoy eligen una alternativa natural' — Visual de Reishi de Micelic: un frasco solo y dos frascos juntos",
               "Slide 3: 'Reishi regula tu sistema nervioso de forma natural. Lo tomás a la noche y vas a notar la diferencia.' — Close-up del producto",
               "Slide 4: CTA 'Probalo en micelic.com — Envíos a todo el país' — Logo Micelic + badge de envío gratis",
             ],
-            copyAnuncio: "¿Dormís mal y te levantás destruido? 😴\n\nReishi de Micelic regula tu sistema nervioso de forma natural.\n\n🌙 En extracto simple o doble.\n✅ Lo tomás a la noche y vas a notar la diferencia.\n📦 Envíos a todo el país.\n\n👉 Probalo en micelic.com",
+            copyAnuncio: "¿Dormís mal y te levantás destruido? 😴\n\nReishi de Micelic regula tu sistema nervioso de forma natural.\n\n🌙 Extracto triple concentrado.\n✅ Lo tomás a la noche y vas a notar la diferencia.\n📦 Envíos a todo el país.\n\n👉 Probalo en micelic.com",
             pilar: "Producto",
-            tema: "Mal sueño → Reishi extracto simple o doble",
+            tema: "Mal sueño → Reishi extracto triple concentrado",
             formatoNarrativo: "Storytelling — Problema a Solución",
             estructuraNarrativa: "Dolor - Solución - Acción",
             tratamiento: { tipo: "Carrusel", tono: "Mixed", estilo: "Lifestyle" },
@@ -377,19 +377,19 @@ const data = {
             destinoUrls: ["https://micelic.com"],
           },
 
-          // --- CARRUSEL B: CANSANCIO / NIEBLA MENTAL → CORDYCEPS + MELENA (extracto simple o doble) ---
+          // --- CARRUSEL B: CANSANCIO / NIEBLA MENTAL → CORDYCEPS + MELENA (extracto triple concentrado) ---
           {
             formato: "Carrusel Post + Historia (1080x1350 / 1080x1920)",
             dolor: "Se siente agotado todo el día, sin energía ni concentración. Toma café para funcionar pero no alcanza. No conoce Cordyceps ni Melena de León.",
-            solucion: "Cordyceps para energía real sin café + Melena de León para claridad mental. Disponibles en extracto simple o doble en micelic.com.",
+            solucion: "Cordyceps para energía real sin café + Melena de León para claridad mental. Disponibles en extracto triple concentrado en micelic.com.",
             comunicacion: "Carrusel x4 slides producido en 2 formatos: post (1080x1350) para feed e historia (1080x1920) para Stories. Narrativa de dolor a solución: cansancio + niebla mental → Cordyceps y Melena de León.",
             mensajes: [
               "Slide 1: '¿Cansancio todo el día y la cabeza no te funciona?' — Visual de persona agotada frente a la computadora",
-              "Slide 2: 'Cordyceps: energía real sin depender del café. Rendís todo el día.' — Visual del extracto de Cordyceps (simple y doble)",
-              "Slide 3: 'Melena de León: claridad cognitiva, se te va la niebla mental.' — Visual del extracto de Melena (simple y doble)",
+              "Slide 2: 'Cordyceps: energía real sin depender del café. Rendís todo el día.' — Visual del extracto de Cordyceps: un frasco solo y dos frascos juntos",
+              "Slide 3: 'Melena de León: claridad cognitiva, se te va la niebla mental.' — Visual del extracto de Melena: un frasco solo y dos frascos juntos",
               "Slide 4: CTA 'Encontrá el que necesitás en micelic.com — Envíos a todo el país' — Logo Micelic + badge de envío gratis",
             ],
-            copyAnuncio: "¿Cansancio todo el día y la cabeza no te funciona? 🧠⚡\n\n⚡ Cordyceps → Energía real sin depender del café.\n🧠 Melena de León → Claridad cognitiva, se te va la niebla mental.\n\n✅ En extracto simple o doble.\n📦 Envíos a todo el país.\n\n👉 Encontrá el que necesitás en micelic.com",
+            copyAnuncio: "¿Cansancio todo el día y la cabeza no te funciona? 🧠⚡\n\n⚡ Cordyceps → Energía real sin depender del café.\n🧠 Melena de León → Claridad cognitiva, se te va la niebla mental.\n\n✅ Extracto triple concentrado.\n📦 Envíos a todo el país.\n\n👉 Encontrá el que necesitás en micelic.com",
             pilar: "Producto",
             tema: "Cansancio + niebla mental → Cordyceps y Melena",
             formatoNarrativo: "Storytelling — Problema a Solución",
@@ -403,16 +403,16 @@ const data = {
           {
             formato: "Carrusel Post + Historia (1080x1350 / 1080x1920)",
             dolor: "No conoce los adaptógenos y necesita un producto de entrada accesible para probar por primera vez, sin compromiso de volumen.",
-            solucion: "Catálogo de productos individuales de Micelic (Reishi, Melena, Cordyceps) en extracto y polvo. CyberMonday con envío gratis a todo el país. Bajo ticket de entrada para primera compra.",
+            solucion: "Catálogo de productos individuales de Micelic (Reishi, Melena, Cordyceps) en extracto triple concentrado. CyberMonday con envío gratis a todo el país. Bajo ticket de entrada para primera compra.",
             comunicacion: "Carrusel x4-5 slides producido en 2 formatos: post (1080x1350) para feed e historia (1080x1920) para Stories. Catálogo de productos individuales con precio y beneficio, cierre con oferta CyberMonday + envío gratis.",
             mensajes: [
               "Slide 1: 'CyberMonday Micelic — Descubrí los Adaptógenos' — Visual de los 3 extractos + badge ENVÍO GRATIS",
-              "Slide 2: 'Reishi — Sueño profundo y regulación del estrés' — Foto del producto individual (extracto + polvo) con precio + badge ENVÍO GRATIS",
-              "Slide 3: 'Melena de León — Claridad mental y concentración' — Foto del producto individual (extracto + polvo) con precio + badge ENVÍO GRATIS",
-              "Slide 4: 'Cordyceps — Energía real sin café' — Foto del producto individual (extracto + polvo) con precio + badge ENVÍO GRATIS",
+              "Slide 2: 'Reishi — Sueño profundo y regulación del estrés' — Foto del producto individual con precio + badge ENVÍO GRATIS",
+              "Slide 3: 'Melena de León — Claridad mental y concentración' — Foto del producto individual con precio + badge ENVÍO GRATIS",
+              "Slide 4: 'Cordyceps — Energía real sin café' — Foto del producto individual con precio + badge ENVÍO GRATIS",
               "Slide 5: CTA 'CyberMonday: envío gratis a todo el país — Comprá en micelic.com' — Logo Micelic + badge CyberMonday + badge ENVÍO GRATIS",
             ],
-            copyAnuncio: "🔥 CyberMonday Micelic — Descubrí los Adaptógenos\n\n🌙 Reishi → Sueño profundo\n🧠 Melena de León → Claridad mental\n⚡ Cordyceps → Energía real\n\n✅ En extracto o en polvo.\n🚚 ENVÍO GRATIS a todo el país.\n\n👉 Comprá en micelic.com",
+            copyAnuncio: "🔥 CyberMonday Micelic — Descubrí los Adaptógenos\n\n🌙 Reishi → Sueño profundo\n🧠 Melena de León → Claridad mental\n⚡ Cordyceps → Energía real\n\n✅ Extracto triple concentrado.\n🚚 ENVÍO GRATIS a todo el país.\n\n👉 Comprá en micelic.com",
             pilar: "Producto",
             tema: "CyberMonday — productos individuales + envío gratis",
             formatoNarrativo: "Producto — Catálogo",
@@ -426,15 +426,15 @@ const data = {
           {
             formato: "Meta Ads Shopping (Collection Ad)",
             dolor: "No conoce los adaptógenos. Necesita un producto de entrada accesible para probar por primera vez.",
-            solucion: "Colección de extractos simples y dobles de Micelic. Productos de entrada con bajo ticket para que pruebe sin compromiso. Requiere crear los productos en Tienda Nube y conectar el catálogo a Meta Ads.",
-            comunicacion: "Collection Ad con catálogo dinámico. Hero image o video arriba + grilla de productos debajo. La colección muestra extractos simples y dobles (Reishi, Melena, Cordyceps) como productos de entrada para el ICP que todavía no probó adaptógenos.",
+            solucion: "Colección de extractos individuales de Micelic en triple concentrado. Productos de entrada con bajo ticket para que pruebe sin compromiso. Requiere crear los productos en Tienda Nube y conectar el catálogo a Meta Ads.",
+            comunicacion: "Collection Ad con catálogo dinámico. Hero image o video arriba + grilla de productos debajo. La colección muestra los extractos individuales (Reishi, Melena, Cordyceps) como productos de entrada para el ICP que todavía no probó adaptógenos.",
             mensajes: [
-              "Hero: visual de los extractos simples y dobles de Micelic con mensaje de entrada (ej. 'Probá tu primer adaptógeno')",
+              "Hero: visual de los extractos de Micelic, un frasco solo y dos frascos juntos, con mensaje de entrada (ej. 'Probá tu primer adaptógeno')",
               "Grilla: productos del catálogo de Tienda Nube con precio, foto y botón de compra",
             ],
-            copyAnuncio: "Probá tu primer adaptógeno 🍄\n\n🌙 Reishi → Sueño\n🧠 Melena de León → Concentración\n⚡ Cordyceps → Energía\n\n✅ Extracto simple o doble.\n📦 Envíos a todo el país.\n\n👉 Comprá en micelic.com",
+            copyAnuncio: "Probá tu primer adaptógeno 🍄\n\n🌙 Reishi → Sueño\n🧠 Melena de León → Concentración\n⚡ Cordyceps → Energía\n\n✅ Extracto triple concentrado.\n📦 Envíos a todo el país.\n\n👉 Comprá en micelic.com",
             pilar: "Producto",
-            tema: "Shopping — extractos simples y dobles (entrada)",
+            tema: "Shopping — extractos individuales (entrada)",
             formatoNarrativo: "Catálogo dinámico",
             estructuraNarrativa: "Hero - Grilla de productos",
             tratamiento: { tipo: "Shopping", tono: "Mixed", estilo: "E-commerce" },
@@ -451,12 +451,12 @@ const data = {
           {
             formato: "Video UGC Vertical (9:16)",
             dolor: "Ya consume adaptógenos pero sospecha que están diluidos, la marca no declara concentración, tiene pocas presentaciones y no innova.",
-            solucion: "Micelic: extractos con concentración declarada, doble extracción, 3 variedades en extracto y polvo. Packs x3 de alto rendimiento y packs para stockearse.",
-            comunicacion: "[0-4s] HOOK — Julián a cámara, plano medio, tono de desafío. Isotipo de Micelic fijo en esquina superior (pequeño, permanente todo el video). Subtítulos centrados en mitad inferior del cuadro: \"Ya tomás adaptógenos — pero ¿sabés qué tiene adentro tu extracto?\"\n\n[4-10s] DOLOR — Julián a cámara, tono directo, levanta un frasco genérico (sin marca): \"La mayoría de las marcas no declara la concentración ni el método de extracción. Pagás premium y no sabés si realmente estás recibiendo calidad.\"\n\n[10-18s] SOLUCIÓN — Julián muestra los frascos de Micelic uno por uno, close-up de cada etiqueta con la concentración visible: \"En Micelic cada frasco te dice exactamente qué tiene adentro. Doble extracción. Reishi, Melena de León, Cordyceps. En extracto y en polvo.\"\n\n[18-24s] OFERTA — Toma frontal de los packs x3 y el combo de alto rendimiento sobre la mesa. Julián en off: \"Armate el combo de alto rendimiento o stockeate con tu favorito. Packs x3 con descuento y envío gratis.\"\n\n[24-30s] CTA — Julián a cámara, plano medio, tono cercano: \"Armá tu combo en micelic.com.\" Texto en pantalla: micelic.com + envío gratis.",
+            solucion: "Micelic: extractos con concentración declarada, triple extracción, 3 variedades en extracto. Packs x2, x4 y x6 para que el que ya consume suba de una unidad al pack.",
+            comunicacion: "Produce la creadora UGC (test mujer vs. Julián como variable de performance). [0-4s] HOOK — Creadora UGC a cámara, plano medio, tono de desafío. Isotipo de Micelic fijo en esquina superior (pequeño, permanente todo el video). Subtítulos centrados en mitad inferior del cuadro: \"Ya tomás adaptógenos — pero ¿sabés qué tiene adentro tu extracto?\"\n\n[4-10s] DOLOR — Creadora UGC a cámara, tono directo, levanta un frasco genérico (sin marca): \"La mayoría de las marcas no declara la concentración ni el método de extracción. Pagás premium y no sabés si realmente estás recibiendo calidad.\"\n\n[10-18s] SOLUCIÓN — Creadora UGC muestra los frascos de Micelic uno por uno, close-up de cada etiqueta con la concentración visible: \"En Micelic cada frasco te dice exactamente qué tiene adentro. Triple extracción. Reishi, Melena de León, Cordyceps.\"\n\n[18-24s] OFERTA — Toma frontal de los packs x2, x4 y x6 sobre la mesa. Creadora UGC en off: \"Armate el combo de alto rendimiento o stockeate con tu favorito. Packs con descuento y envío gratis.\"\n\n[24-30s] CTA — Creadora UGC a cámara, plano medio, tono cercano: \"Armá tu combo en micelic.com.\" Texto en pantalla: micelic.com + envío gratis.",
             hook: "Ya tomás adaptógenos — pero ¿sabés qué tiene adentro tu extracto?",
-            body: "En Micelic cada frasco declara la concentración y el método de extracción. Tenemos Reishi, Melena y Cordyceps en extracto y polvo. Pack x3 de alto rendimiento o stockeate con tu favorito.",
+            body: "En Micelic cada frasco declara la concentración y el método de extracción. Tenemos Reishi, Melena y Cordyceps en extracto. Pack x6 de alto rendimiento o stockeate con tu favorito en x2.",
             cta: "Armá tu combo en micelic.com.",
-            copyAnuncio: "Ya tomás adaptógenos — pero ¿sabés qué tiene adentro tu extracto? 🍄\n\nEn Micelic cada frasco declara la concentración.\n\n🌙 Reishi + 🧠 Melena + ⚡ Cordyceps\n✅ En extracto y polvo.\n✅ Pack x3 de alto rendimiento.\n📦 Envíos a todo el país.\n\n👉 Armá tu combo en micelic.com",
+            copyAnuncio: "Ya tomás adaptógenos — pero ¿sabés qué tiene adentro tu extracto? 🍄\n\nEn Micelic cada frasco declara la concentración.\n\n🌙 Reishi + 🧠 Melena + ⚡ Cordyceps\n✅ Pack x6 de alto rendimiento.\n📦 Envíos a todo el país.\n\n👉 Armá tu combo en micelic.com",
             pilar: "Producto",
             tema: "Dolores del ICP — calidad, variedad, packs",
             formatoNarrativo: "Direct to Camera — Talking Head",
@@ -467,22 +467,22 @@ const data = {
             destinoUrls: ["https://micelic.com"],
           },
 
-          // --- CARRUSEL A: COMBO x3 ALTO RENDIMIENTO + x6 STOCK ---
+          // --- CARRUSEL A: COMBO x6 ALTO RENDIMIENTO + x2 STOCK ---
           {
             formato: "Carrusel Post + Historia (1080x1350 / 1080x1920)",
             dolor: "Quiere potenciar los efectos combinando adaptógenos pero no encuentra packs ni combos accesibles. Compra de a uno y paga de más.",
-            solucion: "Combo x3 alto rendimiento (Reishi + Melena + Cordyceps) o pack x6 del mismo extracto para stockearse (3+3). Descuento por volumen + envío gratis a todo el país.",
-            comunicacion: "Carrusel x5 slides producido en 2 formatos: post (1080x1350) para feed e historia (1080x1920) para Stories. Narrativa de upgrade: combo x3 de las 3 variedades para potenciar el efecto + x6 del mismo para stockearse. Envío gratis en todas las opciones.",
+            solucion: "Combo x6 de alto rendimiento (Reishi x2 + Melena x2 + Cordyceps x2) o pack x2 del mismo extracto para quien quiere stockear una sola variedad. Descuento por volumen + envío gratis a todo el país.",
+            comunicacion: "Carrusel x5 slides producido en 2 formatos: post (1080x1350) para feed e historia (1080x1920) para Stories. Narrativa de upgrade: combo x6 con las 3 variedades para potenciar el efecto + pack x2 del favorito para el que prefiere una sola. Envío gratis en todas las opciones.",
             mensajes: [
-              "Slide 1: 'Combo x3 Alto Rendimiento: Reishi + Melena + Cordyceps' — Visual hero con los 3 productos juntos + badge ENVÍO GRATIS",
+              "Slide 1: 'Combo x6 Alto Rendimiento: Reishi x2 + Melena x2 + Cordyceps x2' — Visual hero con los 6 frascos juntos + badge ENVÍO GRATIS",
               "Slide 2: 'Reishi para dormir. Melena para pensar. Cordyceps para rendir. Combinados se potencian.' — Cada producto con su beneficio",
-              "Slide 3: 'Pack x6: stockeate con tu favorito. 3+3 del mismo extracto, provisión para meses.' — Visual del pack x6 con precio y descuento + badge ENVÍO GRATIS",
+              "Slide 3: 'Pack x2: stockeate con tu favorito. Dos frascos del mismo extracto.' — Visual del pack x2 con precio y descuento + badge ENVÍO GRATIS",
               "Slide 4: 'Concentración declarada en cada frasco. Descuento por volumen.' — Badge de calidad + ahorro",
               "Slide 5: CTA 'Armá tu combo en micelic.com — Envío gratis a todo el país' — Logo Micelic + badge ENVÍO GRATIS",
             ],
-            copyAnuncio: "Combo x3 Alto Rendimiento 🍄🔥\n\n🌙 Reishi → Sueño\n🧠 Melena → Concentración\n⚡ Cordyceps → Energía\n\nCombinados se potencian.\n📦 Pack x6: stockeate con tu favorito (3+3 del mismo).\n\n✅ Descuento por volumen.\n🚚 ENVÍO GRATIS a todo el país.\n\n👉 Armá tu combo en micelic.com",
+            copyAnuncio: "Combo x6 Alto Rendimiento 🍄🔥\n\n🌙 Reishi → Sueño\n🧠 Melena → Concentración\n⚡ Cordyceps → Energía\n\nCombinados se potencian.\n📦 Pack x2: stockeate con tu favorito (dos frascos del mismo).\n\n✅ Descuento por volumen.\n🚚 ENVÍO GRATIS a todo el país.\n\n👉 Armá tu combo en micelic.com",
             pilar: "Producto",
-            tema: "Combo x3 alto rendimiento + x6 stock + envío gratis",
+            tema: "Combo x6 alto rendimiento + x2 stock + envío gratis",
             formatoNarrativo: "Producto — Showcase",
             estructuraNarrativa: "Afirmación - Evidencia - Acción",
             tratamiento: { tipo: "Carrusel", tono: "Mixed", estilo: "Lifestyle" },
@@ -494,19 +494,18 @@ const data = {
           {
             formato: "Carrusel Post + Historia (1080x1350 / 1080x1920)",
             dolor: "Ya consume adaptógenos, compra de a uno y quiere opciones de volumen para stockearse o armar el combo completo.",
-            solucion: "Línea completa de packs Micelic: combo alto rendimiento (x3 variedades), x2 individuales en extracto, x2 en polvo, x6 alto rendimiento. Envío gratis a todo el país.",
-            comunicacion: "Carrusel x6 slides producido en 2 formatos: post (1080x1350) para feed e historia (1080x1920) para Stories. Arranca con afirmación sobre el efecto de los adaptógenos, luego recorre el catálogo de packs de menor a mayor volumen. CTA directo a la tienda.",
+            solucion: "Escalera completa de packs Micelic: x2 del extracto individual, x4 del dúo y x6 de alto rendimiento. Envío gratis a todo el país.",
+            comunicacion: "Carrusel x5 slides producido en 2 formatos: post (1080x1350) para feed e historia (1080x1920) para Stories. Arranca con afirmación sobre el efecto de los adaptógenos, luego recorre la escalera de packs de menor a mayor volumen: x2, x4 y x6. CTA directo a la tienda.",
             mensajes: [
               "Slide 1: 'Los adaptógenos regulan tu sistema nervioso, te dan energía y mejoran tu descanso.' — Afirmación sobre el efecto. Visual de los 3 extractos de Micelic + badge ENVÍO GRATIS",
-              "Slide 2: 'Combo Alto Rendimiento: Reishi + Melena + Cordyceps. Combinados se potencian.' — Visual del combo x3 con precio + badge ENVÍO GRATIS",
-              "Slide 3: 'Pack x2 Extracto: elegí tu favorito en extracto líquido.' — Visual de los packs x2 individuales (Reishi x2, Melena x2, Cordyceps x2) con precio + badge ENVÍO GRATIS",
-              "Slide 4: 'Pack x2 Polvo: elegí tu favorito en presentación polvo.' — Visual de los packs x2 en polvo con precio + badge ENVÍO GRATIS",
-              "Slide 5: 'Pack x6 Alto Rendimiento: Reishi x2 + Melena x2 + Cordyceps x2. Provisión para meses.' — Visual del pack x6 con precio y descuento + badge ENVÍO GRATIS",
-              "Slide 6: CTA 'Comprá ya en la tienda — Envío gratis a todo el país' — Logo Micelic + botón de compra + badge ENVÍO GRATIS",
+              "Slide 2: 'Pack x2: elegí tu favorito y llevate dos.' — Visual de los packs x2 individuales (Reishi x2, Melena x2, Cordyceps x2) con precio + badge ENVÍO GRATIS",
+              "Slide 3: 'Pack x4 Dúo: combiná dos variedades, x2 de cada una.' — Visual del pack x4 con precio + badge ENVÍO GRATIS",
+              "Slide 4: 'Pack x6 Alto Rendimiento: Reishi x2 + Melena x2 + Cordyceps x2. Combinados se potencian.' — Visual del pack x6 con precio y mayor descuento + badge ENVÍO GRATIS",
+              "Slide 5: CTA 'Comprá ya en la tienda — Envío gratis a todo el país' — Logo Micelic + botón de compra + badge ENVÍO GRATIS",
             ],
-            copyAnuncio: "Los adaptógenos regulan tu sistema nervioso, te dan energía y mejoran tu descanso 🍄\n\n🔥 Combo Alto Rendimiento: Reishi + Melena + Cordyceps\n💧 Pack x2 Extracto: elegí tu favorito\n🫙 Pack x2 Polvo: elegí tu favorito\n📦 Pack x6 Alto Rendimiento: provisión para meses\n\n🚚 ENVÍO GRATIS a todo el país.\n\n👉 Comprá ya en micelic.com",
+            copyAnuncio: "Los adaptógenos regulan tu sistema nervioso, te dan energía y mejoran tu descanso 🍄\n\n💧 Pack x2: elegí tu favorito y llevate dos\n🤝 Pack x4 Dúo: combiná dos variedades\n🔥 Pack x6 Alto Rendimiento: Reishi x2 + Melena x2 + Cordyceps x2\n\n🚚 ENVÍO GRATIS a todo el país.\n\n👉 Comprá ya en micelic.com",
             pilar: "Producto",
-            tema: "Catálogo de packs + envío gratis",
+            tema: "Escalera de packs x2 / x4 / x6 + envío gratis",
             formatoNarrativo: "Producto — Showcase",
             estructuraNarrativa: "Afirmación - Evidencia - Acción",
             tratamiento: { tipo: "Carrusel", tono: "Mixed", estilo: "Lifestyle" },
@@ -514,22 +513,22 @@ const data = {
             destinoUrls: ["https://micelic.com"],
           },
 
-          // --- CARRUSEL C: PACKS x3 / x6 EN OFERTA + CYBERMONDAY ---
+          // --- CARRUSEL C: PACKS x2 / x4 / x6 EN OFERTA + CYBERMONDAY ---
           {
             formato: "Carrusel Post + Historia (1080x1350 / 1080x1920)",
             dolor: "Ya consume adaptógenos, compra de a uno y paga de más. Busca stockearse con descuento y aprovechar ofertas temporales.",
-            solucion: "Packs x3 y x6 de Micelic con descuento CyberMonday + envío gratis a todo el país. Combo alto rendimiento (Reishi + Melena + Cordyceps) o stockeo del mismo extracto.",
+            solucion: "Packs x2, x4 y x6 de Micelic con descuento CyberMonday + envío gratis a todo el país. Desde dos frascos del favorito hasta el combo de alto rendimiento con las 3 variedades.",
             comunicacion: "Carrusel x4-5 slides producido en 2 formatos: post (1080x1350) para feed e historia (1080x1920) para Stories. Catálogo de packs con precio y descuento, cierre con oferta CyberMonday + envío gratis.",
             mensajes: [
-              "Slide 1: 'CyberMonday Micelic — Stockeate y ahorrá' — Visual de los packs x3 y x6 + badge ENVÍO GRATIS",
-              "Slide 2: 'Combo x3 Alto Rendimiento: Reishi + Melena + Cordyceps' — Foto del pack con precio y descuento + badge ENVÍO GRATIS",
-              "Slide 3: 'Pack x3 de tu favorito: Reishi x3 / Melena x3 / Cordyceps x3' — Foto de los 3 packs con precio + badge ENVÍO GRATIS",
-              "Slide 4: 'Pack x6 Doble: combiná 2 variedades y ahorrá más' — Foto del pack x6 con precio y mayor descuento + badge ENVÍO GRATIS",
+              "Slide 1: 'CyberMonday Micelic — Stockeate y ahorrá' — Visual de los packs x2, x4 y x6 + badge ENVÍO GRATIS",
+              "Slide 2: 'Combo x6 Alto Rendimiento: Reishi x2 + Melena x2 + Cordyceps x2' — Foto del pack con precio y descuento + badge ENVÍO GRATIS",
+              "Slide 3: 'Pack x2 de tu favorito: Reishi x2 / Melena x2 / Cordyceps x2' — Foto de los 3 packs con precio + badge ENVÍO GRATIS",
+              "Slide 4: 'Pack x4 Dúo: combiná 2 variedades y ahorrá más' — Foto del pack x4 con precio y mayor descuento + badge ENVÍO GRATIS",
               "Slide 5: CTA 'CyberMonday: descuento + envío gratis a todo el país — Comprá en micelic.com' — Logo Micelic + badge CyberMonday + badge ENVÍO GRATIS",
             ],
-            copyAnuncio: "🔥 CyberMonday Micelic — Stockeate y ahorrá\n\n🔥 Combo x3 Alto Rendimiento: Reishi + Melena + Cordyceps\n🌙 Reishi x3 / 🧠 Melena x3 / ⚡ Cordyceps x3\n📦 Pack x6 Doble: combiná 2 variedades\n\n✅ Descuento por pack.\n🚚 ENVÍO GRATIS a todo el país.\n\n👉 Comprá en micelic.com",
+            copyAnuncio: "🔥 CyberMonday Micelic — Stockeate y ahorrá\n\n🔥 Combo x6 Alto Rendimiento: Reishi x2 + Melena x2 + Cordyceps x2\n🌙 Reishi x2 / 🧠 Melena x2 / ⚡ Cordyceps x2\n🤝 Pack x4 Dúo: combiná 2 variedades\n\n✅ Descuento por pack.\n🚚 ENVÍO GRATIS a todo el país.\n\n👉 Comprá en micelic.com",
             pilar: "Producto",
-            tema: "CyberMonday — packs x3/x6 + envío gratis",
+            tema: "CyberMonday — packs x2/x4/x6 + envío gratis",
             formatoNarrativo: "Producto — Catálogo",
             estructuraNarrativa: "Oferta - Productos - Acción",
             tratamiento: { tipo: "Carrusel", tono: "Mixed", estilo: "E-commerce" },
@@ -537,19 +536,19 @@ const data = {
             destinoUrls: ["https://micelic.com"],
           },
 
-          // --- SHOPPING: COLECCIÓN PACKS x3 Y COMBOS ---
+          // --- SHOPPING: COLECCIÓN PACKS x2 / x4 / x6 ---
           {
             formato: "Meta Ads Shopping (Collection Ad)",
             dolor: "Ya sabe lo que quiere pero compra de a uno. Busca packs, combos y mejor precio por volumen.",
-            solucion: "Colección de packs x3 y combos de alto rendimiento de Micelic. Descuento por volumen + envío gratis. Requiere crear los productos en Tienda Nube y conectar el catálogo a Meta Ads.",
-            comunicacion: "Collection Ad con catálogo dinámico. Hero image o video arriba + grilla de productos debajo. La colección muestra packs x3 (mismo extracto) y combo x3 alto rendimiento (Reishi + Melena + Cordyceps) para el ICP que ya consume y quiere stockearse o upgradear.",
+            solucion: "Colección de packs x2, x4 y x6 de Micelic. Descuento por volumen + envío gratis. Requiere crear los productos en Tienda Nube y conectar el catálogo a Meta Ads.",
+            comunicacion: "Collection Ad con catálogo dinámico. Hero image o video arriba + grilla de productos debajo. La colección muestra los packs x2 (extracto individual), x4 (dúo) y x6 (alto rendimiento, las 3 variedades) para el ICP que ya consume y quiere stockearse o upgradear.",
             mensajes: [
-              "Hero: visual de los packs x3 y combo alto rendimiento con mensaje de oferta (ej. 'Stockeate y ahorrá')",
+              "Hero: visual de los packs x2, x4 y x6 con mensaje de oferta (ej. 'Stockeate y ahorrá')",
               "Grilla: productos del catálogo de Tienda Nube con precio, foto y botón de compra",
             ],
-            copyAnuncio: "Stockeate y ahorrá 🍄\n\n🔥 Combo x3 Alto Rendimiento: Reishi + Melena + Cordyceps\n🌙 Reishi x3\n🧠 Melena x3\n⚡ Cordyceps x3\n\n✅ Descuento por pack + envío gratis.\n\n👉 Elegí tu pack en micelic.com",
+            copyAnuncio: "Stockeate y ahorrá 🍄\n\n🔥 Combo x6 Alto Rendimiento: Reishi x2 + Melena x2 + Cordyceps x2\n🤝 Pack x4 Dúo: dos variedades\n💧 Pack x2: Reishi x2 / Melena x2 / Cordyceps x2\n\n✅ Descuento por pack + envío gratis.\n\n👉 Elegí tu pack en micelic.com",
             pilar: "Producto",
-            tema: "Shopping — packs x3 y combos (upgrade)",
+            tema: "Shopping — packs x2 / x4 / x6 (upgrade)",
             formatoNarrativo: "Catálogo dinámico",
             estructuraNarrativa: "Hero - Grilla de productos",
             tratamiento: { tipo: "Shopping", tono: "Mixed", estilo: "E-commerce" },
@@ -561,7 +560,8 @@ const data = {
     ],
     resumenPiezas: "10 anuncios de Ventas: 5 por ICP (1 video UGC + 3 carruseles post+historia + 1 Shopping). 2 carruseles por dolor + 1 carrusel de productos CyberMonday con envío gratis. Cada ICP tiene su propia colección de Shopping.",
     formatos: ["Video Comercial (9:16)", "Feed (1080x1350)", "Reel / Story (1080x1920)", "Carrusel (1080x1080)"],
-    tono: "Cercano, directo, educativo. Julián habla como alguien que sabe del tema y quiere compartirlo. Evitar lenguaje corporativo o demasiado publicitario. Priorizar transparencia, autenticidad y confianza del founder sobre claims genéricos. El tono refleja que Micelic es una marca con un humano detrás.",
+    tono: "Cercano, directo, educativo. Se habla como alguien que sabe del tema y quiere compartirlo, sin sobrevender: explicar con calma, como en una charla. Evitar lenguaje corporativo o demasiado publicitario. Priorizar transparencia, autenticidad y confianza del founder sobre claims genéricos. El tono refleja que Micelic es una marca con un humano detrás. Las piezas que produce la creadora UGC mantienen el mismo tono: cambia la cara, no la forma de hablar.",
+    notaPiezas: "Pauta de edición para handoff a la creadora UGC — aplica a los 3 videos guionados: (1) Isotipo de Micelic fijo en la esquina superior izquierda, chico, permanente todo el video. (2) Subtítulos centrados a la altura de la cara, nunca en el tercio inferior: ahí la UI de Reels tapa el texto. (3) Close-ups de etiqueta con la concentración visible — cada extracto tiene su color, el detalle del frasco es lo que diferencia. (4) Entrega en 9:16 (1080x1920) a Drive compartido. El reparto de producción es: creadora UGC los 3 videos, Julián los 8 carruseles y los packs en Tienda Nube.",
   },
 
   utm: {
@@ -590,8 +590,9 @@ const data = {
           nombre: "Conjunto_General_Argentina",
           segmentacion: "28-55 años, Buenos Aires, CABA, Córdoba, Santa Fe, Mendoza, Tucumán, Entre Ríos, Salta, Misiones, Corrientes. Intereses de salud: Salud y bienestar, Salud natural, Vida saludable, Medicina natural, Remedios naturales, Nutrición, Alimentación saludable, Bienestar mental, Dormir bien, Estrés, Ejercicio físico. Conjunto amplio a propósito: el algoritmo optimiza hacia quién interactúa con @micelic.ar.",
           ads: [
-            "Anuncio_Reel_Reishi_V1 | Reel curado: Julián hablando sobre Reishi y descanso natural",
-            "Anuncio_Reel_Extraccion_V1 | Reel curado: Julián mostrando el proceso de doble extracción",
+            "Anuncio_Reel_Organico_V1 | Reel ya publicado en @micelic.ar: charla distendida de Julián sobre adaptógenos (114K views)",
+            "Anuncio_Reel_ComoTomar_V1 | Reel curado del Drive: cómo tomar adaptógenos y qué efectos esperar",
+            "Anuncio_Reel_AdaptogenoBarato_V1 | Reel curado del Drive: ¿adaptógeno barato? concentración y duración real",
             "Anuncio_Video_Estres_V1 | Estrés, ansiedad → solución con adaptógenos de Micelic",
             "Anuncio_Video_TiposHongos_V1 | ¿Son todos iguales? No, cada hongo produce un efecto distinto",
             "Anuncio_Carrusel_Estres_V1 | Carrusel: estrés + beneficios por extracto (adaptación del video)",
@@ -604,36 +605,48 @@ const data = {
         {
           formato: "Reel curado de @micelic.ar",
           dolor: "No conoce Micelic ni los hongos adaptógenos.",
-          solucion: "Reel orgánico de Julián que se pauta como anuncio sin edición. 54K views orgánicas — se empuja con tráfico pago.",
-          comunicacion: "Contenido ya publicado en @micelic.ar con 54K views orgánicas. Se promociona tal cual para amplificar el alcance con pauta.",
-          enRevision: false,
-          referencias: [
-            { url: "https://www.instagram.com/reel/DKKiXwsMsFG/", titulo: "Reel @micelic.ar — 54K views", tipo: "iframe" },
-          ],
-        },
-
-        // --- REEL 2: Reel orgánico de @micelic.ar, se promociona tal cual ---
-        {
-          formato: "Reel curado de @micelic.ar",
-          dolor: "No conoce Micelic ni los hongos adaptógenos.",
-          solucion: "Reel orgánico de Julián que se pauta como anuncio sin edición. 114K views orgánicas — se empuja con tráfico pago.",
-          comunicacion: "Contenido ya publicado en @micelic.ar con 114K views orgánicas. Se promociona tal cual para amplificar el alcance con pauta.",
+          solucion: "Reel ya publicado en @micelic.ar que se pauta como anuncio sin edición. 114K views acumuladas (parte vino de pauta) — se empuja con tráfico pago. Pendiente: regrabar con el packaging actual de Mushblend.",
+          comunicacion: "Contenido ya publicado en @micelic.ar con 114K views acumuladas. Se promociona tal cual para amplificar el alcance con pauta mientras Julián regraba la versión con la etiqueta nueva.",
           enRevision: false,
           referencias: [
             { url: "https://www.instagram.com/reel/DZ7vTUgK_A0/", titulo: "Reel @micelic.ar — 114K views", tipo: "iframe" },
           ],
         },
 
-        // --- VIDEO 3: ESTRÉS / ADAPTÓGENOS ---
+        // --- REEL 2: Video curado del Drive, se pauta tal cual ---
+        {
+          formato: "Reel curado de Drive (9:16)",
+          dolor: "No sabe cómo se toman los hongos adaptógenos ni qué efectos esperar. Es la primera pregunta de cualquiera que recién conoce la categoría.",
+          solucion: "Video ya producido por Julián que explica cómo tomar los extractos y qué efectos esperar. Resuelve la objeción de entrada sin vender: posiciona a Micelic como la marca que enseña.",
+          comunicacion: "Video ya grabado y disponible en el Drive del cliente, con calidad de estudio. Se pauta tal cual, sin re-edición. Julián a cámara explicando posología y efectos esperados.",
+          enRevision: false,
+          referencias: [
+            { url: assetDataUri("aw-como-tomar.mp4"), titulo: "Cómo tomar adaptógenos y qué efectos esperar", tipo: "video" },
+          ],
+        },
+
+        // --- REEL 3: Video curado del Drive, se pauta tal cual ---
+        {
+          formato: "Reel curado de Drive (9:16)",
+          dolor: "Compara por precio sin entender que un extracto barato y diluido obliga a tomar más gotas por día y rinde menos.",
+          solucion: "Video ya producido por Julián que compara concentración y duración real: un frasco de 100 ml que pide 70 gotas por día dura 15 días, contra los 30 ml concentrados de Micelic que duran un mes. Instala el criterio de concentración antes de hablar de precio.",
+          comunicacion: "Video ya grabado y disponible en el Drive del cliente, con calidad de estudio. Se pauta tal cual, sin re-edición. Julián a cámara con el frasco en mano, explicando posología y rendimiento.",
+          enRevision: false,
+          referencias: [
+            { url: assetDataUri("aw-adaptogeno-barato.mp4"), titulo: "¿Adaptógeno barato? Cuánto dura y qué tan concentrado está", tipo: "video" },
+          ],
+        },
+
+        // --- VIDEO 4: ESTRÉS / ADAPTÓGENOS ---
         {
           formato: "Video UGC Vertical (9:16)",
           dolor: "Vive con estrés, ansiedad e malestar. No sabe que los hongos adaptógenos pueden regular su sistema nervioso de forma natural.",
-          solucion: "Hongos adaptógenos de Micelic: mejoran la calidad de sueño, la claridad cognitiva y la gestión del estrés. Doble extracción y concentración declarada en cada frasco.",
-          comunicacion: "[0-4s] HOOK — Julián a cámara, plano medio, expresión seria y directa. Isotipo de Micelic fijo en esquina superior (pequeño, permanente todo el video). Subtítulos centrados en mitad inferior del cuadro: \"Si sentís estrés, ansiedad, malestar… es momento de que hagas algo.\"\n\n[4-12s] CONTEXTO — Julián a cámara, tono cercano: \"Miles de personas hoy optan por usar medicina natural para mejorar su estilo de vida. Los hongos adaptógenos regulan tu sistema nervioso de forma natural.\"\n\n[10-18s] SOLUCIÓN — Julián a cámara en su espacio de trabajo, muestra tres frascos uno por uno, levantándolos a cámara: \"Reishi para dormir mejor. Melena de León para pensar más claro. Cordyceps para obtener energía real, sin café.\"\n\n[18-26s] AUTORIDAD — Close-up de los tres frascos y las presentaciones en polvo, mostrando la variedad de productos. Julián en off: \"En Micelic nos dedicamos a que te lleguen los extractos de la mejor calidad. Los tenés en distintas variedades y presentaciones: en extracto líquido o en polvo.\"\n\n[26-32s] CTA — Julián a cámara, plano medio, tono cercano, apoya los frascos sobre la mesa: \"Si querés aprender más sobre cómo podés mejorar tu bienestar, seguí a @micelic.ar.\" Texto en pantalla: @micelic.ar.",
+          solucion: "Hongos adaptógenos de Micelic: mejoran la calidad de sueño, la claridad cognitiva y la gestión del estrés. Triple extracción y concentración declarada en cada frasco.",
+          comunicacion: "Produce la creadora UGC (test mujer vs. Julián como variable de performance). [0-4s] HOOK — Creadora UGC a cámara, plano medio, expresión seria y directa. Isotipo de Micelic fijo en esquina superior (pequeño, permanente todo el video). Subtítulos centrados en mitad inferior del cuadro: \"Si sentís estrés, ansiedad, malestar… es momento de que hagas algo.\"\n\n[4-12s] CONTEXTO — Creadora UGC a cámara, tono cercano: \"Miles de personas hoy optan por usar medicina natural para mejorar su estilo de vida. Los hongos adaptógenos regulan tu sistema nervioso de forma natural.\"\n\n[10-18s] SOLUCIÓN — Creadora UGC a cámara en su espacio de trabajo, muestra tres frascos uno por uno, levantándolos a cámara: \"Reishi para dormir mejor. Melena de León para pensar más claro. Cordyceps para obtener energía real, sin café.\"\n\n[18-26s] AUTORIDAD — Close-up de los tres frascos, mostrando la variedad de productos. Creadora UGC en off: \"En Micelic nos dedicamos a que te lleguen los extractos de la mejor calidad. Los tenés en las tres variedades, en extracto triple concentrado.\"\n\n[26-32s] CTA — Creadora UGC a cámara, plano medio, tono cercano, apoya los frascos sobre la mesa: \"Si querés aprender más sobre cómo podés mejorar tu bienestar, seguí a @micelic.ar.\" Texto en pantalla: @micelic.ar.",
           hook: "Si sentís estrés, ansiedad, malestar… es momento de que hagas algo.",
-          body: "Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir mejor, Melena de León para pensar más claro, Cordyceps para energía real. En Micelic nos dedicamos a que te llegue de la mejor calidad: doble extracción, concentración declarada.",
+          body: "Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir mejor, Melena de León para pensar más claro, Cordyceps para energía real. En Micelic nos dedicamos a que te llegue de la mejor calidad: triple extracción, concentración declarada.",
           cta: "Seguí a @micelic.ar para aprender más.",
-          copyAnuncio: "Si sentís estrés, ansiedad, malestar… es momento de que hagas algo 🍄\n\nLos hongos adaptógenos regulan tu sistema nervioso de forma natural:\n🌙 Reishi → Mejor sueño\n🧠 Melena de León → Claridad cognitiva\n⚡ Cordyceps → Más energía\n\n✅ Doble extracción. Concentración declarada.\n\n👉 Seguí a @micelic.ar",
+          copyAnuncio: "Si sentís estrés, ansiedad, malestar… es momento de que hagas algo 🍄\n\nLos hongos adaptógenos regulan tu sistema nervioso de forma natural:\n🌙 Reishi → Mejor sueño\n🧠 Melena de León → Claridad cognitiva\n⚡ Cordyceps → Más energía\n\n✅ Triple extracción. Concentración declarada.\n\n👉 Seguí a @micelic.ar",
           pilar: "Producto",
           tema: "Estrés y adaptógenos",
           formatoNarrativo: "Direct to Camera — Talking Head",
@@ -643,16 +656,16 @@ const data = {
           enRevision: false,
         },
 
-        // --- VIDEO 4: TIPOS DE HONGOS / NO SON TODOS IGUALES ---
+        // --- VIDEO 5: TIPOS DE HONGOS / NO SON TODOS IGUALES ---
         {
           formato: "Video UGC Vertical (9:16)",
           dolor: "No sabe que existen distintos tipos de hongos adaptógenos ni que cada uno tiene un efecto diferente. Los mete a todos en la misma bolsa o directamente desconoce la categoría.",
           solucion: "Julián explica que no son todos iguales, cada hongo produce un efecto distinto y combinados se potencian. Muestra la línea completa de extractos de Micelic.",
-          comunicacion: "[0-4s] HOOK — Voz de otra persona (estilo entrevista), plano medio de Julián escuchando la pregunta: \"¿Cuántos tipos de hongos adaptógenos existen? ¿Son todos iguales?\"\n\n[4-8s] RESPUESTA — Julián a cámara, niega con la cabeza, tono enfático: \"No. No son todos iguales ni tampoco producen el mismo efecto. Incluso juntos se potencian.\"\n\n[8-14s] REISHI — Julián levanta el frasco de Reishi a cámara, close-up de la etiqueta: \"Está Reishi, para descansar mejor. Regula el cortisol y mejora la calidad de sueño.\"\n\n[14-20s] MELENA — Julián levanta el frasco de Melena de León, close-up de la etiqueta: \"La Melena de León, para claridad cognitiva. Te saca la niebla mental y mejora la concentración.\"\n\n[20-26s] CORDYCEPS — Julián levanta el frasco de Cordyceps, close-up de la etiqueta: \"El Cordyceps, para energía real. Rendís todo el día sin depender del café.\"\n\n[26-32s] LÍNEA COMPLETA — Toma frontal de los tres frascos en primera plana, uno al lado del otro, etiquetas visibles. Julián en off: \"Cada uno hace algo distinto y combinados se potencian.\"\n\n[32-37s] CTA — Julián a cámara, parado detrás de los tres frascos: \"Si querés saber cómo cuidar tu salud de forma natural, seguí a @micelic.ar.\" Texto en pantalla: @micelic.ar.",
+          comunicacion: "Produce la creadora UGC (test mujer vs. Julián como variable de performance). [0-4s] HOOK — Voz de otra persona (estilo entrevista), plano medio de la creadora UGC escuchando la pregunta: \"¿Cuántos tipos de hongos adaptógenos existen? ¿Son todos iguales?\"\n\n[4-8s] RESPUESTA — Creadora UGC a cámara, niega con la cabeza, tono enfático: \"No. No son todos iguales ni tampoco producen el mismo efecto. Incluso juntos se potencian.\"\n\n[8-14s] REISHI — Creadora UGC levanta el frasco de Reishi a cámara, close-up de la etiqueta: \"Está Reishi, para descansar mejor. Regula el cortisol y mejora la calidad de sueño.\"\n\n[14-20s] MELENA — Creadora UGC levanta el frasco de Melena de León, close-up de la etiqueta: \"La Melena de León, para claridad cognitiva. Te saca la niebla mental y mejora la concentración.\"\n\n[20-26s] CORDYCEPS — Creadora UGC levanta el frasco de Cordyceps, close-up de la etiqueta: \"El Cordyceps, para energía real. Rendís todo el día sin depender del café.\"\n\n[26-32s] LÍNEA COMPLETA — Toma frontal de los tres frascos en primera plana, uno al lado del otro, etiquetas visibles. Creadora UGC en off: \"Cada uno hace algo distinto y combinados se potencian.\"\n\n[32-37s] CTA — Creadora UGC a cámara, parado detrás de los tres frascos: \"Si querés saber cómo cuidar tu salud de forma natural, seguí a @micelic.ar.\" Texto en pantalla: @micelic.ar.",
           hook: "¿Cuántos tipos de hongos adaptógenos existen? ¿Son todos iguales?",
           body: "No son todos iguales ni producen el mismo efecto. Incluso juntos se potencian. Reishi para descansar mejor. Melena de León para claridad cognitiva. Cordyceps para energía real.",
           cta: "Seguí a @micelic.ar para saber cuál te conviene.",
-          copyAnuncio: "¿Cuántos tipos de hongos adaptógenos existen? ¿Son todos iguales? 🍄\n\nNo. No son todos iguales ni producen el mismo efecto. Incluso juntos se potencian:\n\n🌙 Reishi → Descanso y regulación del cortisol.\n🧠 Melena de León → Claridad cognitiva y concentración.\n⚡ Cordyceps → Energía real sin depender del café.\n\n✅ Doble extracción. Concentración declarada en cada frasco.\n\n👉 Seguí a @micelic.ar",
+          copyAnuncio: "¿Cuántos tipos de hongos adaptógenos existen? ¿Son todos iguales? 🍄\n\nNo. No son todos iguales ni producen el mismo efecto. Incluso juntos se potencian:\n\n🌙 Reishi → Descanso y regulación del cortisol.\n🧠 Melena de León → Claridad cognitiva y concentración.\n⚡ Cordyceps → Energía real sin depender del café.\n\n✅ Triple extracción. Concentración declarada en cada frasco.\n\n👉 Seguí a @micelic.ar",
           pilar: "Producto",
           tema: "Tipos de hongos y sus efectos",
           formatoNarrativo: "Direct to Camera — Educativo",
@@ -662,7 +675,7 @@ const data = {
           enRevision: false,
         },
 
-        // --- CARRUSEL 1: ADAPTACIÓN DEL VIDEO 3 (ESTRÉS / ADAPTÓGENOS) ---
+        // --- CARRUSEL 6: ADAPTACIÓN DEL VIDEO 4 (ESTRÉS / ADAPTÓGENOS) ---
         {
           formato: "Carrusel (1080x1080)",
           dolor: "Vive con estrés, ansiedad e malestar. No sabe que los hongos adaptógenos pueden regular su sistema nervioso de forma natural.",
@@ -671,9 +684,9 @@ const data = {
           mensajes: [
             "Slide 1: Mensaje principal — '¿Estrés, ansiedad, malestar? Los hongos adaptógenos pueden ayudarte.' Fondo limpio, tipografía grande, frasco de Micelic como elemento visual.",
             "Slide 2: Beneficios por extracto — Reishi: 'Regula el cortisol y mejora tu sueño' / Melena de León: 'Claridad cognitiva y concentración' / Cordyceps: 'Energía real sin depender del café'. Foto de cada frasco con su beneficio.",
-            "Slide 3: Cierre — 'Doble extracción. Concentración declarada en cada frasco.' + CTA: 'Seguí a @micelic.ar'.",
+            "Slide 3: Cierre — 'Triple extracción. Concentración declarada en cada frasco.' + CTA: 'Seguí a @micelic.ar'.",
           ],
-          copyAnuncio: "¿Estrés, ansiedad, malestar? Los hongos adaptógenos pueden ayudarte 🍄\n\n🌙 Reishi → Regula el cortisol y mejora tu sueño.\n🧠 Melena de León → Claridad cognitiva y concentración.\n⚡ Cordyceps → Energía real sin depender del café.\n\n✅ Doble extracción. Concentración declarada.\n\n👉 Seguí a @micelic.ar",
+          copyAnuncio: "¿Estrés, ansiedad, malestar? Los hongos adaptógenos pueden ayudarte 🍄\n\n🌙 Reishi → Regula el cortisol y mejora tu sueño.\n🧠 Melena de León → Claridad cognitiva y concentración.\n⚡ Cordyceps → Energía real sin depender del café.\n\n✅ Triple extracción. Concentración declarada.\n\n👉 Seguí a @micelic.ar",
           pilar: "Producto",
           tema: "Estrés y adaptógenos (versión carrusel)",
           formatoNarrativo: "Educativo — Guía Visual",
@@ -682,7 +695,7 @@ const data = {
           enRevision: false,
         },
 
-        // --- CARRUSEL 2: ADAPTACIÓN DEL VIDEO 4 (TIPOS DE HONGOS) ---
+        // --- CARRUSEL 7: ADAPTACIÓN DEL VIDEO 5 (TIPOS DE HONGOS) ---
         {
           formato: "Carrusel (1080x1080)",
           dolor: "No sabe que existen distintos tipos de hongos adaptógenos ni que cada uno tiene un efecto diferente.",
@@ -691,9 +704,9 @@ const data = {
           mensajes: [
             "Slide 1: Pregunta — '¿Son todos los hongos adaptógenos iguales? No.' Tipografía grande, fondo limpio, los tres frascos de Micelic en primera plana uno al lado del otro.",
             "Slide 2: Desglose por extracto — Reishi: 'Descanso y regulación del cortisol' / Melena de León: 'Claridad cognitiva y concentración' / Cordyceps: 'Energía sostenida sin café'. Foto individual de cada frasco con su beneficio al lado.",
-            "Slide 3: Cierre — 'Cada uno hace algo distinto. Combinados se potencian. Doble extracción, concentración declarada.' + CTA: 'Seguí a @micelic.ar'.",
+            "Slide 3: Cierre — 'Cada uno hace algo distinto. Combinados se potencian. Triple extracción, concentración declarada.' + CTA: 'Seguí a @micelic.ar'.",
           ],
-          copyAnuncio: "¿Son todos los hongos adaptógenos iguales? No 🍄\n\nCada uno produce un efecto distinto, e incluso juntos se potencian:\n\n🌙 Reishi → Descanso y regulación del cortisol.\n🧠 Melena de León → Claridad cognitiva y concentración.\n⚡ Cordyceps → Energía sostenida sin café.\n\n✅ Doble extracción. Concentración declarada.\n\n👉 Seguí a @micelic.ar",
+          copyAnuncio: "¿Son todos los hongos adaptógenos iguales? No 🍄\n\nCada uno produce un efecto distinto, e incluso juntos se potencian:\n\n🌙 Reishi → Descanso y regulación del cortisol.\n🧠 Melena de León → Claridad cognitiva y concentración.\n⚡ Cordyceps → Energía sostenida sin café.\n\n✅ Triple extracción. Concentración declarada.\n\n👉 Seguí a @micelic.ar",
           pilar: "Producto",
           tema: "Tipos de hongos y sus efectos (versión carrusel)",
           formatoNarrativo: "Educativo — Guía Visual",
@@ -709,7 +722,7 @@ const data = {
       objetivo: "Ventas",
       status: "en-desarrollo",
       tituloSubseccion: "Campaña de Ventas en Meta Ads",
-      descripcionCampana: "Convertir la audiencia construida en Awareness en ventas en micelic.com. Cada ICP recibe piezas diferentes: al Consciente del Síntoma se le vende desde el dolor (sueño, estrés, energía) hacia el combo de alto rendimiento en extracto y polvo; al Consciente del Producto se le vende variedad, oferta y el upgrade al combo. En CyberMonday (~02/11) y Black Friday (27/11) se activan variantes con descuento + envío gratis dentro de esta misma campaña.",
+      descripcionCampana: "Convertir la audiencia construida en Awareness en ventas en micelic.com. Cada ICP recibe piezas diferentes: al Consciente del Síntoma se le vende desde el dolor (sueño, estrés, energía) hacia el combo de alto rendimiento; al Consciente del Producto se le vende variedad, oferta y el upgrade al combo. En CyberMonday (~02/11) y Black Friday (27/11) se activan variantes con descuento + envío gratis dentro de esta misma campaña.",
       notaCampana: "CyberMonday (~02/11) y Black Friday (27/11) se trabajan como variantes dentro de esta campaña: ads con oferta temporal (combos, packs, envío gratis). Julián define las ofertas con anticipación.",
       destino: "micelic.com",
       kpisCampana: ["Visitas a página de producto", "Compras", "ROAS"],
@@ -719,11 +732,11 @@ const data = {
           nombre: "Conjunto_Consciente_Sintoma",
           segmentacion: "28-55 años, Buenos Aires, CABA, Córdoba, Santa Fe, Mendoza, Tucumán, Entre Ríos, Salta, Misiones, Corrientes. No conoce el producto, busca solución al síntoma. Intereses: Insomnio, Estrés, Ansiedad, Trastornos del sueño, Relajación, Salud mental, Remedios naturales, Medicina natural, Suplementos dietéticos, Dormir bien. Comportamiento: busca soluciones a problemas de sueño, estrés o cansancio crónico.",
           ads: [
-            "Anuncio_Video_Dolores_Sintoma_V1 | Julián UGC: estrés + mal sueño + cansancio → adaptógenos de Micelic en extracto simple o doble",
-            "Anuncio_Carrusel_Sueno_V1 | Post+Historia: ¿dormís mal? → Reishi extracto simple o doble — CTA a micelic.com",
+            "Anuncio_Video_Dolores_Sintoma_V1 | Julián UGC: estrés + mal sueño + cansancio → adaptógenos de Micelic en extracto triple concentrado",
+            "Anuncio_Carrusel_Sueno_V1 | Post+Historia: ¿dormís mal? → Reishi extracto triple concentrado — CTA a micelic.com",
             "Anuncio_Carrusel_Energia_V1 | Post+Historia: cansancio + niebla mental → Cordyceps y Melena — CTA a micelic.com",
             "Anuncio_Carrusel_CyberMonday_Sintoma_V1 | Post+Historia: productos individuales CyberMonday + envío gratis — CTA a micelic.com",
-            "Anuncio_Shopping_Sintoma_V1 | Collection Ad: colección de extractos simples y dobles (productos de entrada) — requiere crear productos y conectar catálogo",
+            "Anuncio_Shopping_Sintoma_V1 | Collection Ad: colección de extractos individuales (productos de entrada) — requiere crear productos y conectar catálogo",
           ],
         },
         {
@@ -731,10 +744,10 @@ const data = {
           segmentacion: "28-55 años, Buenos Aires, CABA, Córdoba, Santa Fe, Mendoza, Tucumán, Entre Ríos, Salta, Misiones, Corrientes. Ya consume suplementos o adaptógenos, busca oferta y variedad. Intereses: Suplementos dietéticos, Medicina alternativa, Herbolaria, Naturopatía, Alimentos orgánicos, Superalimentos, Ayurveda, Alimentos funcionales. Comportamiento: compradores online frecuentes de suplementos y productos naturales.",
           ads: [
             "Anuncio_Video_Dolores_Producto_V1 | Julián UGC: ¿sabés qué tiene tu frasco? → calidad + variedad + packs de Micelic",
-            "Anuncio_Carrusel_ComboX3_V1 | Post+Historia: combo x3 alto rendimiento (Reishi + Melena + Cordyceps) — CTA a micelic.com",
-            "Anuncio_Carrusel_Stockeate_V1 | Post+Historia: stockeate con tu favorito, pack x3 del mismo extracto — CTA a micelic.com",
-            "Anuncio_Carrusel_CyberMonday_Producto_V1 | Post+Historia: packs x3/x6 CyberMonday + descuento + envío gratis — CTA a micelic.com",
-            "Anuncio_Shopping_Producto_V1 | Collection Ad: colección de packs x3 y combos de alto rendimiento — requiere crear productos y conectar catálogo",
+            "Anuncio_Carrusel_ComboX6_V1 | Post+Historia: combo x6 alto rendimiento (Reishi x2 + Melena x2 + Cordyceps x2) — CTA a micelic.com",
+            "Anuncio_Carrusel_Escalera_V1 | Post+Historia: escalera de packs x2 / x4 / x6 — CTA a micelic.com",
+            "Anuncio_Carrusel_CyberMonday_Producto_V1 | Post+Historia: packs x2/x4/x6 CyberMonday + descuento + envío gratis — CTA a micelic.com",
+            "Anuncio_Shopping_Producto_V1 | Collection Ad: colección de packs x2 / x4 / x6 — requiere crear productos y conectar catálogo",
           ],
         },
       ],
@@ -749,13 +762,15 @@ const data = {
   },
 
   ofertas: [
-    { nombre: "Destilados x3 (Reishi / Melena / Cordyceps)", descripcion: "Pack de 3 unidades del mismo extracto. Precio con pequeño descuento vs compra individual. Envío gratis a todo el país.", precio: null },
-    { nombre: "Destilados x3 en Polvo (Reishi / Melena / Cordyceps)", descripcion: "Pack de 3 unidades del mismo hongo en presentación polvo. Descuento + envío gratis.", precio: null },
-    { nombre: "Destilados x6 Doble (combina 2 variedades)", descripcion: "Pack de 6 unidades (3+3 de dos extractos distintos). Mayor descuento para subir ticket promedio. Envío gratis.", precio: null },
+    { nombre: "Pack x2 — extracto individual (Reishi / Melena / Cordyceps)", descripcion: "Dos frascos del mismo extracto. Producto nuevo en Tienda Nube, con el precio del pack ya cargado y el badge en la foto. Reemplaza al descuento por cantidad. Envío gratis a todo el país.", precio: null },
+    { nombre: "Pack x4 — dúo (combina 2 variedades)", descripcion: "Cuatro frascos: x2 de cada una de las dos variedades elegidas. Producto nuevo con precio de pack. Envío gratis.", precio: null },
+    { nombre: "Pack x6 — alto rendimiento (las 3 variedades)", descripcion: "Seis frascos: Reishi x2 + Melena de León x2 + Cordyceps x2. El pack de mayor ticket, para el consumidor que ya tomaba adaptógenos. Envío gratis.", precio: null },
   ],
   cambiosEcommerce: [
-    { cambio: "Subir packs x3 de cada extracto (Reishi, Melena de León, Cordyceps) en líquido y en polvo", objetivo: "Ampliar catálogo con opciones de mayor volumen para subir el ticket promedio" },
-    { cambio: "Subir packs x6 dobles (combos de 2 variedades)", objetivo: "Incentivar la compra combinada y aumentar el valor del carrito" },
+    { cambio: "Subir el pack x2 de cada extracto individual (Reishi, Melena de León, Cordyceps) como producto nuevo", objetivo: "Que el cliente que compraba una unidad se lleve dos: duplica el ticket en el escalón más accesible" },
+    { cambio: "Subir el pack x4 del dúo (x2 de cada una de las 2 variedades elegidas)", objetivo: "Incentivar la compra combinada y aumentar el valor del carrito" },
+    { cambio: "Subir el pack x6 de alto rendimiento (Reishi x2 + Melena x2 + Cordyceps x2)", objetivo: "Máximo ticket para el consumidor que ya toma adaptógenos y quiere stockearse" },
+    { cambio: "Dar de baja el badge \"hasta 15% comprando en cantidad\": lo reemplazan los packs como producto con precio propio", objetivo: "Que la oferta se vea en la foto y el precio del producto, no como una condición al final del checkout" },
     { cambio: "Configurar descuento de CyberMonday en todos los packs", objetivo: "Pequeño descuento porcentual que active la urgencia sin destruir margen" },
     { cambio: "Activar envío gratis a todo el país durante CyberMonday", objetivo: "Eliminar la fricción del costo de envío como barrera de compra" },
 { cambio: "Verificar que todos los productos tengan fotos de calidad, precios actualizados y stock cargado", objetivo: "Catálogo listo para Meta Ads Shopping (Collection Ad)" },
@@ -792,7 +807,7 @@ const data = {
       { nombre: "Kaya", estado: "160 anuncios activos — Segunda marca con más volumen. Dos líneas (adaptógenos + cosmética). Kits temáticos (Anti-estrés, Menopausia, Glow). Tinturas madre y gift cards. Apuesta fuerte a paid con catálogo amplio.", activo: true, avatarFile: assetDataUri("avatar-kaya.png"), instagramUrl: "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=AR&is_targeted_country=false&media_type=all&search_type=page&view_all_page_id=360860550451372" },
       { nombre: "REM Argentina", estado: "15 anuncios activos — Triple extracto, blend de 3 hongos. Tienda Nube. Menos volumen pero posicionamiento claro en calidad de extracción.", activo: true, avatarFile: assetDataUri("avatar-rem-fungi.png"), instagramUrl: "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=AR&is_targeted_country=false&media_type=all&search_type=page&view_all_page_id=491280060730747" },
     ],
-    observacion: "El mercado de adaptógenos en Argentina está dominado por **2 estrategias** — **volumen masivo de creatividades sin identidad de marca** (Fungi Melena, 210 ads con caras distintas; Kaya, 160 ads con catálogo amplio) vs. **posicionamiento científico/premium con poco volumen** (Unifungi, REM). **Ninguno combina las dos cosas: founder visible + volumen de creatividades + oferta agresiva.** Micelic tiene el diferencial de **Julián dando la cara**, lo que genera confianza humana que la competencia no replica. La campaña de Ventas sale a buscar a los **2 ICPs con ofertas distintas**: al **Consciente del Síntoma** (no conoce adaptógenos) se le vende el beneficio con packs introductorios; al **Consciente del Producto** (ya consume) se le vende calidad, transparencia y packs x3/x6 para subir ticket. En **CyberMonday y Black Friday** se activan variantes con descuento + envío gratis sobre la misma estructura.",
+    observacion: "El mercado de adaptógenos en Argentina está dominado por **2 estrategias** — **volumen masivo de creatividades sin identidad de marca** (Fungi Melena, 210 ads con caras distintas; Kaya, 160 ads con catálogo amplio) vs. **posicionamiento científico/premium con poco volumen** (Unifungi, REM). **Ninguno combina las dos cosas: founder visible + volumen de creatividades + oferta agresiva.** Micelic tiene el diferencial de **Julián dando la cara**, lo que genera confianza humana que la competencia no replica. La campaña de Ventas sale a buscar a los **2 ICPs con ofertas distintas**: al **Consciente del Síntoma** (no conoce adaptógenos) se le vende el beneficio con packs introductorios; al **Consciente del Producto** (ya consume) se le vende calidad, transparencia y packs x2/x4/x6 para subir ticket. En **CyberMonday y Black Friday** se activan variantes con descuento + envío gratis sobre la misma estructura.",
   },
 
   notas: "Micelic es el primer cliente de Foundation F2 en la vertical de suplementos/adaptógenos. Modelo B2C puro con e-commerce (Tienda Nube).\n\nJulián Ruiz es el founder y cara de la marca. Su presencia genera confianza humana que la competencia masiva (Fungi Melena, 210 anuncios con caras distintas) no puede replicar. Este es el diferencial más fuerte.\n\nLa agencia actual cobra $70k ARS/mes y es reactiva. Los 5 anuncios actuales no tienen la identidad de Micelic asociada. Revisar el historial de rendimiento antes de decidir si se pausan.\n\nLa cuenta publicitaria está en ARS (se mantiene para preservar historial del algoritmo). Julián paga en USD vía billetera ARC para evitar el 32% de impuesto de Mercado Pago.\n\nDatos iniciales de Tienda Nube: 114 ventas, ~$1M ARS. Ticket promedio estimado: ~$8.770 ARS.\n\nCompetidor adicional a investigar: Intercer (21 anuncios activos, mayormente carruseles/historias, sin video — señalado por Julián en la KO Call).",
@@ -833,8 +848,22 @@ const data = {
       responsable: "Julián",
       tiempo: "Esta semana",
       items: [
-        "Crear los packs (x3, x6, combos) en Tienda Nube con fotos, precios y stock cargado",
-        "Producir las piezas creativas de Awareness (2 videos UGC) y Ventas (2 videos + 6 carruseles) sobre la bajada creativa de este documento",
+        "Crear los packs x2 (extracto individual), x4 (dúo) y x6 (alto rendimiento) en Tienda Nube como productos nuevos, con foto, precio de pack y stock cargado",
+        "Dar de baja el badge \"hasta 15% comprando en cantidad\" de la web: lo reemplazan los packs como producto",
+        "Producir las piezas gráficas: 2 carruseles de Awareness + 6 carruseles de Ventas (post + historia) sobre la bajada creativa de este documento",
+        "Regrabar los 2 reels orgánicos con el packaging actual (las etiquetas que muestran son las viejas). Se pautan igual mientras tanto: son de interacción, no de conversión",
+        "Pasar a la creadora UGC los 3 guiones de video + la pauta de edición de este documento",
+      ],
+    },
+    {
+      titulo: "Pendientes de la Creadora UGC",
+      responsable: "Creadora UGC",
+      tiempo: "Esta semana",
+      items: [
+        "Producir los 2 videos de Awareness: 'Estrés / adaptógenos' y '¿Son todos iguales?' sobre el guión y timeline de este documento",
+        "Producir el video de Ventas del ICP Consciente del Producto: '¿Sabés qué tiene adentro tu extracto?'",
+        "Respetar la pauta de edición: isotipo de Micelic fijo en esquina superior izquierda, subtítulos a la altura de la cara (nunca en el tercio inferior, que lo tapa la UI de Reels), close-ups de etiqueta con la concentración visible",
+        "Entregar en 9:16 (1080x1920) a un Drive compartido con REE",
       ],
     },
     {
@@ -842,8 +871,10 @@ const data = {
       responsable: "REE Growth",
       tiempo: "Esta semana",
       items: [
-        "Lanzar MICELIC_Awareness el 21/10 con los 2 reels curados. Sumar las piezas de awareness restantes a medida que Julián las produzca",
+        "Lanzar MICELIC_Awareness el 21/10 con los 4 reels curados (2 orgánicos de @micelic.ar + 2 del Drive). Sumar los 2 videos UGC y los 2 carruseles a medida que se produzcan",
         "Lanzar MICELIC_Ventas una vez recibidas las piezas de ventas — objetivo: tener ambas campañas activas antes del primer Review de ADS (10/11) y CyberMonday (02/11)",
+        "Configurar las 2 colecciones de Meta Shopping (una por ICP) una vez que Julián tenga los packs cargados en Tienda Nube",
+        "Testear creadora UGC (mujer) contra Julián (hombre) como variable de performance en Awareness",
       ],
     },
   ],

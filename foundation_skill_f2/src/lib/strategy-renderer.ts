@@ -1783,10 +1783,14 @@ function renderPiezaCardStrategy(pieza: PiezaCreativa, index: number): string {
     const refEmbeds: string[] = [];
     const refBadges: string[] = [];
     for (const r of pieza.referencias) {
+      if (!r.url) continue;
       const isIg = r.url.includes("instagram.com");
       if (r.tipo === "iframe" || (isIg && !r.tipo)) {
         const embedUrl = isIg ? r.url.replace(/\/$/, "") + "/embed" : r.url;
         refEmbeds.push(`<div style="max-width:400px"><iframe src="${embedUrl}" style="width:100%;min-height:540px;border:1px solid ${COLORS.border};border-radius:8px" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>`);
+      } else if (r.tipo === "video" || r.url.startsWith("data:video/")) {
+        const cap = r.titulo ? `<div style="font-size:12px;color:${COLORS.muted};margin-top:6px">${escapeHtml(r.titulo)}</div>` : "";
+        refEmbeds.push(`<div style="max-width:400px"><video src="${r.url}" controls playsinline preload="metadata" style="width:100%;aspect-ratio:9/16;border:1px solid ${COLORS.border};border-radius:8px;background:#000;object-fit:cover;display:block"></video>${cap}</div>`);
       } else {
         const label = escapeHtml(r.titulo || r.url.substring(0, 40));
         refBadges.push(`<span style="font-family:${FONTS.mono};font-size:11px;padding:3px 8px;background:${COLORS.bg};border:1px solid ${COLORS.border};margin-right:6px;margin-bottom:4px;display:inline-block">${label}</span>`);
