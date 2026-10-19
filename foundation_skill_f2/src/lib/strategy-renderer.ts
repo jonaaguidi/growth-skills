@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
-import type { FoundationData, RoadmapInitiative, ReviewEtapa, ReviewMilestone, ReviewMeeting, ProximoPaso, CampanaDefinida, PiezaCreativa } from "../types/foundation.js";
+import type { FoundationData, RoadmapInitiative, ReviewEtapa, ReviewMilestone, ReviewMeeting, ProximoPaso, CampanaDefinida, PiezaCreativa, ReferenciaCreativa } from "../types/foundation.js";
 import { getBaseStyles, escapeHtml, COLORS, FONTS } from "./template-parts.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -611,7 +611,7 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
     ? `${campaign.presupuestoCampana.diario} / ${campaign.presupuestoCampana.mensual}`
     : "Por definir";
   parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Conversión (KPIs)</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(kpisText)}</p></div>`);
-  parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(presupuestoText)}</p></div>`);
+  parts.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(presupuestoText)}</p>${data.presupuesto?.tipoCambioNota ? `<p style="font-size:11px;color:${COLORS.muted};margin:4px 0 0">${escapeHtml(data.presupuesto.tipoCambioNota)}</p>` : ""}</div>`);
 
   parts.push(`</div></div>`);
 
@@ -700,6 +700,55 @@ function renderActiveCampaign(data: FoundationData, campaign: CampanaDefinida, n
 
 // ─── Active Campaign with Subsections (conSubsecciones) ─────────────
 
+function renderReferenciaMedia(ref: ReferenciaCreativa, minHeight: number): string {
+  const isIg = ref.url.includes("instagram.com");
+  if (ref.tipo === "video" || ref.url.startsWith("data:video/")) {
+    return `<video src="${ref.url}" controls playsinline muted style="width:100%;border-radius:8px;border:1px solid ${COLORS.border};background:#000"></video>`;
+  }
+  if (ref.tipo === "image" || ref.url.startsWith("data:image/")) {
+    return `<img src="${ref.url}" style="width:100%;border-radius:8px;border:1px solid ${COLORS.border};object-fit:cover" />`;
+  }
+  if (ref.tipo === "iframe" || (isIg && !ref.tipo)) {
+    const embedUrl = isIg ? ref.url.replace(/\/$/, "") + "/embed" : ref.url;
+    return `<iframe src="${embedUrl}" style="width:100%;min-height:${minHeight}px;border:1px solid ${COLORS.border};border-radius:8px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+  }
+  return `<a href="${escapeHtml(ref.url)}" target="_blank" style="display:flex;width:100%;min-height:200px;border:2px solid ${COLORS.border};border-radius:8px;background:${COLORS.bg};flex-direction:column;align-items:center;justify-content:center;gap:8px;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span style="font-size:12px;color:${COLORS.red};font-weight:600">Ver referencia</span></a>`;
+}
+
+// Referencia ya publicada, como card expandible: embed + que edicion necesita antes de pautar
+function renderReferenciaCard(ref: ReferenciaCreativa, index: number): string {
+  const necesitaEdicion = !!ref.edicion;
+  const estado = ref.estado ?? (necesitaEdicion ? "Requiere edición" : "Lista para pautar");
+  const chip = necesitaEdicion
+    ? `background:#FEF3C7;color:#92400E;border:1px solid #FDE68A`
+    : `background:#F0FDF4;color:#166534;border:1px solid #BBF7D0`;
+  const titulo = ref.titulo ?? `Pieza publicada ${index + 1}`;
+  const parts: string[] = [];
+
+  parts.push(`<details style="border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:16px;overflow:hidden">`);
+  parts.push(`<summary style="padding:14px 20px;background:${COLORS.bg};display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer;list-style:none;user-select:none">`);
+  parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;font-weight:600;padding:3px 10px;background:${COLORS.ink};color:${COLORS.surface};text-transform:uppercase">${escapeHtml(ref.formato ?? "Publicada")}</span>`);
+  parts.push(`<span style="font-family:${FONTS.mono};font-size:12px;color:${COLORS.muted}">Pieza ${index + 1}</span>`);
+  parts.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:3px 8px;border-radius:4px;${chip}">${escapeHtml(estado)}</span>`);
+  parts.push(`<span style="font-size:13px;color:${COLORS.slate};flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(titulo)}</span>`);
+  parts.push(`<span class="pieza-toggle" style="font-family:${FONTS.mono};font-size:18px;font-weight:400;color:${COLORS.muted};margin-left:auto">+</span><span class="pieza-toggle-open" style="font-family:${FONTS.mono};font-size:18px;font-weight:400;color:${COLORS.muted};margin-left:auto">&minus;</span>`);
+  parts.push(`</summary>`);
+
+  parts.push(`<div style="border-top:1px solid ${COLORS.border};padding:20px;display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start">`);
+  parts.push(`<div>${renderReferenciaMedia(ref, 430)}</div>`);
+  parts.push(`<div>`);
+  if (ref.edicion) {
+    parts.push(`<div class="card-label" style="margin-bottom:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Edición requerida para pauta</div>`);
+    parts.push(`<p style="font-size:14px;line-height:1.65;margin:0 0 16px">${escapeHtml(ref.edicion)}</p>`);
+  } else {
+    parts.push(`<p style="font-size:14px;line-height:1.65;margin:0 0 16px;color:${COLORS.muted}">Se pauta tal cual está publicada. No requiere edición.</p>`);
+  }
+  parts.push(`<div class="card-label" style="margin-bottom:6px">Pieza original</div>`);
+  parts.push(`<a href="${escapeHtml(ref.url.startsWith("data:") ? "#" : ref.url)}" target="_blank" style="font-size:12px;font-family:${FONTS.mono};color:${COLORS.red};text-decoration:none;word-break:break-all">${escapeHtml(ref.url.startsWith("data:") ? "Archivo entregado por el equipo del cliente" : ref.url)}</a>`);
+  parts.push(`</div></div></details>`);
+  return parts.join("\n");
+}
+
 function renderActiveCampaignConSubsecciones(data: FoundationData, campaign: CampanaDefinida, num: number): string {
   const parts: string[] = [];
   const slug = data.clientInfo.slug?.toUpperCase() || escapeHtml(data.clientInfo.nombreEmpresa);
@@ -741,7 +790,7 @@ function renderActiveCampaignConSubsecciones(data: FoundationData, campaign: Cam
       ? `${campaign.presupuestoCampana.diario} / ${campaign.presupuestoCampana.mensual}`
       : "Por definir";
     sub.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Conversión (KPIs)</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(kpisText)}</p></div>`);
-    sub.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(presupuestoText)}</p></div>`);
+    sub.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(presupuestoText)}</p>${data.presupuesto?.tipoCambioNota ? `<p style="font-size:11px;color:${COLORS.muted};margin:4px 0 0">${escapeHtml(data.presupuesto.tipoCambioNota)}</p>` : ""}</div>`);
     sub.push(`</div></div>`);
 
     // Nomenclatura card
@@ -770,43 +819,56 @@ function renderActiveCampaignConSubsecciones(data: FoundationData, campaign: Cam
     const campLabel = campaign.tituloSeccion
       ? campaign.tituloSeccion.replace(/^Campaña\s+(de\s+)?/i, "")
       : campaign.objetivo.toLowerCase();
-    const nRefs = campaign.referencias?.length ?? 0;
+    const refs = campaign.referencias ?? [];
+    const nRefs = refs.length;
+    const nEdiciones = refs.filter(r => !!r.edicion).length;
+    const totalLanzamiento = piezas.length + nRefs;
     if (piezas.length) {
       const mix = `${videoCount > 0 ? `<strong>${videoCount} video${videoCount > 1 ? "s" : ""}</strong>` : ""}${videoCount > 0 && staticCount > 0 ? " + " : ""}${staticCount > 0 ? `<strong>${staticCount} posteo${staticCount > 1 ? "s" : ""}</strong>` : ""}`;
-      sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Bajada creativa de las <strong>${piezas.length} piezas a producir</strong> de la campaña de ${escapeHtml(campLabel)}. ${mix}.${nRefs ? ` Debajo, las <strong>${nRefs} piezas ya publicadas</strong> que se reutilizan.` : ""}</p>`);
+      if (nRefs) {
+        const conEdicion = nEdiciones === nRefs
+          ? ", todas con una edición previa para pauta"
+          : nEdiciones > 0
+            ? `, ${nEdiciones} de ellas con una edición previa para pauta`
+            : "";
+        sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">La campaña de ${escapeHtml(campLabel)} se lanza con <strong>${totalLanzamiento} piezas</strong>: <strong>${nRefs} ya publicadas</strong> que se reutilizan${conEdicion}, y <strong>${piezas.length} a producir</strong> — ${mix}.</p>`);
+      } else {
+        sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Bajada creativa de las <strong>${piezas.length} piezas a producir</strong> de la campaña de ${escapeHtml(campLabel)}. ${mix}.</p>`);
+      }
     } else {
       sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">La campaña de ${escapeHtml(campLabel)} se arma con <strong>${nRefs} piezas ya publicadas</strong> en el perfil. No requiere producción nueva.</p>`);
     }
 
     sub.push(renderEntregaMaterial(data));
 
-    // Campaign references grid
-    if (campaign.referencias?.length) {
-      sub.push(`<div class="card-label" style="margin-bottom:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>REFERENCIAS (${campaign.referencias.length})</div>`);
-      sub.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">`);
-      for (const ref of campaign.referencias) {
-        sub.push(`<div>`);
-        if (ref.url) {
-          const isIg = ref.url.includes("instagram.com");
-          if (ref.tipo === "video" || ref.url.startsWith("data:video/")) {
-            sub.push(`<video src="${ref.url}" controls playsinline muted style="width:100%;border-radius:8px;border:1px solid ${COLORS.border};background:#000"></video>`);
-          } else if (ref.tipo === "image" || ref.url.startsWith("data:image/")) {
-            sub.push(`<img src="${ref.url}" style="width:100%;border-radius:8px;border:1px solid ${COLORS.border};object-fit:cover" />`);
-          } else if (ref.tipo === "iframe" || (isIg && !ref.tipo)) {
-            const embedUrl = isIg ? ref.url.replace(/\/$/, "") + "/embed" : ref.url;
-            sub.push(`<iframe src="${embedUrl}" style="width:100%;min-height:430px;border:1px solid ${COLORS.border};border-radius:8px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`);
-          } else {
-            sub.push(`<a href="${escapeHtml(ref.url)}" target="_blank" style="display:block;width:100%;min-height:200px;border:2px solid ${COLORS.border};border-radius:8px;background:${COLORS.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span style="font-size:12px;color:${COLORS.red};font-weight:600">Ver referencia</span></a>`);
-          }
-        } else {
-          sub.push(`<div style="width:100%;min-height:200px;border:2px dashed ${COLORS.border};border-radius:8px;background:${COLORS.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:12px;color:${COLORS.muted};font-weight:600">Referencia pendiente</span></div>`);
+    // Campaign references: cards expandibles si alguna trae detalle de edicion, si no grilla simple
+    if (nRefs) {
+      const titulo = nEdiciones > 0 ? "PIEZAS YA PUBLICADAS" : "REFERENCIAS";
+      sub.push(`<div class="card-label" style="margin-bottom:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>${titulo} (${nRefs})</div>`);
+
+      const conDetalle = refs.some(r => !!r.edicion || !!r.estado || !!r.formato);
+      if (conDetalle) {
+        if (nEdiciones > 0) {
+          sub.push(`<p style="font-size:13px;color:${COLORS.muted};margin-bottom:16px">Piezas que ya viven en el perfil y se reutilizan para pauta. Abrí cada una para ver qué edición necesita antes de subirla.</p>`);
         }
-        if (ref.titulo) {
-          sub.push(`<div style="font-size:11px;font-family:${FONTS.mono};color:${COLORS.muted};margin-top:4px">${escapeHtml(ref.titulo)}</div>`);
+        for (let i = 0; i < refs.length; i++) {
+          sub.push(renderReferenciaCard(refs[i], i));
+        }
+        sub.push(`<div style="margin-bottom:24px"></div>`);
+      } else {
+        sub.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">`);
+        for (const ref of refs) {
+          sub.push(`<div>`);
+          sub.push(ref.url
+            ? renderReferenciaMedia(ref, 430)
+            : `<div style="width:100%;min-height:200px;border:2px dashed ${COLORS.border};border-radius:8px;background:${COLORS.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:12px;color:${COLORS.muted};font-weight:600">Referencia pendiente</span></div>`);
+          if (ref.titulo) {
+            sub.push(`<div style="font-size:11px;font-family:${FONTS.mono};color:${COLORS.muted};margin-top:4px">${escapeHtml(ref.titulo)}</div>`);
+          }
+          sub.push(`</div>`);
         }
         sub.push(`</div>`);
       }
-      sub.push(`</div>`);
     }
 
     // Piezas
@@ -1191,7 +1253,7 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
       ? `${camp.presupuestoCampana.mensual} <span style="font-weight:400;color:${COLORS.muted}">(${camp.presupuestoCampana.diario})</span>`
       : "Por definir";
     sub.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Conversion</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${escapeHtml(kpisText)}</p></div>`);
-    sub.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${presupuestoText}</p></div>`);
+    sub.push(`<div><div class="card-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Presupuesto</div><p style="font-size:14px;font-weight:700;margin:4px 0 0">${presupuestoText}</p>${data.presupuesto?.tipoCambioNota ? `<p style="font-size:11px;color:${COLORS.muted};margin:4px 0 0">${escapeHtml(data.presupuesto.tipoCambioNota)}</p>` : ""}</div>`);
 
     // KPIs row
     if (camp.kpisCampana?.length) {

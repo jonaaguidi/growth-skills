@@ -154,6 +154,7 @@ export interface Presupuesto {
   total: string;
   cplTarget: string | null;
   limiteGastoCuenta: string | null;
+  tipoCambioNota?: string | null;   // aclaracion al pie de cada card de presupuesto (ej. "Pesos al oficial BNA de $1.540 (19/10/2026)")
 }
 
 export interface AnguloCreativo {
@@ -200,6 +201,9 @@ export interface ReferenciaCreativa {
   url: string;
   titulo?: string | null;
   tipo?: "link" | "iframe" | "image" | "video" | "carousel" | null;  // null = auto-detect
+  formato?: string | null;      // ej. "Reel 9:16" — badge de la card cuando la referencia se expande
+  estado?: string | null;       // ej. "Requiere edicion" | "Lista para pautar" — chip en el header
+  edicion?: string | null;      // que hay que editar antes de pautarla; si existe, la referencia se renderiza como dropdown
 }
 
 export interface PiezasICP {
