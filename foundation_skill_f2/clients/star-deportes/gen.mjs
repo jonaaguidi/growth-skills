@@ -837,25 +837,27 @@ const data = {
   ],
 
   // Roadmap — Foundation S1-S2 (2 semanas), Build S3 (1 semana), Launch S4-S5 (2 semanas
-  // para validar data) y Scale S6-S12. Mismas fases para las 3 campañas.
+  // para validar data) y Scale S6-S8. Mismas fases para las 3 campañas.
+  // El gantt cubre las primeras 8 semanas; Call ADS (S9) y Review Final (S12)
+  // siguen en reviewMeetings, que no esta acotado a la ventana del gantt.
   roadmap: [
     { nombre: "Brand Awareness", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
       { nombre: "Build", semanaInicio: 3, semanaFin: 3 },
       { nombre: "Launch", semanaInicio: 4, semanaFin: 5 },
-      { nombre: "Scale", semanaInicio: 6, semanaFin: 12 },
+      { nombre: "Scale", semanaInicio: 6, semanaFin: 8 },
     ]},
     { nombre: "Crédito Personal (WhatsApp)", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
       { nombre: "Build", semanaInicio: 3, semanaFin: 3 },
       { nombre: "Launch", semanaInicio: 4, semanaFin: 5 },
-      { nombre: "Scale", semanaInicio: 6, semanaFin: 12 },
+      { nombre: "Scale", semanaInicio: 6, semanaFin: 8 },
     ]},
     { nombre: "B2C Ventas (E-commerce)", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
       { nombre: "Build", semanaInicio: 3, semanaFin: 3 },
       { nombre: "Launch", semanaInicio: 4, semanaFin: 5 },
-      { nombre: "Scale", semanaInicio: 6, semanaFin: 12 },
+      { nombre: "Scale", semanaInicio: 6, semanaFin: 8 },
     ]},
   ],
 
@@ -865,11 +867,9 @@ const data = {
     { semana: 1, label: "KO Call", fecha: "05/10" },
     { semana: 3, label: "Foundation Review", fecha: "20/10" },
     { semana: 4, label: "Launch 3 campañas", fecha: "26/10" },
-    { semana: 6, label: "Inicio Scale", fecha: "09/11" },
     { semana: 5, label: "CyberMonday", fecha: "02-04/11" },
+    { semana: 6, label: "Inicio Scale", fecha: "09/11" },
     { semana: 8, label: "Black Friday", fecha: "27/11" },
-    { semana: 9, label: "Call ADS", fecha: "01/12" },
-    { semana: 12, label: "Review Final", fecha: "21/12" },
   ],
 
   reviewMeetings: [

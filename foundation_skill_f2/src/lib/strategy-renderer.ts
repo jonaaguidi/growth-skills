@@ -1378,7 +1378,7 @@ function renderRoadmap(data: FoundationData, num: number): string {
 
   if (data.roadmap && data.roadmap.length) {
     const semanasPlan = Math.max(8, ...data.roadmap.flatMap(i => i.fases.map(f => f.semanaFin)));
-    parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Plan de ejecución de las ${semanasPlan} semanas del proyecto:</p>`);
+    parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Plan de ejecución para las primeras ${semanasPlan} semanas del proyecto:</p>`);
 
     const fechaISO = data.datosF1?.fechaInicioISO ?? null;
 
