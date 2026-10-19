@@ -1377,7 +1377,8 @@ function renderRoadmap(data: FoundationData, num: number): string {
   const parts: string[] = [];
 
   if (data.roadmap && data.roadmap.length) {
-    parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Plan de ejecución para las primeras 8 semanas del proyecto:</p>`);
+    const semanasPlan = Math.max(8, ...data.roadmap.flatMap(i => i.fases.map(f => f.semanaFin)));
+    parts.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">Plan de ejecución de las ${semanasPlan} semanas del proyecto:</p>`);
 
     const fechaISO = data.datosF1?.fechaInicioISO ?? null;
 
@@ -1435,11 +1436,11 @@ function renderRoadmap(data: FoundationData, num: number): string {
 
 // ─── Gantt helpers ───────────────────────────────────────────────────
 
-function computeWeekDateRanges(fechaInicioISO: string, fechaFin?: string | null): Array<{ start: string; end: string }> {
+function computeWeekDateRanges(fechaInicioISO: string, fechaFin?: string | null, totalWeeks = 8): Array<{ start: string; end: string }> {
   const base = new Date(fechaInicioISO + "T00:00:00");
   const fmt = (d: Date) => `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
   const ranges: Array<{ start: string; end: string }> = [];
-  for (let w = 0; w < 8; w++) {
+  for (let w = 0; w < totalWeeks; w++) {
     const weekStart = new Date(base);
     weekStart.setDate(base.getDate() + w * 7);
     const weekEnd = new Date(weekStart);
@@ -1451,14 +1452,14 @@ function computeWeekDateRanges(fechaInicioISO: string, fechaFin?: string | null)
   return ranges;
 }
 
-function computeCurrentWeek(fechaInicioISO: string): number {
+function computeCurrentWeek(fechaInicioISO: string, totalWeeks = 8): number {
   const start = new Date(fechaInicioISO + "T00:00:00");
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const diffDays = Math.floor((today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
   if (diffDays < 0) return 0;
   const week = Math.floor(diffDays / 7) + 1;
-  return week > 8 ? 0 : week;
+  return week > totalWeeks ? 0 : week;
 }
 
 interface GanttMilestone {
@@ -1477,7 +1478,13 @@ function weekDate(fechaInicioISO: string, semana: number): string {
 function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | null, milestones?: GanttMilestone[], fechaFin?: string | null): string {
   if (!roadmap.length) return "";
 
-  const weeks = [1, 2, 3, 4, 5, 6, 7, 8];
+  // El ancho del gantt sale del propio roadmap y de los hitos: un proyecto de 12
+  // semanas no puede mostrarse recortado en 8. Minimo 8 para no alterar los
+  // roadmaps que ya venian de ese largo.
+  const lastPhaseWeek = Math.max(...roadmap.flatMap(i => i.fases.map(f => f.semanaFin)));
+  const lastMilestoneWeek = milestones?.length ? Math.max(...milestones.map(m => m.semana)) : 0;
+  const totalWeeks = Math.max(8, lastPhaseWeek, lastMilestoneWeek);
+  const weeks = Array.from({ length: totalWeeks }, (_, i) => i + 1);
   const faseColors: Record<string, string> = {
     Foundation: COLORS.slate,
     Build: COLORS.escenario2,
@@ -1485,9 +1492,8 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
     Scale: COLORS.escenario1,
   };
 
-  const weekRanges = fechaInicioISO ? computeWeekDateRanges(fechaInicioISO, fechaFin) : [];
-  const currentWeek = fechaInicioISO ? computeCurrentWeek(fechaInicioISO) : 0;
-  const totalWeeks = 8;
+  const weekRanges = fechaInicioISO ? computeWeekDateRanges(fechaInicioISO, fechaFin, totalWeeks) : [];
+  const currentWeek = fechaInicioISO ? computeCurrentWeek(fechaInicioISO, totalWeeks) : 0;
   const cols = `200px repeat(${totalWeeks}, 1fr)`;
   const cellBorder = "border-left:1px solid rgba(14,13,12,0.08)";
   const currentBg = `background:rgba(221,5,19,0.06)`;
@@ -1537,7 +1543,7 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
       } else {
         const color = faseColors[faseName] || COLORS.slate;
         const prevFase = w > 1 ? weekMap[w - 1] : undefined;
-        const nextFase = w < 8 ? weekMap[w + 1] : undefined;
+        const nextFase = w < totalWeeks ? weekMap[w + 1] : undefined;
         const isFirst = prevFase !== faseName;
 
         const allActive = weeks.filter((wk) => weekMap[wk]);
@@ -1549,10 +1555,18 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
         const mr = (nextFase !== faseName) && !isRowLast ? "1px" : isRowLast ? "0" : "-3px";
         const separator = isFirst && prevFase && prevFase !== faseName ? `border-left:2px solid rgba(255,255,255,0.5)` : "";
 
+        const continuaDerecha = nextFase === faseName;
         parts.push(`<div style="padding:14px 3px;${cellBorder};display:flex;align-items:center;${isCurrent ? currentBg : ""}">`);
-        parts.push(`<div style="width:100%;height:28px;background:${color};border-radius:${radius};margin-left:${ml};margin-right:${mr};display:flex;align-items:center;justify-content:center;${separator}">`);
+        // position/z-index solo en la barra que lleva la etiqueta: si todas son
+        // position:relative, la barra de la semana siguiente se pinta encima del
+        // texto que desborda y lo tapa.
+        const capaLabel = isFirst && continuaDerecha ? "position:relative;z-index:2;overflow:visible;" : "";
+        parts.push(`<div style="width:100%;height:28px;background:${color};border-radius:${radius};margin-left:${ml};margin-right:${mr};display:flex;align-items:center;justify-content:center;${capaLabel}${separator}">`);
         if (isFirst) {
-          parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.9);text-transform:uppercase;white-space:nowrap;overflow:hidden">${escapeHtml(faseName)}</span>`);
+          const labelPos = continuaDerecha
+            ? `position:absolute;left:8px;top:50%;transform:translateY(-50%);white-space:nowrap`
+            : `white-space:nowrap;overflow:hidden`;
+          parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.9);text-transform:uppercase;${labelPos}">${escapeHtml(faseName)}</span>`);
         }
         parts.push(`</div></div>`);
       }
@@ -1566,12 +1580,15 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
     parts.push(`<div style="display:grid;grid-template-columns:${cols};border-top:1px solid rgba(14,13,12,0.12)">`);
     parts.push(`<div style="padding:8px 20px"></div>`);
     for (const w of weeks) {
-      const ms = milestones.find((m) => m.semana === w);
+      const msSemana = milestones.filter((m) => m.semana === w);
       const isCurrent = currentWeek === w;
-      if (ms) {
+      if (msSemana.length) {
         parts.push(`<div style="padding:6px 2px;${cellBorder};text-align:center;${isCurrent ? currentBg : ""}">`);
-        parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.4px;color:${COLORS.red};text-transform:uppercase;line-height:1.35">${escapeHtml(ms.label)}</div>`);
-        if (ms.fecha) parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;color:${COLORS.muted};margin-top:2px">${escapeHtml(ms.fecha)}</div>`);
+        for (let k = 0; k < msSemana.length; k++) {
+          const ms = msSemana[k];
+          parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.4px;color:${COLORS.red};text-transform:uppercase;line-height:1.35;${k ? "margin-top:6px" : ""}">${escapeHtml(ms.label)}</div>`);
+          if (ms.fecha) parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;color:${COLORS.muted};margin-top:2px">${escapeHtml(ms.fecha)}</div>`);
+        }
         parts.push(`</div>`);
       } else {
         parts.push(`<div style="padding:6px 2px;${cellBorder};${isCurrent ? currentBg : ""}"></div>`);

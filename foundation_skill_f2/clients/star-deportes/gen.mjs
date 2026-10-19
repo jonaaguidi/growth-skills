@@ -785,7 +785,7 @@ const data = {
     observacion: "Los tres competidores principales mantienen 217 anuncios activos combinados con masividad de testeo por ICP, formato y producto. Star Deportes tiene 0 campañas de conversión activas. Ninguno de los tres competidores ofrece crédito personal directo — es el diferencial exclusivo de Star Deportes.",
   },
 
-  notas: "Star Deportes (Grupo Lente) es un caso clásico de empresa madura en lo físico pero sin desarrollar en lo digital. 13 sucursales, 13 años de trayectoria, 189k seguidores en IG, pero cero atribución digital y un e-commerce que representa el 0.01% de las ventas.\n\nEl crédito personal es el diferencial más fuerte: ningún competidor lo ofrece. Pero solo funciona presencialmente, por lo que las campañas de crédito deben ser estrictamente geolocalizadas.\n\nEl equipo de branding del cliente (5 personas, 2 diseñadores) produce las piezas. REE entrega los briefs creativos (pilares, hooks, guiones, referencias). Son 5 campañas con ~46 piezas totales según el acuerdo comercial: B2C Hombre (~10), B2C Mujer (~10), B2C Kids (~10), Awareness (~8) y Crédito Personal (~8). Awareness y Crédito Personal reutilizan contenido existente de @stardeportes (no requieren producción nueva). Las ~30 piezas B2C las produce el equipo de Star Deportes con briefs de REE.\n\nLos primeros 14 días de cada campaña son de testeo: se prueban formatos, ángulos y categorías, y se redistribuye presupuesto hacia los ganadores.\n\nEstacionalidad clave Q4: Día de la Madre (17/10), Black Friday (27/11), Cyber Monday (30/11), Navidad (25/12). Las campañas B2C lanzan en S7 (16/11), dando ~11 días de testeo antes de Black Friday para identificar ganadores y escalar presupuesto para el pico estacional.",
+  notas: "Star Deportes (Grupo Lente) es un caso clásico de empresa madura en lo físico pero sin desarrollar en lo digital. 13 sucursales, 13 años de trayectoria, 189k seguidores en IG, pero cero atribución digital y un e-commerce que representa el 0.01% de las ventas.\n\nEl crédito personal es el diferencial más fuerte: ningún competidor lo ofrece. Pero solo funciona presencialmente, por lo que las campañas de crédito deben ser estrictamente geolocalizadas.\n\nEl equipo de branding del cliente (5 personas, 2 diseñadores) produce las piezas. REE entrega los briefs creativos (pilares, hooks, guiones, referencias). Son 5 campañas con ~46 piezas totales según el acuerdo comercial: B2C Hombre (~10), B2C Mujer (~10), B2C Kids (~10), Awareness (~8) y Crédito Personal (~8). Awareness y Crédito Personal reutilizan contenido existente de @stardeportes (no requieren producción nueva). Las ~30 piezas B2C las produce el equipo de Star Deportes con briefs de REE.\n\nLas 3 campañas comparten el mismo ciclo: Foundation S1-S2, Build S3, Launch S4-S5 y Scale desde S6. Las 2 semanas de Launch son de validación: se prueban formatos, ángulos y categorías, y recién con esa data se redistribuye presupuesto en Scale.\n\nEstacionalidad clave Q4: Día de la Madre (18/10), CyberMonday de CACE (2 al 4/11, con Cyber Week hasta el 8/11), Black Friday (27/11) y Navidad (25/12). El CyberMonday argentino es a principios de noviembre, no el lunes posterior a Black Friday. Al lanzar las 3 campañas en S4 (26/10), el CyberMonday cae a solo una semana del lanzamiento, en plena validación: sirve para leer demanda real, no para escalar. A Black Friday, en cambio, se llega con unas 4 semanas de data y ya en fase Scale.",
 
   // Proximos pasos — explicitos (si no se definen, strategy-renderer los deriva de arquitectura/ofertas)
   proximosPasos: [
@@ -836,27 +836,26 @@ const data = {
     },
   ],
 
-  // Roadmap — coherente con acuerdo comercial: 12 semanas, Foundation S1-3, Build S4-6, Launch S6-9, Scale S9-12
-  // Awareness y Crédito Personal lanzan en S3 (reutilizan contenido IG).
-  // B2C (Hombre/Mujer/Kids) lanza en S7 (requiere producción de ~30 piezas nuevas).
+  // Roadmap — Foundation S1-S2 (2 semanas), Build S3 (1 semana), Launch S4-S5 (2 semanas
+  // para validar data) y Scale S6-S12. Mismas fases para las 3 campañas.
   roadmap: [
     { nombre: "Brand Awareness", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
-      { nombre: "Build", semanaInicio: 2, semanaFin: 3 },
-      { nombre: "Launch", semanaInicio: 3, semanaFin: 9 },
-      { nombre: "Scale", semanaInicio: 9, semanaFin: 12 },
+      { nombre: "Build", semanaInicio: 3, semanaFin: 3 },
+      { nombre: "Launch", semanaInicio: 4, semanaFin: 5 },
+      { nombre: "Scale", semanaInicio: 6, semanaFin: 12 },
     ]},
     { nombre: "Crédito Personal (WhatsApp)", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
-      { nombre: "Build", semanaInicio: 2, semanaFin: 3 },
-      { nombre: "Launch", semanaInicio: 3, semanaFin: 9 },
-      { nombre: "Scale", semanaInicio: 9, semanaFin: 12 },
+      { nombre: "Build", semanaInicio: 3, semanaFin: 3 },
+      { nombre: "Launch", semanaInicio: 4, semanaFin: 5 },
+      { nombre: "Scale", semanaInicio: 6, semanaFin: 12 },
     ]},
     { nombre: "B2C Ventas (E-commerce)", fases: [
-      { nombre: "Foundation", semanaInicio: 1, semanaFin: 3 },
-      { nombre: "Build", semanaInicio: 4, semanaFin: 6 },
-      { nombre: "Launch", semanaInicio: 7, semanaFin: 9 },
-      { nombre: "Scale", semanaInicio: 9, semanaFin: 12 },
+      { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
+      { nombre: "Build", semanaInicio: 3, semanaFin: 3 },
+      { nombre: "Launch", semanaInicio: 4, semanaFin: 5 },
+      { nombre: "Scale", semanaInicio: 6, semanaFin: 12 },
     ]},
   ],
 
@@ -864,24 +863,24 @@ const data = {
   // S1=05/10, S2=12/10, S3=19/10, S4=26/10, S5=02/11, S6=09/11, S7=16/11, S8=23/11, S9=30/11, S10=07/12, S11=14/12, S12=21/12
   reviewMilestones: [
     { semana: 1, label: "KO Call", fecha: "05/10" },
-    { semana: 3, label: "Foundation Review", fecha: "19/10" },
-    { semana: 3, label: "Launch AW + Crédito", fecha: "19/10" },
-    { semana: 7, label: "Launch B2C", fecha: "16/11" },
+    { semana: 3, label: "Foundation Review", fecha: "20/10" },
+    { semana: 4, label: "Launch 3 campañas", fecha: "26/10" },
+    { semana: 6, label: "Inicio Scale", fecha: "09/11" },
+    { semana: 5, label: "CyberMonday", fecha: "02-04/11" },
     { semana: 8, label: "Black Friday", fecha: "27/11" },
-    { semana: 9, label: "Cyber Monday", fecha: "30/11" },
     { semana: 9, label: "Call ADS", fecha: "01/12" },
     { semana: 12, label: "Review Final", fecha: "21/12" },
   ],
 
   reviewMeetings: [
     { semana: "S1", nombre: "KO Call", fecha: "05/10", desc: "Kickoff con el cliente. Alineamiento Q4, solicitud de accesos a Meta Ads y Tienda Nube.", status: "done" },
-    { semana: "S3", nombre: "Foundation Review", fecha: "19/10", desc: "Revisión de estrategia completa: ICPs, 5 campañas (~46 piezas), briefs creativos para el equipo de Star Deportes.", status: "current" },
-    { semana: "S3", nombre: "Launch Awareness + Crédito", fecha: "19/10", desc: "Activación de Awareness y Crédito Personal con contenido reutilizado de @stardeportes. No requiere producción nueva.", status: "pending" },
-    { semana: "S7", nombre: "Launch B2C (Hombre/Mujer/Kids)", fecha: "16/11", desc: "Lanzamiento de 3 campañas B2C al e-commerce (~30 piezas producidas por el equipo de Star Deportes). Inicio del testeo de 14 días previo a Black Friday.", status: "pending" },
-    { semana: "S8", nombre: "Black Friday", fecha: "27/11", desc: "Pico estacional. Campañas B2C activas con ~11 días de data. Escalar presupuesto hacia categorías y ángulos ganadores. Activar piezas estacionales de ofertas/bundles.", status: "pending" },
-    { semana: "S9", nombre: "Cyber Monday", fecha: "30/11", desc: "Segundo pico estacional. Mantener presión de ads con los formatos ganadores del testeo + Black Friday.", status: "pending" },
-    { semana: "S9", nombre: "Call ADS", fecha: "01/12", desc: "Seguimiento post Black Friday / Cyber Monday. Review de resultados estacionales, redistribución de presupuesto y optimización para cierre de año (Navidad).", status: "pending" },
-    { semana: "S12", nombre: "Review Final", fecha: "21/12", desc: "Revisión del ciclo Q4 completo (12 semanas). Resultados vs KPIs. ICPs ganadores, formatos ganadores, zonas con demanda. Plan del siguiente ciclo.", status: "pending" },
+    { semana: "S3", nombre: "Foundation Review", fecha: "20/10", desc: "Revisión de estrategia completa: ICPs, las 3 campañas, piezas creativas y briefs para el equipo de Star Deportes.", status: "current" },
+    { semana: "S4", nombre: "Launch de las 3 campañas", fecha: "26/10", desc: "Activación simultánea de Awareness, Crédito Personal y B2C. Awareness y Crédito arrancan con contenido reutilizado de @stardeportes; B2C con las piezas producidas por el equipo de Star Deportes.", status: "pending" },
+    { semana: "S5", nombre: "CyberMonday (CACE)", fecha: "02-04/11", desc: "Primer pico estacional, en plena ventana de Launch. Las campañas llegan con solo una semana en el aire, así que se usa para recolectar data de demanda real más que para escalar. Cyber Week del 5 al 8/11.", status: "pending" },
+    { semana: "S6", nombre: "Inicio de Scale", fecha: "09/11", desc: "Cierre de las 2 semanas de Launch. Con data de validación, se redistribuye presupuesto hacia campañas, ángulos y categorías ganadoras.", status: "pending" },
+    { semana: "S8", nombre: "Black Friday", fecha: "27/11", desc: "Pico estacional principal. Las campañas llegan con ~4 semanas de data y ya en fase Scale. Escalar presupuesto sobre lo validado y activar piezas estacionales de ofertas.", status: "pending" },
+    { semana: "S9", nombre: "Call ADS", fecha: "01/12", desc: "Seguimiento post Black Friday. Review de resultados estacionales, redistribución de presupuesto y optimización para el cierre de año (Navidad).", status: "pending" },
+    { semana: "S12", nombre: "Review Final", fecha: "21/12", desc: "Revisión del ciclo Q4 completo (12 semanas). Resultados vs KPIs. ICPs, formatos y zonas ganadoras. Plan del siguiente ciclo.", status: "pending" },
   ],
 };
 
