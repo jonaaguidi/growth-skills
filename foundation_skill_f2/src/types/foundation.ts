@@ -391,6 +391,8 @@ export interface FoundationData {
   reeMetricsFeatures?: { titulo: string; desc: string }[] | null;
   // REE Metrics: fuente de datos que se cruza en el disclaimer, reemplaza a la plataforma e-commerce (ej. "WhatsApp")
   reeMetricsFuente?: string | null;
+  // REE Metrics: link de invitacion para que el cliente setee su contraseña (opcional; si falta, no se renderiza el bloque)
+  reeMetricsResetPasswordUrl?: string | null;
 
   // Roadmap
   roadmap: RoadmapInitiative[];

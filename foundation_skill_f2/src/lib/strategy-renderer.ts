@@ -1294,9 +1294,17 @@ function renderReeMetrics(data: FoundationData, num: number): string {
 
   parts.push(`<h3>Como ingresar</h3>`);
 
+  const resetUrl = data.reeMetricsResetPasswordUrl ?? null;
+
   const pasos = [
     { num: "1", titulo: "Ingresa a REE Metrics", desc: "Abri el link en tu navegador (celular o computadora)." },
-    { num: "2", titulo: "Inicia sesion", desc: `Usa las credenciales que te enviamos. Tu cuenta publicitaria ya esta configurada.` },
+    {
+      num: "2",
+      titulo: resetUrl ? "Setea tu contraseña" : "Inicia sesion",
+      desc: resetUrl
+        ? `Con el link de invitacion de abajo defines tu contraseña y entras. Tu cuenta publicitaria ya esta configurada.`
+        : `Usa las credenciales que te enviamos. Tu cuenta publicitaria ya esta configurada.`,
+    },
   ];
 
   parts.push(`<div style="display:grid;gap:12px;margin-bottom:24px">`);
@@ -1309,6 +1317,15 @@ function renderReeMetrics(data: FoundationData, num: number): string {
     parts.push(`</div></div>`);
   }
   parts.push(`</div>`);
+
+  // Link para setear contraseña (solo si el cliente tiene invitacion pendiente)
+  if (resetUrl) {
+    parts.push(`<div style="padding:16px 20px;background:${COLORS.bg};border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:12px;display:flex;align-items:flex-start;gap:12px">`);
+    parts.push(`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`);
+    parts.push(`<div style="min-width:0"><div style="font-size:12px;color:${COLORS.muted};font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">Setear contraseña</div>`);
+    parts.push(`<a href="${escapeHtml(resetUrl)}" target="_blank" style="font-family:${FONTS.mono};font-size:12px;font-weight:700;color:${COLORS.red};text-decoration:none;word-break:break-all;line-height:1.45">${escapeHtml(resetUrl)}</a></div>`);
+    parts.push(`</div>`);
+  }
 
   // Link directo
   parts.push(`<div style="padding:16px 20px;background:${COLORS.bg};border:1px solid ${COLORS.border};border-radius:8px;margin-bottom:24px;display:flex;align-items:center;gap:12px">`);
