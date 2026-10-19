@@ -18,6 +18,7 @@ export interface CheckGroup {
 export interface ClientInfo {
   nombreEmpresa: string;
   slug: string;
+  logoFile?: string | null; // path relativo a assets/ (ej. "star-deportes-logo.webp"); si se define, se muestra en el header
   nombreContacto: string | null;
   industria: string | null;
   sitioWeb: string | null;

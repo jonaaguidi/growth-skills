@@ -7,8 +7,9 @@ import { join } from "path";
 
 const data = {
   clientInfo: {
-    nombreEmpresa: "Grupo Lente / Star Deportes",
+    nombreEmpresa: "Star Deportes",
     slug: "star-deportes",
+    logoFile: "star-deportes-logo.webp",
     nombreContacto: "Matías Chirino / Leandro Chirino",
     industria: "Retail de indumentaria deportiva",
     sitioWeb: "stardeportes.com",

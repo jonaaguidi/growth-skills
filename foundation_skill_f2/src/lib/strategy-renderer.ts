@@ -426,7 +426,6 @@ ${getFaviconTag()}
 
 function renderHeader(data: FoundationData): string {
   const empresa = escapeHtml(data.clientInfo.nombreEmpresa);
-  const contacto = data.clientInfo.nombreContacto ? escapeHtml(data.clientInfo.nombreContacto) : null;
   const industria = data.clientInfo.industria ? escapeHtml(data.clientInfo.industria) : null;
   const web = data.clientInfo.sitioWeb ? escapeHtml(data.clientInfo.sitioWeb) : null;
   const duracion = data.datosF1?.duracionProyecto ? escapeHtml(data.datosF1.duracionProyecto) : null;
@@ -437,15 +436,26 @@ function renderHeader(data: FoundationData): string {
     ? `<img class="header-logo" src="data:image/png;base64,${logoB64}" alt="REE Creativos">`
     : "";
 
+  // Logo del cliente sobre chip blanco: los logos de marca suelen tener colores
+  // que no contrastan contra el rojo del header. Si no hay logoFile, el header
+  // queda exactamente igual que antes.
+  const clienteLogoSrc = loadAssetBase64(data.clientInfo.logoFile);
+  const brandRow = clienteLogoSrc
+    ? `<div style="display:flex;align-items:center;gap:18px;margin-bottom:20px">`
+      + (logoB64 ? `<img src="data:image/png;base64,${logoB64}" alt="REE Creativos" style="height:40px;display:block">` : "")
+      + `<div style="width:1px;height:34px;background:rgba(255,255,255,0.35)"></div>`
+      + `<div style="background:${COLORS.surface};border-radius:8px;padding:8px 16px;display:flex;align-items:center"><img src="${clienteLogoSrc}" alt="${empresa}" style="height:40px;display:block"></div>`
+      + `</div>`
+    : logoHtml;
+
   const badgeStyle = `display:inline-block;font-family:${FONTS.mono};font-size:11px;font-weight:600;padding:3px 10px;text-transform:uppercase;letter-spacing:1px;vertical-align:middle;margin-left:10px`;
 
   return `
   <div class="header" id="top">
-    ${logoHtml}
+    ${brandRow}
     <div class="header-label">FOUNDATION REVIEW</div>
     <div class="header-title">${empresa}<span style="${badgeStyle};background:${COLORS.surface};color:${COLORS.red}">Foundation</span><span style="${badgeStyle};background:rgba(255,255,255,0.15);color:${COLORS.surface};border:1px solid rgba(255,255,255,0.3)">Semana 3</span></div>
     <div class="meta-row">
-      ${contacto ? `<span>Contacto: ${contacto}</span>` : ""}
       ${industria ? `<span>Industria: ${industria}</span>` : ""}
       ${duracion ? `<span>Duracion: ${duracion}</span>` : ""}
       ${web ? `<span>Web: <a href="https://${web}" target="_blank" style="color:rgba(255,255,255,0.7);text-decoration:underline">${web}</a></span>` : ""}
