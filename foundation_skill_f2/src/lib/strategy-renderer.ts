@@ -841,7 +841,7 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     // Competitor cards
     const competidores = data.competenciaAds.competidores ?? [];
     if (competidores.length) {
-      sub.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px">`);
+      sub.push(`<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:20px">`);
       for (const comp of competidores) {
         const avatarSrc = comp.avatarFile?.startsWith("data:") ? comp.avatarFile : loadAssetBase64(comp.avatarFile);
         const avatarImg = avatarSrc
@@ -853,17 +853,15 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
         const nombreHtml = comp.instagramUrl
           ? `<a href="${escapeHtml(comp.instagramUrl)}" target="_blank" style="font-weight:600;font-size:12px;color:inherit;text-decoration:none">${escapeHtml(comp.nombre)}</a>`
           : `<span style="font-weight:600;font-size:12px">${escapeHtml(comp.nombre)}</span>`;
+        const adLibLink = comp.instagramUrl
+          ? `<div style="margin-top:4px"><a href="${escapeHtml(comp.instagramUrl)}" target="_blank" style="font-size:10px;color:${COLORS.red};text-decoration:none;font-weight:600">Ver en Ad Library →</a></div>`
+          : "";
         sub.push(`<div style="padding:8px 10px;border:1px solid ${COLORS.border};border-radius:8px;background:${COLORS.surface};display:flex;align-items:flex-start;gap:8px">`);
         sub.push(`<div style="padding-top:1px">${avatarHtml}</div>`);
-        sub.push(`<div>${nombreHtml}<div style="font-size:11px;color:${COLORS.muted};line-height:1.4;margin-top:2px">${escapeHtml(comp.estado)}</div></div>`);
+        sub.push(`<div>${nombreHtml}<div style="font-size:11px;color:${COLORS.muted};line-height:1.4;margin-top:2px">${escapeHtml(comp.estado)}</div>${adLibLink}</div>`);
         sub.push(`</div>`);
       }
       sub.push(`</div>`);
-    }
-
-    // Ad Library link (only if URL is provided)
-    if (data.competenciaAds.adLibraryUrl) {
-      sub.push(`<div style="font-size:13px;margin-bottom:24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><a href="${escapeHtml(data.competenciaAds.adLibraryUrl)}" target="_blank" style="color:${COLORS.red};font-weight:600">Ver ads de ${escapeHtml(data.competenciaAds.marca)} en Meta Ad Library</a></div>`);
     }
 
     // Strategic observation
@@ -874,32 +872,53 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     // Reference ads — formatos with postUrl (iframe) or imageFile (static image)
     const refFormats = data.competenciaAds.formatos.filter(f => f.postUrl || f.imageFile);
     if (refFormats.length) {
-      sub.push(`<div class="card-label" style="margin-bottom:12px">REFERENCIAS DE ADS ACTIVOS (REELS / STORIES / CARRUSELES)</div>`);
-      sub.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">`);
+      sub.push(`<div class="card-label" style="margin-bottom:12px">REFERENCIAS DE ADS ACTIVOS</div>`);
+      // Group formats by brand prefix (text before " — ")
+      const brandGroups: { brand: string; items: typeof refFormats }[] = [];
       for (const ef of refFormats) {
-        sub.push(`<div>`);
-        if (ef.postUrl) {
-          const embedUrl = ef.postUrl.replace(/\/$/, "") + "/embed";
-          sub.push(`<iframe src="${embedUrl}" style="width:100%;min-height:430px;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`);
-        } else if (ef.imageFile) {
-          const imgB64 = loadAssetBase64(ef.imageFile);
-          if (imgB64) {
-            sub.push(`<img src="${imgB64}" style="width:100%;min-height:430px;object-fit:cover;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0;display:block" alt="">`);
-          } else {
-            sub.push(`<div style="width:100%;min-height:430px;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0;background:${COLORS.bg};display:flex;align-items:center;justify-content:center;color:${COLORS.muted};font-size:13px">Imagen no disponible</div>`);
+        const dashIdx = ef.tipo.indexOf(" — ");
+        const brand = dashIdx > -1 ? ef.tipo.substring(0, dashIdx) : "";
+        const last = brandGroups[brandGroups.length - 1];
+        if (last && last.brand === brand) {
+          last.items.push(ef);
+        } else {
+          brandGroups.push({ brand, items: [ef] });
+        }
+      }
+      for (const group of brandGroups) {
+        if (group.brand) {
+          sub.push(`<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:${COLORS.ink}">${escapeHtml(group.brand)}</div>`);
+        }
+        sub.push(`<div style="display:grid;grid-template-columns:repeat(${Math.min(group.items.length, 4)},1fr);gap:12px;margin-bottom:20px">`);
+        for (const ef of group.items) {
+          const caption = ef.tipo.indexOf(" — ") > -1 ? ef.tipo.substring(ef.tipo.indexOf(" — ") + 3) : ef.tipo;
+          sub.push(`<div>`);
+          if (ef.postUrl) {
+            const embedUrl = ef.postUrl.replace(/\/$/, "") + "/embed";
+            sub.push(`<iframe src="${embedUrl}" style="width:100%;min-height:430px;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`);
+          } else if (ef.imageFile) {
+            const imgSrc = ef.imageFile.startsWith("data:") ? ef.imageFile : loadAssetBase64(ef.imageFile);
+            if (imgSrc) {
+              sub.push(`<img src="${imgSrc}" style="width:100%;max-height:280px;object-fit:cover;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0;display:block" alt="">`);
+            } else {
+              sub.push(`<div style="width:100%;height:280px;border:1px solid ${COLORS.border};border-radius:8px 8px 0 0;background:${COLORS.bg};display:flex;align-items:center;justify-content:center;color:${COLORS.muted};font-size:13px">Imagen no disponible</div>`);
+            }
           }
+          if (ef.dolor && ef.solucion) {
+            // Full dolor/solucion card
+            sub.push(`<div style="padding:10px 12px;border:1px solid ${COLORS.border};border-top:none;border-radius:0 0 8px 8px;background:${COLORS.surface};box-shadow:0 1px 3px rgba(0,0,0,0.06);font-size:12px;line-height:1.5">`);
+            sub.push(`<div style="display:flex;align-items:flex-start;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><span style="color:${COLORS.red};font-weight:700">Dolor:</span> ${escapeHtml(ef.dolor)}</span></div>`);
+            sub.push(`<hr style="border:none;border-top:1px solid ${COLORS.border};margin:8px 0">`);
+            sub.push(`<div style="display:flex;align-items:flex-start;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span><span style="color:#16a34a;font-weight:700">Solución:</span> ${escapeHtml(ef.solucion)}</span></div>`);
+            sub.push(`</div>`);
+          } else {
+            // Caption-only card
+            sub.push(`<div style="padding:8px 10px;border:1px solid ${COLORS.border};border-top:none;border-radius:0 0 8px 8px;background:${COLORS.surface};font-size:11px;color:${COLORS.muted};line-height:1.4">${escapeHtml(caption)}</div>`);
+          }
+          sub.push(`</div>`);
         }
-        // Dolor / Solucion card
-        sub.push(`<div style="padding:10px 12px;border:1px solid ${COLORS.border};border-top:none;border-radius:0 0 8px 8px;background:${COLORS.surface};box-shadow:0 1px 3px rgba(0,0,0,0.06);font-size:12px;line-height:1.5">`);
-        sub.push(`<div style="display:flex;align-items:flex-start;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><span style="color:${COLORS.red};font-weight:700">Dolor:</span> ${escapeHtml(ef.dolor)}</span></div>`);
-        if (ef.solucion) {
-          sub.push(`<hr style="border:none;border-top:1px solid ${COLORS.border};margin:8px 0">`);
-          sub.push(`<div style="display:flex;align-items:flex-start;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span><span style="color:#16a34a;font-weight:700">Solucion:</span> ${escapeHtml(ef.solucion)}</span></div>`);
-        }
-        sub.push(`</div>`);
         sub.push(`</div>`);
       }
-      sub.push(`</div>`);
     }
 
     parts.push(subsection(num, subNum, "Competencia", sub.join("\n")));
@@ -1683,16 +1702,29 @@ function renderPiezaCardStrategy(pieza: PiezaCreativa, index: number): string {
     parts.push(fwRow("Formato Narrativo", pieza.formatoNarrativo, "Estructura Narrativa", pieza.estructuraNarrativa));
     parts.push(`<div><div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:4px">Tratamiento</div><div style="font-size:13px">${tratLine}</div></div>`);
 
-    // Referencias dentro de la pieza
-    if (pieza.referencias?.length) {
-      const refBadges = pieza.referencias.map(r => {
-        const label = escapeHtml(r.titulo || r.url.substring(0, 40));
-        return `<span style="font-family:${FONTS.mono};font-size:11px;padding:3px 8px;background:${COLORS.bg};border:1px solid ${COLORS.border};margin-right:6px;margin-bottom:4px;display:inline-block">${label}</span>`;
-      }).join("");
-      parts.push(`<div><div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:4px">Referencias</div><div style="font-size:13px;display:flex;flex-wrap:wrap;gap:4px">${refBadges}</div></div>`);
-    }
-
     parts.push(`</div></div>`);
+  }
+
+  // Referencias dentro de la pieza (fuera del bloque framework para que renderice aunque no haya pilar/tema)
+  if (pieza.referencias?.length) {
+    const refEmbeds: string[] = [];
+    const refBadges: string[] = [];
+    for (const r of pieza.referencias) {
+      const isIg = r.url.includes("instagram.com");
+      if (r.tipo === "iframe" || (isIg && !r.tipo)) {
+        const embedUrl = isIg ? r.url.replace(/\/$/, "") + "/embed" : r.url;
+        refEmbeds.push(`<div style="max-width:400px"><iframe src="${embedUrl}" style="width:100%;min-height:540px;border:1px solid ${COLORS.border};border-radius:8px" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>`);
+      } else {
+        const label = escapeHtml(r.titulo || r.url.substring(0, 40));
+        refBadges.push(`<span style="font-family:${FONTS.mono};font-size:11px;padding:3px 8px;background:${COLORS.bg};border:1px solid ${COLORS.border};margin-right:6px;margin-bottom:4px;display:inline-block">${label}</span>`);
+      }
+    }
+    if (refEmbeds.length) {
+      parts.push(`<div style="padding:16px 20px;border-top:1px solid ${COLORS.border}"><div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:8px">Referencias</div>${refEmbeds.join("")}</div>`);
+    }
+    if (refBadges.length) {
+      parts.push(`<div style="padding:16px 20px;border-top:1px solid ${COLORS.border}"><div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:4px">Referencias</div><div style="font-size:13px;display:flex;flex-wrap:wrap;gap:4px">${refBadges.join("")}</div></div>`);
+    }
   }
 
   // Destino (URLs)

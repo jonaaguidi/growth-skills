@@ -713,6 +713,55 @@ const data = {
 
   notas: "Star Deportes (Grupo Lente) es un caso clásico de empresa madura en lo físico pero sin desarrollar en lo digital. 13 sucursales, 13 años de trayectoria, 189k seguidores en IG, pero cero atribución digital y un e-commerce que representa el 0.01% de las ventas.\n\nEl crédito personal es el diferencial más fuerte: ningún competidor lo ofrece. Pero solo funciona presencialmente, por lo que las campañas de crédito deben ser estrictamente geolocalizadas.\n\nEl equipo de branding del cliente (5 personas, 2 diseñadores) produce las piezas. REE entrega los briefs creativos (pilares, hooks, guiones, referencias). Son 5 campañas con ~46 piezas totales según el acuerdo comercial: B2C Hombre (~10), B2C Mujer (~10), B2C Kids (~10), Awareness (~8) y Crédito Personal (~8). Awareness y Crédito Personal reutilizan contenido existente de @stardeportes (no requieren producción nueva). Las ~30 piezas B2C las produce el equipo de Star Deportes con briefs de REE.\n\nLos primeros 14 días de cada campaña son de testeo: se prueban formatos, ángulos y categorías, y se redistribuye presupuesto hacia los ganadores.\n\nEstacionalidad clave Q4: Día de la Madre (17/10), Black Friday (27/11), Cyber Monday (30/11), Navidad (25/12). Las campañas B2C lanzan en S7 (16/11), dando ~11 días de testeo antes de Black Friday para identificar ganadores y escalar presupuesto para el pico estacional.",
 
+  // Proximos pasos — explicitos (si no se definen, strategy-renderer los deriva de arquitectura/ofertas)
+  proximosPasos: [
+    {
+      titulo: "Instalar el Pixel de Meta en el e-commerce",
+      responsable: "Equipo web Star Deportes + REE Growth",
+      tiempo: "Esta semana — bloqueante",
+      items: [
+        "Verificado con la Prueba de Eventos del Pixel: no se dispara ningún evento en stardeportes.com. El Pixel no está instalado.",
+        "Instalarlo desde Google Tag Manager (GTM-5M8VNBMR), que ya está activo en el sitio. No requiere tocar el código de Tienda Nube.",
+        "Cargar la etiqueta base del Pixel en GTM con disparador All Pages y publicar el contenedor.",
+        "Configurar los eventos de conversión: PageView, ViewContent, AddToCart, InitiateCheckout y Purchase.",
+        "Revalidar con la Prueba de Eventos y el Meta Pixel Helper antes de prender cualquier campaña de conversión.",
+        "Sin Pixel no hay retargeting ni atribución de ventas: la campaña B2C de Ventas no se puede medir.",
+      ],
+    },
+    {
+      titulo: "Lanzar Awareness y Crédito Personal",
+      responsable: "REE Growth + Matías / Leandro",
+      tiempo: "Esta semana",
+      items: [
+        "Confirmar accesos a la cuenta publicitaria de Meta Ads",
+        "Confirmar tarjeta de pago del cliente en Meta Ads",
+        "Prender campaña StarDeportes_Awareness",
+        "Prender campaña StarDeportes_CreditoPersonal",
+      ],
+    },
+    {
+      titulo: "Creación de piezas + setup de campaña B2C",
+      responsable: "Equipo de branding Star Deportes + REE Growth",
+      tiempo: "Semanas 4 - 6",
+      items: [
+        "REE entrega los briefs creativos por categoría (Hombre / Mujer / Kids)",
+        "Producción de las ~30 piezas B2C por el equipo de branding del cliente",
+        "Armado de la campaña StarDeportes_Ventas_B2C en Meta Ads",
+        "Conectar el catálogo de Tienda Nube a Meta para habilitar Shopping",
+      ],
+    },
+    {
+      titulo: "Pricing y E-commerce",
+      responsable: "Matías / Leandro + REE Growth",
+      tiempo: "Semanas 2 - 3",
+      items: [
+        "Definir precios de los packs (Kit Deportivo Familiar, Equipamiento Completo)",
+        "Crear las ofertas/packs en Tienda Nube",
+        "Implementar los cambios de tracking en la tienda online",
+      ],
+    },
+  ],
+
   // Roadmap — coherente con acuerdo comercial: 12 semanas, Foundation S1-3, Build S4-6, Launch S6-9, Scale S9-12
   // Awareness y Crédito Personal lanzan en S3 (reutilizan contenido IG).
   // B2C (Hombre/Mujer/Kids) lanza en S7 (requiere producción de ~30 piezas nuevas).
