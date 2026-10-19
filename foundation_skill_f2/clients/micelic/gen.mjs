@@ -825,10 +825,12 @@ const data = {
   roadmap: [
     // Awareness: no hubo Build de produccion (se curo 1 reel de @micelic.ar + 2 videos del Drive),
     // por eso pasa de Foundation (S1-S2: setup + accesos) directo a Launch el 21/10 (S3).
+    // Las 4 piezas restantes (2 videos UGC + 2 carruseles) se producen durante S3, la semana
+    // de build de Julian, y se suman a la campana ya activa: el gantt pinta una fase por semana.
     { nombre: "Awareness de Marca", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },
-      { nombre: "Launch", semanaInicio: 3, semanaFin: 3 },
-      { nombre: "Scale", semanaInicio: 4, semanaFin: 8 },
+      { nombre: "Launch", semanaInicio: 3, semanaFin: 4 },
+      { nombre: "Scale", semanaInicio: 5, semanaFin: 8 },
     ]},
     // Ventas: Foundation (setup + pixel + REE Metrics) S1-S2, produccion de las 10 piezas
     // en S3 tras el Foundation Review del 19/10, Launch 27/10 (S4) + CyberMonday (S5), Scale S6-S8.
