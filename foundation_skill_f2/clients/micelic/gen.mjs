@@ -340,7 +340,7 @@ const data = {
             formato: "Video UGC Vertical (9:16)",
             dolor: "Estrés sostenido, mal sueño y cansancio crónico. Depende de café o pastillas para funcionar. No conoce los adaptógenos como alternativa.",
             solucion: "Hongos adaptógenos de Micelic como alternativa natural: Reishi para el sueño, Melena de León para la concentración, Cordyceps para la energía. Disponibles en extracto triple concentrado.",
-            comunicacion: "[0-4s] HOOK — Julián a cámara, plano medio, expresión directa. Isotipo de Micelic fijo en esquina superior (pequeño, permanente todo el video). Subtítulos centrados en mitad inferior del cuadro: \"¿Estrés, mal sueño y cansancio? Existe una solución natural.\"\n\n[4-10s] DOLOR — Julián a cámara, tono empático, gesticula contando: \"Tomás café o mate para arrancar, a la noche no dormís bien, y al otro día estás peor. Y así todos los días. Cansado.\"\n\n[10-18s] SOLUCIÓN — Julián levanta los frascos uno por uno, close-up de cada etiqueta: \"Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir mejor. Melena de León para pensar claro. Cordyceps para la energía, sin café.\"\n\n[18-24s] PRODUCTO — Close-up del producto sobre la mesa: un frasco solo y dos frascos juntos, etiquetas visibles. Julián en off: \"En Micelic los tenés en extracto triple concentrado. Elegís el que necesitás.\"\n\n[24-30s] CTA — Julián a cámara, plano medio, tono cercano: \"Entrá a micelic.com y probá el que te hace falta.\" Texto en pantalla: micelic.com + envío gratis.",
+            comunicacion: "Produce la creadora UGC (test mujer vs. Julián como variable de performance). [0-4s] HOOK — Creadora UGC a cámara, plano medio, expresión directa. Isotipo de Micelic fijo en esquina superior (pequeño, permanente todo el video). Subtítulos centrados en mitad inferior del cuadro: \"¿Estrés, mal sueño y cansancio? Existe una solución natural.\"\n\n[4-10s] DOLOR — Creadora UGC a cámara, tono empático, gesticula contando: \"Tomás café o mate para arrancar, a la noche no dormís bien, y al otro día estás peor. Y así todos los días. Cansado.\"\n\n[10-18s] SOLUCIÓN — Creadora UGC levanta los frascos uno por uno, close-up de cada etiqueta: \"Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir mejor. Melena de León para pensar claro. Cordyceps para la energía, sin café.\"\n\n[18-24s] PRODUCTO — Close-up del producto sobre la mesa: un frasco solo y dos frascos juntos, etiquetas visibles. Creadora UGC en off: \"En Micelic los tenés en extracto triple concentrado. Elegís el que necesitás.\"\n\n[24-30s] CTA — Creadora UGC a cámara, plano medio, tono cercano: \"Entrá a micelic.com y probá el que te hace falta.\" Texto en pantalla: micelic.com + envío gratis.",
             hook: "¿Estrés, mal sueño y cansancio? Existe una solución natural.",
             body: "Los hongos adaptógenos regulan tu sistema nervioso de forma natural. Reishi para dormir, Melena de León para pensar claro, Cordyceps para la energía. En Micelic los tenés en extracto triple concentrado.",
             cta: "Entrá a micelic.com y probá el que necesitás.",
@@ -561,7 +561,7 @@ const data = {
     resumenPiezas: "10 anuncios de Ventas: 5 por ICP (1 video UGC + 3 carruseles post+historia + 1 Shopping). 2 carruseles por dolor + 1 carrusel de productos CyberMonday con envío gratis. Cada ICP tiene su propia colección de Shopping.",
     formatos: ["Video Comercial (9:16)", "Feed (1080x1350)", "Reel / Story (1080x1920)", "Carrusel (1080x1080)"],
     tono: "Cercano, directo, educativo. Se habla como alguien que sabe del tema y quiere compartirlo, sin sobrevender: explicar con calma, como en una charla. Evitar lenguaje corporativo o demasiado publicitario. Priorizar transparencia, autenticidad y confianza del founder sobre claims genéricos. El tono refleja que Micelic es una marca con un humano detrás. Las piezas que produce la creadora UGC mantienen el mismo tono: cambia la cara, no la forma de hablar.",
-    notaPiezas: "Pauta de edición para handoff a la creadora UGC — aplica a los 3 videos guionados: (1) Isotipo de Micelic fijo en la esquina superior izquierda, chico, permanente todo el video. (2) Subtítulos centrados a la altura de la cara, nunca en el tercio inferior: ahí la UI de Reels tapa el texto. (3) Close-ups de etiqueta con la concentración visible — cada extracto tiene su color, el detalle del frasco es lo que diferencia. (4) Entrega en 9:16 (1080x1920) a Drive compartido. El reparto de producción es: creadora UGC los 3 videos, Julián los 8 carruseles y los packs en Tienda Nube.",
+    notaPiezas: "Pauta de edición para handoff a la creadora UGC — aplica a los 4 videos guionados: (1) Isotipo de Micelic fijo en la esquina superior izquierda, chico, permanente todo el video. (2) Subtítulos centrados a la altura de la cara, nunca en el tercio inferior: ahí la UI de Reels tapa el texto. (3) Close-ups de etiqueta con la concentración visible — cada extracto tiene su color, el detalle del frasco es lo que diferencia. (4) Entrega en 9:16 (1080x1920) a Drive compartido. El reparto de producción es: creadora UGC los 4 videos guionados (2 de Awareness + 2 de Ventas), Julián los 8 carruseles y los packs en Tienda Nube.",
   },
 
   utm: {
@@ -852,7 +852,7 @@ const data = {
         "Dar de baja el badge \"hasta 15% comprando en cantidad\" de la web: lo reemplazan los packs como producto",
         "Producir las piezas gráficas: 2 carruseles de Awareness + 6 carruseles de Ventas (post + historia) sobre la bajada creativa de este documento",
         "Regrabar los 2 reels orgánicos con el packaging actual (las etiquetas que muestran son las viejas). Se pautan igual mientras tanto: son de interacción, no de conversión",
-        "Pasar a la creadora UGC los 3 guiones de video + la pauta de edición de este documento",
+        "Pasar a la creadora UGC los 4 guiones de video + la pauta de edición de este documento",
       ],
     },
     {
@@ -861,7 +861,7 @@ const data = {
       tiempo: "Esta semana",
       items: [
         "Producir los 2 videos de Awareness: 'Estrés / adaptógenos' y '¿Son todos iguales?' sobre el guión y timeline de este documento",
-        "Producir el video de Ventas del ICP Consciente del Producto: '¿Sabés qué tiene adentro tu extracto?'",
+        "Producir los 2 videos de Ventas: '¿Estrés, mal sueño y cansancio?' para el ICP Consciente del Síntoma y '¿Sabés qué tiene adentro tu extracto?' para el Consciente del Producto",
         "Respetar la pauta de edición: isotipo de Micelic fijo en esquina superior izquierda, subtítulos a la altura de la cara (nunca en el tercio inferior, que lo tapa la UI de Reels), close-ups de etiqueta con la concentración visible",
         "Entregar en 9:16 (1080x1920) a un Drive compartido con REE",
       ],
