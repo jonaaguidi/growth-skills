@@ -1216,9 +1216,9 @@ const data = {
             formato: "Posteo Rectangular (1080x1350)",
             dolor: "Necesita el calzado o la indumentaria ahora, se le rompieron las zapatillas o arranca el torneo, pero cobra a fin de mes y hoy no tiene con qué pagarlo.",
             solucion: "Con DNI y recibo de sueldo se lleva el producto en el momento y la primera cuota recién la paga a los 30 días. Se lo lleva hoy y no desembolsa nada hasta cobrar.",
-            comunicacion: "Flyer vertical sobre fondo rojo con líneas radiales, en la misma línea gráfica de las historias de crédito que la marca ya viene usando. Claim grande arriba acompañado de un ícono de tarjeta, y justo debajo un subtítulo chico con la condición. Dos bloques de monto apilados, el de $500.000 en negro y el de $450.000 en rojo, cada uno con su requisito en una línea chica encima. Franja inferior blanca con la aclaración de sucursales y el CTA de WhatsApp. Adaptar a Story (1080x1920) estirando el fondo y dejando los dos bloques centrados.",
+            comunicacion: "Flyer vertical sobre fondo rojo con líneas radiales, en la misma línea gráfica de las historias de crédito que la marca ya viene usando. Logo de Star Deportes arriba de todo, debajo el claim grande y debajo un subtítulo chico con la condición, todo centrado. Dos bloques de monto apilados, el de $500.000 en negro y el de $450.000 en rojo, cada uno con su requisito en una línea chica encima. Franja inferior blanca con la aclaración de sucursales y el CTA de WhatsApp. Adaptar a Story (1080x1920) estirando el fondo y dejando los dos bloques centrados.",
             mensajes: [
-              "Visual: fondo rojo con líneas radiales. Claim grande acompañado de un ícono o emoji de tarjeta, LLEVATELO AHORA, PAGALO A FIN DE MES",
+              "Visual: fondo rojo con líneas radiales. Logo de Star Deportes arriba de todo y, debajo, el claim grande LLEVATELO AHORA, PAGALO A FIN DE MES. Todo alineado al centro.",
               "Copy: justo debajo del claim, un subtítulo chico que diga CON DNI + RECIBO DE SUELDO",
               "Copy: dos bloques de monto — '$500.000 con DNI + recibo de sueldo, monotributo o jubilación' y '$450.000 sólo con tu DNI'",
               "Badge + CTA: franja inferior con 'Válido para productos de nuestras sucursales' y 'Escribinos por WhatsApp y consultá tu cupo'",
