@@ -1871,6 +1871,9 @@ function piezaFormatBadge(formato: string): { label: string; color: string; icon
   if (f.includes("reel") || f.includes("video")) {
     return { label: formato.toUpperCase(), color: COLORS.red, icon: `<svg ${s}><polygon points="5 3 19 12 5 21 5 3"/></svg>` };
   }
+  if (f.includes("shopping") || f.includes("collection")) {
+    return { label: formato.toUpperCase(), color: "#0D7C66", icon: `<svg ${s}><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>` };
+  }
   if (f.includes("carrusel")) {
     return { label: formato.toUpperCase(), color: "#7C3AED", icon: `<svg ${s}><rect x="2" y="7" width="15" height="15" rx="2"/><path d="M7 2h13a2 2 0 0 1 2 2v13"/></svg>` };
   }
