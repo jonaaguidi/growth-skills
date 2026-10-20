@@ -1071,15 +1071,23 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     const ICP_ICON_PATHS: Record<string, string> = {
       hombre: `<path d="M16 3h5v5"/><path d="m21 3-6.75 6.75"/><circle cx="10" cy="14" r="6"/>`,
       mujer: `<path d="M12 15v7"/><path d="M9 19h6"/><circle cx="12" cy="9" r="6"/>`,
+      nino: `<circle cx="12" cy="6" r="3.2"/><path d="M12 9.2V16"/><path d="M8 11.5h8"/><path d="m9.5 21 2.5-5 2.5 5"/>`,
       familia: `<path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>`,
       persona: `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
       empresa: `<path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/>`,
     };
     const personIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+    // Cada tipo de ICP lleva su propio color para distinguirlos de un vistazo.
+    const ICP_ICON_COLORS: Record<string, { from: string; to: string; border: string; stroke: string; shadow: string }> = {
+      hombre: { from: "#EFF6FF", to: "#DBEAFE", border: "#BFDBFE", stroke: "#1D4ED8", shadow: "rgba(29,78,216,0.12)" },
+      mujer: { from: "#FDF2F8", to: "#FCE7F3", border: "#F9BBDD", stroke: "#BE185D", shadow: "rgba(190,24,93,0.12)" },
+      nino: { from: "#F0FDF4", to: "#DCFCE7", border: "#BBF7D0", stroke: "#15803D", shadow: "rgba(21,128,61,0.12)" },
+    };
     const icpAvatar = (icono?: string | null): string => {
       const paths = icono ? ICP_ICON_PATHS[icono] : undefined;
       if (!paths) return `<div style="width:38px;height:38px;border-radius:50%;background:${COLORS.bg};display:flex;align-items:center;justify-content:center;flex-shrink:0">${personIcon}</div>`;
-      return `<div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(140deg,#FFF5F5 0%,#FFE1E4 100%);border:1px solid #FBC7CC;box-shadow:inset 0 1px 0 rgba(255,255,255,0.8),0 1px 3px rgba(221,5,19,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg></div>`;
+      const c = (icono && ICP_ICON_COLORS[icono]) || { from: "#FFF5F5", to: "#FFE1E4", border: "#FBC7CC", stroke: COLORS.red, shadow: "rgba(221,5,19,0.10)" };
+      return `<div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(140deg,${c.from} 0%,${c.to} 100%);border:1px solid ${c.border};box-shadow:inset 0 1px 0 rgba(255,255,255,0.8),0 1px 3px ${c.shadow};display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="${c.stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg></div>`;
     };
 
     const icpLabel = data.icp.length === 1 ? "1 perfil de cliente ideal. Tiene" : `${data.icp.length} perfiles de cliente ideal. Cada uno tiene`;

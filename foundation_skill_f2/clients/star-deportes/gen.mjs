@@ -292,7 +292,7 @@ const data = {
     },
     {
       segmento: "Padre / madre de familia",
-      icono: "familia",
+      icono: "nino",
       descripcion: "Adulto de 30 a 50 años con hijos de 3 a 12 años, en La Plata y la periferia de provincia de Buenos Aires. Compra para sí mismo y para sus hijos en la misma visita: renueva por crecimiento del pie, inicio de clases, deporte del club o rotura. Lleva de 2 a 4 pares por compra, con un total de $150.000 a $350.000. El crédito personal de la sucursal es lo que define si la compra se cierra hoy o se posterga.",
       frase: "Necesito equipar a mis hijos y a mí, y no llego a pagar todo de contado",
       dolores: [
