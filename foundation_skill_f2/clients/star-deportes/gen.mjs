@@ -546,8 +546,8 @@ const data = {
             solucion: "Collection Ad sobre el catálogo de Tienda Nube, acotado a 12 productos de hombre, con cuatro marcas primarias: Fila, Topper, Reebok y Montagne. La selección está tomada en base a la cantidad de SKUs publicados en el e-commerce.",
             comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos acotado a 12 SKUs como máximo, para que la grilla no se diluya. La portada es un hero de producto; abajo la grilla dinámica con modelo, marca y precio actualizado. No requiere pieza gráfica tradicional.",
             mensajes: [
-              "Set de productos: máximo 12 SKUs de hombre. Marcas primarias, Fila, Topper, Reebok y Montagne",
-              "Portada del Collection Ad: hero con tres modelos de hombre y claim, Fila, Topper, Reebok y Montagne con envío a todo el país",
+              "Set de productos: máximo 12 SKUs de hombre. Marcas primarias, **Fila**, **Topper**, **Reebok** y **Montagne**",
+              "Portada del Collection Ad: hero con tres modelos de hombre y claim, **Fila**, **Topper**, **Reebok** y **Montagne** con envío a todo el país",
               "Grilla dinámica: modelo, marca y precio actualizado desde el catálogo. Priorizar productos con stock de todos los talles",
               "CTA del anuncio, Comprar ahora, al producto específico en stardeportes.com",
             ],
@@ -713,8 +713,8 @@ const data = {
             solucion: "Collection Ad sobre el catálogo de Tienda Nube, acotado a 12 productos de mujer, con cuatro marcas primarias: 47 Street, Skechers, Topper y Fila. La selección está tomada en base a la cantidad de SKUs publicados en el e-commerce.",
             comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos acotado a 12 SKUs como máximo, para que la grilla no se diluya. La portada es un hero de producto; abajo la grilla dinámica con modelo, marca y precio actualizado. No requiere pieza gráfica tradicional.",
             mensajes: [
-              "Set de productos: máximo 12 SKUs de mujer. Marcas primarias, 47 Street, Skechers, Topper y Fila",
-              "Portada del Collection Ad: hero con tres modelos de mujer y claim, 47 Street, Skechers, Topper y Fila con envío a todo el país",
+              "Set de productos: máximo 12 SKUs de mujer. Marcas primarias, **47 Street**, **Skechers**, **Topper** y **Fila**",
+              "Portada del Collection Ad: hero con tres modelos de mujer y claim, **47 Street**, **Skechers**, **Topper** y **Fila** con envío a todo el país",
               "Grilla dinámica: modelo, marca y precio actualizado desde el catálogo. Priorizar productos con stock de todos los talles",
               "CTA del anuncio, Comprar ahora, al producto específico en stardeportes.com",
             ],
@@ -883,8 +883,8 @@ const data = {
             solucion: "Collection Ad sobre el catálogo de Tienda Nube, acotado a 12 productos de niño, con cuatro marcas primarias: Atomik, Addnice, Umbro y Topper. La selección está tomada en base a la cantidad de SKUs publicados en el e-commerce.",
             comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos acotado a 12 SKUs como máximo, para que la grilla no se diluya. La portada es un hero de producto; abajo la grilla dinámica con modelo, marca y precio actualizado. No requiere pieza gráfica tradicional.",
             mensajes: [
-              "Set de productos: máximo 12 SKUs de niño. Marcas primarias, Atomik, Addnice, Umbro y Topper",
-              "Portada del Collection Ad: hero con calzado de niño por talle y claim, Atomik, Addnice, Umbro y Topper para toda la familia",
+              "Set de productos: máximo 12 SKUs de niño. Marcas primarias, **Atomik**, **Addnice**, **Umbro** y **Topper**",
+              "Portada del Collection Ad: hero con calzado de niño por talle y claim, **Atomik**, **Addnice**, **Umbro** y **Topper** para toda la familia",
               "Grilla dinámica: modelo, marca y precio actualizado desde el catálogo. Priorizar productos con stock de todos los talles",
               "CTA del anuncio, Comprar ahora, al producto específico en stardeportes.com",
             ],

@@ -2055,7 +2055,7 @@ function renderPiezaCardStrategy(pieza: PiezaCreativa, index: number): string {
     parts.push(`<div style="font-family:${FONTS.mono};font-size:10px;text-transform:uppercase;letter-spacing:1px;color:${COLORS.muted};margin-bottom:12px;font-weight:600">Mensajes</div>`);
     parts.push(`<ul style="list-style:none;padding:0;margin:0">`);
     for (const m of pieza.mensajes) {
-      parts.push(`<li style="font-size:13px;padding:4px 0 4px 16px;position:relative;border-bottom:1px solid ${COLORS.border}"><span style="position:absolute;left:0;color:${COLORS.red};font-family:${FONTS.mono}">&gt;</span>${escapeHtml(m)}</li>`);
+      parts.push(`<li style="font-size:13px;padding:4px 0 4px 16px;position:relative;border-bottom:1px solid ${COLORS.border}"><span style="position:absolute;left:0;color:${COLORS.red};font-family:${FONTS.mono}">&gt;</span>${escapeHtml(m).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")}</li>`);
     }
     parts.push(`</ul></div>`);
   }
