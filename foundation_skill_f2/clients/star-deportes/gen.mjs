@@ -1045,12 +1045,6 @@ const data = {
             "Reel_SucursalNueva_V2 | https://www.instagram.com/p/DdjkoGbRVyg/",
             "Reel_PromosBancarias_V1 | https://www.instagram.com/reel/DdZOuHhx3wH/",
             "Reel_ModelosUrbanos_V1 | https://www.instagram.com/p/DdMZAQ4Rxqq/",
-          ],
-        },
-        {
-          nombre: "Conjunto_Interior_Sucursales",
-          segmentacion: "25-55 años, radio 20km alrededor de sucursales del interior (San Vicente, Coronel Brandsen, Magdalena, Saladillo). Intereses: Deporte, Indumentaria deportiva, Zapatillas",
-          ads: [
             "Reel_OutfitsPromos_V1 | https://www.instagram.com/p/DdHNbdrRli0/",
           ],
         },
@@ -1185,12 +1179,6 @@ const data = {
           ads: [
             "Reel_CreditoPersonal_V1 | https://www.instagram.com/p/Ddg33v_R-qB/",
             "Reel_CreditoPersonal_V2 | https://www.instagram.com/p/Dd4K0XhuVYh/",
-          ],
-        },
-        {
-          nombre: "Conjunto_Credito_Interior",
-          segmentacion: "25-55 años, radio 20km de sucursales interior (San Vicente, Coronel Brandsen, Magdalena, Saladillo). Intereses: Deporte, Indumentaria deportiva, Zapatillas, Compras, Financiación, Crédito",
-          ads: [
             "Reel_CreditoPersonal_V3 | https://www.instagram.com/p/DdUB8IDR6Um/",
             "Reel_CreditoPersonal_V4 | https://www.instagram.com/p/Dcgi_uauFe3/",
           ],
