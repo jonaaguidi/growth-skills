@@ -630,7 +630,7 @@ const data = {
           ],
         },
       ],
-      descripcionCampana: "Comunicar la existencia de Star Deportes y la variedad de marcas que maneja: más de 40 marcas deportivas, todos los talles y para toda la familia. El cierre de todas las piezas es el mismo doble camino: vení a cualquiera de nuestras sucursales o comprá directamente online en stardeportes.com. La campaña se posiciona en las zonas con sucursal, y el e-commerce levanta al resto del país.",
+      descripcionCampana: "Comunicar la existencia de Star Deportes y la variedad de marcas que maneja: más de 40 marcas deportivas, todos los talles y para toda la familia. El cierre de todas las piezas es el mismo doble camino: vení a cualquiera de nuestras sucursales o comprá directamente online en stardeportes.com.",
       status: "activa",
       destino: "Perfil de Instagram (@stardeportes)",
       bannerPiezas: "5 reels ya publicados en @stardeportes, cada uno con su edición pendiente antes de pautar. A eso se suman 3 piezas nuevas a producir.",
