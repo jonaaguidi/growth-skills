@@ -1127,7 +1127,7 @@ const data = {
           estado: "Requiere edición",
           edicion: [
             "Reemplazar el hook: arranca con «A ver qué prefiere el algoritmo», que es un chiste de contenido orgánico y en pauta no significa nada. Poner en los primeros 3s una placa que interpele, del tipo «VIENDO SI APROVECHÁS LOS CRÉDITOS PERSONALES DE STAR DEPORTES, ¿O VAS A SEGUIR ESPERANDO?».",
-            "Agregar la placa de cierre de la campaña, la misma para las piezas 1, 2 y 4: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
+            "Agregar la placa de cierre de la campaña: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
           ],
         },
         {
@@ -1137,7 +1137,7 @@ const data = {
           estado: "Requiere edición",
           edicion: [
             "Recortar el video hasta la toma en la que los dos muestran su outfit. Tiene que quedar dinámico y corto.",
-            "Agregar la placa de cierre de la campaña, la misma para las piezas 1, 2 y 4: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
+            "Agregar la placa de cierre de la campaña: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
           ],
         },
         {
@@ -1146,7 +1146,7 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Cambio mínimo: debajo del headline va un botón de CONSULTANOS POR WHATSAPP y, abajo de ese botón, el logo de Star Deportes en chico. El resto de la pieza se pauta tal cual está.",
+            "Cambio mínimo: debajo del headline va un botón de CONSULTANOS POR WHATSAPP, y el logo de Star Deportes fijo en la parte inferior. El resto de la pieza se pauta tal cual está.",
           ],
         },
         {
@@ -1158,7 +1158,7 @@ const data = {
             "Mantener el ángulo de regalo, que es el que mejor funciona de acá a Navidad, pero sacar la referencia festiva puntual del posteo original para que la pieza aguante todo Q4 sin reeditarse.",
             "Hook de conversación en clave regalo, del tipo «¿Ya pensaste los regalos de fin de año? Fijate si podés usar el crédito».",
             "Agregar la aclaración de que se compra en la sucursal.",
-            "Agregar la placa de cierre de la campaña, la misma para las piezas 1, 2 y 4: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
+            "Agregar la placa de cierre de la campaña: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
           ],
         },
         {
