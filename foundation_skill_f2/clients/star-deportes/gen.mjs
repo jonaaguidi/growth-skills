@@ -1280,7 +1280,7 @@ const data = {
       { url: assetDataUri("comp-dexter-01.jpg"), tipo: "image", grupo: "Dexter", titulo: "Dexter — calza adidas $55.299, 6 cuotas de $9.217 + 20% de reintegro Galicia los jueves y viernes" },
       { url: assetDataUri("comp-dexter-02.jpg"), tipo: "image", grupo: "Dexter", titulo: "Dexter — promo NaranjaX, lunes y martes 20% OFF con tope de $30.000 y 9 cuotas sin interés. La pieza no muestra ningún producto" },
       { url: assetDataUri("comp-dexter-03.jpg"), tipo: "image", grupo: "Dexter", titulo: "Dexter — RENOVÁ TU EQUIPO, lifestyle con 6 cuotas sin interés y envío gratis desde $159.999" },
-      { url: "", grupo: "Dexter", titulo: "Flyer pendiente" },
+      { url: assetDataUri("comp-dexter-04.jpg"), tipo: "image", grupo: "Dexter", titulo: "Dexter — promo BBVA, martes 20% de reintegro con tope de $50.000 y 9 cuotas sin interés en compras desde $250.000, pagando con MODO" },
       { url: assetDataUri("comp-mateu-01.jpg"), tipo: "image", grupo: "Otras marcas", titulo: "Mateu Sports — 3, 6 y 9 cuotas sin interés y hasta 50% OFF por tiempo limitado" },
       { url: assetDataUri("comp-mateu-02.jpg"), tipo: "image", grupo: "Otras marcas", titulo: "Mateu Sports — retargeting de carrito abandonado, $10.000 de regalo con el código MATEU10K" },
       { url: assetDataUri("comp-mateu-03.jpg"), tipo: "image", grupo: "Otras marcas", titulo: "Mateu Sports — +400 productos en oferta, lifestyle con una barra de Instagram simulada en el medio de la pieza" },
