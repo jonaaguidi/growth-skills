@@ -612,17 +612,16 @@ const data = {
           },
           // --- CARRUSEL 1: Dolor no sabe cómo combinar → look completo ---
           {
-            formato: "Carrusel (1080x1080, 6 slides)",
+            formato: "Carrusel (1080x1080, 5 slides)",
             dolor: "Compra la zapatilla sola y después no sabe con qué combinarla. Tiene que recorrer otra tienda para la calza o el buzo y nunca cierra el conjunto.",
             solucion: "Carrusel que arma tres looks completos (entrenar, caminar y uso diario) con calzado más indumentaria de Star Deportes y el precio de cada combinación.",
-            comunicacion: "Carrusel x4 slides. Cada slide con un look completo en flat lay (zapatilla, prenda inferior y prenda superior) sobre fondo liso, con el precio de cada pieza al costado y el total abajo. Mantener la misma grilla en los tres looks. Adaptar a Story (1080x1920).",
+            comunicacion: "Carrusel de 5 slides. Abre con el claim, sigue con un look completo por slide en flat lay (zapatilla, prenda inferior y prenda superior) sobre fondo liso, con el precio de cada pieza al costado y el total abajo, y cierra con la placa de compra. Mantener la misma grilla en los tres looks. Adaptar a Story (1080x1920).",
             mensajes: [
               "Slide 1: CALZADO E INDUMENTARIA EN UN SOLO LUGAR — claim grande sobre fondo rojo con el flat lay de fondo",
-              "Slide 2: TRES LOOKS, UN SOLO LUGAR — flat lay general con los tres conjuntos. Badge, Calzado e indumentaria en Star Deportes",
-              "Slide 3: LOOK ENTRENAR — zapatilla de training, calza y top con precio de cada pieza y total abajo",
-              "Slide 4: LOOK CAMINAR — zapatilla de caminata, calza larga y buzo con precio de cada pieza y total abajo",
-              "Slide 5: LOOK USO DIARIO — zapatilla urbana, jogger y buzo oversize con precio y total",
-              "Slide 6: COMPRÁ HOY Y RECIBILO EN TU CASA — afirmación grande de cierre, logos de los medios de pago aceptados, 2, 3 y 6 cuotas sin interés y envío a todo el país. CTA, Comprá en stardeportes.com",
+              "Slide 2: LOOK ENTRENAR — zapatilla de training, calza y top con precio de cada pieza y total abajo",
+              "Slide 3: LOOK CAMINAR — zapatilla de caminata, calza larga y buzo con precio de cada pieza y total abajo",
+              "Slide 4: LOOK USO DIARIO — zapatilla urbana, jogger y buzo oversize con precio y total",
+              "Slide 5: COMPRÁ HOY Y RECIBILO EN TU CASA — afirmación grande de cierre, logos de los medios de pago aceptados, 2, 3 y 6 cuotas sin interés y envío a todo el país. CTA, Comprá en stardeportes.com",
             ],
             copyAnuncio: "Tres looks completos, un solo lugar 👟\n\n🏋️ Entrenar: zapatilla + calza + top\n🚶 Caminar: zapatilla + calza larga + buzo\n👜 Uso diario: zapatilla urbana + jogger + buzo\n\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 Armá el tuyo en stardeportes.com",
             pilar: "Producto",
