@@ -603,7 +603,7 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Reemplazar la placa de \"PROMOS SEPTIEMBRE\" por una sin mes: la campaña corre hasta diciembre y con el mes hay que reeditar la pieza cada 30 días.",
+            "Reemplazar la placa de \"PROMOS SEPTIEMBRE\" por \"PROMOS OCTUBRE\", o directamente por las promos vigentes sin el mes para no tener que reeditar la pieza cada 30 días.",
             "Confirmar que las tres promos sigan vigentes (Banco Provincia, Cuenta DNI y NaranjaX). Si alguna cayó, sacarla de la placa antes de pautar: es un beneficio bancario y se vence sin aviso.",
             "Agregar el cierre de marca con logo, @stardeportes y stardeportes.com.",
           ],
@@ -625,7 +625,7 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Sacarle el mes a la placa de promos bancarias y dejar el beneficio sin fecha.",
+            "Reemplazar el mes de la placa de promos bancarias por OCTUBRE, o directamente dejar las promos vigentes sin el mes para no tener que reeditar la pieza cada 30 días.",
             "Agregar el cierre de marca con logo y stardeportes.com.",
           ],
         },
