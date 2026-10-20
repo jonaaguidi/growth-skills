@@ -203,7 +203,7 @@ export interface ReferenciaCreativa {
   tipo?: "link" | "iframe" | "image" | "video" | "carousel" | null;  // null = auto-detect
   formato?: string | null;      // ej. "Reel 9:16" — badge de la card cuando la referencia se expande
   estado?: string | null;       // ej. "Requiere edicion" | "Lista para pautar" — chip en el header
-  edicion?: string | null;      // que hay que editar antes de pautarla; si existe, la referencia se renderiza como dropdown
+  edicion?: string | string[] | null;  // que hay que editar antes de pautarla; array = bullet list. Si existe, la referencia se renderiza como dropdown
 }
 
 export interface PiezasICP {

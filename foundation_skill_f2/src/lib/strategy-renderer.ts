@@ -739,7 +739,8 @@ function renderReferenciaCard(ref: ReferenciaCreativa, index: number): string {
   parts.push(`<div>`);
   if (ref.edicion) {
     parts.push(`<div class="card-label" style="margin-bottom:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Edición requerida para pauta</div>`);
-    parts.push(`<p style="font-size:14px;line-height:1.65;margin:0 0 16px">${escapeHtml(ref.edicion)}</p>`);
+    const pasos = Array.isArray(ref.edicion) ? ref.edicion : [ref.edicion];
+    parts.push(`<ul style="font-size:14px;line-height:1.65;margin:0 0 16px;padding-left:20px">${pasos.map(e => `<li style="margin-bottom:6px">${escapeHtml(e)}</li>`).join("")}</ul>`);
   } else {
     parts.push(`<p style="font-size:14px;line-height:1.65;margin:0 0 16px;color:${COLORS.muted}">Se pauta tal cual está publicada. No requiere edición.</p>`);
   }
