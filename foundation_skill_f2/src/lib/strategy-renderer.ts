@@ -1633,7 +1633,10 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
         const isRowLast = w === allActive[allActive.length - 1];
 
         const radius = isRowFirst && isRowLast ? "4px" : isRowFirst ? "4px 0 0 4px" : isRowLast ? "0 4px 4px 0" : "0";
-        const ml = isFirst && !isRowFirst ? "1px" : isRowFirst ? "0" : "-3px";
+        // -4px (no -3px) en las barras que continuan una fase: 3px tapan el padding
+        // de la celda y el 4to tapa su border-left de 1px, que si no deja una costura
+        // clara justo donde ahora cae la etiqueta centrada.
+        const ml = isFirst && !isRowFirst ? "1px" : isRowFirst ? "0" : "-4px";
         const mr = (nextFase !== faseName) && !isRowLast ? "1px" : isRowLast ? "0" : "-3px";
         const separator = isFirst && prevFase && prevFase !== faseName ? `border-left:2px solid rgba(255,255,255,0.5)` : "";
 
@@ -1645,8 +1648,12 @@ function renderGantt(roadmap: RoadmapInitiative[], fechaInicioISO?: string | nul
         const capaLabel = isFirst && continuaDerecha ? "position:relative;z-index:2;overflow:visible;" : "";
         parts.push(`<div style="width:100%;height:28px;background:${color};border-radius:${radius};margin-left:${ml};margin-right:${mr};display:flex;align-items:center;justify-content:center;${capaLabel}${separator}">`);
         if (isFirst) {
+          // Etiqueta centrada sobre el tramo completo de la fase: la barra mide una
+          // semana, asi que el centro del tramo cae a (semanas / 2) anchos de barra.
+          let spanLen = 1;
+          while (weekMap[w + spanLen] === faseName) spanLen++;
           const labelPos = continuaDerecha
-            ? `position:absolute;left:8px;top:50%;transform:translateY(-50%);white-space:nowrap`
+            ? `position:absolute;left:${spanLen * 50}%;top:50%;transform:translate(-50%,-50%);white-space:nowrap`
             : `white-space:nowrap;overflow:hidden`;
           parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.9);text-transform:uppercase;${labelPos}">${escapeHtml(faseName)}</span>`);
         }
