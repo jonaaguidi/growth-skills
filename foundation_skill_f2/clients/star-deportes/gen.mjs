@@ -628,7 +628,7 @@ const data = {
           {
             badge: "CyberMonday",
             formato: "Carrusel (1080x1080, 3-4 slides)",
-            dolor: "No encuentra 47 Street, Skechers ni Crocs cerca de su casa, y en las fechas de descuento no sabe qué modelos de mujer entran realmente en oferta.",
+            dolor: "No encuentra 47 Street, Skechers ni Fila cerca de su casa, y en las fechas de descuento no sabe qué modelos de mujer entran realmente en oferta.",
             solucion: "Carrusel de CyberMonday con las ofertas de línea mujer marca por marca, con el precio anterior tachado y el precio CyberMonday visible en cada slide.",
             comunicacion: "Carrusel x4 slides de ofertas de CyberMonday de línea mujer, una marca por slide. Cada slide con la placa de CYBERMONDAY arriba, el modelo en oferta recortado al centro, el precio anterior tachado y el precio CyberMonday en tipografía grande (los porcentajes finales los confirma el cliente antes de producción). Último slide con los beneficios y las fechas. Adaptar a Story (1080x1920).",
             mensajes: [
@@ -637,7 +637,7 @@ const data = {
               "Slide 3: CROCS + FILA — dos modelos en oferta con precio anterior y precio CyberMonday",
               "Slide 4: BENEFICIOS — 2, 3 y 6 cuotas sin interés, envío gratis desde $150.000 y las fechas del 2 al 4 de noviembre. CTA, Comprá en stardeportes.com",
             ],
-            copyAnuncio: "🔥 CYBERMONDAY en línea de mujer\n\n👟 47 Street, Skechers, Crocs, Fila y más en oferta.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n\n📅 Del 2 al 4 de noviembre. Cyber Week hasta el 8.\n\n👉 stardeportes.com",
+            copyAnuncio: "🔥 CYBERMONDAY en línea de mujer\n\n👟 47 Street, Skechers, Fila, New Balance, Crocs y Topper en oferta.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n\n📅 Del 2 al 4 de noviembre. Cyber Week hasta el 8.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "CyberMonday — ofertas de línea mujer",
             formatoNarrativo: "Producto — Showcase",
@@ -710,15 +710,15 @@ const data = {
           {
             formato: "Meta Ads Shopping (Collection Ad)",
             dolor: "Quiere ver la línea de mujer con modelos, talles y precios sin navegar todo el catálogo ni salir de Instagram.",
-            solucion: "Collection Ad sobre el catálogo de Tienda Nube, acotado a 12 productos de mujer y liderado por 47 Street, que es la marca más demandada de la categoría.",
+            solucion: "Collection Ad sobre el catálogo de Tienda Nube, acotado a 12 productos de mujer, con 47 Street, Skechers y Fila como primarias y New Balance, Crocs y Topper como secundarias.",
             comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos acotado a 12 SKUs como máximo, para que la grilla no se diluya. La portada es un hero de producto; abajo la grilla dinámica con modelo, marca y precio actualizado. No requiere pieza gráfica tradicional.",
             mensajes: [
-              "Set de productos: máximo 12 SKUs de mujer, liderado por 47 Street. Resto del cupo con Skechers, Crocs, Fila y New Balance",
-              "Portada del Collection Ad: hero con tres modelos de mujer y claim, 47 Street y más de 40 marcas con envío a todo el país",
+              "Set de productos: máximo 12 SKUs de mujer. Primarias, 47 Street, Skechers y Fila. Secundarias, New Balance, Crocs y Topper",
+              "Portada del Collection Ad: hero con tres modelos de mujer y claim, 47 Street, Skechers y Fila con envío a todo el país",
               "Grilla dinámica: modelo, marca y precio actualizado desde el catálogo. Priorizar productos con stock de todos los talles",
               "CTA del anuncio, Comprar ahora, al producto específico en stardeportes.com",
             ],
-            copyAnuncio: "👟 Línea mujer: 47 Street, Skechers, Crocs y más.\n\n🛒 Modelos, talles y precios actualizados.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
+            copyAnuncio: "👟 Línea mujer: 47 Street, Skechers, Fila, New Balance, Crocs y Topper.\n\n🛒 Modelos, talles y precios actualizados.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "Catálogo dinámico mujer",
             formatoNarrativo: "Meta Ads — Collection / Advantage+ Shopping",
