@@ -1003,6 +1003,11 @@ const data = {
   // para validar data) y Scale S6-S8. Mismas fases para las 3 campañas.
   // El gantt cubre las primeras 8 semanas; Call ADS (S9) y Review Final (S12)
   // siguen en reviewMeetings, que no esta acotado a la ventana del gantt.
+  // REE Metrics
+  reeMetricsResetPasswordUrl: "https://tentacles.reecreativos.com/reset-password?token=ba699596fc6af08eae817a94210aa2df1eb8de14b918fd45e68e2a14f9cab2f9&welcome=true",
+  reeMetricsEmail: "leandro@grupolente.com",
+  reeMetricsNotaUsuarios: "Si el equipo necesita más accesos, avisanos y damos de alta los usuarios que hagan falta.",
+
   roadmap: [
     { nombre: "Brand Awareness", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 2 },

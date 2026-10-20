@@ -403,6 +403,10 @@ export interface FoundationData {
   reeMetricsFuente?: string | null;
   // REE Metrics: link de invitacion para que el cliente setee su contraseña (opcional; si falta, no se renderiza el bloque)
   reeMetricsResetPasswordUrl?: string | null;
+  // REE Metrics: email con el que el cliente ingresa a la plataforma (opcional)
+  reeMetricsEmail?: string | null;
+  // REE Metrics: aclaracion sobre altas de usuarios adicionales (opcional)
+  reeMetricsNotaUsuarios?: string | null;
 
   // Roadmap
   roadmap: RoadmapInitiative[];
