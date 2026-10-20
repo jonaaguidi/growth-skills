@@ -239,7 +239,7 @@ const data = {
     {
       segmento: "Hombre joven adulto",
       icono: "hombre",
-      descripcion: "Hombre de 25 a 40 años en La Plata y la periferia de provincia de Buenos Aires (Berisso, Ensenada, Los Hornos, Coronel Brandsen, Magdalena, San Vicente, Saladillo). Compra calzado e indumentaria deportiva para sí mismo: fútbol, gimnasio, running o zapatilla de uso diario. Decide por modelo y marca, compara precio online antes de ir al local y pregunta por talle. Ticket de $70.000 a $130.000 por par.",
+      descripcion: "Hombre de 25 a 50 años en La Plata y zonas particulares de provincia de Buenos Aires (Berisso, Ensenada, Los Hornos, Coronel Brandsen, Magdalena, San Vicente, Saladillo). Compra calzado e indumentaria deportiva para sí mismo: fútbol, gimnasio, running o zapatilla de uso diario. Decide por modelo y marca, compara precio online antes de ir al local y pregunta por talle. Ticket de $70.000 a $130.000 por par.",
       frase: "Quiero el modelo que me gusta, en mi talle y al precio que me cierra",
       dolores: [
         "Las cadenas grandes priorizan Nike, Adidas y Puma, y nunca tienen stock en su talle",
@@ -266,7 +266,7 @@ const data = {
     {
       segmento: "Mujer joven adulta",
       icono: "mujer",
-      descripcion: "Mujer de 25 a 40 años en La Plata y la periferia de provincia de Buenos Aires (Berisso, Ensenada, Los Hornos, Coronel Brandsen, Magdalena, San Vicente, Saladillo). Compra calzado e indumentaria deportiva para sí misma: gimnasio, pilates, yoga, caminata y zapatilla de uso diario combinable. Le importa el modelo, el color y la temporada. Marcas de referencia: 47 Street, Skechers, Crocs, Fila, New Balance, Topper. Ticket de $70.000 a $130.000 por par.",
+      descripcion: "Mujer de 25 a 50 años en La Plata y zonas particulares de provincia de Buenos Aires (Berisso, Ensenada, Los Hornos, Coronel Brandsen, Magdalena, San Vicente, Saladillo). Compra calzado e indumentaria deportiva para sí misma: gimnasio, pilates, yoga, caminata y zapatilla de uso diario combinable. Le importa el modelo, el color y la temporada. Marcas de referencia: 47 Street, Skechers, Crocs, Fila, New Balance, Topper. Ticket de $70.000 a $130.000 por par.",
       frase: "Busco una zapatilla que me sirva para entrenar y para el día a día",
       dolores: [
         "La oferta de línea mujer en su zona es siempre la misma y en pocos modelos y colores",
@@ -293,7 +293,7 @@ const data = {
     {
       segmento: "Padre / madre de familia",
       icono: "nino",
-      descripcion: "Adulto de 30 a 50 años con hijos de 3 a 12 años, en La Plata y la periferia de provincia de Buenos Aires. Compra para sí mismo y para sus hijos en la misma visita: renueva por crecimiento del pie, inicio de clases, deporte del club o rotura. Lleva de 2 a 4 pares por compra, con un total de $150.000 a $350.000. El crédito personal de la sucursal es lo que define si la compra se cierra hoy o se posterga.",
+      descripcion: "Adulto de 25 a 50 años con hijos de 3 a 12 años, en La Plata y zonas particulares de provincia de Buenos Aires. Compra para sí mismo y para sus hijos en la misma visita: renueva por crecimiento del pie, inicio de clases, deporte del club o rotura. Lleva de 2 a 4 pares por compra, con un total de $150.000 a $350.000. El crédito personal de la sucursal es lo que define si la compra se cierra hoy o se posterga.",
       frase: "Necesito equipar a mis hijos y a mí, y no llego a pagar todo de contado",
       dolores: [
         "Lleva de 2 a 4 pares por vez y el total se vuelve inmanejable ($150.000 a $350.000)",
@@ -1064,8 +1064,8 @@ const data = {
       conSubsecciones: true,
       adSets: [
         {
-          nombre: "Conjunto_Hombre_25_40",
-          segmentacion: "Hombres de 25 a 40 años, La Plata y periferia de provincia de Buenos Aires. Intereses: Fútbol, Running, Gimnasio y fitness, Zapatillas deportivas, Indumentaria deportiva, Fila, New Balance, Topper, Reebok, Salomon. Presupuesto: ~USD $500/mes (ARS $770.000)",
+          nombre: "Conjunto_Hombre_25_50",
+          segmentacion: "Hombres de 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires. Intereses: Fútbol, Running, Gimnasio y fitness, Zapatillas deportivas, Indumentaria deportiva, Fila, New Balance, Topper, Reebok, Salomon. Presupuesto: ~USD $500/mes (ARS $770.000)",
           ads: [
             "Video UGC 1 | Dolor: no hay stock en su talle → 40+ marcas con talles grandes",
             "Video UGC 2 (CYBERMONDAY) | Dolor: viene postergando el par → ofertas de la tienda, cuotas sin interés y envío gratis",
@@ -1078,8 +1078,8 @@ const data = {
           ],
         },
         {
-          nombre: "Conjunto_Mujer_25_40",
-          segmentacion: "Mujeres de 25 a 40 años, La Plata y periferia de provincia de Buenos Aires. Intereses: Gimnasio y fitness, Pilates, Yoga, Running, Caminata, Moda deportiva, 47 Street, Skechers, Crocs, Fila, New Balance. Presupuesto: ~USD $500/mes (ARS $770.000)",
+          nombre: "Conjunto_Mujer_25_50",
+          segmentacion: "Mujeres de 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires. Intereses: Gimnasio y fitness, Pilates, Yoga, Running, Caminata, Moda deportiva, 47 Street, Skechers, Crocs, Fila, New Balance. Presupuesto: ~USD $500/mes (ARS $770.000)",
           ads: [
             "Video UGC 1 (CYBERMONDAY) | Dolor: se le pasan las fechas de descuento → línea mujer en oferta online",
             "Video UGC 2 | Dolor: compra modelo de hombre en talle chico → línea mujer con horma propia",
@@ -1093,7 +1093,7 @@ const data = {
         },
         {
           nombre: "Conjunto_Padres_Hijos_3_12",
-          segmentacion: "Todos los géneros, 30 a 50 años, La Plata y periferia de provincia de Buenos Aires. Intereses de Meta por edad de los hijos: Padres con hijos en edad preescolar (3-5 años), Padres con hijos en edad escolar temprana (6-8 años), Padres con preadolescentes (9-12 años). Sumar: Deporte infantil, Vuelta al colegio, Familia, Crianza, Addnice, Topper. Presupuesto: ~USD $500/mes (ARS $770.000)",
+          segmentacion: "Todos los géneros, 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires. Intereses de Meta por edad de los hijos: Padres con hijos en edad preescolar (3-5 años), Padres con hijos en edad escolar temprana (6-8 años), Padres con preadolescentes (9-12 años). Sumar: Deporte infantil, Vuelta al colegio, Familia, Crianza, Addnice, Topper. Presupuesto: ~USD $500/mes (ARS $770.000)",
           ads: [
             "Video UGC 1 | Dolor: el total de la compra familiar es $150k-350k → crédito personal con DNI",
             "Video UGC 2 (CYBERMONDAY) | Dolor: la renovación cae en el peor momento → equipar a chicos y grandes en la oferta online",
