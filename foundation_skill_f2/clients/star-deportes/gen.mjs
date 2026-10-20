@@ -786,18 +786,18 @@ const data = {
           // --- CARRUSEL 2 (CYBERMONDAY): Objeción gastar caro en algo que dura poco → packs familiares en oferta ---
           {
             formato: "Posteo Cuadrado (1080x1080)",
-            dolor: "No quiere gastar caro en calzado de niño que le va a quedar chico, así que espera una oferta real. Pero cuando llega no sabe qué conviene comprar junto.",
-            solucion: "Carrusel de CyberMonday con los packs familiares de la tienda (Kit Deportivo Familiar y Equipamiento Completo) y el calzado infantil en oferta, con precio anterior y precio CyberMonday.",
-            comunicacion: "Carrusel x4 slides de ofertas de CyberMonday para la familia. Los dos primeros slides muestran los packs armados en flat lay con el precio anterior tachado y el precio CyberMonday en grande, el tercero el calzado infantil en oferta y el cuarto los beneficios (los porcentajes y precios finales de los packs los confirma el cliente antes de producción). Adaptar a Story (1080x1920).",
+            dolor: "No quiere gastar caro en calzado de niño que le va a quedar chico, así que espera una oferta real. Pero cuando llega no sabe qué conviene comprar junto ni cuánto ahorra de verdad.",
+            solucion: "Carrusel de CyberMonday con el calzado infantil y de adulto en oferta, y el ahorro total de resolver la compra familiar en una sola operación, con precio anterior y precio CyberMonday.",
+            comunicacion: "Carrusel x4 slides de ofertas de CyberMonday para la familia. Los dos primeros muestran el calzado en oferta (niños y adulto) con el precio anterior tachado y el precio CyberMonday en grande, el tercero el ahorro de resolver toda la familia junta y el cuarto los beneficios de la tienda (los porcentajes finales los confirma el cliente antes de producción). Adaptar a Story (1080x1920).",
             mensajes: [
-              "Slide 1: KIT DEPORTIVO FAMILIAR — flat lay con los tres pares (papá, mamá e hijo) y el precio anterior tachado junto al precio CyberMonday. Placa de CYBERMONDAY arriba",
-              "Slide 2: EQUIPAMIENTO COMPLETO — flat lay con zapatilla más conjunto deportivo y el precio anterior tachado junto al precio CyberMonday",
-              "Slide 3: CALZADO INFANTIL EN OFERTA — 3 modelos de Addnice, Topper kids y Fila kids con precio anterior y precio CyberMonday",
+              "Slide 1: NIÑOS EN OFERTA — 3 modelos de Addnice, Topper kids y Fila kids con el precio anterior tachado y el precio CyberMonday en grande. Placa de CYBERMONDAY arriba",
+              "Slide 2: ADULTO EN OFERTA — 2 modelos de hombre y 2 de mujer con el precio anterior tachado y el precio CyberMonday",
+              "Slide 3: TODA LA FAMILIA JUNTA — flat lay con tres pares y el ahorro total marcado en grande sobre el precio de lista",
               "Slide 4: BENEFICIOS — 2, 3 y 6 cuotas sin interés, envío gratis desde $150.000 y las fechas del 2 al 4 de noviembre. CTA, Comprá en stardeportes.com",
             ],
-            copyAnuncio: "🔥 CYBERMONDAY para toda la familia\n\n👨‍👩‍👧 Kit Deportivo Familiar: tres pares juntos en oferta.\n👕 Equipamiento Completo: zapatilla + conjunto deportivo.\n🧒 Calzado infantil Addnice, Topper kids y Fila kids en oferta.\n\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n📅 Del 2 al 4 de noviembre. Cyber Week hasta el 8.\n\n👉 stardeportes.com",
+            copyAnuncio: "🔥 CYBERMONDAY para toda la familia\n\n🧒 Calzado infantil en oferta: Addnice, Topper kids y Fila kids.\n👟 Adulto en oferta: hombre y mujer.\n👨‍👩‍👧 Resolvé a los chicos y a los grandes de una sola vez.\n\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n📅 Del 2 al 4 de noviembre. Cyber Week hasta el 8.\n\n👉 stardeportes.com",
             pilar: "Producto",
-            tema: "CyberMonday — packs familiares en oferta",
+            tema: "CyberMonday — calzado familiar en oferta",
             formatoNarrativo: "Producto — Showcase",
             estructuraNarrativa: "Afirmación - Evidencia",
             tratamiento: { tipo: "Carrusel", tono: "Mixed", estilo: "Lifestyle" },
@@ -1101,7 +1101,7 @@ const data = {
             "Video UGC 1 | Dolor: el total de la compra familiar es $150k-350k → crédito personal con DNI",
             "Video UGC 2 (CYBERMONDAY) | Dolor: la renovación cae en el peor momento → equipar a chicos y grandes en la oferta online",
             "Carrusel 1 | Papá, mamá y los chicos: una sola compra con precio por integrante y total",
-            "Carrusel 2 (CYBERMONDAY) | Packs familiares en oferta (Kit Deportivo Familiar, Equipamiento Completo) + calzado infantil",
+            "Carrusel 2 (CYBERMONDAY) | Calzado de niños y de adulto en oferta + ahorro de la compra familiar junta",
             "Flyer 1 | Crédito personal sin tarjeta y sin banco — los dos cupos ($500k / $450k)",
             "Flyer 2 | Un crédito, toda la familia — qué entra en el cupo de $500.000",
             "Flyer 3 | Equipá a cada chico de una vez — calzado + conjunto + mochila",
@@ -1109,7 +1109,7 @@ const data = {
           ],
         },
       ],
-      notaCampana: "La diferenciación vive en el creativo, no sólo en el targeting: cada conjunto tiene sus 8 piezas exclusivas atacando los dolores de ese perfil. Las 2 semanas de Launch (S4-S5) son de validación: se leen formatos, ángulos y perfiles, y recién con esa data se redistribuye presupuesto en Scale. Los anuncios de Shopping dependen de que el catálogo de Tienda Nube esté conectado a Meta antes del lanzamiento.\n\nCada conjunto lleva 2 de sus 8 piezas dedicadas al CyberMonday (1 video UGC y 1 carrusel), porque el evento cae en S5 (2 al 4 de noviembre, Cyber Week hasta el 8) en plena ventana de Launch. Esas 2 piezas se activan sólo en esa ventana, apuntan a stardeportes.com con los beneficios de la tienda (ofertas, 2, 3 y 6 cuotas sin interés y envío gratis desde $150.000) y se pausan al cerrar la Cyber Week. Después se reutilizan para Black Friday (S8) cambiando sólo la placa de la fecha. Los porcentajes de descuento los confirma Star Deportes antes de producción.",
+      notaCampana: "- Cada conjunto tiene sus 8 piezas exclusivas. La diferenciación vive en el creativo, no sólo en el targeting.\n- Launch S4-S5 es validación: se leen formatos, ángulos y perfiles antes de redistribuir presupuesto en Scale.\n- 2 de las 8 piezas de cada conjunto son de CyberMonday (1 video + 1 carrusel). Van sólo del 2 al 4/11 y se pausan al cerrar la Cyber Week el 8.\n- Esas piezas se reutilizan en Black Friday (S8) cambiando sólo la placa de la fecha.\n- Pendiente del cliente: los porcentajes de descuento de CyberMonday, antes de producción.\n- Requisito para los ads de Shopping: catálogo de Tienda Nube conectado a Meta antes del lanzamiento.",
     },
     {
       nombre: "StarDeportes_CreditoPersonal",
@@ -1260,19 +1260,6 @@ const data = {
     validado: false,
   },
 
-  ofertas: [
-    {
-      nombre: "Kit Deportivo Familiar",
-      descripcion: "Combo de zapatillas para padre + madre + hijo/a. Compra 3 pares juntos con descuento o cuotas sin interés extendidas. Ideal para inicio de clases o cambio de temporada.",
-      precio: "Por definir (calcular sobre ticket promedio $85k x3 = $255k con incentivo)",
-    },
-    {
-      nombre: "Equipamiento Completo",
-      descripcion: "Zapatilla + conjunto deportivo (remera/buzo + pantalón/calza) del mismo color/marca. Aumenta el ticket promedio incentivando la compra cruzada calzado → indumentaria.",
-      precio: "Por definir",
-    },
-  ],
-
   cambiosEcommerce: [
     { cambio: "Verificar si el Meta Pixel está realmente instalado en stardeportes.com", objetivo: "Es el único punto crítico por ahora: la cuenta no registra eventos, así que no sabemos si el Pixel no está instalado o si está instalado pero sin disparar. Revisar con Meta Pixel Helper y Events Manager antes de tocar cualquier otra cosa. Sin eventos no hay retargeting, ni atribución de ventas, ni Shopping" },
   ],
@@ -1304,15 +1291,6 @@ const data = {
       "Star Deportes — Creativos/",
       "├── Awareness/",
       "│   ├── VideoReel_v1/",
-      "│   ├── Flyer_v1/",
-      "│   └── Carrusel_v1/",
-      "├── Credito Personal/",
-      "│   ├── VideoReel_v1/",
-      "│   └── Flyer_v1/",
-      "└── B2C Ventas/",
-      "    ├── VideoReel_v1/",
-      "    ├── Flyer_v1/",
-      "    └── Carrusel_v1/",
     ],
   },
 
@@ -1354,13 +1332,12 @@ const data = {
       ],
     },
     {
-      titulo: "Pricing y E-commerce",
+      titulo: "E-commerce y tracking",
       responsable: "Equipo Star Deportes + REE Growth",
       tiempo: "Semanas 2 - 3",
       items: [
-        "Definir precios de los packs (Kit Deportivo Familiar, Equipamiento Completo)",
-        "Crear las ofertas/packs en Tienda Nube",
-        "Implementar los cambios de tracking en la tienda online",
+        "Verificar si el Meta Pixel está realmente instalado en stardeportes.com",
+        "Definir los descuentos de CyberMonday para las piezas de la ventana del 2 al 4/11",
       ],
     },
   ],
