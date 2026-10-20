@@ -128,6 +128,7 @@ export interface ICPEstrategico {
   prioridad?: "primario" | "secundario" | null; // si no se define, no se renderiza el badge
   recurrencia: "alta" | "media" | "baja" | null;
   badge?: string | null; // label custom del segundo badge (ej. "Demanda activa"); si no se define, se deriva de recurrencia
+  icono?: "hombre" | "mujer" | "familia" | "persona" | "empresa" | null; // icono del avatar; si no se define, se usa el generico historico
   ejemplosMarcas?: EjemploMarcaICP[] | null; // ejemplos ilustrativos de marcas que encajan en el perfil
 }
 

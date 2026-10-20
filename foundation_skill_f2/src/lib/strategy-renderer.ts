@@ -1028,7 +1028,21 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
   if (data.icp.length) {
     subNum++;
     const sub: string[] = [];
+    // Avatar del ICP. Sin `icono` definido se mantiene el circulo generico historico,
+    // asi que los clientes que no usan el campo renderizan exactamente igual que antes.
+    const ICP_ICON_PATHS: Record<string, string> = {
+      hombre: `<path d="M16 3h5v5"/><path d="m21 3-6.75 6.75"/><circle cx="10" cy="14" r="6"/>`,
+      mujer: `<path d="M12 15v7"/><path d="M9 19h6"/><circle cx="12" cy="9" r="6"/>`,
+      familia: `<path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>`,
+      persona: `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
+      empresa: `<path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/>`,
+    };
     const personIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+    const icpAvatar = (icono?: string | null): string => {
+      const paths = icono ? ICP_ICON_PATHS[icono] : undefined;
+      if (!paths) return `<div style="width:38px;height:38px;border-radius:50%;background:${COLORS.bg};display:flex;align-items:center;justify-content:center;flex-shrink:0">${personIcon}</div>`;
+      return `<div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(140deg,#FFF5F5 0%,#FFE1E4 100%);border:1px solid #FBC7CC;box-shadow:inset 0 1px 0 rgba(255,255,255,0.8),0 1px 3px rgba(221,5,19,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg></div>`;
+    };
 
     const icpLabel = data.icp.length === 1 ? "1 perfil de cliente ideal. Tiene" : `${data.icp.length} perfiles de cliente ideal. Cada uno tiene`;
     sub.push(`<p style="font-size:14px;line-height:1.65;margin-bottom:20px">${icpLabel} <strong>dolores</strong>, <strong>deseos</strong> y <strong>objeciones</strong> que atacamos con los <strong>angulos creativos</strong>.</p>`);
@@ -1042,7 +1056,7 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
 
       // Header
       sub.push(`<div style="padding:18px 20px 14px;display:flex;align-items:center;gap:12px">`);
-      sub.push(`<div style="width:38px;height:38px;border-radius:50%;background:${COLORS.bg};display:flex;align-items:center;justify-content:center;flex-shrink:0">${personIcon}</div>`);
+      sub.push(icpAvatar(icpItem.icono));
       sub.push(`<div style="flex:1">`);
       sub.push(`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">`);
       sub.push(`<span style="font-family:${FONTS.mono};font-size:12px;font-weight:700;color:${COLORS.red}">ICP ${i + 1}</span>`);
@@ -1216,7 +1230,13 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
     const sub: string[] = [];
 
     if (camp.notaCampana) {
-      sub.push(`<div style="padding:14px 18px;background:${COLORS.bg};border-left:3px solid ${COLORS.red};border-radius:0 6px 6px 0;margin-bottom:20px;font-size:14px;line-height:1.6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><strong>${escapeHtml(camp.notaCampana)}</strong></div>`);
+      const notaIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${COLORS.red}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`;
+      // Si la nota viene como lista ("- " por linea) se renderiza en bullets; si no, parrafo en negrita
+      const notaBullets = camp.notaCampana.split("\n").map(l => l.trim()).filter(l => l.startsWith("- ")).map(l => l.slice(2).trim());
+      const notaBody = notaBullets.length
+        ? `<ul style="margin:0;padding-left:20px">${notaBullets.map(b => `<li style="margin-bottom:6px">${escapeHtml(b)}</li>`).join("")}</ul>`
+        : `<strong>${escapeHtml(camp.notaCampana)}</strong>`;
+      sub.push(`<div style="padding:14px 18px;background:${COLORS.bg};border-left:3px solid ${COLORS.red};border-radius:0 6px 6px 0;margin-bottom:20px;font-size:14px;line-height:1.6">${notaBullets.length ? `<div style="font-weight:700;margin-bottom:8px">${notaIcon}Como se ejecuta</div>` : notaIcon}${notaBody}</div>`);
     }
 
     // Relationship to active campaigns
@@ -1350,8 +1370,11 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
       sub.push(`</tbody></table>`);
     }
 
-    const contacto = data.clientInfo.nombreContacto ?? "El cliente";
-    sub.push(`<div class="callout callout-red" style="margin-top:16px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>Accion requerida:</strong> ${escapeHtml(contacto)} debe crear estos productos/packs antes de lanzar la campaña.</div>`);
+    // El callout habla de los packs, asi que solo aplica cuando hay ofertas propuestas
+    if (data.ofertas?.length) {
+      const contacto = data.clientInfo.nombreContacto ?? "El cliente";
+      sub.push(`<div class="callout callout-red" style="margin-top:16px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>Accion requerida:</strong> ${escapeHtml(contacto)} debe crear estos productos/packs antes de lanzar la campaña.</div>`);
+    }
     parts.push(subsection(num, subNum, "Ecommerce", sub.join("\n")));
   }
 
