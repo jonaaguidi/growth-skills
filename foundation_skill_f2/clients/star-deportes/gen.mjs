@@ -702,12 +702,12 @@ const data = {
           {
             formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "La oferta de línea mujer en su zona es siempre la misma y en pocos modelos y colores, así que deja de mirar porque da por hecho que no hay nada nuevo.",
-            solucion: "La tienda online suma modelos todas las semanas. La pieza muestra lo que entró, con marca y precio, para que haya un motivo concreto de volver a entrar.",
-            comunicacion: "Flyer de novedades con tres o cuatro modelos de mujer recién ingresados, recortados sobre fondo liso y alineados en grilla, cada uno con marca y precio al pie. Claim arriba y CTA abajo. Es una plantilla reutilizable: cada semana se cambian los productos y el resto queda igual. Adaptar a Story (1080x1920) apilando los modelos en vertical.",
+            solucion: "La tienda online suma modelos todas las semanas. La pieza muestra los 3 modelos que entraron, con marca y precio, para que haya un motivo concreto de volver a entrar.",
+            comunicacion: "Flyer de novedades con 3 modelos de mujer recién ingresados, recortados sobre fondo liso y alineados en grilla, cada uno con marca y precio al pie. Claim arriba, copy de apoyo debajo del claim y CTA abajo. Es una plantilla reutilizable: cada semana se cambian los productos y el resto queda igual. Adaptar a Story (1080x1920) apilando los modelos en vertical.",
             mensajes: [
               "Claim grande arriba, LO QUE LLEGÓ ESTA SEMANA",
-              "Visual central: tres o cuatro modelos de mujer recién ingresados en grilla, cada uno con su marca y su precio al pie",
-              "Copy de apoyo, Nuevos modelos de 47 Street, Skechers, Topper y Fila todas las semanas",
+              "Copy de apoyo justo debajo del claim, Nuevos modelos de 47 Street, Skechers, Topper y Fila todas las semanas",
+              "Visual central: 3 modelos de mujer recién ingresados en grilla, cada uno con su marca y su precio al pie",
               "CTA abajo, Mirá las novedades en stardeportes.com",
             ],
             copyAnuncio: "Lo que llegó esta semana 🆕\n\n👟 Nuevos modelos de 47 Street, Skechers, Topper y Fila.\n✅ Todos los talles de línea de mujer.\n\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n\n👉 Mirá las novedades en stardeportes.com",
