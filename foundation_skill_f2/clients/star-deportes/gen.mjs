@@ -582,7 +582,7 @@ const data = {
           edicion: [
             "El contenido no cambia: se pauta tal cual el mensaje de sucursal nueva en Los Hornos, 137 y 62.",
             "Agregar una placa de cierre animada de 3-4s, la misma para las piezas 1 y 2.",
-            "En esa placa: logo Star Deportes y @stardeportes para seguir en redes, los medios de pago aceptados y la financiación propia con DNI, aclarando que el crédito se gestiona en sucursal. Remate con stardeportes.com.",
+            "En esa placa: logo Star Deportes y @stardeportes para seguir en redes, los medios de pago aceptados y la financiación propia con DNI. Remate con stardeportes.com.",
           ],
         },
         {
@@ -594,7 +594,7 @@ const data = {
             "El contenido no cambia: se mantiene el mensaje de la sucursal nueva.",
             "Reforzar en pantalla la dirección y la localidad, 137 y 62 Los Hornos, para que se entienda sin audio.",
             "Agregar la misma placa de cierre animada de 3-4s.",
-            "En esa placa: logo Star Deportes y @stardeportes para seguir en redes, los medios de pago aceptados y la financiación propia con DNI, aclarando que el crédito se gestiona en sucursal. Remate con stardeportes.com.",
+            "En esa placa: logo Star Deportes y @stardeportes para seguir en redes, los medios de pago aceptados y la financiación propia con DNI. Remate con stardeportes.com.",
           ],
         },
         {
