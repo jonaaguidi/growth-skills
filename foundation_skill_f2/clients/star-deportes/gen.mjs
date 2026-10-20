@@ -615,8 +615,6 @@ const data = {
           estado: "Requiere edición",
           edicion: [
             "Recortar unos 10 segundos del reel.",
-            "Reemplazar la placa de \"Promos Bancarias Vigentes – SEPTIEMBRE\" por una placa sin mes: más de 40 marcas y cuotas sin interés.",
-            "Si la placa lleva mes, hay que reeditar la pieza cada 30 días durante toda la campaña.",
             "Cerrar con una placa de CTA que diga \"Estos MODELOS y más en\" junto al badge de stardeportes.com.",
           ],
         },
@@ -635,7 +633,7 @@ const data = {
       status: "activa",
       destino: "Perfil de Instagram (@stardeportes)",
       bannerPiezas: "5 reels ya publicados en @stardeportes, cada uno con su edición pendiente antes de pautar. A eso se suman 3 piezas nuevas a producir.",
-      notaCampana: "Los 2 reels de la sucursal 137 y 62 comunican la apertura de Los Hornos y se pautan con ese mensaje; van al conjunto geolocalizado de La Plata. No necesitan cambios de contenido, solo cierre de marca. Los otros 3 reels llevan la placa de promos bancarias de septiembre, así que necesitan una edición más antes de pautarse; si no, se pauta una promoción vencida. A eso se suman 3 piezas nuevas a producir: 1 video UGC de marca y 2 flyers en formato posteo con su adaptación a story. Total de la campaña: 8 piezas.",
+      notaCampana: "Los 2 reels de la sucursal 137 y 62 comunican la apertura de Los Hornos y se pautan con ese mensaje; van al conjunto geolocalizado de La Plata. No necesitan cambios de contenido, solo cierre de marca. Otros 2 reels llevan la placa de promos bancarias de septiembre, así que necesitan una edición más antes de pautarse; si no, se pauta una promoción vencida. El quinto, el de modelos urbanos, solo necesita recorte y placa de cierre. A eso se suman 3 piezas nuevas a producir: 1 video UGC de marca y 2 flyers en formato posteo con su adaptación a story. Total de la campaña: 8 piezas.",
       kpisCampana: ["Visitas al Perfil", "Alcance", "Seguidores"],
       piezas: [
         {
