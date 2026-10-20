@@ -778,9 +778,6 @@ const data = {
           estado: "Requiere edición",
           edicion: [
             "Reemplazar el hook: arranca con «A ver qué prefiere el algoritmo», que es un chiste de contenido orgánico y en pauta no significa nada. Poner en los primeros 3s una placa que interpele, del tipo «VIENDO SI APROVECHÁS LOS CRÉDITOS PERSONALES DE STAR DEPORTES, ¿O VAS A SEGUIR ESPERANDO?».",
-            "Dejar un solo plan en pantalla, el de $450.000 sólo con DNI, y mandar el resto a la conversación. Hoy la pieza explica los dos planes completos, así que el usuario se va con la duda resuelta y no escribe.",
-            "Cambiar el CTA orgánico por el de pauta, escribinos por WhatsApp: la campaña corre con objetivo Mensajes y no hay bio ni comentarios donde derivar.",
-            "Quemar subtítulos: en pauta la mayoría la ve sin sonido.",
             "Agregar la placa de cierre de la campaña, la misma para las piezas 1 a 4: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
           ],
         },
