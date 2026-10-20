@@ -777,11 +777,11 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Cambiar el CTA orgánico por el de pauta, escribinos por WhatsApp, porque la campaña corre con objetivo Mensajes y no hay bio ni comentarios donde derivar.",
-            "Verificar que los montos que aparecen en pantalla sean los vigentes ($500.000 y $450.000) y, si están desactualizados, reemplazar la placa.",
+            "Reemplazar el hook: arranca con «A ver qué prefiere el algoritmo», que es un chiste de contenido orgánico y en pauta no significa nada. Poner en los primeros 3s una placa que interpele, del tipo «VIENDO SI APROVECHÁS LOS CRÉDITOS PERSONALES DE STAR DEPORTES, ¿O VAS A SEGUIR ESPERANDO?».",
+            "Dejar un solo plan en pantalla, el de $450.000 sólo con DNI, y mandar el resto a la conversación. Hoy la pieza explica los dos planes completos, así que el usuario se va con la duda resuelta y no escribe.",
+            "Cambiar el CTA orgánico por el de pauta, escribinos por WhatsApp: la campaña corre con objetivo Mensajes y no hay bio ni comentarios donde derivar.",
             "Quemar subtítulos: en pauta la mayoría la ve sin sonido.",
             "Agregar la placa de cierre de la campaña, la misma para las piezas 1 a 4: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
-            "La placa va en las cuatro piezas para que el usuario siempre termine con un número al cual consultar, sin depender de la bio ni de los comentarios.",
           ],
         },
         {
@@ -790,11 +790,10 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Es la pieza más fuerte de diferenciación y conviene dejarla lo más limpia posible.",
+            "Es la pieza más fuerte de diferenciación y la única cuyo copy ya pide los datos concretos. Subir eso al video: «pasame tu nombre, tu teléfono y tu documento y te averiguo enseguida». Decirle al usuario exactamente qué mandar es lo que convierte una vista en conversación.",
             "Agregar una placa corta que explicite que el crédito es propio de Star Deportes, sin tarjeta y sin banco, porque el claim solo no lo dice.",
-            "Sumar la aclaración de que es válido únicamente para productos de nuestras sucursales.",
+            "Sumar en pantalla el requisito de tener domicilio en la zona de alguna de nuestras sucursales. Hoy está sólo en el copy y filtra consultas que después no cierran.",
             "Agregar la placa de cierre de la campaña, la misma para las piezas 1 a 4: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
-            "La placa va en las cuatro piezas para que el usuario siempre termine con un número al cual consultar, sin depender de la bio ni de los comentarios.",
           ],
         },
         {
@@ -803,10 +802,10 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Actualizar los cupos a los vigentes y dejarlos sin fecha, para no tener que reeditar la pieza cada vez que cambian las condiciones.",
-            "Agregar el requisito al lado de cada monto: recibo de sueldo, monotributo o jubilación para el de $500.000, y sólo DNI para el de $450.000. Es la duda que más llega por WhatsApp.",
+            "Hoy es un gemelo de la pieza 1: mismo copy palabra por palabra, misma portada y mismo mensaje, sólo cambia el hook orgánico. Si se pautan las dos en el mismo conjunto compiten entre sí por la misma entrega.",
+            "Diferenciarla: que esta sea la pieza del cómo se paga, que es la segunda duda que más llega. Hasta 4 cuotas, la primera en el momento con el plan de DNI o a los 30 días con recibo, y las cuotas se abonan en efectivo en sucursal.",
+            "Hook propio, distinto al de la pieza 1, en clave de duda concreta sobre cómo se paga el crédito.",
             "Agregar la placa de cierre de la campaña, la misma para las piezas 1 a 4: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
-            "La placa va en las cuatro piezas para que el usuario siempre termine con un número al cual consultar, sin depender de la bio ni de los comentarios.",
           ],
         },
         {
@@ -815,11 +814,10 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Sacar cualquier referencia a fecha festiva puntual del posteo original y dejar el regalo en genérico, así la pieza aguanta de acá a Navidad sin reeditarse.",
-            "Mantener el ángulo de regalo, que es el que mejor funciona en Q4.",
+            "Mantener el ángulo de regalo, que es el que mejor funciona de acá a Navidad, pero sacar la referencia festiva puntual del posteo original para que la pieza aguante todo Q4 sin reeditarse.",
+            "Hook de conversación en clave regalo, del tipo «¿Ya pensaste los regalos de fin de año? Fijate si podés usar el crédito».",
             "Agregar la aclaración de que se compra en la sucursal.",
             "Agregar la placa de cierre de la campaña, la misma para las piezas 1 a 4: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
-            "La placa va en las cuatro piezas para que el usuario siempre termine con un número al cual consultar, sin depender de la bio ni de los comentarios.",
           ],
         },
         {
