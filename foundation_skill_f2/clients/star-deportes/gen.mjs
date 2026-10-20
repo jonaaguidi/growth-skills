@@ -243,7 +243,7 @@ const data = {
       frase: "Quiero el modelo que me gusta, en mi talle y al precio que me cierra",
       dolores: [
         "Las cadenas grandes priorizan Nike, Adidas y Puma, y nunca tienen stock en su talle",
-        "No encuentra Fila, New Balance, Salomon, Topper o Reebok cerca de su casa",
+        "No encuentra Fila, Reebok, Montagne, Topper o Reebok cerca de su casa",
         "El par que quiere sale entre $70.000 y $130.000 de una sola vez y lo termina postergando",
         "No sabe que Star Deportes vende online con envío a todo el país",
       ],
@@ -266,7 +266,7 @@ const data = {
     {
       segmento: "Mujer joven adulta",
       icono: "mujer",
-      descripcion: "Mujer de 25 a 50 años en La Plata y zonas particulares de provincia de Buenos Aires (Berisso, Ensenada, Los Hornos, Coronel Brandsen, Magdalena, San Vicente, Saladillo). Compra calzado e indumentaria deportiva para sí misma: gimnasio, pilates, yoga, caminata y zapatilla de uso diario combinable. Le importa el modelo, el color y la temporada. Marcas de referencia: 47 Street, Skechers, Crocs, Fila, New Balance, Topper. Ticket de $70.000 a $130.000 por par.",
+      descripcion: "Mujer de 25 a 50 años en La Plata y zonas particulares de provincia de Buenos Aires (Berisso, Ensenada, Los Hornos, Coronel Brandsen, Magdalena, San Vicente, Saladillo). Compra calzado e indumentaria deportiva para sí misma: gimnasio, pilates, yoga, caminata y zapatilla de uso diario combinable. Le importa el modelo, el color y la temporada. Marcas de referencia: 47 Street, Skechers, Topper, Fila, Topper, Reebok. Ticket de $70.000 a $130.000 por par.",
       frase: "Busco una zapatilla que me sirva para entrenar y para el día a día",
       dolores: [
         "La oferta de línea mujer en su zona es siempre la misma y en pocos modelos y colores",
@@ -320,7 +320,7 @@ const data = {
   ],
 
   propuestaDeValor: {
-    descripcion: "Cadena de indumentaria deportiva con 13 años en provincia de Buenos Aires. 13 sucursales en ciudades periféricas donde las grandes cadenas no llegan. 40+ marcas alternativas (Fila, New Balance, Skechers, Crocs, Salomon, Topper, Head, Reebok). Crédito personal directo en sucursal (cupos hasta $600k ARS, mora <10%). E-commerce con envío a todo el país. 2, 3 y 6 cuotas sin interés.",
+    descripcion: "Cadena de indumentaria deportiva con 13 años en provincia de Buenos Aires. 13 sucursales en ciudades periféricas donde las grandes cadenas no llegan. 40+ marcas alternativas (Fila, New Balance, Skechers, Topper, Salomon, Topper, Head, Reebok). Crédito personal directo en sucursal (cupos hasta $600k ARS, mora <10%). E-commerce con envío a todo el país. 2, 3 y 6 cuotas sin interés.",
     diferenciador: "Único competidor con crédito personal directo (sin tarjeta, sin banco). Dominio de la periferia: cuasi-monopolio en varias localidades donde Mateu, Open Sports y Solo Deportes no tienen presencia. 40+ marcas que las cadenas grandes no priorizan.",
   },
 
@@ -378,7 +378,7 @@ const data = {
       {
         nombre: "40+ marcas que no encontrás en cualquier lado",
         dolorQueResuelve: "Las cadenas grandes priorizan Nike/Adidas/Puma. Quien busca marcas alternativas no las encuentra fuera de centros urbanos.",
-        mensajeClave: "Fila, New Balance, Skechers, Crocs, Salomon y 40 marcas más. Todo en un solo lugar.",
+        mensajeClave: "Fila, New Balance, Skechers, Topper, Salomon y 40 marcas más. Todo en un solo lugar.",
         formato: "Carrusel de productos + Meta Ads Shopping",
       },
       {
@@ -403,7 +403,7 @@ const data = {
             formato: "Video UGC Vertical (9:16)",
             dolor: "Las cadenas grandes priorizan Nike, Adidas y Puma, y nunca tienen stock en su talle. Va al local, se entusiasma con un modelo y se vuelve con las manos vacías.",
             solucion: "Star Deportes tiene más de 40 marcas con stock de talles grandes en sucursal. Se prueba, se lleva el par el mismo día y lo paga en 2, 3 o 6 cuotas sin interés.",
-            comunicacion: "[0-3s] HOOK — Plano cerrado de la pared de zapatillas de la sucursal, mano del protagonista pasando por los modelos y frenando en uno: '¿Fuiste a comprar zapatillas y no tenían tu talle?' [3-8s] BODY — Travelling por las góndolas mostrando cajas abiertas de Fila, New Balance, Topper, Salomon y Reebok, inserts rápidos de etiquetas de talle: 'En Star Deportes tenés más de 40 marcas y stock de talles grandes.' [8-14s] BODY — El protagonista se prueba el par sentado en el banco, se para, camina y asiente conforme mientras el empleado le trae una segunda caja: 'Te lo probás, te lo llevás hoy y lo pagás en 2, 3 o 6 cuotas sin interés.' [14-18s] CTA — Protagonista saliendo con la bolsa, fachada de la sucursal con el logo visible y badge en edición con stardeportes.com: 'Pasá por Star Deportes o entrá a stardeportes.com.' [18-22s] CIERRE — Motion graphics sobre fondo rojo con el logo Star Deportes, stardeportes.com y los badges de cuotas sin interés.",
+            comunicacion: "[0-3s] HOOK — Plano cerrado de la pared de zapatillas de la sucursal, mano del protagonista pasando por los modelos y frenando en uno: '¿Fuiste a comprar zapatillas y no tenían tu talle?' [3-8s] BODY — Travelling por las góndolas mostrando cajas abiertas de Fila, Topper, Reebok, Salomon y Reebok, inserts rápidos de etiquetas de talle: 'En Star Deportes tenés más de 40 marcas y stock de talles grandes.' [8-14s] BODY — El protagonista se prueba el par sentado en el banco, se para, camina y asiente conforme mientras el empleado le trae una segunda caja: 'Te lo probás, te lo llevás hoy y lo pagás en 2, 3 o 6 cuotas sin interés.' [14-18s] CTA — Protagonista saliendo con la bolsa, fachada de la sucursal con el logo visible y badge en edición con stardeportes.com: 'Pasá por Star Deportes o entrá a stardeportes.com.' [18-22s] CIERRE — Motion graphics sobre fondo rojo con el logo Star Deportes, stardeportes.com y los badges de cuotas sin interés.",
             hook: "¿Fuiste a comprar zapatillas y no tenían tu talle?",
             body: "En Star Deportes tenés más de 40 marcas y stock de talles grandes. Te lo probás, te lo llevás hoy y lo pagás en 2, 3 o 6 cuotas sin interés.",
             cta: "Pasá por Star Deportes o entrá a stardeportes.com.",
@@ -427,7 +427,7 @@ const data = {
             hook: "¿Venís bancando ese par desde hace meses?",
             body: "Del 2 al 4 de noviembre es CyberMonday en stardeportes.com. Aprovechás las ofertas de la tienda, lo pagás en 2, 3 o 6 cuotas sin interés y con envío gratis desde $150.000.",
             cta: "Del 2 al 4 de noviembre en stardeportes.com. No lo dejes pasar.",
-            copyAnuncio: "¿Venís bancando ese par desde hace meses? 👟\n\n🔥 CYBERMONDAY del 2 al 4 de noviembre en stardeportes.com\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n\n✅ Fila, New Balance, Topper, Salomon y más de 40 marcas.\n\n👉 stardeportes.com",
+            copyAnuncio: "¿Venís bancando ese par desde hace meses? 👟\n\n🔥 CYBERMONDAY del 2 al 4 de noviembre en stardeportes.com\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n\n✅ Fila, Topper, Reebok, Salomon y más de 40 marcas.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "CyberMonday — ofertas de la tienda online",
             formatoNarrativo: "Direct to Camera — Situacional",
@@ -444,7 +444,7 @@ const data = {
             solucion: "Carrusel que ordena el catálogo por uso real (fútbol, gimnasio, running y uso diario) con 2 modelos recomendados y precio en cada slide.",
             comunicacion: "Carrusel x4 slides, uno por uso. Cada slide con 2 modelos recortados sobre fondo liso, nombre de marca y modelo, precio visible y un badge con el uso. Mantener la misma grilla y tipografía en los 4 slides para que se lea como una guía. Adaptar a Story (1080x1920).",
             mensajes: [
-              "Slide 1: FÚTBOL — 2 modelos de botín o papi (Topper, Penalty) con precio visible. Badge, Para la cancha",
+              "Slide 1: FÚTBOL — 2 modelos de botín o papi (Topper, Umbro) con precio visible. Badge, Para la cancha",
               "Slide 2: GIMNASIO — 2 modelos de training (Reebok, Fila) con precio visible. Badge, Para entrenar",
               "Slide 3: RUNNING Y TREKKING — 2 modelos (Reebok, Montagne) con precio visible. Badge, Para correr y para la montaña",
               "Slide 4: USO DIARIO — 2 modelos urbanos (Fila, Topper) con precio visible. CTA, Mirá todos los modelos en stardeportes.com",
@@ -593,7 +593,7 @@ const data = {
             hook: "¿Tenés el celular lleno de capturas de zapatillas que nunca comprás?",
             body: "Del 2 al 4 de noviembre es CyberMonday y toda la línea de mujer está en stardeportes.com. Aprovechás las ofertas, lo pagás en 2, 3 o 6 cuotas sin interés y te llega a tu casa.",
             cta: "Del 2 al 4 de noviembre en stardeportes.com.",
-            copyAnuncio: "¿Tenés el celular lleno de capturas de zapatillas que nunca comprás? 📱\n\n🔥 CYBERMONDAY del 2 al 4 de noviembre en stardeportes.com\n👟 Toda la línea de mujer en oferta: 47 Street, Skechers, Crocs, Fila y más.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n\n👉 stardeportes.com",
+            copyAnuncio: "¿Tenés el celular lleno de capturas de zapatillas que nunca comprás? 📱\n\n🔥 CYBERMONDAY del 2 al 4 de noviembre en stardeportes.com\n👟 Toda la línea de mujer en oferta: 47 Street, Skechers, Topper, Fila y más.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío gratis desde $150.000.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "CyberMonday — línea mujer en oferta",
             formatoNarrativo: "Direct to Camera — Situacional",
@@ -1031,11 +1031,11 @@ const data = {
           comunicacion: "Flyer vertical con grilla de logos de marcas sobre fondo limpio, ordenados en filas parejas y con el mismo peso visual. Claim grande arriba. Línea de refuerzo debajo de la grilla. Franja inferior con el CTA de Instagram. Usar los logos tal como figuran en stardeportes.com. Adaptar a Story (1080x1920) pasando la grilla a menos columnas y más filas.",
           mensajes: [
             "Visual: grilla de logos sobre fondo limpio. Claim grande, MÁS DE 40 MARCAS EN UN SOLO LUGAR",
-            "Copy: logos de 47 Street, Topper, Fila, Atomik, Reebok, Puma, Converse, New Balance, Skechers, Crocs, Havaianas, Umbro, Diadora, Head, Everlast y Salomon",
+            "Copy: logos de 47 Street, Topper, Fila, Atomik, Reebok, Puma, Converse, New Balance, Skechers, Topper, Havaianas, Umbro, Diadora, Head, Everlast y Salomon",
             "Copy: línea de refuerzo debajo de la grilla — 'Todos los colores, todos los talles, para toda la familia'",
             "Badge + CTA: franja inferior con 'Seguinos en Instagram, @stardeportes' y el logo",
           ],
-          copyAnuncio: "Más de 40 marcas en un solo lugar 👟\n\n✅ 47 Street, Topper, Fila, Atomik, Reebok, Puma, Converse, New Balance, Skechers, Crocs, Havaianas y muchas más.\n✅ Todos los colores, todos los talles, para toda la familia.\n✅ 13 sucursales en provincia de Buenos Aires.\n\n👉 Seguinos en @stardeportes",
+          copyAnuncio: "Más de 40 marcas en un solo lugar 👟\n\n✅ 47 Street, Topper, Fila, Atomik, Reebok, Puma, Converse, New Balance, Skechers, Topper, Havaianas y muchas más.\n✅ Todos los colores, todos los talles, para toda la familia.\n✅ 13 sucursales en provincia de Buenos Aires.\n\n👉 Seguinos en @stardeportes",
           pilar: "Producto",
           tema: "Variedad de marcas",
           formatoNarrativo: "Informativo — Grilla de marcas",
@@ -1075,12 +1075,12 @@ const data = {
       adSets: [
         {
           nombre: "Conjunto_Hombre_25_50",
-          segmentacion: "Hombres de 25 a 50 años, una sola audiencia que cubre los tres anillos | Anillo 1, donde hay sucursal: La Plata, Ensenada, Berisso, Los Hornos, Lisandro Olmos, Villa Elisa, San Vicente, Coronel Brandsen, Magdalena y Saladillo | Anillo 2, aledañas a los locales: Guernica, Glew, Alejandro Korn, Burzaco y Malvinas Argentinas | Anillo 3, Zona Oeste sin presencia física: Merlo, Morón, Castelar, Ituzaingó y San Justo. Intereses: Fútbol, Running, Gimnasio y fitness, Zapatillas deportivas, Indumentaria deportiva, Fila, New Balance, Topper, Reebok, Salomon. Presupuesto: ~USD $500/mes (ARS $770.000)",
+          segmentacion: "Hombres de 25 a 50 años, una sola audiencia que cubre los tres anillos | Anillo 1, donde hay sucursal: La Plata, Ensenada, Berisso, Los Hornos, Lisandro Olmos, Villa Elisa, San Vicente, Coronel Brandsen, Magdalena y Saladillo | Anillo 2, aledañas a los locales: Guernica, Glew, Alejandro Korn, Burzaco y Malvinas Argentinas | Anillo 3, Zona Oeste sin presencia física: Merlo, Morón, Castelar, Ituzaingó y San Justo. Intereses: Fútbol, Running, Gimnasio y fitness, Zapatillas deportivas, Indumentaria deportiva, Fila, Topper, Reebok, Reebok, Salomon. Presupuesto: ~USD $500/mes (ARS $770.000)",
           ads: [
             "Video UGC 1 | Dolor: no hay stock en su talle → 40+ marcas con talles grandes",
             "Video UGC 2 (CYBERMONDAY) | Dolor: viene postergando el par → ofertas de la tienda, cuotas sin interés y envío gratis",
             "Carrusel 1 | Guía de elección por uso: fútbol, gimnasio, running y uso diario",
-            "Carrusel 2 (CYBERMONDAY) | Ofertas marca por marca con precio anterior y precio CyberMonday: Fila, New Balance, Salomon, Topper",
+            "Carrusel 2 (CYBERMONDAY) | Ofertas marca por marca con precio anterior y precio CyberMonday: Fila, Reebok, Montagne, Topper",
             "Flyer 1 | La tienda de siempre, ahora online — hero stardeportes.com",
             "Flyer 2 | Antes de viajar, preguntá — consulta de stock y talle por WhatsApp",
             "Flyer 3 | Producto original de marca oficial — 13 años, 13 sucursales, 40+ marcas",
@@ -1089,12 +1089,12 @@ const data = {
         },
         {
           nombre: "Conjunto_Mujer_25_50",
-          segmentacion: "Mujeres de 25 a 50 años, una sola audiencia que cubre los tres anillos | Anillo 1, donde hay sucursal: La Plata, Ensenada, Berisso, Los Hornos, Lisandro Olmos, Villa Elisa, San Vicente, Coronel Brandsen, Magdalena y Saladillo | Anillo 2, aledañas a los locales: Guernica, Glew, Alejandro Korn, Burzaco y Malvinas Argentinas | Anillo 3, Zona Oeste sin presencia física: Merlo, Morón, Castelar, Ituzaingó y San Justo. Intereses: Gimnasio y fitness, Pilates, Yoga, Running, Caminata, Moda deportiva, 47 Street, Skechers, Crocs, Fila, New Balance. Presupuesto: ~USD $500/mes (ARS $770.000)",
+          segmentacion: "Mujeres de 25 a 50 años, una sola audiencia que cubre los tres anillos | Anillo 1, donde hay sucursal: La Plata, Ensenada, Berisso, Los Hornos, Lisandro Olmos, Villa Elisa, San Vicente, Coronel Brandsen, Magdalena y Saladillo | Anillo 2, aledañas a los locales: Guernica, Glew, Alejandro Korn, Burzaco y Malvinas Argentinas | Anillo 3, Zona Oeste sin presencia física: Merlo, Morón, Castelar, Ituzaingó y San Justo. Intereses: Gimnasio y fitness, Pilates, Yoga, Running, Caminata, Moda deportiva, 47 Street, Skechers, Topper, Fila, New Balance. Presupuesto: ~USD $500/mes (ARS $770.000)",
           ads: [
             "Video UGC 1 (CYBERMONDAY) | Dolor: se le pasan las fechas de descuento → línea mujer en oferta online",
             "Video UGC 2 | Dolor: compra modelo de hombre en talle chico → línea mujer con horma propia",
             "Carrusel 1 | Tres looks completos: calzado + indumentaria para entrenar, caminar y uso diario",
-            "Carrusel 2 (CYBERMONDAY) | Ofertas de línea mujer marca por marca: 47 Street, Skechers, Crocs, Fila",
+            "Carrusel 2 (CYBERMONDAY) | Ofertas de línea mujer marca por marca: 47 Street, Skechers, Topper, Fila",
             "Flyer 1 | Llevatelas hoy, pagalas en cuotas — 2, 3 y 6 cuotas sin interés",
             "Flyer 2 | Toda la línea de mujer en tu celular — hero stardeportes.com",
             "Flyer 3 | Comprá online, cambiá en el local — color real, talle y cambios en sucursal",
