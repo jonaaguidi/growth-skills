@@ -1146,7 +1146,7 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Cambio mínimo: debajo del headline va un botón de CONSULTANOS POR WHATSAPP, y el logo de Star Deportes fijo en la parte inferior. El resto de la pieza se pauta tal cual está.",
+            "Cambio mínimo: debajo del headline va un botón de CONSULTANOS POR WHATSAPP. Aparte, y sin relación con ese botón, el logo de Star Deportes va en la parte inferior del video, fijo durante toda la pieza. El resto se pauta tal cual está.",
           ],
         },
         {
