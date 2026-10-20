@@ -1279,7 +1279,7 @@ const data = {
     referenciasFlyers: [
       { url: assetDataUri("comp-dexter-01.jpg"), tipo: "image", titulo: "Dexter — calza adidas $55.299, 6 cuotas de $9.217 + 20% de reintegro Galicia los jueves y viernes" },
       { url: assetDataUri("comp-dexter-ugc.mp4"), tipo: "video", titulo: "Dexter — video UGC" },
-      { url: "", titulo: "Flyer de competencia 3" },
+      { url: assetDataUri("comp-mateu-01.jpg"), tipo: "image", titulo: "Mateu Sports — 3, 6 y 9 cuotas sin interés y hasta 50% OFF por tiempo limitado" },
       { url: "", titulo: "Flyer de competencia 4" },
       { url: "", titulo: "Flyer de competencia 5" },
       { url: "", titulo: "Flyer de competencia 6" },
