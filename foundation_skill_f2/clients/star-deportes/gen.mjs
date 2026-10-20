@@ -532,11 +532,11 @@ const data = {
             solucion: "Star Deportes es retail oficial de más de 40 marcas, con 13 años de trayectoria y 13 sucursales físicas donde el producto se puede ver y cambiar.",
             comunicacion: "Flyer de confianza en tres bloques. Claim arriba, grilla de logos de las marcas oficiales al centro y CTA abajo. Sin precio, la pieza vende confianza. Adaptar a Story (1080x1920) apilando los tres bloques.",
             mensajes: [
-              "Claim grande arriba, PRODUCTO ORIGINAL DE MARCA OFICIAL",
+              "Claim grande arriba, +40 MARCAS OFICIALES EN STAR DEPORTES",
               "Visual central: grilla de logos de marcas oficiales (Fila, Topper, Reebok, Montagne y más)",
               "CTA abajo, Comprá en stardeportes.com",
             ],
-            copyAnuncio: "Producto original de marca oficial ✅\\n\\n🏪 13 años de trayectoria.\\n📍 13 sucursales físicas en provincia de Buenos Aires.\\n👟 Más de 40 marcas oficiales.\\n\\n🔄 Lo ves, te lo probás y lo cambiás en el local.\\n\\n👉 Comprá en stardeportes.com",
+            copyAnuncio: "+40 marcas oficiales en Star Deportes ✅\\n\\n🏪 13 años de trayectoria.\\n📍 13 sucursales físicas en provincia de Buenos Aires.\\n👟 Más de 40 marcas oficiales.\\n\\n🔄 Lo ves, te lo probás y lo cambiás en el local.\\n\\n👉 Comprá en stardeportes.com",
             pilar: "Marca",
             tema: "Confianza y trayectoria",
             formatoNarrativo: "Producto — Hero Shot",
