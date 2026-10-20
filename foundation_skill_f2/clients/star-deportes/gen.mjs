@@ -238,6 +238,7 @@ const data = {
   icp: [
     {
       segmento: "Hombre joven adulto",
+      icono: "hombre",
       descripcion: "Hombre de 25 a 40 años en La Plata y la periferia de provincia de Buenos Aires (Berisso, Ensenada, Los Hornos, Coronel Brandsen, Magdalena, San Vicente, Saladillo). Compra calzado e indumentaria deportiva para sí mismo: fútbol, gimnasio, running o zapatilla de uso diario. Decide por modelo y marca, compara precio online antes de ir al local y pregunta por talle. Ticket de $70.000 a $130.000 por par.",
       frase: "Quiero el modelo que me gusta, en mi talle y al precio que me cierra",
       dolores: [
@@ -264,6 +265,7 @@ const data = {
     },
     {
       segmento: "Mujer joven adulta",
+      icono: "mujer",
       descripcion: "Mujer de 25 a 40 años en La Plata y la periferia de provincia de Buenos Aires (Berisso, Ensenada, Los Hornos, Coronel Brandsen, Magdalena, San Vicente, Saladillo). Compra calzado e indumentaria deportiva para sí misma: gimnasio, pilates, yoga, caminata y zapatilla de uso diario combinable. Le importa el modelo, el color y la temporada. Marcas de referencia: 47 Street, Skechers, Crocs, Fila, New Balance, Topper. Ticket de $70.000 a $130.000 por par.",
       frase: "Busco una zapatilla que me sirva para entrenar y para el día a día",
       dolores: [
@@ -290,6 +292,7 @@ const data = {
     },
     {
       segmento: "Padre / madre de familia",
+      icono: "familia",
       descripcion: "Adulto de 30 a 50 años con hijos de 3 a 12 años, en La Plata y la periferia de provincia de Buenos Aires. Compra para sí mismo y para sus hijos en la misma visita: renueva por crecimiento del pie, inicio de clases, deporte del club o rotura. Lleva de 2 a 4 pares por compra, con un total de $150.000 a $350.000. El crédito personal de la sucursal es lo que define si la compra se cierra hoy o se posterga.",
       frase: "Necesito equipar a mis hijos y a mí, y no llego a pagar todo de contado",
       dolores: [
@@ -1220,10 +1223,10 @@ const data = {
             mensajes: [
               "Visual: fondo rojo con líneas radiales. Logo de Star Deportes arriba de todo y, debajo, el claim grande LLEVATELO AHORA, PAGALO A FIN DE MES. Todo alineado al centro.",
               "Copy: justo debajo del claim, un subtítulo chico que diga CON DNI + RECIBO DE SUELDO",
-              "Copy: dos bloques de monto — '$500.000 con DNI + recibo de sueldo, monotributo o jubilación' y '$450.000 sólo con tu DNI'",
+              "Copy: dos bloques de monto — '$500.000 con DNI + recibo de sueldo' y '$450.000 sólo con tu DNI'",
               "Badge + CTA: franja inferior con 'Válido para productos de nuestras sucursales' y 'Escribinos por WhatsApp y consultá tu cupo'",
             ],
-            copyAnuncio: "Llevátelo ahora, pagalo a fin de mes 💳\n\n✅ Con DNI + recibo de sueldo, monotributo o jubilación: hasta $500.000 y la primera cuota recién a los 30 días.\n✅ Sólo con tu DNI: $450.000, primera cuota en el momento.\n✅ Te lo aprobamos en la sucursal, al toque.\n\n📍 Válido para productos de nuestras sucursales.\n\n👉 Escribinos por WhatsApp y consultá tu cupo",
+            copyAnuncio: "Llevátelo ahora, pagalo a fin de mes 💳\n\n✅ Con DNI + recibo de sueldo: hasta $500.000 y la primera cuota recién a los 30 días.\n✅ Sólo con tu DNI: $450.000, primera cuota en el momento.\n✅ Te lo aprobamos en la sucursal, al toque.\n\n📍 Válido para productos de nuestras sucursales.\n\n👉 Escribinos por WhatsApp y consultá tu cupo",
             pilar: "Producto",
             tema: "Llevátelo ahora, pagalo a fin de mes",
             formatoNarrativo: "Informativo — Placa de oferta",
