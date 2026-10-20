@@ -522,6 +522,7 @@ const data = {
             estructuraNarrativa: "Afirmación - Evidencia",
             tratamiento: { tipo: "Imagen", tono: "Mixed", estilo: "Motion Graphics" },
             enRevision: false,
+            destinoUrls: ["https://stardeportes.com/"],
           },
           // --- FLYER 3: Objeción originalidad → retail oficial, 13 años ---
           {
@@ -586,6 +587,7 @@ const data = {
             tratamiento: { tipo: "Video", tono: "Orgánico (UGC)", estilo: "Lifestyle" },
             duracion: "18-22s",
             enRevision: false,
+            destinoUrls: ["https://stardeportes.com/"],
           },
           // --- VIDEO UGC 2: Dolor compra modelo de hombre en talle chico → línea mujer real ---
           {
