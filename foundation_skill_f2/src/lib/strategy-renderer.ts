@@ -1836,7 +1836,13 @@ function renderSegmentacion(s: SegParsed): string {
     if (zonas.length > 1) {
       lines.push(`<li><span style="font-weight:600">Locación:</span>`);
       lines.push(`<ul style="margin:2px 0 4px;padding-left:18px;line-height:1.6">`);
-      for (const z of zonas) lines.push(`<li>${escapeHtml(z)}</li>`);
+      for (const z of zonas) {
+        // "Anillo 1, donde hay sucursal: La Plata, ..." -> la lista de localidades va en negrita.
+        const sep = z.indexOf(": ");
+        lines.push(sep > -1
+          ? `<li>${escapeHtml(z.slice(0, sep + 1))} <strong>${escapeHtml(z.slice(sep + 2))}</strong></li>`
+          : `<li>${escapeHtml(z)}</li>`);
+      }
       lines.push(`</ul></li>`);
     } else {
       lines.push(`<li><span style="font-weight:600">Locación:</span> ${escapeHtml(s.locacion)}</li>`);
