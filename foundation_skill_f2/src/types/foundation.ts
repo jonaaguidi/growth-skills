@@ -295,6 +295,7 @@ export interface CompetenciaAds {
   formatos: FormatoCompetencia[];
   competidores?: CompetidorCard[] | null;
   observacion?: string | null; // Insight estratégico sobre el panorama competitivo
+  referenciasFlyers?: ReferenciaCreativa[] | null; // flyers de la competencia; sin url renderizan como mockup pendiente
 }
 
 // -- Foundation Review presentation --

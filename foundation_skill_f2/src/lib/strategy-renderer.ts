@@ -969,6 +969,24 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
       sub.push(`<div style="padding:16px 20px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-bottom:24px;font-size:14px;line-height:1.65;color:#92400e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><strong>Oportunidad:</strong> ${escapeHtml(data.competenciaAds.observacion).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\n\n/g, "<br><br>").replace(/\n/g, "<br>")}</div>`);
     }
 
+    // Flyers de la competencia (pueden venir vacios: se renderizan como mockup pendiente)
+    const flyersComp = data.competenciaAds.referenciasFlyers ?? [];
+    if (flyersComp.length) {
+      sub.push(`<div class="card-label" style="margin-bottom:12px">FLYERS DE LA COMPETENCIA (${flyersComp.length})</div>`);
+      sub.push(`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">`);
+      for (const ref of flyersComp) {
+        sub.push(`<div>`);
+        sub.push(ref.url
+          ? renderReferenciaMedia(ref, 430)
+          : `<div style="width:100%;aspect-ratio:4/5;border:2px dashed ${COLORS.border};border-radius:8px;background:${COLORS.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:12px;color:${COLORS.muted};font-weight:600">Flyer pendiente</span></div>`);
+        if (ref.titulo) {
+          sub.push(`<div style="font-size:11px;font-family:${FONTS.mono};color:${COLORS.muted};margin-top:4px">${escapeHtml(ref.titulo)}</div>`);
+        }
+        sub.push(`</div>`);
+      }
+      sub.push(`</div>`);
+    }
+
     // Reference ads — formatos with postUrl (iframe) or imageFile (static image)
     const refFormats = data.competenciaAds.formatos.filter(f => f.postUrl || f.imageFile);
     if (refFormats.length) {
