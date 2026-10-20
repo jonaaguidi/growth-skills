@@ -167,8 +167,8 @@ const data = {
       ],
     },
     accesoPlataforma: {
-      nombrePlataforma: "DragonFish (Sistema de Gestión)",
-      descripcion: "Sistema de gestión integrado con Tienda Nube. Maneja stock, pedidos y devoluciones de las 13 sucursales.",
+      nombrePlataforma: "Tienda Nube",
+      descripcion: "E-commerce de Star Deportes (stardeportes.com). Está integrado con DragonFish, el sistema de gestión que maneja stock, pedidos y devoluciones de las 13 sucursales, pero REE Metrics se conecta a Tienda Nube y a Meta Ads, no a DragonFish.",
       items: [
         { label: "Verificar integración DragonFish ↔ Tienda Nube", status: "pendiente", notas: "Ya está conectado: stock, pedidos, devoluciones." },
         { label: "Verificar si DragonFish tiene API para consultas de stock", status: "pendiente", notas: "Para futura automatización de consultas en Callbell." },
@@ -1004,6 +1004,12 @@ const data = {
   // El gantt cubre las primeras 8 semanas; Call ADS (S9) y Review Final (S12)
   // siguen en reviewMeetings, que no esta acotado a la ventana del gantt.
   // REE Metrics
+  reeMetricsFeatures: [
+    { titulo: "Dashboard", desc: "Conexión con Tienda Nube, campañas de Meta Ads y crecimiento de Instagram orgánico. Todo en una sola vista, personalizable según requerimientos." },
+    { titulo: "Timeline", desc: "Registro de cada cambio realizado en Meta Ads. Documentamos por qué se escala o se frena cada anuncio (Kill/Scale) para que siempre sepas qué se hizo y por qué." },
+    { titulo: "E-Commerce", desc: "Datos de tu Tienda Nube: pedidos, facturación, ticket promedio, clientes únicos, carritos abandonados, top productos y top clientes." },
+  ],
+  reeMetricsFuente: "Tienda Nube",
   reeMetricsResetPasswordUrl: "https://tentacles.reecreativos.com/reset-password?token=ba699596fc6af08eae817a94210aa2df1eb8de14b918fd45e68e2a14f9cab2f9&welcome=true",
   reeMetricsEmail: "leandro@grupolente.com",
   reeMetricsNotaUsuarios: "Si el equipo necesita más accesos, avisanos y damos de alta los usuarios que hagan falta.",
