@@ -1106,7 +1106,6 @@ const data = {
           ],
         },
       ],
-      notaCampana: "- Cada conjunto tiene sus 8 piezas exclusivas. La diferenciación vive en el creativo, no sólo en el targeting.\n- Launch S4-S5 es validación: se leen formatos, ángulos y perfiles antes de redistribuir presupuesto en Scale.\n- 2 de las 8 piezas de cada conjunto son de CyberMonday (1 video + 1 carrusel). Van sólo del 2 al 4/11 y se pausan al cerrar la Cyber Week el 8.\n- Esas piezas se reutilizan en Black Friday (S8) cambiando sólo la placa de la fecha.\n- Pendiente del cliente: los porcentajes de descuento de CyberMonday, antes de producción.\n- Requisito para los ads de Shopping: catálogo de Tienda Nube conectado a Meta antes del lanzamiento.",
     },
     {
       nombre: "StarDeportes_CreditoPersonal",
