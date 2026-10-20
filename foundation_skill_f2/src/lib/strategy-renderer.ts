@@ -1897,6 +1897,9 @@ function renderPiezaCardStrategy(pieza: PiezaCreativa, index: number): string {
   if (isVideo && pieza.duracion) {
     parts.push(`<span style="font-family:${FONTS.mono};font-size:11px;padding:3px 8px;background:${COLORS.ink};color:${COLORS.surface}">${escapeHtml(pieza.duracion)}</span>`);
   }
+  if (pieza.badge) {
+    parts.push(`<span style="font-family:${FONTS.mono};font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A">${escapeHtml(pieza.badge)}</span>`);
+  }
   parts.push(`<span style="font-size:13px;color:${COLORS.slate};flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(dolorPreview)}</span>`);
   if (pieza.tema) {
     parts.push(`<span style="font-size:12px;color:${COLORS.muted}">${escapeHtml(pieza.tema)}</span>`);

@@ -419,6 +419,7 @@ const data = {
           },
           // --- VIDEO UGC 2 (CYBERMONDAY): Dolor viene postergando el par → ofertas de la tienda online ---
           {
+            badge: "CyberMonday",
             formato: "Video UGC Vertical (9:16)",
             dolor: "El par que quiere sale entre $70.000 y $130.000 y lo viene postergando desde hace meses. Espera una fecha con descuento real y no sabe que Star Deportes participa del CyberMonday.",
             solucion: "CyberMonday en stardeportes.com del 2 al 4 de noviembre (Cyber Week hasta el 8), con las ofertas de la tienda, 2, 3 y 6 cuotas sin interés y envío gratis desde $150.000.",
@@ -459,6 +460,7 @@ const data = {
           },
           // --- CARRUSEL 2 (CYBERMONDAY): Dolor no sabe qué marcas entran en la oferta → ofertas marca por marca ---
           {
+            badge: "CyberMonday",
             formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "No encuentra Fila, New Balance, Salomon ni Topper cerca de su casa, y cuando llega una fecha de descuento no sabe qué marcas entran ni cuánto bajan de verdad.",
             solucion: "Carrusel de CyberMonday con las ofertas de la tienda marca por marca, con el precio anterior tachado y el precio CyberMonday visible en cada slide.",
@@ -565,6 +567,7 @@ const data = {
         piezas: [
           // --- VIDEO UGC 1 (CYBERMONDAY): Dolor se le pasan las fechas de descuento → línea mujer en oferta online ---
           {
+            badge: "CyberMonday",
             formato: "Video UGC Vertical (9:16)",
             dolor: "Guarda capturas de zapatillas que nunca compra y las fechas de descuento se le pasan, porque no sigue a la marca ni sabe que Star Deportes vende online.",
             solucion: "CyberMonday en stardeportes.com del 2 al 4 de noviembre (Cyber Week hasta el 8), con toda la línea de mujer en oferta, 2, 3 y 6 cuotas sin interés y envío gratis desde $150.000.",
@@ -623,6 +626,7 @@ const data = {
           },
           // --- CARRUSEL 2 (CYBERMONDAY): Dolor no sabe qué entra en la oferta → ofertas de línea mujer marca por marca ---
           {
+            badge: "CyberMonday",
             formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "No encuentra 47 Street, Skechers ni Crocs cerca de su casa, y en las fechas de descuento no sabe qué modelos de mujer entran realmente en oferta.",
             solucion: "Carrusel de CyberMonday con las ofertas de línea mujer marca por marca, con el precio anterior tachado y el precio CyberMonday visible en cada slide.",
@@ -749,6 +753,7 @@ const data = {
           },
           // --- VIDEO UGC 2 (CYBERMONDAY): Dolor la renovación cae en el peor momento → equipar a los chicos en la oferta online ---
           {
+            badge: "CyberMonday",
             formato: "Video UGC Vertical (9:16)",
             dolor: "A sus hijos les queda chico el calzado y la renovación cae siempre en el peor momento del mes. Cuando llega una fecha de descuento ya gastó la plata en otra cosa.",
             solucion: "CyberMonday en stardeportes.com del 2 al 4 de noviembre (Cyber Week hasta el 8), para equipar a los chicos y a los grandes de una sola vez, en 2, 3 y 6 cuotas sin interés y con envío gratis desde $150.000.",
@@ -789,6 +794,7 @@ const data = {
           },
           // --- CARRUSEL 2 (CYBERMONDAY): Objeción gastar caro en algo que dura poco → packs familiares en oferta ---
           {
+            badge: "CyberMonday",
             formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "No quiere gastar caro en calzado de niño que le va a quedar chico, así que espera una oferta real. Pero cuando llega no sabe qué conviene comprar junto ni cuánto ahorra de verdad.",
             solucion: "Carrusel de CyberMonday con el calzado infantil y de adulto en oferta, y el ahorro total de resolver la compra familiar en una sola operación, con precio anterior y precio CyberMonday.",

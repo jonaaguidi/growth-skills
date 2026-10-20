@@ -172,6 +172,7 @@ export interface TratamientoCreativo {
 }
 
 export interface PiezaCreativa {
+  badge?: string | null;        // chip opcional en el header de la card (ej. "CyberMonday")
   formato: string;
   dolor: string;
   solucion: string;
