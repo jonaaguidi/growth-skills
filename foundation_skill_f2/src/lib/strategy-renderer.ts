@@ -1830,7 +1830,18 @@ function renderSegmentacion(s: SegParsed): string {
   const lines: string[] = [];
   lines.push(`<ul style="font-size:14px;margin:8px 0 0;padding-left:20px;line-height:1.8">`);
   lines.push(`<li><span style="font-weight:600">Edad:</span> ${escapeHtml(s.edad)}</li>`);
-  if (s.locacion) lines.push(`<li><span style="font-weight:600">Locación:</span> ${escapeHtml(s.locacion)}</li>`);
+  if (s.locacion) {
+    // Varias zonas separadas por " | " se listan anidadas; una sola queda en linea.
+    const zonas = s.locacion.split(" | ").map(z => z.trim()).filter(Boolean);
+    if (zonas.length > 1) {
+      lines.push(`<li><span style="font-weight:600">Locación:</span>`);
+      lines.push(`<ul style="margin:2px 0 4px;padding-left:18px;line-height:1.6">`);
+      for (const z of zonas) lines.push(`<li>${escapeHtml(z)}</li>`);
+      lines.push(`</ul></li>`);
+    } else {
+      lines.push(`<li><span style="font-weight:600">Locación:</span> ${escapeHtml(s.locacion)}</li>`);
+    }
+  }
   for (const cat of s.categorias) {
     lines.push(`<li><span style="font-weight:600">${escapeHtml(cat.label)}:</span>`);
     lines.push(`<ul style="margin:2px 0 4px;padding-left:18px;line-height:1.6">`);
