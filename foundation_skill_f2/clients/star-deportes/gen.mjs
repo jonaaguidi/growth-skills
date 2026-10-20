@@ -1302,47 +1302,21 @@ const data = {
   // Proximos pasos — explicitos (si no se definen, strategy-renderer los deriva de arquitectura/ofertas)
   proximosPasos: [
     {
-      titulo: "Instalar el Pixel de Meta en el e-commerce",
-      responsable: "Equipo web Star Deportes + REE Growth",
-      tiempo: "Esta semana — bloqueante",
+      titulo: "Lo que necesitamos de Star Deportes",
+      responsable: "Equipo de Star Deportes",
+      tiempo: "Antes del lanzamiento",
       items: [
-        "Verificado con la Prueba de Eventos del Pixel: no se dispara ningún evento en stardeportes.com. El Pixel no está instalado.",
-        "Instalarlo desde Google Tag Manager (GTM-5M8VNBMR), que ya está activo en el sitio. No requiere tocar el código de Tienda Nube.",
-        "Cargar la etiqueta base del Pixel en GTM con disparador All Pages y publicar el contenedor.",
-        "Configurar los eventos de conversión: PageView, ViewContent, AddToCart, InitiateCheckout y Purchase.",
-        "Revalidar con la Prueba de Eventos y el Meta Pixel Helper antes de prender cualquier campaña de conversión.",
-        "Sin Pixel no hay retargeting ni atribución de ventas: la campaña B2C de Ventas no se puede medir.",
+        "Pasarnos el acceso a Google Tag Manager (GTM-5M8VNBMR), que ya está activo en el sitio, o instalar ustedes el Pixel de Meta desde ese contenedor. Hoy no se dispara ningún evento en stardeportes.com.",
+        "Producir las piezas solicitadas de cada campaña y entregarlas en el Drive compartido, con la estructura de carpetas de la sección de entrega.",
       ],
     },
     {
-      titulo: "Lanzar Awareness y Crédito Personal",
-      responsable: "REE Growth + equipo Star Deportes",
-      tiempo: "Esta semana",
+      titulo: "Lo que hacemos de nuestro lado",
+      responsable: "REE Growth",
+      tiempo: "Antes del lanzamiento",
       items: [
-        "Confirmar accesos a la cuenta publicitaria de Meta Ads",
-        "Confirmar tarjeta de pago del cliente en Meta Ads",
-        "Prender campaña StarDeportes_Awareness",
-        "Prender campaña StarDeportes_CreditoPersonal",
-      ],
-    },
-    {
-      titulo: "Creación de piezas + setup de campaña B2C",
-      responsable: "Equipo de branding Star Deportes + REE Growth",
-      tiempo: "Semanas 4 - 6",
-      items: [
-        "REE entrega los briefs creativos por ICP (Hombre joven adulto / Mujer joven adulta / Padres y madres de familia)",
-        "Producción de las 24 piezas B2C (8 por ICP, 6 de ellas para CyberMonday) por el equipo de branding del cliente",
-        "Armado de la campaña StarDeportes_Ventas_B2C en Meta Ads",
-        "Conectar el catálogo de Tienda Nube a Meta para habilitar Shopping",
-      ],
-    },
-    {
-      titulo: "E-commerce y tracking",
-      responsable: "Equipo Star Deportes + REE Growth",
-      tiempo: "Semanas 2 - 3",
-      items: [
-        "Verificar si el Meta Pixel está realmente instalado en stardeportes.com",
-        "Definir los descuentos de CyberMonday para las piezas de la ventana del 2 al 4/11",
+        "Validar que los eventos del Pixel disparen correctamente antes de prender la campaña B2C: PageView, ViewContent, AddToCart, InitiateCheckout y Purchase.",
+        "Avanzar con el setup completo de las 3 campañas en Meta Ads y dejarlas listas para lanzar.",
       ],
     },
   ],
