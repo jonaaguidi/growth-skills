@@ -581,7 +581,7 @@ const data = {
           estado: "Requiere edición",
           edicion: [
             "El contenido no cambia: se pauta tal cual el mensaje de sucursal nueva en Los Hornos, 137 y 62.",
-            "Agregar una placa de cierre animada de 3-4s, la misma para las piezas 1 y 2.",
+            "Agregar una placa de cierre animada de 3-4s, la misma para las piezas 1, 2 y 4.",
             "En esa placa: el cierre de la campaña, vení a cualquiera de nuestras sucursales o comprá directamente online en stardeportes.com, más el logo de Star Deportes y @stardeportes para seguir en redes.",
           ],
         },
@@ -593,7 +593,7 @@ const data = {
           edicion: [
             "El contenido no cambia: se mantiene el mensaje de la sucursal nueva.",
             "Reforzar en pantalla la dirección y la localidad, 137 y 62 Los Hornos, para que se entienda sin audio.",
-            "Agregar la misma placa de cierre animada de 3-4s.",
+            "Agregar la misma placa de cierre animada de 3-4s, la que también lleva la pieza 4.",
             "En esa placa: el cierre de la campaña, vení a cualquiera de nuestras sucursales o comprá directamente online en stardeportes.com, más el logo de Star Deportes y @stardeportes para seguir en redes.",
           ],
         },
@@ -615,7 +615,8 @@ const data = {
           estado: "Requiere edición",
           edicion: [
             "Recortar unos 10 segundos del reel.",
-            "Cerrar con una placa de CTA que diga \"Estos MODELOS y más en\" junto al badge de stardeportes.com.",
+            "Agregar la misma placa de cierre animada de 3-4s que llevan las piezas 1 y 2.",
+            "En esa placa: el cierre de la campaña, vení a cualquiera de nuestras sucursales o comprá directamente online, el logo de Star Deportes y @stardeportes para seguir en redes, y además el CTA \"Estos MODELOS y más en\" con el badge de stardeportes.com.",
           ],
         },
         {
