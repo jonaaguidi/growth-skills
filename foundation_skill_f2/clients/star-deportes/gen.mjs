@@ -661,11 +661,11 @@ const data = {
           solucion: "8 de las 13 sucursales están en el Gran La Plata: dos en el centro, dos en Los Hornos, y una en Lisandro Olmos, Villa Elisa, Ensenada y Berisso. Desde cualquier barrio de la zona hay una a minutos.",
           comunicacion: "Flyer vertical con mapa estilizado de La Plata y alrededores, con pines rojos sobre las sucursales y los nombres de los barrios legibles alrededor. Claim grande arriba. Debajo del mapa, listado de las localidades con sucursal en dos columnas. Franja inferior con el CTA de Instagram. Adaptar a Story (1080x1920) agrandando el mapa y dejando el listado en una sola columna.",
           mensajes: [
-            "Visual: mapa de La Plata y alrededores con pines rojos sobre las sucursales. Claim grande, TENÉS UNA STAR DEPORTES A MINUTOS DE TU CASA",
+            "Visual: mapa de La Plata y alrededores con pines rojos sobre las sucursales. Claim grande, TENÉS UN STAR DEPORTES A MINUTOS DE TU CASA",
             "Copy: localidades con sucursal en dos columnas — La Plata (x2), Los Hornos (x2), Lisandro Olmos, Villa Elisa, Ensenada, Berisso",
             "Badge + CTA: franja inferior con 'Seguinos en Instagram, @stardeportes' y el logo",
           ],
-          copyAnuncio: "Tenés una Star Deportes a minutos de tu casa 📍\n\n✅ 8 sucursales en el Gran La Plata: centro, Los Hornos, Lisandro Olmos, Villa Elisa, Ensenada y Berisso.\n✅ Más de 40 marcas deportivas, todos los colores y todos los talles.\n✅ Vivís en City Bell, Gonnet, Ringuelet, Tolosa, Villa Elvira, Altos de San Lorenzo, Melchor Romero o Abasto, tenés una a minutos.\n\n👉 Seguinos en @stardeportes",
+          copyAnuncio: "Tenés un Star Deportes a minutos de tu casa 📍\n\n✅ 8 sucursales en el Gran La Plata: centro, Los Hornos, Lisandro Olmos, Villa Elisa, Ensenada y Berisso.\n✅ Más de 40 marcas deportivas, todos los colores y todos los talles.\n✅ Vivís en City Bell, Gonnet, Ringuelet, Tolosa, Villa Elvira, Altos de San Lorenzo, Melchor Romero o Abasto, tenés una a minutos.\n\n👉 Seguinos en @stardeportes",
           pilar: "Marca",
           tema: "Cobertura de sucursales en el Gran La Plata",
           formatoNarrativo: "Informativo — Mapa de cobertura",
