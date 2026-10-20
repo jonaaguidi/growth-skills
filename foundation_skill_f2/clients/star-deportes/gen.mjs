@@ -921,7 +921,7 @@ const data = {
           estado: "Requiere edición",
           edicion: [
             "El contenido no cambia: se pauta tal cual el mensaje de sucursal nueva en Los Hornos, 137 y 62.",
-            "Agregar una placa de cierre animada de 3-4s, la misma para las piezas 1, 2 y 4.",
+            "Agregar una placa de cierre animada de 3-4s, la misma para las piezas 1 y 2.",
             "En esa placa: el cierre de la campaña, vení a cualquiera de nuestras sucursales o comprá directamente online en stardeportes.com, más el logo de Star Deportes y @stardeportes para seguir en redes.",
           ],
         },
@@ -933,7 +933,7 @@ const data = {
           edicion: [
             "El contenido no cambia: se mantiene el mensaje de la sucursal nueva.",
             "Reforzar en pantalla la dirección y la localidad, 137 y 62 Los Hornos, para que se entienda sin audio.",
-            "Agregar la misma placa de cierre animada de 3-4s, la que también lleva la pieza 4.",
+            "Agregar la misma placa de cierre animada de 3-4s.",
             "En esa placa: el cierre de la campaña, vení a cualquiera de nuestras sucursales o comprá directamente online en stardeportes.com, más el logo de Star Deportes y @stardeportes para seguir en redes.",
           ],
         },
@@ -1181,6 +1181,10 @@ const data = {
             "Reel_CreditoPersonal_V2 | https://www.instagram.com/p/Dd4K0XhuVYh/",
             "Reel_CreditoPersonal_V3 | https://www.instagram.com/p/DdUB8IDR6Um/",
             "Reel_CreditoPersonal_V4 | https://www.instagram.com/p/Dcgi_uauFe3/",
+            "Historia_CreditoMontos_V1",
+            "VideoUGC_CreditoPropio_V1",
+            "Posteo_LlevateloAhora_V1",
+            "Posteo_CompraFamiliar_V1",
           ],
         },
       ],
