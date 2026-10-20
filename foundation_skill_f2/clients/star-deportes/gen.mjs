@@ -1065,7 +1065,7 @@ const data = {
       adSets: [
         {
           nombre: "Conjunto_Hombre_25_50",
-          segmentacion: "Hombres de 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires. Intereses: Fútbol, Running, Gimnasio y fitness, Zapatillas deportivas, Indumentaria deportiva, Fila, New Balance, Topper, Reebok, Salomon. Presupuesto: ~USD $500/mes (ARS $770.000)",
+          segmentacion: "Hombres de 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires como núcleo, más test de expansión en Santa Fe, Córdoba, Entre Ríos y Mendoza. Intereses: Fútbol, Running, Gimnasio y fitness, Zapatillas deportivas, Indumentaria deportiva, Fila, New Balance, Topper, Reebok, Salomon. Presupuesto: ~USD $500/mes (ARS $770.000)",
           ads: [
             "Video UGC 1 | Dolor: no hay stock en su talle → 40+ marcas con talles grandes",
             "Video UGC 2 (CYBERMONDAY) | Dolor: viene postergando el par → ofertas de la tienda, cuotas sin interés y envío gratis",
@@ -1079,7 +1079,7 @@ const data = {
         },
         {
           nombre: "Conjunto_Mujer_25_50",
-          segmentacion: "Mujeres de 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires. Intereses: Gimnasio y fitness, Pilates, Yoga, Running, Caminata, Moda deportiva, 47 Street, Skechers, Crocs, Fila, New Balance. Presupuesto: ~USD $500/mes (ARS $770.000)",
+          segmentacion: "Mujeres de 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires como núcleo, más test de expansión en Santa Fe, Córdoba, Entre Ríos y Mendoza. Intereses: Gimnasio y fitness, Pilates, Yoga, Running, Caminata, Moda deportiva, 47 Street, Skechers, Crocs, Fila, New Balance. Presupuesto: ~USD $500/mes (ARS $770.000)",
           ads: [
             "Video UGC 1 (CYBERMONDAY) | Dolor: se le pasan las fechas de descuento → línea mujer en oferta online",
             "Video UGC 2 | Dolor: compra modelo de hombre en talle chico → línea mujer con horma propia",
@@ -1093,7 +1093,7 @@ const data = {
         },
         {
           nombre: "Conjunto_Padres_Hijos_3_12",
-          segmentacion: "Todos los géneros, 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires. Intereses de Meta por edad de los hijos: Padres con hijos en edad preescolar (3-5 años), Padres con hijos en edad escolar temprana (6-8 años), Padres con preadolescentes (9-12 años). Sumar: Deporte infantil, Vuelta al colegio, Familia, Crianza, Addnice, Topper. Presupuesto: ~USD $500/mes (ARS $770.000)",
+          segmentacion: "Todos los géneros, 25 a 50 años, La Plata y zonas particulares de provincia de Buenos Aires como núcleo, más test de expansión en Santa Fe, Córdoba, Entre Ríos y Mendoza. Intereses de Meta por edad de los hijos: Padres con hijos en edad preescolar (3-5 años), Padres con hijos en edad escolar temprana (6-8 años), Padres con preadolescentes (9-12 años). Sumar: Deporte infantil, Vuelta al colegio, Familia, Crianza, Addnice, Topper. Presupuesto: ~USD $500/mes (ARS $770.000)",
           ads: [
             "Video UGC 1 | Dolor: el total de la compra familiar es $150k-350k → crédito personal con DNI",
             "Video UGC 2 (CYBERMONDAY) | Dolor: la renovación cae en el peor momento → equipar a chicos y grandes en la oferta online",
