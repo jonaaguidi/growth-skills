@@ -614,9 +614,10 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
+            "Recortar unos 10 segundos del reel.",
             "Reemplazar la placa de \"Promos Bancarias Vigentes – SEPTIEMBRE\" por una placa sin mes: más de 40 marcas y cuotas sin interés.",
             "Si la placa lleva mes, hay que reeditar la pieza cada 30 días durante toda la campaña.",
-            "Cerrar con el doble CTA: vení a cualquiera de nuestras sucursales o comprá online.",
+            "Cerrar con una placa de CTA que diga \"Estos MODELOS y más en\" junto al badge de stardeportes.com.",
           ],
         },
         {
