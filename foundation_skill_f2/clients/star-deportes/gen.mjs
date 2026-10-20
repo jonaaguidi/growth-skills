@@ -685,11 +685,11 @@ const data = {
             comunicacion: "Flyer hero con un mockup de celular mostrando el catálogo de mujer de stardeportes.com y dos modelos recortados saliendo de la pantalla. Claim arriba, franja de badges abajo. Adaptar a Story (1080x1920).",
             mensajes: [
               "Visual hero: mockup de celular con el catálogo de mujer de stardeportes.com y dos modelos recortados saliendo de la pantalla",
-              "Claim grande arriba, TODA LA LÍNEA DE MUJER EN TU CELULAR",
+              "Claim grande arriba, TODA LA LÍNEA DE MUJER — DISPONIBLE EN LA TIENDA ONLINE",
               "Franja de badges abajo, Envío a todo el país — 2, 3 y 6 cuotas sin interés",
               "CTA abajo, Comprá en stardeportes.com",
             ],
-            copyAnuncio: "Toda la línea de mujer en tu celular 📱\n\n👟 47 Street, Skechers, Topper y Fila.\n📦 Envío a todo el país.\n💳 2, 3 y 6 cuotas sin interés.\n\n🏪 13 años y 13 sucursales en provincia de Buenos Aires.\n\n👉 stardeportes.com",
+            copyAnuncio: "Toda la línea de mujer, disponible en la tienda online 📱\n\n👟 47 Street, Skechers, Topper y Fila.\n📦 Envío a todo el país.\n💳 2, 3 y 6 cuotas sin interés.\n\n🏪 13 años y 13 sucursales en provincia de Buenos Aires.\n\n👉 stardeportes.com",
             pilar: "Marca",
             tema: "Lanzamiento del canal online",
             formatoNarrativo: "Producto — Hero Shot",
