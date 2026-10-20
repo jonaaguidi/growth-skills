@@ -510,9 +510,9 @@ const data = {
             formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "Duda si van a tener su talle. Del 43 para arriba se acostumbró a que no haya stock, así que ni se molesta en ir hasta el local.",
             solucion: "Consulta el modelo y el talle en stardeportes.com, donde el stock está actualizado las 24 horas y se ve talle por talle antes de viajar al local.",
-            comunicacion: "Flyer de servicio con una captura simulada de la ficha de producto de stardeportes.com al centro, con el selector de talles y la disponibilidad visible. Claim arriba y CTA abajo. Sin producto protagonista para que se lea como servicio. Adaptar a Story (1080x1920).",
+            comunicacion: "Flyer de servicio con el producto como protagonista, una zapatilla recortada en grande, y el selector de talles de la ficha de stardeportes.com en segundo plano mostrando la disponibilidad. Claim arriba y CTA abajo. Adaptar a Story (1080x1920).",
             mensajes: [
-              "Visual central: captura simulada de la ficha de producto de stardeportes.com con el selector de talles y la disponibilidad visible",
+              "Visual central: hero del producto, una zapatilla recortada en grande, y en segundo plano el selector de talles de la ficha de stardeportes.com con la disponibilidad visible",
               "Claim grande arriba, ANTES DE VIAJAR, FIJATE EL TALLE",
               "Copy de apoyo, Stock real actualizado las 24 horas, talle por talle",
               "CTA abajo, Consultá el stock en stardeportes.com",
