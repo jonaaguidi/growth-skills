@@ -1277,7 +1277,7 @@ const data = {
       { nombre: "Solo Deportes", estado: "34 anuncios activos — catálogo producto a producto, 3 cuotas y creativos que rotan cada pocas horas", activo: true, instagramUrl: "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=AR&search_type=page&view_all_page_id=121811267897708", avatarFile: assetDataUri("solodeportes-icon.png") },
     ],
     referenciasFlyers: [
-      { url: "", titulo: "Flyer de competencia 1" },
+      { url: assetDataUri("comp-dexter-01.jpg"), tipo: "image", titulo: "Dexter — calza adidas $55.299, 6 cuotas de $9.217 + 20% de reintegro Galicia los jueves y viernes" },
       { url: "", titulo: "Flyer de competencia 2" },
       { url: "", titulo: "Flyer de competencia 3" },
       { url: "", titulo: "Flyer de competencia 4" },
