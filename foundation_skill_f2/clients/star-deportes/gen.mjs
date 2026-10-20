@@ -1155,9 +1155,6 @@ const data = {
           formato: "Reel 9:16",
           estado: "Requiere edición",
           edicion: [
-            "Mantener el ángulo de regalo, que es el que mejor funciona de acá a Navidad, pero sacar la referencia festiva puntual del posteo original para que la pieza aguante todo Q4 sin reeditarse.",
-            "Hook de conversación en clave regalo, del tipo «¿Ya pensaste los regalos de fin de año? Fijate si podés usar el crédito».",
-            "Agregar la aclaración de que se compra en la sucursal.",
             "Agregar la placa de cierre de la campaña: logo de Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos ($450.000 sólo con DNI y $500.000 con DNI más recibo) y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
           ],
         },
@@ -1291,9 +1288,9 @@ const data = {
       { id: "f04", tipo: "Imagen estática", dolor: "Quiere saber si tiene el producto en su talle y precio" },
     ],
     competidores: [
-      { nombre: "Mateu Sports", estado: "45 anuncios activos", activo: true, instagramUrl: "https://www.instagram.com/mateusports/" },
-      { nombre: "Open Sports", estado: "99 anuncios activos", activo: true, instagramUrl: "https://www.instagram.com/opensportsarg/" },
-      { nombre: "Solo Deportes", estado: "73 anuncios activos", activo: true, instagramUrl: "https://www.instagram.com/solodeportes/" },
+      { nombre: "Mateu Sports", estado: "45 anuncios activos", activo: true, instagramUrl: "https://www.instagram.com/mateusports/", avatarFile: assetDataUri("mateu-icon.jpg") },
+      { nombre: "Open Sports", estado: "99 anuncios activos", activo: true, instagramUrl: "https://www.instagram.com/opensportsarg/", avatarFile: assetDataUri("opensports-icon.jpg") },
+      { nombre: "Solo Deportes", estado: "73 anuncios activos", activo: true, instagramUrl: "https://www.instagram.com/solodeportes/", avatarFile: assetDataUri("solodeportes-icon.png") },
     ],
     observacion: "Los tres competidores principales mantienen 217 anuncios activos combinados con masividad de testeo por ICP, formato y producto. Star Deportes tiene 0 campañas de conversión activas. Ninguno de los tres competidores ofrece crédito personal directo — es el diferencial exclusivo de Star Deportes.",
   },
