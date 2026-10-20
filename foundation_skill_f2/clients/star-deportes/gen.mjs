@@ -1165,9 +1165,9 @@ const data = {
           formato: "Historia 1080x1920",
           estado: "Requiere edición",
           edicion: [
-            "Reemplazar el CTA de abajo, respondé esta historia, que es orgánico y no existe en pauta, por escribinos por WhatsApp con el ícono.",
-            "Es el único cambio imprescindible: el resto de la placa, los dos montos con su requisito y la aclaración de que es válido para productos de nuestras sucursales, se pauta tal cual está.",
-            "Adaptar también a 1080x1350 para que pueda correr en feed además de historias.",
+            "Reemplazar el CTA de abajo, RESPONDÉ ESTA HISTORIA, que es orgánico y no existe en pauta, por CONSULTANOS POR WHATSAPP con el ícono.",
+            "Es el único cambio de contenido: el resto de la placa, los dos montos con su requisito y la aclaración de que es válido para productos de nuestras sucursales, se pauta tal cual está.",
+            "Entregar la misma pieza en posteo 1080x1080 además de la historia 1080x1920, para que pueda correr en feed.",
           ],
         },
       ],
