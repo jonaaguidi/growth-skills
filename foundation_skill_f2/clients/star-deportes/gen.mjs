@@ -438,7 +438,7 @@ const data = {
           },
           // --- CARRUSEL 1: Dolor no sabe qué modelo elegir → catálogo por uso ---
           {
-            formato: "Posteo Cuadrado (1080x1080)",
+            formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "No sabe qué zapatilla le conviene para lo que hace. Entra a la tienda, ve cincuenta modelos parecidos y elige por precio o por color.",
             solucion: "Carrusel que ordena el catálogo por uso real (fútbol, gimnasio, running y uso diario) con 2 modelos recomendados y precio en cada slide.",
             comunicacion: "Carrusel x4 slides, uno por uso. Cada slide con 2 modelos recortados sobre fondo liso, nombre de marca y modelo, precio visible y un badge con el uso. Mantener la misma grilla y tipografía en los 4 slides para que se lea como una guía. Adaptar a Story (1080x1920).",
@@ -459,7 +459,7 @@ const data = {
           },
           // --- CARRUSEL 2 (CYBERMONDAY): Dolor no sabe qué marcas entran en la oferta → ofertas marca por marca ---
           {
-            formato: "Posteo Cuadrado (1080x1080)",
+            formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "No encuentra Fila, New Balance, Salomon ni Topper cerca de su casa, y cuando llega una fecha de descuento no sabe qué marcas entran ni cuánto bajan de verdad.",
             solucion: "Carrusel de CyberMonday con las ofertas de la tienda marca por marca, con el precio anterior tachado y el precio CyberMonday visible en cada slide.",
             comunicacion: "Carrusel x4 slides de ofertas de CyberMonday, una marca por slide. Cada slide con la placa de CYBERMONDAY arriba, el modelo en oferta recortado al centro, el precio anterior tachado y el precio CyberMonday en tipografía grande (los porcentajes finales los confirma el cliente antes de producción). Último slide con los beneficios de la tienda y las fechas. Adaptar a Story (1080x1920).",
@@ -480,7 +480,7 @@ const data = {
           },
           // --- FLYER 1: Dolor no sabe que hay e-commerce → hero stardeportes.com ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "No sabe que Star Deportes vende online. Conoce las sucursales de toda la vida pero nunca entró a la web, así que si no tiene local cerca no compra.",
             solucion: "Star Deportes tiene e-commerce propio con el catálogo completo, envío a todo el país y 2, 3 y 6 cuotas sin interés.",
             comunicacion: "Flyer hero con tres modelos de zapatilla de hombre recortados en diagonal sobre fondo rojo de marca. Claim grande arriba. Franja inferior con los badges de envío y cuotas, y la URL en tipografía mono destacada. Adaptar a Story (1080x1920).",
@@ -500,7 +500,7 @@ const data = {
           },
           // --- FLYER 2: Objeción del talle → consultá stock antes de ir ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "Duda si van a tener su talle. Del 43 para arriba se acostumbró a que no haya stock, así que ni se molesta en ir hasta el local.",
             solucion: "Consulta el modelo y el talle por WhatsApp antes de viajar. El equipo verifica stock en la sucursal más cercana y le confirma.",
             comunicacion: "Flyer de servicio con una captura simulada de conversación de WhatsApp al centro (consulta de talle y respuesta con confirmación de stock). Claim arriba, ícono de WhatsApp y CTA abajo. Sin producto protagonista para que se lea como mensaje de servicio. Adaptar a Story (1080x1920).",
@@ -519,7 +519,7 @@ const data = {
           },
           // --- FLYER 3: Objeción originalidad → retail oficial, 13 años ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "No conoce la tienda online y desconfía del producto. En redes vio demasiadas cuentas que venden réplicas, así que asume que el precio bajo es sospechoso.",
             solucion: "Star Deportes es retail oficial de más de 40 marcas, con 13 años de trayectoria y 13 sucursales físicas donde el producto se puede ver y cambiar.",
             comunicacion: "Flyer de confianza con una grilla de logos de las marcas oficiales que trabaja Star Deportes. Claim arriba, tres pruebas en franja inferior (años, sucursales, marcas). Sin precio, la pieza vende confianza, no oferta. Adaptar a Story (1080x1920).",
@@ -540,16 +540,16 @@ const data = {
           // --- SHOPPING: Collection Ad calzado e indumentaria hombre ---
           {
             formato: "Meta Ads Shopping (Collection Ad)",
-            dolor: "Quiere ver modelos, talles y precios de hombre sin tener que navegar todo el catálogo ni salir de Instagram.",
-            solucion: "Collection Ad con el catálogo dinámico de Tienda Nube filtrado a calzado e indumentaria de hombre. Muestra modelo, precio y stock actualizado, y lleva directo a la ficha de producto.",
-            comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos filtrado a la categoría hombre. La imagen de portada es un video UGC corto o un hero de producto; abajo la grilla dinámica de productos con precio. No requiere pieza gráfica tradicional.",
+            dolor: "Quiere ver modelos, talles y precios de hombre sin navegar todo el catálogo ni salir de Instagram.",
+            solucion: "Collection Ad sobre el catálogo de Tienda Nube, acotado a 12 productos de hombre y liderado por Atomik, Fila y Topper, que son las marcas con mejor rotación en esa categoría.",
+            comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos acotado a 12 SKUs como máximo, para que la grilla no se diluya. La portada es un hero de producto; abajo la grilla dinámica con modelo, marca y precio actualizado. No requiere pieza gráfica tradicional.",
             mensajes: [
-              "Set de productos: calzado e indumentaria de hombre del catálogo de Tienda Nube, ordenado por más vendidos",
-              "Portada del Collection Ad: hero con tres modelos de hombre y claim, Más de 40 marcas con envío a todo el país",
-              "Grilla dinámica: modelo, marca y precio actualizado desde el catálogo. Priorizar productos con stock de talles grandes",
+              "Set de productos: máximo 12 SKUs de hombre, liderado por Atomik, Fila y Topper. Resto del cupo con New Balance, Reebok y Salomon",
+              "Portada del Collection Ad: hero con tres modelos de hombre y claim, Atomik, Fila y Topper con envío a todo el país",
+              "Grilla dinámica: modelo, marca y precio actualizado desde el catálogo. Priorizar productos con stock de todos los talles",
               "CTA del anuncio, Comprar ahora, al producto específico en stardeportes.com",
             ],
-            copyAnuncio: "👟 Calzado e indumentaria de hombre. Más de 40 marcas.\n\n🛒 Mirá modelos, talles y precios actualizados.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
+            copyAnuncio: "👟 Calzado e indumentaria de hombre: Atomik, Fila, Topper y más.\n\n🛒 Modelos, talles y precios actualizados.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "Catálogo dinámico hombre",
             formatoNarrativo: "Meta Ads — Collection / Advantage+ Shopping",
@@ -602,7 +602,7 @@ const data = {
           },
           // --- CARRUSEL 1: Dolor no sabe cómo combinar → look completo ---
           {
-            formato: "Posteo Cuadrado (1080x1080)",
+            formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "Compra la zapatilla sola y después no sabe con qué combinarla. Tiene que recorrer otra tienda para la calza o el buzo y nunca cierra el conjunto.",
             solucion: "Carrusel que arma tres looks completos (entrenar, caminar y uso diario) con calzado más indumentaria de Star Deportes y el precio de cada combinación.",
             comunicacion: "Carrusel x4 slides. Cada slide con un look completo en flat lay (zapatilla, prenda inferior y prenda superior) sobre fondo liso, con el precio de cada pieza al costado y el total abajo. Mantener la misma grilla en los tres looks. Adaptar a Story (1080x1920).",
@@ -623,7 +623,7 @@ const data = {
           },
           // --- CARRUSEL 2 (CYBERMONDAY): Dolor no sabe qué entra en la oferta → ofertas de línea mujer marca por marca ---
           {
-            formato: "Posteo Cuadrado (1080x1080)",
+            formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "No encuentra 47 Street, Skechers ni Crocs cerca de su casa, y en las fechas de descuento no sabe qué modelos de mujer entran realmente en oferta.",
             solucion: "Carrusel de CyberMonday con las ofertas de línea mujer marca por marca, con el precio anterior tachado y el precio CyberMonday visible en cada slide.",
             comunicacion: "Carrusel x4 slides de ofertas de CyberMonday de línea mujer, una marca por slide. Cada slide con la placa de CYBERMONDAY arriba, el modelo en oferta recortado al centro, el precio anterior tachado y el precio CyberMonday en tipografía grande (los porcentajes finales los confirma el cliente antes de producción). Último slide con los beneficios y las fechas. Adaptar a Story (1080x1920).",
@@ -644,7 +644,7 @@ const data = {
           },
           // --- FLYER 1: Dolor ticket alto → cuotas sin interés ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "El par que le gusta sale entre $70.000 y $130.000 y no siempre llega de contado. Lo guarda en favoritos y espera una promoción que no llega.",
             solucion: "En Star Deportes paga en 2, 3 o 6 cuotas sin interés, tanto en la web como en la sucursal, sin esperar una fecha especial.",
             comunicacion: "Flyer de financiación con dos modelos de mujer recortados sobre fondo rojo de marca y el precio en cuotas en tipografía grande al centro. Franja inferior con los medios de pago y la URL. Adaptar a Story (1080x1920).",
@@ -664,7 +664,7 @@ const data = {
           },
           // --- FLYER 2: Dolor no sabe que hay e-commerce → hero online mujer ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "No sabe que Star Deportes vende online. Asocia la marca a la sucursal del centro y nunca buscó el catálogo de mujer en la web.",
             solucion: "Star Deportes tiene e-commerce propio con toda la línea de mujer, envío a todo el país y 2, 3 y 6 cuotas sin interés.",
             comunicacion: "Flyer hero con un mockup de celular mostrando el catálogo de mujer de stardeportes.com y dos modelos recortados saliendo de la pantalla. Claim arriba, franja de badges abajo. Adaptar a Story (1080x1920).",
@@ -684,7 +684,7 @@ const data = {
           },
           // --- FLYER 3: Objeción color y talle → cambios en sucursal ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "No compra online porque el color de la foto nunca es el color real y no sabe qué pasa si el talle no le queda.",
             solucion: "Compra online y cambia en cualquiera de las 13 sucursales, o consulta color y talle por WhatsApp antes de comprar.",
             comunicacion: "Flyer de servicio con el mismo modelo mostrado en tres colores reales en fila, fotografiado con luz neutra. Claim arriba y las dos garantías en franja inferior. Sin precio, la pieza resuelve objeción. Adaptar a Story (1080x1920).",
@@ -705,16 +705,16 @@ const data = {
           // --- SHOPPING: Collection Ad calzado e indumentaria mujer ---
           {
             formato: "Meta Ads Shopping (Collection Ad)",
-            dolor: "Quiere ver modelos, colores y precios de mujer sin navegar todo el catálogo ni salir de Instagram.",
-            solucion: "Collection Ad con el catálogo dinámico de Tienda Nube filtrado a calzado e indumentaria de mujer. Muestra modelo, color, precio y stock actualizado, y lleva directo a la ficha de producto.",
-            comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos filtrado a la categoría mujer. La portada es un video UGC corto o un flat lay de look completo; abajo la grilla dinámica de productos con precio. No requiere pieza gráfica tradicional.",
+            dolor: "Quiere ver la línea de mujer con modelos, talles y precios sin navegar todo el catálogo ni salir de Instagram.",
+            solucion: "Collection Ad sobre el catálogo de Tienda Nube, acotado a 12 productos de mujer y liderado por 47 Street, que es la marca más demandada de la categoría.",
+            comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos acotado a 12 SKUs como máximo, para que la grilla no se diluya. La portada es un hero de producto; abajo la grilla dinámica con modelo, marca y precio actualizado. No requiere pieza gráfica tradicional.",
             mensajes: [
-              "Set de productos: calzado e indumentaria de mujer del catálogo de Tienda Nube, ordenado por más vendidos",
-              "Portada del Collection Ad: flat lay de look completo de mujer con claim, Línea de mujer completa con envío a todo el país",
-              "Grilla dinámica: modelo, marca, color y precio actualizado desde el catálogo. Priorizar 47 Street, Skechers y Crocs",
+              "Set de productos: máximo 12 SKUs de mujer, liderado por 47 Street. Resto del cupo con Skechers, Crocs, Fila y New Balance",
+              "Portada del Collection Ad: hero con tres modelos de mujer y claim, 47 Street y más de 40 marcas con envío a todo el país",
+              "Grilla dinámica: modelo, marca y precio actualizado desde el catálogo. Priorizar productos con stock de todos los talles",
               "CTA del anuncio, Comprar ahora, al producto específico en stardeportes.com",
             ],
-            copyAnuncio: "👟 Calzado e indumentaria de mujer. Más de 40 marcas.\n\n🛒 Mirá modelos, colores y precios actualizados.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
+            copyAnuncio: "👟 Línea mujer: 47 Street, Skechers, Crocs y más.\n\n🛒 Modelos, talles y precios actualizados.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "Catálogo dinámico mujer",
             formatoNarrativo: "Meta Ads — Collection / Advantage+ Shopping",
@@ -728,23 +728,24 @@ const data = {
       {
         icp: "Padre / madre de familia",
         piezas: [
-          // --- VIDEO UGC 1: Dolor total inmanejable → crédito personal ---
+          // --- VIDEO UGC 1: Dolor total inmanejable → combo familiar ---
           {
             formato: "Video UGC Vertical (9:16)",
-            dolor: "Lleva de 2 a 4 pares por vez entre los hijos y uno propio. El total queda entre $150.000 y $350.000 y no tiene cómo pagarlo de contado.",
-            solucion: "Crédito personal de Star Deportes, que se saca en la sucursal con el DNI y se aprueba en el momento. Dos cupos, $500.000 con recibo de sueldo y $450.000 sólo con DNI.",
-            comunicacion: "[0-3s] HOOK — Plano del mostrador con cuatro cajas de zapatillas apiladas, madre mirando el total en la pantalla de la caja: '¿Equipar a toda la familia de una sola vez te parece imposible?' [3-8s] BODY — Corte a la familia eligiendo en el sector de kids y en el de adulto, planos cortos de los chicos probándose calzado: 'En Star Deportes equipás a toda la familia en una sola compra.' [8-15s] BODY — La madre entrega el DNI en el mostrador, el empleado completa la solicitud, inserts de texto con CRÉDITO PERSONAL, SIN TARJETA, SIN BANCO, APROBADO EN EL MOMENTO: 'Y con el crédito personal lo financiás con tu DNI, sin tarjeta y sin banco. Te lo aprueban en el momento, hasta $500.000.' [15-19s] CTA — La familia saliendo del local con las bolsas, badge en edición con el ícono de WhatsApp: 'Escribinos por WhatsApp y te decimos si podés acceder.' [19-23s] CIERRE — Motion graphics sobre fondo rojo con el logo Star Deportes y los dos cupos de crédito.",
-            hook: "¿Equipar a toda la familia de una sola vez te parece imposible?",
-            body: "En Star Deportes equipás a toda la familia en una sola compra. Y con el crédito personal lo financiás con tu DNI, sin tarjeta y sin banco. Te lo aprueban en el momento, hasta $500.000.",
-            cta: "Escribinos por WhatsApp y te decimos si podés acceder.",
-            copyAnuncio: "¿Equipar a toda la familia de una sola vez te parece imposible? 👨‍👩‍👧‍👦\n\n🆔 Crédito personal con tu DNI: sin tarjeta, sin banco.\n✅ Aprobado en el momento.\n🏷️ $500.000 con recibo de sueldo. $450.000 sólo con DNI.\n👟 Más de 40 marcas para adultos y niños.\n\n📍 Exclusivo en sucursal. 13 sucursales en provincia de Buenos Aires.\n\n👉 Escribinos por WhatsApp",
+            dolor: "Tiene que renovar el calzado de los tres de la familia en la misma salida y comprar par por par le sale una fortuna.",
+            solucion: "Combo familiar: dos o tres pares juntos a mejor precio que comprados por separado, con todos los talles disponibles online.",
+            comunicacion: "[0-3s] HOOK — Madre filma en selfie en la puerta de casa con tres pares gastados en la mano, luz natural, tono espontáneo: '¿A los tres les quedó chico el mismo mes?' [3-9s] BODY — Corte a la tienda online en el celular, scroll por calzado de niño y de adulto, se arman tres pares en el carrito: 'En stardeportes.com armás el combo familiar y te sale menos que comprando par por par.' [9-15s] BODY — Insert del carrito con el total y el ahorro del combo marcado en pantalla: 'Dos o tres pares juntos, con todos los talles y las marcas de siempre.' [15-20s] CTA — Los tres estrenando en la vereda, la madre mira a cámara: 'Entrá a stardeportes.com y armá el combo de tu familia.' [20-22s] CIERRE — Motion graphics sobre fondo rojo. Logo Star Deportes y stardeportes.com.",
+            hook: "¿A los tres les quedó chico el mismo mes?",
+            body: "En stardeportes.com armás el combo familiar y te sale menos que comprando par por par. Dos o tres pares juntos, con todos los talles y las marcas de siempre.",
+            cta: "Entrá a stardeportes.com y armá el combo de tu familia.",
+            copyAnuncio: "¿A los tres les quedó chico el mismo mes? 👟\n\n✅ Combo familiar: 2 o 3 pares juntos a mejor precio que par por par.\n✅ Todos los talles, de niño y de adulto.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
             pilar: "Producto",
-            tema: "Crédito personal para la compra familiar",
-            formatoNarrativo: "Direct to Camera — Situacional",
+            tema: "Combo familiar de calzado",
+            formatoNarrativo: "UGC — Testimonial a cámara",
             estructuraNarrativa: "Hook - Contenido - Acción",
-            tratamiento: { tipo: "Video", tono: "Orgánico (UGC)", estilo: "Lifestyle" },
-            duracion: "19-23s",
+            tratamiento: { tipo: "Video", tono: "Casual", estilo: "UGC" },
+            duracion: "20-22s",
             enRevision: false,
+            destinoUrls: ["https://stardeportes.com/"],
           },
           // --- VIDEO UGC 2 (CYBERMONDAY): Dolor la renovación cae en el peor momento → equipar a los chicos en la oferta online ---
           {
@@ -767,17 +768,17 @@ const data = {
           },
           // --- CARRUSEL 1: Dolor recorrer 2-3 tiendas → adulto y niños en un lugar ---
           {
-            formato: "Posteo Cuadrado (1080x1080)",
+            formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "Tiene que recorrer dos o tres tiendas distintas para resolver adulto y niños. Pierde la tarde, compara precios de a pedazos y termina comprando a medias.",
             solucion: "Carrusel que muestra que en Star Deportes se resuelve papá, mamá y niños en una sola compra, con modelos y precio por integrante y el total abajo.",
-            comunicacion: "Carrusel x4 slides, uno por integrante de la familia más un cierre con el total. Cada slide con 2 modelos recortados sobre fondo liso, marca y precio visible. Slide final con la suma de la compra familiar y el badge de crédito personal. Adaptar a Story (1080x1920).",
+            comunicacion: "Carrusel x4 slides, uno por integrante de la familia más un cierre con el total. Cada slide con 2 modelos recortados sobre fondo liso, marca y precio visible. Slide final con la suma de la compra familiar y el badge de cuotas sin interés. Adaptar a Story (1080x1920).",
             mensajes: [
               "Slide 1: PAPÁ — 2 modelos de hombre (Fila, Topper) con marca y precio visible. Badge, Todo en Star Deportes",
               "Slide 2: MAMÁ — 2 modelos de mujer (47 Street, Skechers) con marca y precio visible",
               "Slide 3: NIÑOS — 2 modelos infantiles (Addnice, Topper kids) con marca y precio visible",
-              "Slide 4: UNA SOLA COMPRA — suma de la compra familiar en tipografía grande, badge con Crédito personal y cuotas sin interés, y CTA, Vení a tu sucursal o comprá en stardeportes.com",
+              "Slide 4: UNA SOLA COMPRA — suma de la compra familiar en tipografía grande, badge con 2, 3 y 6 cuotas sin interés, y CTA, Comprá en stardeportes.com o comprá en stardeportes.com",
             ],
-            copyAnuncio: "Papá, mamá y los chicos. Una sola compra 👨‍👩‍👧‍👦\n\n👟 Papá: Fila, Topper\n👠 Mamá: 47 Street, Skechers\n🧒 Niños: Addnice, Topper kids\n\n💳 Cuotas sin interés y crédito personal en sucursal.\n📦 Envío a todo el país o retirá en el local.\n\n👉 stardeportes.com",
+            copyAnuncio: "Papá, mamá y los chicos. Una sola compra 👨‍👩‍👧‍👦\n\n👟 Papá: Fila, Topper\n👠 Mamá: 47 Street, Skechers\n🧒 Niños: Addnice, Topper kids\n\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país o retirá en el local.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "Compra familiar completa",
             formatoNarrativo: "Producto — Showcase",
@@ -788,7 +789,7 @@ const data = {
           },
           // --- CARRUSEL 2 (CYBERMONDAY): Objeción gastar caro en algo que dura poco → packs familiares en oferta ---
           {
-            formato: "Posteo Cuadrado (1080x1080)",
+            formato: "Carrusel (1080x1080, 3-4 slides)",
             dolor: "No quiere gastar caro en calzado de niño que le va a quedar chico, así que espera una oferta real. Pero cuando llega no sabe qué conviene comprar junto ni cuánto ahorra de verdad.",
             solucion: "Carrusel de CyberMonday con el calzado infantil y de adulto en oferta, y el ahorro total de resolver la compra familiar en una sola operación, con precio anterior y precio CyberMonday.",
             comunicacion: "Carrusel x4 slides de ofertas de CyberMonday para la familia. Los dos primeros muestran el calzado en oferta (niños y adulto) con el precio anterior tachado y el precio CyberMonday en grande, el tercero el ahorro de resolver toda la familia junta y el cuarto los beneficios de la tienda (los porcentajes finales los confirma el cliente antes de producción). Adaptar a Story (1080x1920).",
@@ -809,55 +810,58 @@ const data = {
           },
           // --- FLYER 1: Dolor sin tarjeta o límite insuficiente → los dos cupos ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
-            dolor: "No tiene tarjeta de crédito, o el límite no le alcanza para el total de la compra familiar. Las cadenas grandes sólo financian con tarjeta.",
-            solucion: "Crédito personal de Star Deportes con dos cupos según la documentación, $500.000 con recibo de sueldo y $450.000 sólo con DNI. Se saca en la sucursal y se aprueba en el momento.",
-            comunicacion: "Flyer de crédito con los dos cupos enfrentados en dos columnas, cada uno con el monto en tipografía grande y la documentación que requiere. Claim arriba, ícono de WhatsApp y la aclaración de uso exclusivo en sucursal en la franja inferior. Adaptar a Story (1080x1920).",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
+            dolor: "El total de la compra familiar le entra justo y no sabe en cuántas cuotas puede pagarlo ni con qué tarjeta.",
+            solucion: "2, 3 y 6 cuotas sin interés con las tarjetas de siempre, publicado antes de que pregunte.",
+            comunicacion: "Flyer cuadrado sobre fondo rojo con líneas radiales. Logo arriba, claim grande en el centro y debajo una fila con los logos de los medios de pago aceptados. Franja inferior con el dominio. Adaptar a Historia (1080x1920) estirando el fondo y apilando los logos en dos filas.",
             mensajes: [
-              "Claim grande arriba, CRÉDITO PERSONAL SIN TARJETA Y SIN BANCO",
-              "Columna izquierda, $500.000 con DNI más recibo de sueldo",
-              "Columna derecha, $450.000 sólo con tu DNI",
-              "Franja inferior, Aprobado en el momento — Válido para productos de sucursal — CTA con ícono de WhatsApp, Consultá si podés acceder",
+              "Visual: fondo rojo con líneas radiales. Logo arriba y claim grande, 2, 3 Y 6 CUOTAS SIN INTERÉS",
+              "Copy: fila con los logos de los medios de pago aceptados, tarjetas de crédito y débito",
+              "Copy: línea de refuerzo debajo, Todos los talles y envío a todo el país",
+              "Badge + CTA: franja inferior con 'Comprá en stardeportes.com'",
             ],
-            copyAnuncio: "Crédito personal sin tarjeta y sin banco 🆔\n\n🏷️ $500.000 con DNI + recibo de sueldo.\n🏷️ $450.000 sólo con tu DNI.\n\n✅ Aprobado en el momento, en la sucursal.\n👟 Usalo para equipar a toda la familia.\n\n📍 Válido para productos de sucursal. 13 sucursales en provincia de Buenos Aires.\n\n👉 Escribinos por WhatsApp",
+            copyAnuncio: "2, 3 y 6 cuotas sin interés 💳\n\n✅ Con las tarjetas de siempre.\n✅ Calzado e indumentaria para toda la familia.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
             pilar: "Producto",
-            tema: "Los dos cupos de crédito",
-            formatoNarrativo: "Producto — Hero Shot",
+            tema: "Cuotas sin interés y medios de pago",
+            formatoNarrativo: "Informativo — Placa de oferta",
             estructuraNarrativa: "Afirmación - Evidencia",
-            tratamiento: { tipo: "Imagen", tono: "Mixed", estilo: "Motion Graphics" },
+            tratamiento: { tipo: "Imagen", tono: "Directo", estilo: "Flat" },
             enRevision: false,
+            destinoUrls: ["https://stardeportes.com/"],
           },
-          // --- FLYER 2: Objeción si el crédito alcanza para varios pares → un crédito, toda la familia ---
+          // --- FLYER 2: Objecion de presupuesto para varios pares → combo familiar ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
-            dolor: "No sabe si el crédito personal le alcanza para varios pares o si sirve para una sola compra chica. Asume que es para un producto y no consulta.",
-            solucion: "Con un cupo de hasta $500.000 se cubre la compra familiar completa, de 2 a 4 pares más indumentaria, en una sola operación.",
-            comunicacion: "Flyer con cuatro pares de zapatillas de distinto talle alineados de mayor a menor sobre fondo rojo, y el cupo en tipografía grande arriba. Franja inferior con el desglose de lo que entra en el cupo. Adaptar a Story (1080x1920).",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
+            dolor: "A los chicos les queda chico el calzado cada cuatro o seis meses y cada renovación lo agarra desprevenido.",
+            solucion: "Combo de temporada con calzado de niño por talle, para resolver la renovación completa de una sola vez.",
+            comunicacion: "Flyer cuadrado con tres pares de calzado de niño alineados de menor a mayor talle sobre fondo limpio. Claim grande arriba. Debajo, una línea con el rango de talles disponibles. Franja inferior con el dominio. Adaptar a Historia (1080x1920) dejando los pares en vertical.",
             mensajes: [
-              "Visual central: cuatro pares de zapatillas de distinto talle alineados de mayor a menor sobre fondo rojo",
-              "Claim grande arriba, UN CRÉDITO, TODA LA FAMILIA",
-              "Franja inferior con el desglose, Con hasta $500.000 de cupo entran 2 a 4 pares más indumentaria — Aprobado en el momento en sucursal",
+              "Visual: tres pares de calzado de niño alineados de menor a mayor talle. Claim grande, LES QUEDA CHICO CADA SEIS MESES",
+              "Copy: línea con el rango de talles disponibles y las marcas de niño, Addnice, Umbro y Topper",
+              "Copy: refuerzo del combo de temporada, Llevá dos o tres pares juntos y pagá menos que por separado",
+              "Badge + CTA: franja inferior con 'Comprá en stardeportes.com'",
             ],
-            copyAnuncio: "Un crédito, toda la familia 👨‍👩‍👧‍👦\n\n🏷️ Hasta $500.000 de cupo, aprobado en el momento.\n👟 Entran de 2 a 4 pares más indumentaria.\n🆔 Sin tarjeta y sin banco, sólo con tu DNI.\n\n📍 Se saca en la sucursal y es válido para productos de sucursal.\n\n👉 Consultá por WhatsApp",
+            copyAnuncio: "Les queda chico cada seis meses 👟\n\n✅ Combo de temporada: 2 o 3 pares juntos a mejor precio.\n✅ Addnice, Umbro, Topper y más, en todos los talles de niño.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
             pilar: "Producto",
-            tema: "Alcance del cupo de crédito",
+            tema: "Renovación por crecimiento",
             formatoNarrativo: "Producto — Hero Shot",
             estructuraNarrativa: "Afirmación - Evidencia",
-            tratamiento: { tipo: "Imagen", tono: "Mixed", estilo: "Motion Graphics" },
+            tratamiento: { tipo: "Imagen", tono: "Directo", estilo: "Flat" },
             enRevision: false,
+            destinoUrls: ["https://stardeportes.com/"],
           },
           // --- FLYER 3: Dolor renovación obligada por colegio y club → equipamiento de temporada ---
           {
-            formato: "Posteo Rectangular (1080x1350)",
+            formato: "Posteo Cuadrado (1080x1080) + Historia (1080x1920)",
             dolor: "La renovación le cae encima por el colegio y por el deporte del club. Tiene que comprar calzado y conjunto para cada hijo en la misma quincena.",
-            solucion: "Kit de equipamiento por hijo (calzado más conjunto deportivo) con todo en el mismo lugar, financiado en cuotas sin interés o con el crédito personal.",
+            solucion: "Kit de equipamiento por hijo (calzado más conjunto deportivo) con todo en el mismo lugar, financiado en 2, 3 y 6 cuotas sin interés.",
             comunicacion: "Flyer de temporada con un flat lay de equipamiento completo por niño (zapatilla, conjunto y mochila) sobre fondo liso, con los ítems etiquetados. Claim arriba y la financiación en la franja inferior. Adaptar a Story (1080x1920).",
             mensajes: [
               "Visual central: flat lay de equipamiento completo por niño (zapatilla, conjunto deportivo y mochila) con cada ítem etiquetado",
               "Claro grande arriba, EQUIPÁ A CADA CHICO DE UNA VEZ",
-              "Franja inferior, Calzado más conjunto en el mismo lugar — Cuotas sin interés o crédito personal — stardeportes.com",
+              "Franja inferior, Calzado más conjunto en el mismo lugar — 2, 3 y 6 cuotas sin interés — stardeportes.com",
             ],
-            copyAnuncio: "Equipá a cada chico de una vez 🎒\n\n👟 Calzado deportivo\n👕 Conjunto (remera o buzo + pantalón o calza)\n🎒 Mochila\n\n✅ Todo en el mismo lugar, para el colegio y para el club.\n💳 Cuotas sin interés o crédito personal en sucursal.\n\n👉 stardeportes.com",
+            copyAnuncio: "Equipá a cada chico de una vez 🎒\n\n👟 Calzado deportivo\n👕 Conjunto (remera o buzo + pantalón o calza)\n🎒 Mochila\n\n✅ Todo en el mismo lugar, para el colegio y para el club.\n💳 2, 3 y 6 cuotas sin interés.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "Equipamiento escolar y deportivo",
             formatoNarrativo: "Producto — Hero Shot",
@@ -869,16 +873,16 @@ const data = {
           // --- SHOPPING: Collection Ad kids más adulto ---
           {
             formato: "Meta Ads Shopping (Collection Ad)",
-            dolor: "Quiere ver precios y talles de niño y de adulto juntos para calcular la compra familiar antes de ir al local.",
-            solucion: "Collection Ad con el catálogo dinámico de Tienda Nube filtrado a calzado infantil más los más vendidos de adulto, con precio y stock actualizado y link directo a cada ficha.",
-            comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos que combine la categoría niños con los bestsellers de adulto. La portada es un video UGC corto de la compra familiar; abajo la grilla dinámica de productos con precio. No requiere pieza gráfica tradicional.",
+            dolor: "Necesita ver calzado de niño por talle y precio sin recorrer todo el catálogo ni ir al local a preguntar.",
+            solucion: "Collection Ad sobre el catálogo de Tienda Nube, acotado a 12 productos de niño y liderado por Addnice y Umbro, que son las marcas de la categoría.",
+            comunicacion: "Formato nativo de Meta Ads Shopping sobre el catálogo de Tienda Nube. Requiere el feed conectado y un set de productos acotado a 12 SKUs como máximo, para que la grilla no se diluya. La portada es un hero de producto; abajo la grilla dinámica con modelo, marca y precio actualizado. No requiere pieza gráfica tradicional.",
             mensajes: [
-              "Set de productos: calzado infantil del catálogo de Tienda Nube más los más vendidos de hombre y mujer",
-              "Portada del Collection Ad: familia en la sucursal con claim, Equipá a toda la familia en una sola compra",
-              "Grilla dinámica: modelo, marca, talle y precio actualizado desde el catálogo. Ordenar niños primero y adulto después",
+              "Set de productos: máximo 12 SKUs de niño, liderado por Addnice y Umbro. Resto del cupo con Topper y Fila kids",
+              "Portada del Collection Ad: hero con calzado de niño por talle y claim, Addnice y Umbro para toda la familia",
+              "Grilla dinámica: modelo, marca y precio actualizado desde el catálogo. Priorizar productos con stock de todos los talles",
               "CTA del anuncio, Comprar ahora, al producto específico en stardeportes.com",
             ],
-            copyAnuncio: "👨‍👩‍👧‍👦 Calzado para niños y adultos. Más de 40 marcas.\n\n🛒 Mirá talles y precios actualizados para toda la familia.\n💳 Cuotas sin interés en la web.\n🆔 Crédito personal en sucursal.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
+            copyAnuncio: "👟 Calzado de niño: Addnice, Umbro, Topper y más.\n\n🛒 Todos los talles, precios actualizados.\n💳 2, 3 y 6 cuotas sin interés.\n📦 Envío a todo el país.\n\n👉 stardeportes.com",
             pilar: "Producto",
             tema: "Catálogo dinámico familiar",
             formatoNarrativo: "Meta Ads — Collection / Advantage+ Shopping",
@@ -1257,6 +1261,7 @@ const data = {
 
   cambiosEcommerce: [
     { cambio: "Verificar si el Meta Pixel está realmente instalado en stardeportes.com", objetivo: "Es el único punto crítico por ahora: la cuenta no registra eventos, así que no sabemos si el Pixel no está instalado o si está instalado pero sin disparar. Revisar con Meta Pixel Helper y Events Manager antes de tocar cualquier otra cosa. Sin eventos no hay retargeting, ni atribución de ventas, ni Shopping" },
+    { cambio: "Ir trabajando las piezas del banner de CyberMonday en el e-commerce, con las promociones correspondientes", objetivo: "Que el usuario que llega desde el anuncio encuentre la misma promo en la home. Si el anuncio dice CyberMonday y la tienda no lo muestra, se cae la conversión. Las piezas se preparan antes del 2/11." },
   ],
 
   competenciaAds: {
