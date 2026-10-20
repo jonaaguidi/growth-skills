@@ -34,7 +34,7 @@ const data = {
     cplObjetivo: null,
     canalesRecomendados: ["Instagram Ads", "Facebook Ads", "E-commerce (stardeportes.com)", "WhatsApp Business", "Meta Ads Shopping"],
     palancaPropuesta: "Captación: awareness + funnel B2C ecommerce + crédito personal",
-    campanasVendidas: ["B2C Hombre joven adulto (8 piezas)", "B2C Mujer joven adulta (8 piezas)", "B2C Padres/madres de familia (8 piezas)", "Brand Awareness (~8 piezas)", "Crédito Personal (~8 piezas)"],
+    campanasVendidas: ["B2C Hombre joven adulto (8 piezas)", "B2C Mujer joven adulta (8 piezas)", "B2C Padres/madres de familia (8 piezas)", "Brand Awareness (8 piezas)", "Crédito Personal (8 piezas)"],
     duracionProyecto: "12 semanas",
     fechaInicio: null,
     fechaFin: null,
