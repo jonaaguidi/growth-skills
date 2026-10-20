@@ -996,7 +996,7 @@ const data = {
           enRevision: false,
         },
         {
-          formato: "Posteo Rectangular (1080x1350)",
+          formato: "Posteo Cuadrado (1080x1080)",
           dolor: "Vive en La Plata o en un barrio de la periferia y no sabe que tiene una sucursal de Star Deportes a pocas cuadras. Asume que para comprar indumentaria deportiva tiene que ir al centro o a un shopping.",
           solucion: "8 de las 13 sucursales están en el Gran La Plata: dos en el centro, dos en Los Hornos, y una en Lisandro Olmos, Villa Elisa, Ensenada y Berisso. Desde cualquier barrio de la zona hay una a minutos.",
           comunicacion: "Flyer vertical con mapa estilizado de La Plata y alrededores, con pines rojos sobre las sucursales y los nombres de los barrios legibles alrededor. Claim grande arriba. Debajo del mapa, listado de las localidades con sucursal en dos columnas. Franja inferior con el CTA de Instagram. Adaptar a Story (1080x1920) agrandando el mapa y dejando el listado en una sola columna.",
@@ -1015,7 +1015,7 @@ const data = {
           enRevision: false,
         },
         {
-          formato: "Posteo Rectangular (1080x1350)",
+          formato: "Posteo Cuadrado (1080x1080)",
           dolor: "Cree que para encontrar variedad de marcas tiene que ir a un shopping o comprar online, porque no sabe qué marcas maneja Star Deportes.",
           solucion: "Más de 40 marcas en una sola tienda. La grilla de logos lo muestra de un vistazo, sin que haya que leer nada.",
           comunicacion: "Flyer vertical con grilla de logos de marcas sobre fondo limpio, ordenados en filas parejas y con el mismo peso visual. Claim grande arriba. Línea de refuerzo debajo de la grilla. Franja inferior con el CTA de Instagram. Usar los logos tal como figuran en stardeportes.com. Adaptar a Story (1080x1920) pasando la grilla a menos columnas y más filas.",
@@ -1190,7 +1190,7 @@ const data = {
           formato: "Video UGC Vertical (9:16)",
           dolor: "Necesita renovar calzado e indumentaria deportiva, el ticket es alto y no tiene tarjeta de crédito, así que posterga la compra o la hace de a poco.",
           solucion: "Crédito propio de Star Deportes: se saca en la sucursal con el DNI, sin tarjeta y sin banco, se aprueba en el momento y se usa el mismo día.",
-          comunicacion: "[0-3s] HOOK — Vendedora filma en selfie en la puerta de la sucursal, cámara en mano, luz natural, tono espontáneo: '¿Querés renovar tu placard o el de tu familia?' [3-8s] BODY — Camina hacia adentro mostrando la pared de calzado y las góndolas llenas: 'En Star Deportes el crédito te lo damos nosotros, no es un banco ni una tarjeta.' [8-14s] BODY — Plano del mostrador, una clienta entrega el DNI, insert de la placa con los dos montos: 'Venís con tu DNI a la sucursal más cercana y te damos de alta en el momento, y si traés recibo de sueldo el cupo te sube a $500.000.' [14-19s] BODY — Recorre la góndola junto a la clienta eligiendo unas zapatillas y un conjunto, close-ups de los productos: 'Lo usás ahí mismo para llevarte lo que quieras de la sucursal.' [19-23s] CTA — La clienta sale con la bolsa, la vendedora mira a cámara y sonríe, badge en edición con el ícono de WhatsApp: 'Escribinos por WhatsApp que te contamos más.' [23-25s] CIERRE — Motion graphics sobre fondo rojo. Logo Star Deportes, las localidades del conjunto y el ícono de WhatsApp.",
+          comunicacion: "[0-3s] HOOK — Vendedora filma en selfie en la puerta de la sucursal, cámara en mano, luz natural, tono espontáneo: '¿Querés renovar tu placard o el de tu familia?' [3-8s] BODY — Camina hacia adentro mostrando la pared de calzado y las góndolas llenas: 'En Star Deportes el crédito te lo damos nosotros, no es un banco ni una tarjeta.' [8-14s] BODY — Plano del mostrador, una clienta entrega el DNI, insert de la placa con los dos montos: 'Venís con tu DNI a la sucursal más cercana y te damos de alta en el momento, y si traés recibo de sueldo el cupo te sube a $500.000.' [14-19s] BODY — Recorre la góndola junto a la clienta eligiendo unas zapatillas y un conjunto, close-ups de los productos: 'Lo usás ahí mismo para llevarte lo que quieras de la sucursal.' [19-23s] CTA — La clienta sale con la bolsa, la vendedora mira a cámara y sonríe, badge en edición con el ícono de WhatsApp: 'Escribinos por WhatsApp que te contamos más.' [23-25s] CIERRE — Placa de cierre de la campaña en motion graphics sobre fondo rojo. Logo Star Deportes, el título CRÉDITOS PERSONALES CON TU DNI, los dos cupos y un botón verde con el logo de WhatsApp que diga CONSULTANOS POR WHATSAPP.",
           hook: "¿Querés renovar tu placard o el de tu familia?",
           body: "En Star Deportes el crédito te lo damos nosotros, no es un banco ni una tarjeta. Venís con tu DNI a la sucursal más cercana y te damos de alta en el momento, y si traés recibo de sueldo el cupo te sube a $500.000. Lo usás ahí mismo para llevarte lo que quieras de la sucursal.",
           cta: "Escribinos por WhatsApp que te contamos más.",
@@ -1204,7 +1204,7 @@ const data = {
           enRevision: false,
         },
         {
-            formato: "Posteo Rectangular (1080x1350)",
+            formato: "Posteo Cuadrado (1080x1080)",
             dolor: "Necesita el calzado o la indumentaria ahora, se le rompieron las zapatillas o arranca el torneo, pero cobra a fin de mes y hoy no tiene con qué pagarlo.",
             solucion: "Con DNI y recibo de sueldo se lleva el producto en el momento y la primera cuota recién la paga a los 30 días. Se lo lleva hoy y no desembolsa nada hasta cobrar.",
             comunicacion: "Flyer vertical sobre fondo rojo con líneas radiales, en la misma línea gráfica de las historias de crédito que la marca ya viene usando. Logo de Star Deportes arriba de todo, debajo el claim grande y debajo un subtítulo chico con la condición, todo centrado. Dos bloques de monto apilados, el de $500.000 en negro y el de $450.000 en rojo, cada uno con su requisito en una línea chica encima. Franja inferior blanca con la aclaración de sucursales y el CTA de WhatsApp. Adaptar a Story (1080x1920) estirando el fondo y dejando los dos bloques centrados.",
@@ -1223,7 +1223,7 @@ const data = {
             enRevision: false,
           },
         {
-          formato: "Posteo Rectangular (1080x1350)",
+          formato: "Posteo Cuadrado (1080x1080)",
           dolor: "Tiene que renovar el calzado y la ropa deportiva de toda la familia de una sola vez y no le entra en el presupuesto del mes.",
           solucion: "Con el crédito personal equipa a toda la familia en una sola compra en la sucursal y la paga en cuotas.",
           comunicacion: "Flyer vertical con hero de tres pares de zapatillas alineados de mayor a menor talle, de adulto a chico, y un conjunto deportivo detrás. Claim grande arriba. Bloque de tres beneficios con íconos en el medio. Franja inferior con la aclaración de sucursales y el CTA de WhatsApp. Adaptar a Story (1080x1920) dejando el hero arriba y los beneficios apilados.",
