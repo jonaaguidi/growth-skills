@@ -205,6 +205,7 @@ export interface ReferenciaCreativa {
   formato?: string | null;      // ej. "Reel 9:16" — badge de la card cuando la referencia se expande
   estado?: string | null;       // ej. "Requiere edicion" | "Lista para pautar" — chip en el header
   edicion?: string | string[] | null;  // que hay que editar antes de pautarla; array = bullet list. Si existe, la referencia se renderiza como dropdown
+  grupo?: string | null;        // agrupador opcional al renderizar grillas de referencias (ej. marca)
 }
 
 export interface PiezasICP {
