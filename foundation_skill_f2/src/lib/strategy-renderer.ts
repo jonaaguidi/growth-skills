@@ -995,7 +995,7 @@ function renderFoundationCampaigns(data: FoundationData, devCampaigns: CampanaDe
           } else if (ref.url) {
             sub.push(`<img src="${ref.url}" style="width:100%;height:100%;object-fit:cover;display:block" />`);
           } else {
-            sub.push(`<div style="width:100%;height:100%;border:2px dashed ${COLORS.border};border-radius:8px;background:${COLORS.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:11px;color:${COLORS.muted};font-weight:600">Flyer pendiente</span></div>`);
+            sub.push(`<div style="width:100%;height:100%;border:2px dashed ${COLORS.border};border-radius:8px;background:${COLORS.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="${COLORS.muted}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:11px;color:${COLORS.muted};font-weight:600">Pendiente</span></div>`);
           }
           sub.push(`</div>`);
           if (ref.titulo) {
