@@ -292,6 +292,37 @@ export interface PricingSlide {
   footnote: string;
 }
 
+/** Columna de un tier de servicio en el slide de tiers */
+export interface ServiceTier {
+  name: string;
+  /** Precio principal, ej. "USD 500/mes" o "A cotizar" */
+  price: string;
+  /** Aclaracion bajo el precio, ej. "piso de entrada" */
+  priceNote?: string;
+  /** Pill sobre el nombre, ej. "RECOMENDADO" */
+  badge?: string;
+  /** Una linea de para quien es el tier */
+  tagline: string;
+  /** Un valor por cada fila de `rows`, en el mismo orden */
+  values: string[];
+  /** Resalta la columna en rojo REE */
+  highlight?: boolean;
+}
+
+/** Tabla comparativa de tiers de servicio */
+export interface TiersSlide {
+  type: "tiers";
+  sectionLabel: string;
+  headline: string;
+  description?: string;
+  /** Labels de las filas de la tabla */
+  rows: string[];
+  tiers: ServiceTier[];
+  /** Reglas generales en la barra oscura de abajo */
+  rules?: { label: string; text: string; highlight?: boolean }[];
+  footnote?: string;
+}
+
 /** Payment method card */
 export interface PaymentMethod {
   name: string;
@@ -334,6 +365,7 @@ export type Slide =
   | (RoadmapSlide & SlideExtras)
   | (MethodSlide & SlideExtras)
   | (PricingSlide & SlideExtras)
+  | (TiersSlide & SlideExtras)
   | (PaymentMethodsSlide & SlideExtras)
   | (ClosingSlide & SlideExtras);
 
