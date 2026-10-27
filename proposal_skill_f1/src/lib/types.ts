@@ -323,6 +323,67 @@ export interface TiersSlide {
   footnote?: string;
 }
 
+/** Tile de KPI del mock de REE Metrics */
+export interface MetricsKpi {
+  label: string;
+  value: string;
+  /** Texto gris bajo el valor, ej. "LEADS DEL PERIODO" */
+  note?: string;
+  /** Flecha + texto de variacion, ej. { dir: "down", text: "8% . MEJORANDO", tone: "good" } */
+  trend?: { dir: "up" | "down"; text: string; tone?: "good" | "bad" };
+  /** Borde rojo REE: el numero que importa */
+  highlight?: boolean;
+}
+
+/** Fila de la tabla de anuncios del mock */
+export interface MetricsAdRow {
+  name: string;
+  utm?: string;
+  spend: string;
+  results: string;
+  cpr: string;
+  status: string;
+  /** win = verde, test = amarillo, lose = rojo, off = gris */
+  tone: "win" | "test" | "lose" | "off";
+}
+
+/** Grafico de evolucion del mock */
+export interface MetricsChart {
+  label: string;
+  /** Serie de valores, se escala sola */
+  points: number[];
+  /** Linea punteada de objetivo, en la misma unidad que `points` */
+  objective?: number;
+  objectiveLabel?: string;
+  /** Prefijo de los valores del eje Y, ej. "$" */
+  prefix?: string;
+  /** Labels del eje X (inicio, medio, fin) */
+  xLabels?: string[];
+  seriesLabel?: string;
+}
+
+/** Slide de producto de REE Metrics: mock del dashboard + features */
+export interface ReeMetricsSlide {
+  type: "ree-metrics";
+  sectionLabel: string;
+  headline: string;
+  description?: string;
+  dashboard: {
+    /** Items del nav del mock. Default: DASHBOARD, INVERSION, TIMELINE, E-COMMERCE, INTEGRACIONES */
+    nav?: string[];
+    rangeLabel?: string;
+    /** Pill del body, ej. "DEMO . DATOS DE MUESTRA" */
+    badge?: string;
+    kpis: MetricsKpi[];
+    tableLabel?: string;
+    rows: MetricsAdRow[];
+    chart?: MetricsChart;
+  };
+  /** Cards de abajo: que resuelve la plataforma */
+  features?: { label: string; text: string }[];
+  footnote?: string;
+}
+
 /** Payment method card */
 export interface PaymentMethod {
   name: string;
@@ -366,6 +427,7 @@ export type Slide =
   | (MethodSlide & SlideExtras)
   | (PricingSlide & SlideExtras)
   | (TiersSlide & SlideExtras)
+  | (ReeMetricsSlide & SlideExtras)
   | (PaymentMethodsSlide & SlideExtras)
   | (ClosingSlide & SlideExtras);
 
