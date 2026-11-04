@@ -597,8 +597,8 @@ const data = {
     { nombre: "GES_Trafico — 3 libros", fases: [
       { nombre: "Foundation", semanaInicio: 1, semanaFin: 1 },
       { nombre: "Build", semanaInicio: 2, semanaFin: 2 },
-      { nombre: "Launch", semanaInicio: 3, semanaFin: 4 },
-      { nombre: "Scale", semanaInicio: 5, semanaFin: 6 },
+      { nombre: "Launch", semanaInicio: 3, semanaFin: 5 },
+      { nombre: "Scale", semanaInicio: 6, semanaFin: 8 },
     ]},
   ],
 
